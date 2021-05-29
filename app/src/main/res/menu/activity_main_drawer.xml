@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_icon_main"
+            android:title="@string/menu_home" />
+    </group>
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/plane_icon_main"
+            android:title="@string/text_flight_offers_lower" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/hotel_icon_main"
+            android:title="@string/text_hotel_offers_lower" />
+        <item
+            android:id="@+id/nav_flight"
+            android:icon="@drawable/cheap_icon_main"
+            android:title="@string/text_cheapest_flight_offers" />
+        <item
+            android:id="@+id/nav_metrics"
+            android:icon="@drawable/metrics_icon_main"
+            android:title="@string/text_itinerary_metrics" />
+        <item
+            android:id="@+id/nav_archive"
+            android:icon="@drawable/saved_icon_main"
+            android:title="@string/text_saved_offers" />
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings_icon_main"
+            android:title="@string/text_preferences" />
+    </group>
+</menu>
