@@ -1,0 +1,667 @@
+{
+    "meta": {
+        "count": 5,
+        "links": {
+            "self": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=ADB&departureDate=2021-05-30&returnDate=2021-06-05&adults=1&max=5"
+        }
+    },
+    "data": [
+        {
+            "type": "flight-offer",
+            "id": "1",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "lastTicketingDate": "2021-05-29",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT1H15M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SAW",
+                                "at": "2021-05-30T05:50:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ADB",
+                                "at": "2021-05-30T07:05:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2180",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H15M",
+                            "id": "1",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT1H5M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "ADB",
+                                "at": "2021-06-05T05:40:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SAW",
+                                "at": "2021-06-05T06:45:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2213",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H5M",
+                            "id": "2",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "EUR",
+                "total": "164.82",
+                "base": "108.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "164.82"
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": true
+            },
+            "validatingAirlineCodes": [
+                "PC"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "164.82",
+                        "base": "108.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        },
+                        {
+                            "segmentId": "2",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "flight-offer",
+            "id": "2",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "lastTicketingDate": "2021-05-29",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT1H15M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SAW",
+                                "at": "2021-05-30T05:50:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ADB",
+                                "at": "2021-05-30T07:05:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2180",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H15M",
+                            "id": "1",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT1H5M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "ADB",
+                                "at": "2021-06-05T07:55:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SAW",
+                                "at": "2021-06-05T09:00:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2181",
+                            "aircraft": {
+                                "code": "738"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H5M",
+                            "id": "3",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "EUR",
+                "total": "164.82",
+                "base": "108.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "164.82"
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": true
+            },
+            "validatingAirlineCodes": [
+                "PC"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "164.82",
+                        "base": "108.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        },
+                        {
+                            "segmentId": "3",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "flight-offer",
+            "id": "3",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "lastTicketingDate": "2021-05-29",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT1H15M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SAW",
+                                "at": "2021-05-30T05:50:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ADB",
+                                "at": "2021-05-30T07:05:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2180",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H15M",
+                            "id": "1",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT1H5M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "ADB",
+                                "at": "2021-06-05T09:30:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SAW",
+                                "at": "2021-06-05T10:35:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2183",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H5M",
+                            "id": "4",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "EUR",
+                "total": "164.82",
+                "base": "108.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "164.82"
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": true
+            },
+            "validatingAirlineCodes": [
+                "PC"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "164.82",
+                        "base": "108.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        },
+                        {
+                            "segmentId": "4",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "flight-offer",
+            "id": "4",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "lastTicketingDate": "2021-05-29",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT1H15M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SAW",
+                                "at": "2021-05-30T05:50:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ADB",
+                                "at": "2021-05-30T07:05:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2180",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H15M",
+                            "id": "1",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT1H5M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "ADB",
+                                "at": "2021-06-05T11:35:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SAW",
+                                "at": "2021-06-05T12:40:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2187",
+                            "aircraft": {
+                                "code": "738"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H5M",
+                            "id": "5",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "EUR",
+                "total": "164.82",
+                "base": "108.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "164.82"
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": true
+            },
+            "validatingAirlineCodes": [
+                "PC"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "164.82",
+                        "base": "108.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        },
+                        {
+                            "segmentId": "5",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "flight-offer",
+            "id": "5",
+            "source": "GDS",
+            "instantTicketingRequired": false,
+            "nonHomogeneous": false,
+            "oneWay": false,
+            "lastTicketingDate": "2021-05-29",
+            "numberOfBookableSeats": 9,
+            "itineraries": [
+                {
+                    "duration": "PT1H15M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "SAW",
+                                "at": "2021-05-30T05:50:00"
+                            },
+                            "arrival": {
+                                "iataCode": "ADB",
+                                "at": "2021-05-30T07:05:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2180",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H15M",
+                            "id": "1",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                },
+                {
+                    "duration": "PT1H5M",
+                    "segments": [
+                        {
+                            "departure": {
+                                "iataCode": "ADB",
+                                "at": "2021-06-05T12:55:00"
+                            },
+                            "arrival": {
+                                "iataCode": "SAW",
+                                "at": "2021-06-05T14:00:00"
+                            },
+                            "carrierCode": "PC",
+                            "number": "2189",
+                            "aircraft": {
+                                "code": "320"
+                            },
+                            "operating": {
+                                "carrierCode": "PC"
+                            },
+                            "duration": "PT1H5M",
+                            "id": "6",
+                            "numberOfStops": 0,
+                            "blacklistedInEU": false
+                        }
+                    ]
+                }
+            ],
+            "price": {
+                "currency": "EUR",
+                "total": "164.82",
+                "base": "108.00",
+                "fees": [
+                    {
+                        "amount": "0.00",
+                        "type": "SUPPLIER"
+                    },
+                    {
+                        "amount": "0.00",
+                        "type": "TICKETING"
+                    }
+                ],
+                "grandTotal": "164.82"
+            },
+            "pricingOptions": {
+                "fareType": [
+                    "PUBLISHED"
+                ],
+                "includedCheckedBagsOnly": true
+            },
+            "validatingAirlineCodes": [
+                "PC"
+            ],
+            "travelerPricings": [
+                {
+                    "travelerId": "1",
+                    "fareOption": "STANDARD",
+                    "travelerType": "ADULT",
+                    "price": {
+                        "currency": "EUR",
+                        "total": "164.82",
+                        "base": "108.00"
+                    },
+                    "fareDetailsBySegment": [
+                        {
+                            "segmentId": "1",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        },
+                        {
+                            "segmentId": "6",
+                            "cabin": "ECONOMY",
+                            "fareBasis": "LRT1S",
+                            "brandedFare": "EUROP",
+                            "class": "L",
+                            "includedCheckedBags": {
+                                "weight": 15,
+                                "weightUnit": "KG"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "dictionaries": {
+        "locations": {
+            "SAW": {
+                "cityCode": "IST",
+                "countryCode": "TR"
+            },
+            "ADB": {
+                "cityCode": "IZM",
+                "countryCode": "TR"
+            }
+        },
+        "aircraft": {
+            "320": "AIRBUS A320",
+            "738": "BOEING 737-800"
+        },
+        "currencies": {
+            "EUR": "EURO"
+        },
+        "carriers": {
+            "PC": "PEGASUS AIRLINES"
+        }
+    }
+}
