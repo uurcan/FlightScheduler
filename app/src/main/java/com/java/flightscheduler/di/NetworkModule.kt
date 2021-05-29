@@ -42,6 +42,7 @@ class NetworkModule {
                 .build()
             val newRequest = request.newBuilder()
                 .url(newUrl)
+                .addHeader("Authorization","Bearer " + "token")
                 .method(request.method,request.body)
                 .build()
             chain.proceed(newRequest)
