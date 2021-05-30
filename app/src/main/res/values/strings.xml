@@ -19,4 +19,11 @@
     <string name="text_saved_offers">Saved Offers</string>
     <string name="text_preferences">Preferences</string>
     <string name="home_second">Home Second</string>
+    <string name="text_no_internet_connection">No Internet Connection !</string>
+    <string name="text_connect_timeout">Connection Timed Out !</string>
+    <string name="text_update_app">Please Update Your Application</string>
+    <string name="text_server_maintain">Server maintaining, please try again later..</string>
+    <string name="text_unknown_error">Unknown Error..</string>
+    <string name="no_data_to_display">text_no_data_to_displa</string>
+    <string name="reload">text_reload</string>
 </resources>
