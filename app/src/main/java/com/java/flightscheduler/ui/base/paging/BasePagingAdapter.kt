@@ -27,7 +27,7 @@ abstract class BasePagingAdapter<Item : Any, ViewBinding : ViewDataBinding>(
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
         val item: Item? = getItem(position)
-        holder.binding.setVariable(BR._all,item)
+        //holder.binding.setVariable(BR._all,item)
         if (item != null) {
             bindView(holder.binding,item,position)
         }

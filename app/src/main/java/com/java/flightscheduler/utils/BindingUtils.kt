@@ -1,6 +1,5 @@
 package com.java.flightscheduler.utils
 
-import android.provider.SyncStateContract
 import android.view.View
 import androidx.databinding.BindingAdapter
 import com.java.flightscheduler.data.constants.AppConstants

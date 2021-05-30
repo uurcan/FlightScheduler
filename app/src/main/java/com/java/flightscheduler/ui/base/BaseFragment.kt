@@ -34,7 +34,7 @@ abstract class BaseFragment <ViewBinding : ViewDataBinding , ViewModel : BaseVie
     ): View? {
         viewBinding = DataBindingUtil.inflate(inflater,layoutId,container,false)
         viewBinding.apply {
-            setVariable(BR._all,viewModel)//TODO()
+            setVariable(BR.viewModel,viewModel)
             viewBinding.lifecycleOwner = viewLifecycleOwner
             root.isClickable = true
             executePendingBindings()

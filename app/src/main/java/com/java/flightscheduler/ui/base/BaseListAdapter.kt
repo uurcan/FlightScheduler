@@ -32,7 +32,7 @@ abstract class BaseListAdapter <Item : Any, ViewBinding : ViewDataBinding>
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
         val item: Item? = getItem(position)
-        holder.binding.setVariable(BR._all,item)//todo
+        //holder.binding.setVariable(BR._all,item)//todo
         if (item != null){
             bindView(holder.binding,item,position)
         }

@@ -1,75 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@drawable/oslo_norway_temp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+<layout>
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="placeComponent"
+            type="com.java.flightscheduler.data.model.Places" />
+        <variable
+            name="viewModel"
+            type="com.java.flightscheduler.ui.home.HomeViewModel"/>
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/oslo_norway_temp"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="@string/text_flight_offers"
-            android:background="@drawable/home_button_background"
-            android:textColor="@color/grey_white_1000"
-            android:id="@+id/buttonFlightOffersMain"
-            app:layout_constraintRight_toRightOf="parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeFragment">
+        <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/buttonHotelOffersMain"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="@string/text_flight_offers"
+                android:background="@drawable/home_button_background"
+                android:textColor="@color/grey_white_1000"
+                android:id="@+id/buttonFlightOffersMain"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/buttonHotelOffersMain"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"/>
+            <Button
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:text="@string/text_hotel_offers"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/home_button_background"
+                android:textColor="@color/grey_white_1000"
+                android:id="@+id/buttonHotelOffersMain"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buttonFlightOffersMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:textColor="@color/grey_white_1000"
+            android:id="@+id/textLocationName"
+            android:text="@{placeComponent.name}"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"/>
-        <Button
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:text="@string/text_hotel_offers"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/home_button_background"
-            android:textColor="@color/grey_white_1000"
-            android:id="@+id/buttonHotelOffersMain"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/textLocationCountry"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonFlightOffersMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:gravity="start" />
+        <TextView
+            android:text="@{placeComponent.country}"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/grey_white_1000"
+            android:id="@+id/textLocationCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="viewStart"
+            android:textSize="26sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="start" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <TextView
-        android:textColor="@color/grey_white_1000"
-        android:id="@+id/textLocationName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="viewStart"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textLocationCountry"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:gravity="start" />
-    <TextView
-        android:layout_marginBottom="10dp"
-        android:textColor="@color/grey_white_1000"
-        android:id="@+id/textLocationCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="viewStart"
-        android:textSize="26sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:gravity="start" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

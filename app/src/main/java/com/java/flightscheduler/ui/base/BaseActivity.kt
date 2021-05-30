@@ -15,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.utils.dismissLoadingDialog
 import com.java.flightscheduler.utils.showDialog
@@ -32,7 +33,7 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         super.onCreate(savedInstanceState)
         viewBinding = DataBindingUtil.setContentView(this,layoutId)
         viewBinding.apply {
-            //setVariable(BR.viewModel,viewModel)
+            setVariable(BR.viewModel,viewModel)
             root.isClickable = true
             executePendingBindings()
         }

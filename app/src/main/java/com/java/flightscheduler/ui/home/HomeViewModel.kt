@@ -2,10 +2,11 @@ package com.java.flightscheduler.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.Places
+import com.java.flightscheduler.ui.base.BaseViewModel
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel @Inject constructor() : BaseViewModel() {
 
     private val textCountry = MutableLiveData<Places>().apply {
         value = Places(
