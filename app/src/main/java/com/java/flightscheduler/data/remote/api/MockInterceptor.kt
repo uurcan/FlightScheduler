@@ -7,6 +7,7 @@ import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
 import java.net.HttpURLConnection
+import kotlin.jvm.Throws
 
 class MockInterceptor (private val assets : AssetManager): Interceptor{
     companion object {

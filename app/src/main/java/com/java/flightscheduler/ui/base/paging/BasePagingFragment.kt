@@ -21,7 +21,7 @@ abstract class BasePagingFragment <ViewBinding : ViewDataBinding, ViewModel : Ba
     abstract val swipeRefreshLayout : SwipeRefreshLayout?
 
     abstract val recyclerView : RecyclerView?
-    //todo linear layout manager might be
+    //todo might be applied to linear layout manager
     open fun getLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(context,1)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -2,7 +2,7 @@ package com.java.flightscheduler.data.model.source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.java.flightscheduler.data.constants.AppConstants.DEFAULT_FIRST_PAGE
+import com.java.flightscheduler.data.constants.TimeConstants.DEFAULT_FIRST_PAGE
 
 abstract class BasePagingSource <Item: Any> : PagingSource<Int , Item>(){
     override fun getRefreshKey(state: PagingState<Int, Item>): Int? {

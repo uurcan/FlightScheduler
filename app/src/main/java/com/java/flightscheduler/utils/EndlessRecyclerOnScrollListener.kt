@@ -3,7 +3,7 @@ package com.java.flightscheduler.utils
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.java.flightscheduler.data.constants.AppConstants.DEFAULT_NUM_VISIBLE_THRESHOLD
+import com.java.flightscheduler.data.constants.TimeConstants.DEFAULT_NUM_VISIBLE_THRESHOLD
 
 abstract class EndlessRecyclerOnScrollListener(
     threshold: Int = DEFAULT_NUM_VISIBLE_THRESHOLD

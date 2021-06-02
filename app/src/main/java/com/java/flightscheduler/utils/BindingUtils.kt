@@ -4,7 +4,7 @@ import android.view.View
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.java.flightscheduler.data.constants.AppConstants
+import com.java.flightscheduler.data.constants.TimeConstants
 
 @BindingAdapter("isRefreshing")
 fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?){
@@ -25,7 +25,7 @@ fun View.setClickSafe(listener : View.OnClickListener?){
         var lastClickTime : Long = 0
 
         override fun onClick(p0: View?) {
-            if (System.currentTimeMillis() - lastClickTime < AppConstants.THRESHOLD_CLICK_TIME) return
+            if (System.currentTimeMillis() - lastClickTime < TimeConstants.THRESHOLD_CLICK_TIME) return
             listener?.onClick(p0)
             lastClickTime = System.currentTimeMillis()
         }

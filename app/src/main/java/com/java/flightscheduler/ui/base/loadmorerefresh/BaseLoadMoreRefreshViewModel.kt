@@ -1,7 +1,7 @@
 package com.java.flightscheduler.ui.base.loadmorerefresh
 
 import androidx.lifecycle.MutableLiveData
-import com.java.flightscheduler.data.constants.AppConstants
+import com.java.flightscheduler.data.constants.TimeConstants
 import com.java.flightscheduler.ui.base.BaseViewModel
 import com.java.flightscheduler.utils.EndlessRecyclerOnScrollListener
 
@@ -57,13 +57,13 @@ abstract class BaseLoadMoreRefreshViewModel<Item>() : BaseViewModel() {
         loadData(currentPage.value?.plus(1) ?: getFirstPage())
     }
 
-    open fun getFirstPage() = AppConstants.DEFAULT_FIRST_PAGE
+    open fun getFirstPage() = TimeConstants.DEFAULT_FIRST_PAGE
 
     private fun getPreFirstPage() = getFirstPage() - 1
 
-    protected fun getLoadMoreThreshold() = AppConstants.DEFAULT_NUM_VISIBLE_THRESHOLD
+    protected fun getLoadMoreThreshold() = TimeConstants.DEFAULT_NUM_VISIBLE_THRESHOLD
 
-    protected open fun getNumberItemPerPage() = AppConstants.DEFAULT_ITEM_PER_PAGE
+    protected open fun getNumberItemPerPage() = TimeConstants.DEFAULT_ITEM_PER_PAGE
 
     fun resetLoadMore() {
         onScrollListener.resetOnLoadMore()
