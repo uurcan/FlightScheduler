@@ -1,6 +1,6 @@
 package com.java.flightscheduler.data.remote.api.base
 
-import com.java.flightscheduler.data.constants.HttpPagination
+import com.java.flightscheduler.data.constants.HttpConstants
 import com.squareup.moshi.JsonClass
 import java.lang.Exception
 
@@ -21,11 +21,11 @@ sealed class BaseApiResult <out R>{
         @JsonClass(generateAdapter = true)
         data class MetaResult(val count: Int?, val links: Map<String,String>?)
 
-        fun hasFirst() = hasMeta(HttpPagination.FIRST)
-        fun hasLast() = hasMeta(HttpPagination.LAST)
-        fun hasNext() = hasMeta(HttpPagination.NEXT)
-        fun hasSelf() = hasMeta(HttpPagination.SELF)
-        fun hasPrevious() = hasMeta(HttpPagination.PREVIOUS)
+        fun hasFirst() = hasMeta(HttpConstants.FIRST)
+        fun hasLast() = hasMeta(HttpConstants.LAST)
+        fun hasNext() = hasMeta(HttpConstants.NEXT)
+        fun hasSelf() = hasMeta(HttpConstants.SELF)
+        fun hasPrevious() = hasMeta(HttpConstants.PREVIOUS)
 
         private fun hasMeta(key : String) = meta?.links?.get(key) != null
     }
