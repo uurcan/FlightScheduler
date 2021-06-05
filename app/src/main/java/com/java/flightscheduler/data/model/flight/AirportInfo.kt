@@ -4,9 +4,11 @@ import android.os.Parcelable
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
 @JsonClass(generateAdapter = true)
-class Itinerary internal constructor(
-    val duration: String? = null,
-    val segments: List<SearchSegment>? = null
-): Parcelable
+data class AirportInfo internal constructor(
+    val iataCode: String? = null,
+    val terminal: String? = null,
+    val at: String? = null
+) : Parcelable

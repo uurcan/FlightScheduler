@@ -1,7 +1,7 @@
 package com.java.flightscheduler.data.remote.api
 
-import com.java.flightscheduler.data.remote.api.base.BaseApiCall
-import com.java.flightscheduler.data.remote.api.services.FlightServices
+import com.java.flightscheduler.data.remote.api.services.FlightService
+import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
@@ -14,7 +14,7 @@ class FlightSearch internal constructor(baseUrl:String,
                                         moshi: Moshi,
                                         dispatcher: CoroutineDispatcher) : BaseApiCall(moshi,dispatcher){
 
-    private val api: FlightServices = Retrofit.Builder()
+    private val api: FlightService = Retrofit.Builder()
         .baseUrl(baseUrl + "v2/")
         .addConverterFactory(MoshiConverterFactory.create())
         .client(httpClient)

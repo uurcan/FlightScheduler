@@ -1,5 +1,6 @@
-package com.java.flightscheduler.data.remote.api.base
+package com.java.flightscheduler.data.remote.request.base
 
+import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
@@ -28,14 +29,6 @@ open class BaseApiCall(private val moshi : Moshi, private val dispatcher: Corout
                 BaseApiResult.Error(exception = ex)
             }
         }
-    }
-    fun bodyAsMap(body: String) : Map<String,Any>{
-        val type = Types.newParameterizedType(
-            Map::class.java,
-            String::class.java,
-            Any::class.java
-        )
-        return moshi.adapter<Map<String,Any>>(type).fromJson(body) ?: emptyMap()
     }
 }
 

@@ -1,9 +1,15 @@
 package com.java.flightscheduler.data.model.flight
 
-data class TravelerPricing(
-    val fareDetailsBySegment: List<FareDetailsBySegment>,
-    val fareOption: String,
-    val price: PriceX,
-    val travelerId: String,
-    val travelerType: String
-)
+import android.os.Parcelable
+import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+@JsonClass(generateAdapter = true)
+data class TravelerPricing internal constructor(
+    val travelerId: String? = null,
+    val fareOption: String? = null,
+    val travelerType: String? = null,
+    val price: Price? = null,
+    val fareDetailsBySegment: List<FareDetailsBySegment>? = null
+) : Parcelable

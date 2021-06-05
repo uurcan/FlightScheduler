@@ -1,10 +1,16 @@
 package com.java.flightscheduler.data.model.flight
 
-data class FareDetailsBySegment(
-    val brandedFare: String,
-    val cabin: String,
-    val class_s: String,
-    val fareBasis: String,
-    val includedCheckedBags: IncludedCheckedBags,
-    val segmentId: String
-)
+import android.os.Parcelable
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+@JsonClass(generateAdapter = true)
+data class FareDetailsBySegment internal constructor(
+    val segmentId: String? = null,
+    val cabin: String? = null,
+    val fareBasis: String? = null,
+    @Json(name = "class") @field:Json(name = "class") val segmentClass: String? = null,
+    val includedCheckedBags: IncludedCheckedBags? = null
+) : Parcelable

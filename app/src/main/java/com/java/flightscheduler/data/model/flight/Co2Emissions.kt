@@ -6,7 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-class Itinerary internal constructor(
-    val duration: String? = null,
-    val segments: List<SearchSegment>? = null
-): Parcelable
+data class Co2Emissions internal constructor(
+    val weight: Int = 0,
+    val weightUnit: String? = null,
+    val cabin: String? = null
+) : Parcelable

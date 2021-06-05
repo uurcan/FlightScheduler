@@ -2,9 +2,8 @@ package com.java.flightscheduler.di
 
 import android.content.Context
 import com.java.flightscheduler.BuildConfig
-import com.java.flightscheduler.data.remote.api.ApiService
 import com.java.flightscheduler.data.remote.api.MockInterceptor
-import com.java.flightscheduler.data.remote.api.services.FlightServices
+import com.java.flightscheduler.data.remote.api.services.FlightService
 import com.java.flightscheduler.enableLogging
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -80,5 +79,5 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun getFlights(retrofit: Retrofit) : FlightServices = retrofit.create(FlightServices::class.java)
+    fun getFlights(retrofit: Retrofit) : FlightService = retrofit.create(FlightService::class.java)
 }
