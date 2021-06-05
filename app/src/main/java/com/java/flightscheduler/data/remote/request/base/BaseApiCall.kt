@@ -2,7 +2,6 @@ package com.java.flightscheduler.data.remote.request.base
 
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.io.IOException

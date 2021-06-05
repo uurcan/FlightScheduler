@@ -27,8 +27,7 @@ class FlightTest {
     }
 
     @Test
-    fun `FlightOffers for origin and destination`() = runBlocking {
-        assert(
+    fun `FlightOffers for origin and destination`() = runBlocking {assert(
             flightInitializer.flightSearch.get(
                 "MAD",
                 "MUC",

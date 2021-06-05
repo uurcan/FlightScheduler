@@ -4,7 +4,6 @@ import com.java.flightscheduler.data.constants.PaginationConstants
 import com.squareup.moshi.JsonClass
 import java.lang.Exception
 
-
 sealed class BaseApiResult <out R>{
     var method : String? = null
         internal set
@@ -12,11 +11,12 @@ sealed class BaseApiResult <out R>{
     var code: Int = 0
         internal set
 
+    @JsonClass(generateAdapter = true)
     data class Success<out T> internal constructor(
         val data : T,
-        val meta : MetaResult?,
-        val dictionaries : Map<String,Any>,
-        val warnings : List<Map<String,Any>>
+        val meta : MetaResult? = null,
+        val dictionaries : Map<String,Any>? = null,
+        val warnings : List<Map<String,Any>>? = null
     ) : BaseApiResult<T>(){
         @JsonClass(generateAdapter = true)
         data class MetaResult(val count: Int?, val links: Map<String,String>?)
@@ -40,16 +40,17 @@ sealed class BaseApiResult <out R>{
             val code: Int? = null,
             val title : String? = null,
             val detail : String? = null,
-            val source : String? = null
+            val source : Source? = null
+        )
+
+
+        @JsonClass(generateAdapter = true)
+        data class Source internal constructor(
+            val pointer : String? = null,
+            val parameter : String? = null,
+            val example : String? = null
         )
     }
-
-    @JsonClass(generateAdapter = true)
-    data class Source internal constructor(
-        val pointer : String? = null,
-        val parameter : String? = null,
-        val example : String? = null
-    )
 }
 val BaseApiResult<*>.succeeded
     get() = this is BaseApiResult.Success && data != null
