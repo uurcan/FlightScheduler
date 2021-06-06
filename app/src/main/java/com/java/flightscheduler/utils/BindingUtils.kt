@@ -31,3 +31,16 @@ fun View.setClickSafe(listener : View.OnClickListener?){
         }
     })
 }
+
+@BindingAdapter("onSingleClick")
+fun View.setSingleClick(execution: () -> Unit) {
+    setOnClickListener(object : View.OnClickListener {
+        var lastClickTime: Long = 0
+
+        override fun onClick(p0: View?) {
+            if (System.currentTimeMillis() - lastClickTime < TimeConstants.THRESHOLD_CLICK_TIME) return
+            lastClickTime = System.currentTimeMillis()
+            execution.invoke()
+        }
+    })
+}

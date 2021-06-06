@@ -22,7 +22,7 @@ import com.java.flightscheduler.utils.showDialog
 import com.java.flightscheduler.utils.showLoadingDialog
 
 abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewModel> : AppCompatActivity() {
-    protected lateinit var viewBinding: ViewBinding
+    private lateinit var viewBinding: ViewBinding
     protected abstract val viewModel : ViewModel
     private lateinit var appBarConfiguration: AppBarConfiguration
 
