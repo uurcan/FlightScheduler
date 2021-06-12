@@ -1,18 +1,13 @@
 package com.java.flightscheduler.ui.flightsearch
 
-import android.annotation.SuppressLint
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.remote.response.FlightInitializer
 import com.java.flightscheduler.ui.base.BaseViewModel
+import com.java.flightscheduler.ui.base.loadmorerefresh.BaseLoadMoreRefreshViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Inject
 
@@ -21,11 +16,11 @@ class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    var flightLiveData : MutableLiveData<List<FlightOffer>>? = null
+    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
+    var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
     lateinit var flightInitializer: FlightInitializer
-    var flightTempData : ArrayList<FlightOffer>? = null
 
-    fun getFlightData() : LiveData<List<FlightOffer>>? {
+    fun getFlightData() : MutableLiveData<List<FlightOffer>>?{
         flightInitializer = FlightInitializer.Builder()
             .setClientId("g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz")
             .setClientSecret("HAWQf0DsgPedZLGo")
@@ -33,11 +28,18 @@ class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
             .build()
 
         scope.launch {
-            when (flightInitializer.flightSearch
-                .get("MAD","IST","2021-10-10",1)) {
-                is BaseApiResult.Success -> {
-                    result ->
+            val flightOffersSearches = flightInitializer.flightSearch.get(
+                originLocationCode = "SYD",
+                destinationLocationCode = "BKK",
+                departureDate = "2021-06-22",
+                returnDate = "2021-06-29",
+                adults = 2,
+                max = 3
+            )
 
+            if (flightOffersSearches is BaseApiResult.Success) {
+                flightLiveData.apply {
+                    flightLiveData?.value = flightOffersSearches.data
                 }
             }
         }

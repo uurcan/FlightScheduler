@@ -1,5 +1,6 @@
 package com.java.flightscheduler.ui.flightsearch
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,12 +25,11 @@ class FlightSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        text_gallery.text = "NULL"
-
         flightSearchViewModel = ViewModelProvider(this).get(FlightSearchViewModel::class.java)
-        flightSearchViewModel.getFlightData()?.observe(viewLifecycleOwner, Observer { flightData ->
+        flightSearchViewModel.getFlightData()?.observe(viewLifecycleOwner, Observer {
+            flightData ->
             if (flightData != null)
-                text_gallery.text = flightData[0].id
+                text_gallery.text = flightData[0].id.toString()
         })
     }
 }
