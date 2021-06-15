@@ -1,6 +1,10 @@
 package com.java.flightscheduler.data.model.flight
 
 import android.os.Parcelable
+import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
+import com.java.flightscheduler.data.model.flight.pricing.Price
+import com.java.flightscheduler.data.model.flight.pricing.PricingOptions
+import com.java.flightscheduler.data.model.flight.pricing.TravelerPricing
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 

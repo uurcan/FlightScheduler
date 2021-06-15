@@ -1,6 +1,6 @@
 package com.java.flightscheduler.data.remote.api.services
 
-import com.java.flightscheduler.data.model.hotel.HotelOffer
+import com.java.flightscheduler.data.model.hotel.base.HotelOffer
 import com.java.flightscheduler.data.remote.request.base.BaseApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query

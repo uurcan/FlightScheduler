@@ -1,10 +1,9 @@
 package com.java.flightscheduler.ui.slideshow
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.base.BaseApiResult
-import com.java.flightscheduler.data.model.hotel.HotelOffer
+import com.java.flightscheduler.data.model.hotel.base.HotelOffer
 import com.java.flightscheduler.data.remote.response.FlightInitializer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +28,8 @@ class HotelSearchViewModel : ViewModel() {
 
         scope.launch {
             val hotelOfferSearches = flightInitializer.hotelSearch.get(
-                cityCode = "LON"
+                cityCode = "LON",
+
             )
 
             if (hotelOfferSearches is BaseApiResult.Success) {
