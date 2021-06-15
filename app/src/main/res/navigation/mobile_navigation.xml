@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.java.flightscheduler.ui.slideshow.SlideshowFragment"
+        android:name="com.java.flightscheduler.ui.slideshow.HotelSearchFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

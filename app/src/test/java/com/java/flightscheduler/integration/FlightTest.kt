@@ -27,7 +27,7 @@ class FlightTest {
     }
 
     @Test
-    fun `FlightOffers`() = runBlocking {assert(
+    fun flightOffersTest() = runBlocking {assert(
             flightInitializer.flightSearch.get(
                 "MAD",
                 "MUC",
@@ -38,7 +38,7 @@ class FlightTest {
     }
 
     @Test
-    fun `HotelOffers`() = runBlocking {assert(
+    fun hotelOffersTest() = runBlocking {assert(
             flightInitializer.hotelSearch.get(
                cityCode = "LON"
             ).succeeded
