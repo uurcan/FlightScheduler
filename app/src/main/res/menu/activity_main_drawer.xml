@@ -13,11 +13,11 @@
     </group>
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_flight_search"
             android:icon="@drawable/plane_icon_main"
             android:title="@string/text_flight_offers_lower" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_hotel_search"
             android:icon="@drawable/hotel_icon_main"
             android:title="@string/text_hotel_offers_lower" />
         <item
@@ -25,7 +25,7 @@
             android:icon="@drawable/cheap_icon_main"
             android:title="@string/text_cheapest_flight_offers" />
         <item
-            android:id="@+id/nav_metrics"
+            android:id="@+id/nav_itinerary_metrics"
             android:icon="@drawable/metrics_icon_main"
             android:title="@string/text_itinerary_metrics" />
         <item

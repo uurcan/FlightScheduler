@@ -30,14 +30,20 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_flight_search"
         android:name="com.java.flightscheduler.ui.flightsearch.FlightSearchFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/text_flight_offers_lower"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.java.flightscheduler.ui.slideshow.HotelSearchFragment"
-        android:label="@string/menu_slideshow"
+        android:id="@+id/nav_hotel_search"
+        android:name="com.java.flightscheduler.ui.hotelsearch.HotelSearchFragment"
+        android:label="@string/text_hotel_offers_lower"
+        tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_itinerary_metrics"
+        android:name="com.java.flightscheduler.ui.itinerarymetrics.ItineraryMetricsFragment"
+        android:label="@string/text_itinerary_metrics"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

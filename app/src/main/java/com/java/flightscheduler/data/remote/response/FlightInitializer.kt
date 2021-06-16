@@ -3,6 +3,7 @@ package com.java.flightscheduler.data.remote.response
 import com.java.flightscheduler.data.model.auth.AccessToken
 import com.java.flightscheduler.data.remote.api.FlightSearch
 import com.java.flightscheduler.data.remote.api.HotelSearch
+import com.java.flightscheduler.data.remote.api.MetricsSearch
 import com.java.flightscheduler.data.remote.api.services.TokenService
 import com.java.flightscheduler.data.remote.request.auth.TokenAuthenticator
 import com.java.flightscheduler.data.remote.request.auth.TokenInterceptor
@@ -44,10 +45,12 @@ class FlightInitializer private constructor(
 
     val flightSearch : FlightSearch
     val hotelSearch : HotelSearch
+    val priceMetrics : MetricsSearch
 
     init {
         flightSearch = FlightSearch(baseUrl,tokenClient,moshi,dispatcher)
         hotelSearch = HotelSearch(baseUrl,tokenClient,moshi,dispatcher)
+        priceMetrics = MetricsSearch(baseUrl,tokenClient,moshi,dispatcher)
 
         val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().apply { level = logLevel })

@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.slideshow
+package com.java.flightscheduler.ui.hotelsearch
 
 import android.os.Bundle
 import android.view.LayoutInflater

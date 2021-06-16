@@ -9,6 +9,8 @@ import java.lang.Exception
 
 @Suppress("BlockingMethodInNonBlockingContext")
 open class BaseApiCall(private val moshi : Moshi, private val dispatcher: CoroutineDispatcher) {
+
+    open val basePath = "v2/"
     suspend fun <T: Any> baseApiCall(call : suspend () -> BaseApiResponse<T>): BaseApiResult<T> {
         return withContext(dispatcher){
             try {

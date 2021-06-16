@@ -44,4 +44,16 @@ class FlightTest {
             ).succeeded
         )
     }
+
+    @Test
+    fun priceMetricsTest() = runBlocking {assert(
+            flightInitializer.priceMetrics.get(
+                originIataCode = "MAD",
+                destinationIataCode = "CDG",
+                departureDate = "2021-03-21",
+                currencyCode = "USD",
+                oneWay = false
+            ).succeeded
+        )
+    }
 }

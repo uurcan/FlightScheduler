@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.slideshow
+package com.java.flightscheduler.ui.hotelsearch
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,7 +29,6 @@ class HotelSearchViewModel : ViewModel() {
         scope.launch {
             val hotelOfferSearches = flightInitializer.hotelSearch.get(
                 cityCode = "LON",
-
             )
 
             if (hotelOfferSearches is BaseApiResult.Success) {
