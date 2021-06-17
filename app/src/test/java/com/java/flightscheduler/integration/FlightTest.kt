@@ -56,4 +56,14 @@ class FlightTest {
             ).succeeded
         )
     }
+    @Test
+    fun getFlightStatus() = runBlocking {
+        assert(
+            flightInitializer.flightStatus.get(
+                carrierCode = "PR",
+                flightNumber = 212,
+                scheduledDepartureDate = "2021-06-22"
+            ).succeeded
+        )
+    }
 }

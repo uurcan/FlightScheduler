@@ -27,7 +27,7 @@ class ItineraryMetricsFragment : Fragment(){
         metricsViewModel.getMetricsData()?.observe(viewLifecycleOwner,{
             metricsData ->
                 if (metricsData != null) {
-                    text_itinerary.text = metricsData[0].priceMetrics?.get(2)?.quartileRanking.toString()
+                    text_itinerary.text = metricsData[0].priceMetrics?.get(2)?.amount.toString()
                 }
         })
     }

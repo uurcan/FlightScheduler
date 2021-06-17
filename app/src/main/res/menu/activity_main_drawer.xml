@@ -29,6 +29,10 @@
             android:icon="@drawable/metrics_icon_main"
             android:title="@string/text_itinerary_metrics" />
         <item
+            android:id="@+id/nav_flight_status"
+            android:icon="@drawable/flight_status_main"
+            android:title="@string/text_flight_status" />
+        <item
             android:id="@+id/nav_archive"
             android:icon="@drawable/saved_icon_main"
             android:title="@string/text_saved_offers" />
