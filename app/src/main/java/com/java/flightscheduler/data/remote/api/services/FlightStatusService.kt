@@ -13,5 +13,5 @@ interface FlightStatusService {
         @Query("flightNumber") flightNumber : Int,
         @Query("scheduledDepartureDate") scheduledDepartureDate : String,
         @Query("operationalSuffix") operationalSuffix : String?
-    ) : BaseApiResponse<FlightStatus>
+    ) : BaseApiResponse<List<FlightStatus>>
 }

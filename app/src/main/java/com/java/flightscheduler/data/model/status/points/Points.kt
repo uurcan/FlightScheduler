@@ -11,5 +11,5 @@ import kotlinx.android.parcel.Parcelize
 data class Points internal constructor(
     val iataCode : String? = null,
     val departure: Departure? = null,
-    val arrival: Arrival? = null,
+    val arrival: Arrival? = null
 ) : Parcelable
