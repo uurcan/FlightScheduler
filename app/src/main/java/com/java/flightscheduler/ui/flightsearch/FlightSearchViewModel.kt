@@ -21,11 +21,7 @@ class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
     lateinit var flightInitializer: FlightInitializer
 
     fun getFlightData() : MutableLiveData<List<FlightOffer>>?{
-        flightInitializer = FlightInitializer.Builder()
-            .setClientId("g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz")
-            .setClientSecret("HAWQf0DsgPedZLGo")
-            .setLogLevel(HttpLoggingInterceptor.Level.BODY)
-            .build()
+        flightInitializer = FlightInitializer()
 
         scope.launch {
             val flightOffersSearches = flightInitializer.flightSearch.get(

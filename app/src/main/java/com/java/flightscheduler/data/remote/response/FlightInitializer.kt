@@ -19,27 +19,22 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
-class FlightInitializer private constructor(
-    baseUrl: String,
-    private val clientId:String,
-    private val clientSecret:String,
-    private val logLevel : HttpLoggingInterceptor.Level,
-    dispatcher: CoroutineDispatcher
-) : TokenProvider{
+class FlightInitializer() : TokenProvider{
 
     private val tokenService : TokenService
-
     private var accessToken : AccessToken? = null
-
     private var tokenValidUntil = 0L
 
-    val moshi = Moshi.Builder().build()
+    private var clientId : String
+    private var clientSecret : String
+
+    val moshi: Moshi = Moshi.Builder().build()
 
     private val tokenClient = OkHttpClient.Builder()
         .connectTimeout(30,TimeUnit.SECONDS)
         .writeTimeout(30,TimeUnit.SECONDS)
         .readTimeout(30,TimeUnit.SECONDS)
-        .addInterceptor(HttpLoggingInterceptor().apply { level = logLevel })
+        .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
         .addInterceptor(TokenInterceptor(this))
         .authenticator(TokenAuthenticator(this))
         .build()
@@ -50,6 +45,12 @@ class FlightInitializer private constructor(
     val flightStatus : FlightStatusSearch
 
     init {
+        val baseUrl = "https://test.api.amadeus.com/"
+        clientId = "g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz"
+        clientSecret = "HAWQf0DsgPedZLGo"
+        val logLevel = HttpLoggingInterceptor.Level.BODY
+        val dispatcher = Dispatchers.IO
+
         flightSearch = FlightSearch(baseUrl,tokenClient,moshi,dispatcher)
         hotelSearch = HotelSearch(baseUrl,tokenClient,moshi,dispatcher)
         priceMetrics = MetricsSearch(baseUrl,tokenClient,moshi,dispatcher)
@@ -81,22 +82,5 @@ class FlightInitializer private constructor(
                 }
         }
         return token()
-    }
-
-    class Builder internal constructor() {
-        private var hostName : String = Hosts.TEST.value
-        private lateinit var clientId: String
-        private lateinit var clientSecret : String
-        private var logLevel : HttpLoggingInterceptor.Level = HttpLoggingInterceptor.Level.NONE
-        private var dispatcher : CoroutineDispatcher = Dispatchers.IO
-
-        enum class Hosts(val value : String){
-            TEST("https://test.api.amadeus.com/")
-        }
-        fun setClientId(clientId: String) = apply { this.clientId = clientId }
-        fun setClientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
-        fun setLogLevel(logLevel: HttpLoggingInterceptor.Level) = apply { this.logLevel = logLevel }
-
-        fun build() = FlightInitializer(hostName,clientId,clientSecret,logLevel,dispatcher)
     }
 }
