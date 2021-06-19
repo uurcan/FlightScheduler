@@ -33,7 +33,7 @@
         android:id="@+id/nav_flight_search"
         android:name="com.java.flightscheduler.ui.flightsearch.FlightSearchFragment"
         android:label="@string/text_flight_offers_lower"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_flight_offers" />
 
     <fragment
         android:id="@+id/nav_hotel_search"
@@ -45,5 +45,11 @@
         android:id="@+id/nav_itinerary_metrics"
         android:name="com.java.flightscheduler.ui.itinerarymetrics.ItineraryMetricsFragment"
         android:label="@string/text_itinerary_metrics"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_itinerary_metrics" />
+
+    <fragment
+        android:id="@+id/nav_flight_status"
+        android:name="com.java.flightscheduler.ui.flightstatus.FlightStatusFragment"
+        android:label="@string/text_flight_status"
+        tools:layout="@layout/fragment_flight_status" />
 </navigation>

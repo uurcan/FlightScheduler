@@ -3,7 +3,6 @@ package com.java.flightscheduler.ui.base.paging
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
-import com.java.flightscheduler.data.model.source.BasePagingSource
 import com.java.flightscheduler.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch

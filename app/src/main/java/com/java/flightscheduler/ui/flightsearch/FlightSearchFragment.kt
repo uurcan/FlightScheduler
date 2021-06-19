@@ -1,6 +1,5 @@
 package com.java.flightscheduler.ui.flightsearch
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.java.flightscheduler.R
-import kotlinx.android.synthetic.main.fragment_gallery.*
+import kotlinx.android.synthetic.main.fragment_flight_offers.*
 
 class FlightSearchFragment : Fragment() {
 
@@ -20,7 +19,7 @@ class FlightSearchFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_gallery, container, false)
+        return inflater.inflate(R.layout.fragment_flight_offers, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +28,7 @@ class FlightSearchFragment : Fragment() {
         flightSearchViewModel.getFlightData()?.observe(viewLifecycleOwner, Observer {
             flightData ->
             if (flightData != null)
-                text_gallery.text = flightData[0].id.toString()
+                text_flight_offers.text = flightData[0].id.toString()
         })
     }
 }

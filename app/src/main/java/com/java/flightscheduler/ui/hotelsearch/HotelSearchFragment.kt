@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.java.flightscheduler.R
-import kotlinx.android.synthetic.main.fragment_gallery.*
+import kotlinx.android.synthetic.main.fragment_flight_offers.*
+import kotlinx.android.synthetic.main.fragment_hotel_offers.*
 
 class HotelSearchFragment : Fragment() {
     private lateinit var hotelSearchFragment : HotelSearchViewModel
@@ -18,7 +19,7 @@ class HotelSearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_gallery, container, false)
+        return inflater.inflate(R.layout.fragment_hotel_offers, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +28,7 @@ class HotelSearchFragment : Fragment() {
         hotelSearchFragment.getHotelData()?.observe(viewLifecycleOwner, Observer {
                 hotelData ->
             if (hotelData != null)
-                text_gallery.text = hotelData[0].hotel?.contact?.phone.toString()
+                text_hotel_offers.text = hotelData[0].hotel?.contact?.phone.toString()
         })
     }
 }

@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.model.source
+package com.java.flightscheduler.ui.base.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

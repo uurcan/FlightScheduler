@@ -21,10 +21,6 @@
             android:icon="@drawable/hotel_icon_main"
             android:title="@string/text_hotel_offers_lower" />
         <item
-            android:id="@+id/nav_flight"
-            android:icon="@drawable/cheap_icon_main"
-            android:title="@string/text_cheapest_flight_offers" />
-        <item
             android:id="@+id/nav_itinerary_metrics"
             android:icon="@drawable/metrics_icon_main"
             android:title="@string/text_itinerary_metrics" />

@@ -48,6 +48,7 @@ class FlightInitializer private constructor(
     val hotelSearch : HotelSearch
     val priceMetrics : MetricsSearch
     val flightStatus : FlightStatusSearch
+
     init {
         flightSearch = FlightSearch(baseUrl,tokenClient,moshi,dispatcher)
         hotelSearch = HotelSearch(baseUrl,tokenClient,moshi,dispatcher)
