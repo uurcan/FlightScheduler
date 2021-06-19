@@ -20,11 +20,7 @@ class HotelSearchViewModel : ViewModel() {
     private lateinit var flightInitializer: FlightInitializer
 
     fun getHotelData() : MutableLiveData<List<HotelOffer>>?{
-        flightInitializer = FlightInitializer.Builder()
-            .setClientId("g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz")
-            .setClientSecret("HAWQf0DsgPedZLGo")
-            .setLogLevel(HttpLoggingInterceptor.Level.BODY)
-            .build()
+        flightInitializer = FlightInitializer()
 
         scope.launch {
             val hotelOfferSearches = flightInitializer.hotelSearch.get(

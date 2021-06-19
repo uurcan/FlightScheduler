@@ -20,11 +20,7 @@ class FlightStatusViewModel : ViewModel() {
     private lateinit var flightInitializer: FlightInitializer
 
     fun getFlightStatusLiveData() : MutableLiveData<List<FlightStatus>>?{
-        flightInitializer = FlightInitializer.Builder()
-            .setClientId("g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz")
-            .setClientSecret("HAWQf0DsgPedZLGo")
-            .setLogLevel(HttpLoggingInterceptor.Level.BODY)
-            .build()
+        flightInitializer = FlightInitializer()
 
         scope.launch {
             val flightStatusResults = flightInitializer.flightStatus.get(

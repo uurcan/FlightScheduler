@@ -23,11 +23,7 @@ class ItineraryMetricsViewModel @Inject constructor() : BaseViewModel() {
     lateinit var flightInitializer: FlightInitializer
 
     fun getMetricsData() : MutableLiveData<List<ItineraryPriceMetrics>>? {
-        flightInitializer = FlightInitializer.Builder()
-            .setClientId("g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz")
-            .setClientSecret("HAWQf0DsgPedZLGo")
-            .setLogLevel(HttpLoggingInterceptor.Level.BODY)
-            .build()
+        flightInitializer = FlightInitializer()
 
         scope.launch {
             val itineraryMetricsResults = flightInitializer.priceMetrics.get(
