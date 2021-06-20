@@ -4,8 +4,10 @@ import android.content.Context
 import com.java.flightscheduler.BuildConfig
 import com.java.flightscheduler.data.remote.api.MockInterceptor
 import com.java.flightscheduler.data.remote.api.services.FlightService
+import com.java.flightscheduler.data.remote.api.services.MetricsService
 import com.java.flightscheduler.enableLogging
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,10 +24,15 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class NetworkModule {
-    companion object {
-        private const val CONNECTION_TIMEOUT = 10L
-    }
+object NetworkModule {
+    @Singleton
+    @Provides
+    fun provideRetrofit() : Retrofit = Retrofit.Builder()
+        .addConverterFactory(MoshiConverterFactory.create())
+        .baseUrl("https://test.api.amadeus.com/v1/")
+        //.client(okHttpClient)
+        .build()
+
     @Singleton
     @Provides
     fun provideOkHttpCache(context: Context) : Cache = Cache(context.cacheDir,(10 * 1024 * 1024).toLong())
@@ -51,12 +58,12 @@ class NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        @Named("header") header : Interceptor,
-        @Named("mock") mockInterceptor : MockInterceptor
+        header : Interceptor,
+        mockInterceptor : MockInterceptor
     ) : OkHttpClient = OkHttpClient.Builder()
-        .connectTimeout(CONNECTION_TIMEOUT,TimeUnit.SECONDS)
-        .readTimeout(CONNECTION_TIMEOUT,TimeUnit.SECONDS)
-        .writeTimeout(CONNECTION_TIMEOUT,TimeUnit.SECONDS)
+        .connectTimeout(10L,TimeUnit.SECONDS)
+        .readTimeout(10L,TimeUnit.SECONDS)
+        .writeTimeout(10L,TimeUnit.SECONDS)
         .addInterceptor(header)
         .apply {
             if (enableLogging()) {
@@ -68,16 +75,8 @@ class NetworkModule {
 
         }.build()
 
-    @Singleton
-    @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient,
-                        moshi: Moshi) : Retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("")
-        .client(okHttpClient)
-        .build()
 
     @Singleton
     @Provides
-    fun getFlights(retrofit: Retrofit) : FlightService = retrofit.create(FlightService::class.java)
+    fun provideMetrics(retrofit: Retrofit) : MetricsService = retrofit.create(MetricsService::class.java)
 }
