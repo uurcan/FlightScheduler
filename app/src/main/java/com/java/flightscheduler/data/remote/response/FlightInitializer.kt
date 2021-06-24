@@ -1,16 +1,14 @@
 package com.java.flightscheduler.data.remote.response
 
 import com.java.flightscheduler.data.model.auth.AccessToken
-import com.java.flightscheduler.data.remote.api.FlightSearch
-import com.java.flightscheduler.data.remote.api.FlightStatusSearch
-import com.java.flightscheduler.data.remote.api.HotelSearch
-import com.java.flightscheduler.data.remote.api.MetricsSearch
+import com.java.flightscheduler.data.repository.FlightSearch
+import com.java.flightscheduler.data.repository.FlightStatusSearch
+import com.java.flightscheduler.data.repository.HotelSearch
 import com.java.flightscheduler.data.remote.api.services.TokenService
 import com.java.flightscheduler.data.remote.request.auth.TokenAuthenticator
 import com.java.flightscheduler.data.remote.request.auth.TokenInterceptor
 import com.java.flightscheduler.data.remote.request.auth.TokenProvider
 import com.squareup.moshi.Moshi
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,7 +28,7 @@ class FlightInitializer() : TokenProvider{
 
     val moshi: Moshi = Moshi.Builder().build()
 
-    private val tokenClient = OkHttpClient.Builder()
+    val tokenClient = OkHttpClient.Builder()
         .connectTimeout(30,TimeUnit.SECONDS)
         .writeTimeout(30,TimeUnit.SECONDS)
         .readTimeout(30,TimeUnit.SECONDS)
@@ -41,7 +39,7 @@ class FlightInitializer() : TokenProvider{
 
     val flightSearch : FlightSearch
     val hotelSearch : HotelSearch
-    val priceMetrics : MetricsSearch
+    //val priceMetrics : MetricsRepository
     val flightStatus : FlightStatusSearch
 
     init {
@@ -53,7 +51,7 @@ class FlightInitializer() : TokenProvider{
 
         flightSearch = FlightSearch(baseUrl,tokenClient,moshi,dispatcher)
         hotelSearch = HotelSearch(baseUrl,tokenClient,moshi,dispatcher)
-        priceMetrics = MetricsSearch(baseUrl,tokenClient,moshi,dispatcher)
+        //priceMetrics = MetricsRepository(baseUrl,tokenClient,moshi,dispatcher)
         flightStatus = FlightStatusSearch(baseUrl,tokenClient,moshi,dispatcher)
 
         val okHttpClientBuilder = OkHttpClient.Builder()

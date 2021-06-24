@@ -1,28 +1,21 @@
-package com.java.flightscheduler.data.remote.api
+package com.java.flightscheduler.data.repository
 
 import com.java.flightscheduler.data.remote.api.services.MetricsService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
+import com.java.flightscheduler.data.remote.response.FlightInitializer
+import com.java.flightscheduler.di.dispatcher.IoDispatcher
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+import javax.inject.Inject
 
-class MetricsSearch internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi : Moshi,
-    dispatcher: CoroutineDispatcher
+class MetricsRepository @Inject constructor(
+    okHttpClient: OkHttpClient,
+    moshi: Moshi,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val metricsService : MetricsService
 ) : BaseApiCall(moshi,dispatcher) {
     override val basePath = "v1/"
-
-    private val metricsService : MetricsService = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .client(httpClient)
-        .build()
-        .create()
 
     suspend fun get(
         originIataCode : String? = null,
