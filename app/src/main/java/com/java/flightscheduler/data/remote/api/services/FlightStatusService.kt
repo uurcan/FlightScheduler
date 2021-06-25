@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 @JvmSuppressWildcards
 interface FlightStatusService {
-    @GET("schedule/flights")
+    @GET("v2/schedule/flights")
     suspend fun getFlightStatus(
         @Query("carrierCode") carrierCode : String,
         @Query("flightNumber") flightNumber : Int,

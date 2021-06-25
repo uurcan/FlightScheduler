@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 @JvmSuppressWildcards
 interface HotelService {
-    @GET("shopping/hotel-offers")
+    @GET("v2/shopping/hotel-offers")
     suspend fun getHotelOffers(
         @Query("cityCode") cityCode: String?,
         @Query("latitude") latitude: Double?,

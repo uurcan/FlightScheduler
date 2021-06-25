@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 @JvmSuppressWildcards
 interface MetricsService {
-    @GET("analytics/itinerary-price-metrics")
+    @GET("v1/analytics/itinerary-price-metrics")
     suspend fun getItineraryPriceMetrics(
         @Query("originIataCode") originIataCode : String?,
         @Query("destinationIataCode") destinationIataCode : String?,

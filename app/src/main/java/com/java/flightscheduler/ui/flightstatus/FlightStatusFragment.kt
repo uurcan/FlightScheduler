@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.java.flightscheduler.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_flight_status.*
 
+@AndroidEntryPoint
 class FlightStatusFragment : Fragment() {
     private lateinit var flightStatusViewModel : FlightStatusViewModel
 

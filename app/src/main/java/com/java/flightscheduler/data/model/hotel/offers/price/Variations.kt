@@ -1,8 +1,6 @@
 package com.java.flightscheduler.data.model.hotel.offers.price
 
 import android.os.Parcelable
-import com.java.flightscheduler.data.model.hotel.offers.price.Average
-import com.java.flightscheduler.data.model.hotel.offers.price.Changes
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
