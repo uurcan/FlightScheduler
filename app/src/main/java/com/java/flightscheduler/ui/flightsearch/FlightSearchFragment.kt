@@ -8,10 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.java.flightscheduler.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_flight_offers.*
 
+@AndroidEntryPoint
 class FlightSearchFragment : Fragment() {
-
     private lateinit var flightSearchViewModel: FlightSearchViewModel
 
     override fun onCreateView(

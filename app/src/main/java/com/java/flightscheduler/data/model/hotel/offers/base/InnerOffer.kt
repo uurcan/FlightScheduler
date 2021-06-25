@@ -1,9 +1,6 @@
 package com.java.flightscheduler.data.model.hotel.offers.base
 
 import android.os.Parcelable
-import com.java.flightscheduler.data.model.hotel.offers.base.Commission
-import com.java.flightscheduler.data.model.hotel.offers.base.Guests
-import com.java.flightscheduler.data.model.hotel.offers.base.RateFamily
 import com.java.flightscheduler.data.model.hotel.offers.policies.Policies
 import com.java.flightscheduler.data.model.hotel.offers.price.Price
 import com.java.flightscheduler.data.model.hotel.offers.room.Room

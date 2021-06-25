@@ -2,25 +2,16 @@ package com.java.flightscheduler.data.repository
 
 import com.java.flightscheduler.data.remote.api.services.HotelService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
+import com.java.flightscheduler.di.dispatcher.IoDispatcher
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+import javax.inject.Inject
 
-class HotelSearch internal constructor(baseUrl: String,
-    httpClient: OkHttpClient,
+class HotelRepository @Inject constructor(
     moshi: Moshi,
-    dispatcher: CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val hotelService : HotelService
 ) : BaseApiCall(moshi,dispatcher){
-
-    private val api : HotelService = Retrofit.Builder()
-        .baseUrl(baseUrl + "v2/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .client(httpClient)
-        .build()
-        .create()
 
     suspend fun get ( cityCode: String? = null,
                       latitude: Double? = null,
@@ -50,7 +41,7 @@ class HotelSearch internal constructor(baseUrl: String,
                       pageOffset: String? = null,
                       lang: String? = null
     ) = baseApiCall {
-        api.getHotelOffers(
+        hotelService.getHotelOffers(
             cityCode = cityCode,
             latitude = latitude,
             longitude = longitude,

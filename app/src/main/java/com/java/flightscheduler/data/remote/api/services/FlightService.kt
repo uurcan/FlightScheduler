@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 @JvmSuppressWildcards
 interface FlightService {
-    @GET("shopping/flight-offers")
+    @GET("v2/shopping/flight-offers")
     suspend fun getFlightOffers(
         @Query("originLocationCode") originLocationCode: String,
         @Query("destinationLocationCode") destinationLocationCode: String,

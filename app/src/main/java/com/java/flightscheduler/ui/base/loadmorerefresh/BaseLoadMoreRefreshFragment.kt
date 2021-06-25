@@ -3,7 +3,6 @@ package com.java.flightscheduler.ui.base.loadmorerefresh
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -34,7 +33,7 @@ abstract class BaseLoadMoreRefreshFragment<ViewBinding : ViewDataBinding, ViewMo
         recyclerView?.adapter = listAdapter
         recyclerView?.setHasFixedSize(true)
         viewModel.apply {
-            itemList.observe(viewLifecycleOwner, Observer {
+            itemList.observe(viewLifecycleOwner, {
                 listAdapter.submitList(it)
             })
             firstLoad()

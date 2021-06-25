@@ -3,7 +3,6 @@ package com.java.flightscheduler.ui.itinerarymetrics
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.metrics.ItineraryPriceMetrics
-import com.java.flightscheduler.data.remote.response.FlightInitializer
 import com.java.flightscheduler.data.repository.MetricsRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,7 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Inject
 
 @HiltViewModel
