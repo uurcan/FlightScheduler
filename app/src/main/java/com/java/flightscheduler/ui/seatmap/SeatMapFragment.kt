@@ -25,10 +25,10 @@ class SeatMapFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         seatMapViewModel = ViewModelProvider(this).get(SeatMapViewModel::class.java)
-        seatMapViewModel.getMetricsData()?.observe(viewLifecycleOwner,{
+        seatMapViewModel.getSeatMap()?.observe(viewLifecycleOwner,{
             metricsData ->
                 if (metricsData != null) {
-                    text_seat_map.text = metricsData[0].decks?.get(0)?.seats?.get(1)?.cabin.toString()
+                    text_seat_map.text = metricsData[0].decks?.get(0)?.seats?.get(12)?.cabin.toString()
                 }
         })
     }

@@ -55,7 +55,9 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
             R.id.nav_home,
             R.id.nav_flight_search,
             R.id.nav_hotel_search,
-            R.id.nav_itinerary_metrics),
+            R.id.nav_itinerary_metrics,
+            R.id.nav_flight_status,
+            R.id.nav_seat_map),
             drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

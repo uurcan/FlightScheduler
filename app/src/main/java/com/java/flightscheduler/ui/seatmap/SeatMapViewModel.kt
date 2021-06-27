@@ -20,7 +20,7 @@ class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMa
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     var seatMapLiveData : MutableLiveData<List<SeatMap>> = MutableLiveData()
 
-    fun getMetricsData() : MutableLiveData<List<SeatMap>>? {
+    fun getSeatMap() : MutableLiveData<List<SeatMap>>? {
         scope.launch {
 
             val flightDataResults = seatMapRepository.get(

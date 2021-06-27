@@ -2,7 +2,9 @@ package com.java.flightscheduler.di
 
 import android.content.Context
 import com.java.flightscheduler.di.flight.FlightModule.provideToken
-import com.java.flightscheduler.utils.CustomConverterFactory
+import com.java.flightscheduler.utils.adapters.BigDecimalJsonAdapter
+import com.java.flightscheduler.utils.adapters.NumbersAdapter
+import com.java.flightscheduler.utils.adapters.TypesAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -11,7 +13,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.Interceptor
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
@@ -53,5 +54,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(NumbersAdapter.FACTORY)
+        .add(TypesAdapterFactory())
+        .addLast(KotlinJsonAdapterFactory())
+        .build()
 }
