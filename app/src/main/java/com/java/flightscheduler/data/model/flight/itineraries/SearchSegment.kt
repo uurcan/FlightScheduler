@@ -14,7 +14,7 @@ data class SearchSegment internal constructor(
     val aircraft: Aircraft? = null,
     val duration: String? = null,
     val id: String? = null,
-    val numberOfStops: Int = 0,
-    val blacklistedInEU: Boolean = false,
+    val numberOfStops: Int? = 0,
+    val blacklistedInEU: Boolean? = false,
     val co2Emissions: List<Co2Emissions>? = null
 ) : Parcelable
