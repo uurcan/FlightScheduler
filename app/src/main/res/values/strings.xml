@@ -26,4 +26,5 @@
     <string name="no_data_to_display">text_no_data_to_displa</string>
     <string name="reload">text_reload</string>
     <string name="text_flight_status">Flight Status</string>
+    <string name="text_seat_map">Seat Map</string>
 </resources>

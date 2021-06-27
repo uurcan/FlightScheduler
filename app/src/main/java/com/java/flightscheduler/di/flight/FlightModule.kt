@@ -1,9 +1,6 @@
 package com.java.flightscheduler.di.flight
 
-import com.java.flightscheduler.data.remote.api.services.FlightService
-import com.java.flightscheduler.data.remote.api.services.FlightStatusService
-import com.java.flightscheduler.data.remote.api.services.HotelService
-import com.java.flightscheduler.data.remote.api.services.MetricsService
+import com.java.flightscheduler.data.remote.api.services.*
 import com.java.flightscheduler.data.remote.response.TokenInitializer
 import dagger.Module
 import dagger.Provides
@@ -35,4 +32,8 @@ object FlightModule {
     @Singleton
     @Provides
     fun provideFlightStatus(retrofit: Retrofit) : FlightStatusService = retrofit.create(FlightStatusService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideSeatMaps(retrofit: Retrofit) : SeatMapService = retrofit.create(SeatMapService::class.java)
 }

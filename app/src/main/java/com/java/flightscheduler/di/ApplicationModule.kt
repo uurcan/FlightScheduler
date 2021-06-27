@@ -32,7 +32,4 @@ object ApplicationModule {
     @Provides
     fun provideSharedPreferences(context: Context):SharedPreferences = context.getSharedPreferences(context.packageName,Context.MODE_PRIVATE)
 
-    @Singleton
-    @Provides
-    fun provideMoshi(): Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 }
