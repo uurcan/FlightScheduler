@@ -9,10 +9,6 @@ import java.io.IOException
 import java.lang.reflect.Type
 import java.math.BigDecimal
 
-/**
- * Moshi Factory to handle all the custom types we want to support,
- * such as [BigDecimal].
- */
 class TypesAdapterFactory : JsonAdapter.Factory {
     private val types = mapOf<Type, JsonAdapter<*>>(
         BigDecimal::class.java to BigDecimalJsonAdapter()
@@ -32,11 +28,6 @@ class TypesAdapterFactory : JsonAdapter.Factory {
     }
 }
 
-/**
- * Util Abstract [JsonAdapter] to support Parsing of `null` values for types annotated
- * with [XNullable]. This adapter will check if the next token on the JSON reader is a `null` and
- * return it. Otherwise will invoke the `fromNonNullString` abstract function.
- */
 internal abstract class XNullableJsonAdapter<T> : JsonAdapter<T>() {
 
     abstract fun fromNonNullString(nextString: String): T
