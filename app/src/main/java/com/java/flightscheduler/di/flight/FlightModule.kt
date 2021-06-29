@@ -36,4 +36,8 @@ object FlightModule {
     @Singleton
     @Provides
     fun provideSeatMaps(retrofit: Retrofit) : SeatMapService = retrofit.create(SeatMapService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideDelayPredictions(retrofit: Retrofit) : PredictionService = retrofit.create(PredictionService::class.java)
 }

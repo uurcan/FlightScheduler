@@ -21,12 +21,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 object NetworkModule {
+    @Singleton
+    @Provides
+    fun provideBaseUrl() : String = "https://test.api.amadeus.com/"
 
     @Singleton
     @Provides
     fun provideRetrofit() : Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("https://test.api.amadeus.com/")
+        .baseUrl(provideBaseUrl())
         .client(provideToken())
         .build()
 

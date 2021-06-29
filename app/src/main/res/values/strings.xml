@@ -27,4 +27,5 @@
     <string name="reload">text_reload</string>
     <string name="text_flight_status">Flight Status</string>
     <string name="text_seat_map">Seat Map</string>
+    <string name="text_delay_prediction">Delay Prediction</string>
 </resources>

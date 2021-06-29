@@ -33,6 +33,10 @@
             android:icon="@drawable/seat_map_main"
             android:title="@string/text_seat_map" />
         <item
+            android:id="@+id/nav_delay_prediction"
+            android:icon="@drawable/flight_delay_main"
+            android:title="@string/text_delay_prediction" />
+        <item
             android:id="@+id/nav_archive"
             android:icon="@drawable/saved_icon_main"
             android:title="@string/text_saved_offers" />
