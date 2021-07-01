@@ -30,7 +30,7 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
 
             if (flightOffersSearches is BaseApiResult.Success) {
                 flightLiveData.apply {
-                    flightLiveData?.value = flightOffersSearches.data
+                    flightLiveData?.postValue(flightOffersSearches.data)
                 }
             }
         }

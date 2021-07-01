@@ -8,7 +8,7 @@ import org.junit.BeforeClass
 import org.junit.Test
 
 class FlightTest {
-    companion object {
+    /*companion object {
         lateinit var tokenInitializer: TokenInitializer
         lateinit var moshi: Moshi
 
@@ -64,5 +64,5 @@ class FlightTest {
                 scheduledDepartureDate = "2021-06-22"
             ).succeeded
         )
-    }
+    }*/
 }

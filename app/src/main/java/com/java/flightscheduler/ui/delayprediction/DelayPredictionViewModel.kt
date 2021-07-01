@@ -17,17 +17,17 @@ class DelayPredictionViewModel @Inject constructor(
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
-    private var delayPredictionLiveData : MutableLiveData<List<DelayPrediction>> = MutableLiveData()
+    private var delayPredictionLiveData : MutableLiveData<List<DelayPrediction>>? = MutableLiveData()
 
-    fun getPredictionData() : MutableLiveData<List<DelayPrediction>>{
+    fun getPredictionData() : MutableLiveData<List<DelayPrediction>>?{
         scope.launch {
             val flightPredictionSearch = predictionRepository.get(
                 originLocationCode = "NCE",
                 destinationLocationCode = "IST",
                 departureDate = "2020-08-01",
-                departureTime = "18%3A20%3A00",
+                departureTime = "18:20:00",
                 arrivalDate = "2020-08-01",
-                arrivalTime = "22%3A15%3A00",
+                arrivalTime = "22:15:00",
                 aircraftCode = "321",
                 carrierCode = "TK",
                 flightNumber = "1231",
@@ -35,7 +35,7 @@ class DelayPredictionViewModel @Inject constructor(
             )
             if (flightPredictionSearch is BaseApiResult.Success) {
                 delayPredictionLiveData.apply {
-                    delayPredictionLiveData.value = flightPredictionSearch.data
+                    delayPredictionLiveData?.postValue(flightPredictionSearch.data)
                 }
             }
         }

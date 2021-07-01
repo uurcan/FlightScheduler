@@ -25,7 +25,7 @@ class DelayPredictionFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         predictionViewModel = ViewModelProvider(this).get(DelayPredictionViewModel::class.java)
-        predictionViewModel.getPredictionData().observe(viewLifecycleOwner,{
+        predictionViewModel.getPredictionData()?.observe(viewLifecycleOwner,{
             predictionData ->
                 if (predictionData != null){
                     text_delay_prediction.text = predictionData[1].probability.toString()

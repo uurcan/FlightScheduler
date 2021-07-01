@@ -18,18 +18,18 @@ class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMa
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
-    var seatMapLiveData : MutableLiveData<List<SeatMap>> = MutableLiveData()
+    private var seatMapLiveData : MutableLiveData<List<SeatMap>>? = MutableLiveData()
 
     fun getSeatMap() : MutableLiveData<List<SeatMap>>? {
         scope.launch {
 
             val flightDataResults = seatMapRepository.get(
-                url = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=KUL&departureDate=2021-06-29&adults=1&max=1"
+                url = "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=KUL&departureDate=2021-08-29&adults=1&max=1"
             )
             val seatMapResults = seatMapRepository.post(flightDataResults)
             if (seatMapResults is BaseApiResult.Success) {
                 seatMapLiveData.apply {
-                    seatMapLiveData.value = seatMapResults.data
+                    seatMapLiveData?.postValue(seatMapResults.data)
                 }
             }
         }

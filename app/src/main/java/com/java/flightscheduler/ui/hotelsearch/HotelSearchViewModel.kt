@@ -28,7 +28,7 @@ class HotelSearchViewModel @Inject constructor(private val hotelRepository: Hote
 
             if (hotelOfferSearches is BaseApiResult.Success) {
                 hotelLiveData.apply {
-                    hotelLiveData?.value = hotelOfferSearches.data
+                    hotelLiveData?.postValue(hotelOfferSearches.data)
                 }
             }
         }

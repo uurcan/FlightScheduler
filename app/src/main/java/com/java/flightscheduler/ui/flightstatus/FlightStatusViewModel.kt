@@ -34,7 +34,7 @@ class FlightStatusViewModel @Inject constructor(private val flightStatusReposito
 
             if (flightStatusResults is BaseApiResult.Success) {
                 flightStatusLiveData.apply {
-                    flightStatusLiveData?.value = flightStatusResults.data
+                    flightStatusLiveData?.postValue(flightStatusResults.data)
                 }
             }
         }
