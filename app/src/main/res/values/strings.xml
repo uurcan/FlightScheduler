@@ -28,4 +28,7 @@
     <string name="text_flight_status">Flight Status</string>
     <string name="text_seat_map">Seat Map</string>
     <string name="text_delay_prediction">Delay Prediction</string>
+    <string name="text_round_trip">Round Trip</string>
+    <string name="text_one_way">One Way</string>
+    <string name="text_flight_search">Flight Search</string>
 </resources>

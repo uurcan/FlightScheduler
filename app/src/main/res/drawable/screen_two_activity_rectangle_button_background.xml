@@ -1,0 +1,6 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<corners android:radius="@dimen/screen_two_activity_rectangle_button_radius"/>
+
+	<solid android:color="#000000"/>
+</shape>

@@ -29,7 +29,7 @@ class FlightSearchFragment : Fragment() {
         flightSearchViewModel.getFlightData()?.observe(viewLifecycleOwner, Observer {
             flightData ->
             if (flightData != null)
-                text_flight_offers.text = flightData[0].id.toString()
+                flightData[0].id.toString()
         })
     }
 }

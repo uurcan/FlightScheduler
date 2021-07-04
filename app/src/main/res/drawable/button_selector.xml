@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/button_selected_state_holder" android:state_checked="true" tools:ignore="StateListReachable" />
+    <item android:drawable="@drawable/button_unselected_state_holder"/>
+</selector>
