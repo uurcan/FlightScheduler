@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="From"
+                android:text="@string/text_from"
                 android:textSize="14sp"
                 android:textColor="@color/grey_700"
                 app:layout_constraintTop_toTopOf="parent"
@@ -120,13 +120,14 @@
                 android:id="@+id/edt_flight_search_origin"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"
                 app:layout_constraintTop_toBottomOf="@+id/tv_flight_search_from"
-                android:text="United States"
+                android:text="@string/text_origin"
                 android:textColor="#202040"
                 android:textSize="18sp"
                 android:inputType="text"
                 android:layout_height="wrap_content"/>
 
             <ImageView
+                android:contentDescription="@null"
                 android:src="@drawable/icon_flight_from"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -165,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:text="To"
+                android:text="@string/text_to"
                 android:textSize="14sp"
                 android:textColor="@color/grey_700"
                 app:layout_constraintTop_toTopOf="parent"
@@ -180,13 +181,14 @@
                 android:id="@+id/edt_flight_search_destination"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"
                 app:layout_constraintTop_toBottomOf="@+id/tv_flight_search_to"
-                android:text="London"
+                android:text="@string/text_destination"
                 android:textColor="#202040"
                 android:textSize="18sp"
                 android:inputType="text"
                 android:layout_height="wrap_content"/>
 
             <ImageView
+                android:contentDescription="@null"
                 android:src="@drawable/icon_flight_to"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -208,6 +210,7 @@
             android:layout_marginEnd="@dimen/margin_xlarge"
             android:layout_height="@dimen/flight_search_editor_dimen">
             <ImageView
+                android:contentDescription="@null"
                 android:padding="10dp"
                 android:background="@drawable/round_button"
                 android:src="@drawable/icon_flight_change"
@@ -248,36 +251,26 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_marginTop="@dimen/margin_medium"
-                android:id="@+id/txt_flight_search_arrival_date"
+            <com.google.android.material.textfield.TextInputEditText
+                app:layout_constraintRight_toLeftOf="@+id/img_flight_search_arrival_more"
+                android:id="@+id/edt_flight_search_arrival_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:text="Arrival Date"
-                android:textSize="14sp"
-                android:textColor="@color/grey_700"
+                android:layout_marginStart="@dimen/margin_small"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"/>
-
-            <com.google.android.material.textfield.TextInputEditText
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_width="wrap_content"
-                android:id="@+id/edt_flight_search_arrival_date"
-                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_search_arrival_date"
-                android:text="23 Oct 2021"
+                android:inputType="text"
+                android:text="@string/text_temp_date"
                 android:textColor="@color/grey_black_1000"
                 android:textSize="18sp"
-                android:inputType="text"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
+                tools:layout_editor_absoluteY="34dp" />
 
             <ImageView
-                android:src="@drawable/icon_flight_to"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_calendar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:padding="@dimen/margin_small"
@@ -285,9 +278,22 @@
                 android:layout_width="@dimen/flight_search_small_icon_dimen"
                 android:layout_height="@dimen/flight_search_small_icon_dimen"
                 android:id="@+id/img_flight_search_arrival_date"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_medium"/>
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"/>
 
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:id="@+id/img_flight_search_arrival_more"
+                android:src="@drawable/icon_flight_arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintLeft_toRightOf="@+id/edt_flight_search_arrival_date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_small_icon_dimen"
+                android:layout_height="@dimen/flight_search_small_icon_dimen"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -299,7 +305,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="@dimen/margin_small">
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginStart="5dp">
 
             <View
                 android:layout_width="0dp"
@@ -310,36 +317,26 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_marginTop="@dimen/margin_medium"
-                android:id="@+id/txt_flight_search_departure_date"
+            <com.google.android.material.textfield.TextInputEditText
+                app:layout_constraintRight_toLeftOf="@+id/img_flight_search_departure_more"
+                android:id="@+id/edt_flight_search_departure_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:text="Departure Date"
-                android:textSize="14sp"
-                android:textColor="@color/grey_700"
+                android:layout_marginStart="@dimen/margin_small"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"/>
-
-            <com.google.android.material.textfield.TextInputEditText
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_width="wrap_content"
-                android:id="@+id/edt_flight_search_departure_date"
-                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_search_departure_date"
-                android:text="29 Oct 2021"
+                android:inputType="text"
+                android:text="@string/text_temp_date"
                 android:textColor="@color/grey_black_1000"
                 android:textSize="18sp"
-                android:inputType="text"
-                android:layout_height="wrap_content"/>
+                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"
+                tools:layout_editor_absoluteY="34dp" />
 
             <ImageView
-                android:src="@drawable/icon_flight_to"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_calendar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:padding="@dimen/margin_small"
@@ -347,8 +344,22 @@
                 android:layout_width="@dimen/flight_search_small_icon_dimen"
                 android:layout_height="@dimen/flight_search_small_icon_dimen"
                 android:id="@+id/img_flight_search_departure_date"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_medium"/>
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"/>
+
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:id="@+id/img_flight_search_departure_more"
+                android:src="@drawable/icon_flight_arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintLeft_toRightOf="@+id/edt_flight_search_departure_date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_small_icon_dimen"
+                android:layout_height="@dimen/flight_search_small_icon_dimen"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
@@ -391,9 +402,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:text="1"
+                android:text="@string/text_one"
                 android:textSize="20sp"
-                android:textColor="@color/grey_700"
+                android:textColor="@color/grey_black_1000"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -407,14 +418,15 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
                 android:background="@android:color/transparent"
-                android:text="Adult"
+                android:text="@string/text_adult"
                 android:textColor="@color/grey_700"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_adult_count"
                 android:layout_marginStart="@dimen/margin_small" />
 
             <ImageView
-                android:src="@drawable/icon_flight_to"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_plus"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:padding="@dimen/margin_small"
@@ -426,7 +438,8 @@
                 android:layout_marginLeft="@dimen/margin_medium"/>
 
             <ImageView
-                android:src="@drawable/icon_flight_to"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_minus"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:padding="@dimen/margin_small"
@@ -465,9 +478,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:text="1"
+                android:text="@string/text_one"
                 android:textSize="20sp"
-                android:textColor="@color/grey_700"
+                android:textColor="@color/grey_black_1000"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
@@ -481,14 +494,15 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
                 android:background="@android:color/transparent"
-                android:text="Adult"
+                android:text="@string/text_child"
                 android:textColor="@color/grey_700"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_child_count"
                 android:layout_marginStart="@dimen/margin_small" />
 
             <ImageView
-                android:src="@drawable/icon_flight_to"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_plus"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:padding="@dimen/margin_small"
@@ -500,7 +514,8 @@
                 android:layout_marginLeft="@dimen/margin_medium"/>
 
             <ImageView
-                android:src="@drawable/icon_flight_to"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_minus"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:padding="@dimen/margin_small"
@@ -517,7 +532,7 @@
         android:textColor="@color/grey_white_1000"
         android:textSize="18sp"
         android:textAllCaps="false"
-        android:text="Search Flights"
+        android:text="@string/text_search_flights"
         android:layout_marginTop="@dimen/margin_xlarge"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"

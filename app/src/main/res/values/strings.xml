@@ -31,4 +31,13 @@
     <string name="text_round_trip">Round Trip</string>
     <string name="text_one_way">One Way</string>
     <string name="text_flight_search">Flight Search</string>
+    <string name="text_to">To</string>
+    <string name="text_destination">Destination</string>
+    <string name="text_temp_date">23 Oct 2021</string>
+    <string name="text_one">1</string>
+    <string name="text_adult">Adult</string>
+    <string name="text_search_flights">Search Flights</string>
+    <string name="text_origin">Origin</string>
+    <string name="text_from">From</string>
+    <string name="text_child">Child</string>
 </resources>
