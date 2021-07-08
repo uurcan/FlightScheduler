@@ -154,6 +154,7 @@
     <color name="green_A200">#5af158</color>
     <color name="green_A400">#14e715</color>
     <color name="green_A700">#12c700</color>
+    <color name="green_google">#0F9D58</color>
 
     <color name="light_green_50">#f1f8e9</color>
     <color name="light_green_100">#dcedc8</color>
@@ -268,6 +269,8 @@
     <color name="grey_900">#212121</color>
     <color name="grey_black_1000">#000000</color>
     <color name="grey_white_1000">#ffffff</color>
+    <color name="grey_google">#d4d4d4</color>
+
 
     <color name="blue_grey_50">#eceff1</color>
     <color name="blue_grey_100">#cfd8dc</color>

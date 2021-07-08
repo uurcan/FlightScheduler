@@ -263,7 +263,7 @@
                 android:inputType="text"
                 android:text="@string/text_temp_date"
                 android:textColor="@color/grey_black_1000"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
                 tools:layout_editor_absoluteY="34dp" />
 
@@ -320,7 +320,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/img_flight_search_departure_more"
                 android:id="@+id/edt_flight_search_departure_date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginStart="@dimen/margin_small"
                 app:layout_constraintTop_toTopOf="parent"
@@ -329,7 +329,7 @@
                 android:inputType="text"
                 android:text="@string/text_temp_date"
                 android:textColor="@color/grey_black_1000"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"
                 tools:layout_editor_absoluteY="34dp" />
 
