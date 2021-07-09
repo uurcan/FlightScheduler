@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@color/grey_300"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_flight_list_header"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/flight_search_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/flight_search_header_dimen">
+
+        <ImageView
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:id="@+id/img_flight_list_logo"
+            android:contentDescription="@null"
+            android:src="@drawable/icon_flight_plane_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="@dimen/flight_search_editor_dimen"
+            android:layout_height="@dimen/flight_search_editor_dimen"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginBottom="@dimen/margin_medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/img_flight_list_logo"
+            android:layout_marginRight="@dimen/margin_xlarge"
+            android:layout_marginEnd="@dimen/margin_xlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/txt_flight_detail_origin_iata"
+                android:textSize="30sp"
+                android:textColor="@color/grey_white_1000"
+                android:text="IST"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/txt_flight_detail_origin_city"
+                android:textSize="22sp"
+                android:textColor="@color/grey_white_1000"
+                android:text="Istanbul"
+                android:layout_marginLeft="@dimen/margin_xlarge"
+                android:layout_marginStart="@dimen/margin_xlarge"
+                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_origin_iata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginBottom="@dimen/margin_medium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/img_flight_list_logo"
+            android:layout_marginLeft="@dimen/margin_xlarge"
+            android:layout_marginStart="@dimen/margin_xlarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/txt_flight_detail_destination_iata"
+                android:textSize="30sp"
+                android:textColor="@color/grey_white_1000"
+                android:text="PVG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/txt_flight_detail_destination_city"
+                android:textSize="22sp"
+                android:textColor="@color/grey_white_1000"
+                android:text="Shanghai"
+                android:layout_marginLeft="@dimen/margin_xlarge"
+                android:layout_marginStart="@dimen/margin_xlarge"
+                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_destination_iata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin_extended"
+                android:layout_marginStart="@dimen/activity_horizontal_margin_extended"
+                android:textColor="@color/grey_white_1000"
+                android:text="One Way"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginRight="@dimen/activity_horizontal_margin_extended"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
+                android:textColor="@color/grey_white_1000"
+                android:text="2 Audits"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginBottom="@dimen/margin_small"
+                android:textColor="@color/grey_white_1000"
+                android:text="27 May 2021"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/margin_small"
+        android:id="@+id/rv_flight_list"
+        tools:listitem="@layout/list_flight_search_item"
+        app:layout_constraintTop_toBottomOf="@+id/layout_flight_list_header"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
