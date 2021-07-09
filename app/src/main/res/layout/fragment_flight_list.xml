@@ -139,12 +139,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_flight_l"
+        android:layout_marginTop="@dimen/margin_small"
+        android:id="@+id/rv_flight_list"
         tools:listitem="@layout/list_flight_search_item"
         app:layout_constraintTop_toBottomOf="@+id/layout_flight_list_header"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="575dp"/>
+        android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

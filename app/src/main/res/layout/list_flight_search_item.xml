@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_margin="@dimen/margin_small"
+    android:layout_marginStart="@dimen/margin_medium"
+    android:layout_marginEnd="@dimen/margin_medium"
+    android:layout_marginTop="@dimen/margin_small"
+    android:layout_marginBottom="@dimen/margin_small"
     android:layout_width="match_parent"
     android:layout_height="@dimen/flight_search_ticket_dimen"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,7 +12,6 @@
         app:ticketShadowColor="@color/grey_google"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ticketView"
         app:ticketOrientation="horizontal"
         app:ticketScallopRadius="10dp"
@@ -102,6 +104,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            app:layout_constraintBottom_toBottomOf="parent"
             android:contentDescription="@null"
             android:id="@+id/img_flight_list_logo_inner"
             android:src="@drawable/icon_flight_list_plane"
@@ -120,6 +123,7 @@
             android:layout_width="@dimen/flight_search_ticket_line"
             android:layout_height="@dimen/margin_x_small"/>
         <TextView
+            android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:text="TK1234"
@@ -129,6 +133,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:text="8h 30m"

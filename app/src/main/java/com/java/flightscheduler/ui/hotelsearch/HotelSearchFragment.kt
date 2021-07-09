@@ -21,16 +21,13 @@ class HotelSearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_hotel_offers, container, false)
+        return inflater.inflate(R.layout.fragment_flight_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hotelSearchFragment = ViewModelProvider(this).get(HotelSearchViewModel::class.java)
-        hotelSearchFragment.getHotelData()?.observe(viewLifecycleOwner, Observer {
-                hotelData ->
-            if (hotelData != null)
-                text_hotel_offers.text = hotelData[0].hotel?.contact?.phone.toString()
+        hotelSearchFragment.getHotelData()?.observe(viewLifecycleOwner, {
         })
     }
 }
