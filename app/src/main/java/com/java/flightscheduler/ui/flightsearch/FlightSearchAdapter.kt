@@ -1,38 +1,24 @@
 package com.java.flightscheduler.ui.flightsearch
 
-import androidx.recyclerview.widget.DiffUtil
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
-import com.java.flightscheduler.databinding.ItemFlightSearchBinding
-import com.java.flightscheduler.ui.base.BaseListAdapter
-import com.java.flightscheduler.utils.setSingleClick
 
-class FlightSearchAdapter (
-    val itemClickListener: (FlightOffer) -> Unit = {}
-) : BaseListAdapter<FlightOffer, ItemFlightSearchBinding>(object  : DiffUtil.ItemCallback<FlightOffer>() {
-    override fun areItemsTheSame(oldItem: FlightOffer, newItem: FlightOffer): Boolean {
-        return oldItem.id == newItem.id
+class FlightSearchAdapter(private val flightOffers: List<FlightOffer>)
+    : RecyclerView.Adapter<FlightViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_flight_search_item,parent,false)
+        return FlightViewHolder(view)
     }
 
-    override fun areContentsTheSame(oldItem: FlightOffer, newItem: FlightOffer): Boolean {
-        return oldItem == newItem
-    }
-}) {
-    override fun getLayoutRes(viewType: Int): Int {
-        return R.layout.item_flight_search
+    override fun onBindViewHolder(holder: FlightViewHolder, position: Int) {
+        holder.bind(flightOffers[position])
     }
 
-    override fun bindFirstTime(binding: ItemFlightSearchBinding) {
-        binding.apply {
-            root.setSingleClick {
-                flight?.apply {
-                    itemClickListener(this)
-                }
-            }
-        }
-    }
-
-    override fun bindView(binding: ItemFlightSearchBinding, item: FlightOffer, position: Int) {
-        TODO("Not yet implemented")
+    override fun getItemCount(): Int {
+        return flightOffers.size
     }
 }

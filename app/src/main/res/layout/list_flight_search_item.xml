@@ -123,6 +123,7 @@
             android:layout_width="@dimen/flight_search_ticket_line"
             android:layout_height="@dimen/margin_x_small"/>
         <TextView
+            android:id="@+id/flight_list_flight_number"
             android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -133,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/flight_list_flight_duration"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -158,7 +160,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:textSize="18sp"
-            android:text="Shanghai"
+            android:text="Kibris"
             android:id="@+id/txt_flight_detail_destination_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

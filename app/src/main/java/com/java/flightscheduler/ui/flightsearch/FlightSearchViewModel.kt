@@ -20,12 +20,12 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
     fun getFlightData() : MutableLiveData<List<FlightOffer>>?{
         scope.launch {
             val flightOffersSearches = flightRepository.get(
-                originLocationCode = "SYD",
-                destinationLocationCode = "BKK",
-                departureDate = "2021-06-26",
-                returnDate = "2021-06-29",
-                adults = 2,
-                max = 3
+                originLocationCode = "IST",
+                destinationLocationCode = "ECN",
+                departureDate = "2021-07-26",
+                adults = 1,
+                excludedAirlineCodes = "PC",
+                max = 10
             )
 
             if (flightOffersSearches is BaseApiResult.Success) {
