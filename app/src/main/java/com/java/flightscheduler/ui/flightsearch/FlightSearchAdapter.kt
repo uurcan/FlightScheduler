@@ -1,38 +1,31 @@
 package com.java.flightscheduler.ui.flightsearch
 
-import androidx.recyclerview.widget.DiffUtil
-import com.java.flightscheduler.R
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.java.flightscheduler.data.model.flight.FlightOffer
-import com.java.flightscheduler.databinding.ItemFlightSearchBinding
-import com.java.flightscheduler.ui.base.BaseListAdapter
-import com.java.flightscheduler.utils.setSingleClick
+import com.java.flightscheduler.databinding.ListFlightSearchItemBinding
+import com.task.ui.base.listeners.RecyclerItemListener
 
-class FlightSearchAdapter (
-    val itemClickListener: (FlightOffer) -> Unit = {}
-) : BaseListAdapter<FlightOffer, ItemFlightSearchBinding>(object  : DiffUtil.ItemCallback<FlightOffer>() {
-    override fun areItemsTheSame(oldItem: FlightOffer, newItem: FlightOffer): Boolean {
-        return oldItem.id == newItem.id
-    }
+class FlightSearchAdapter(private val flightOffers: List<FlightOffer>)
+    : RecyclerView.Adapter<FlightViewHolder>() {
 
-    override fun areContentsTheSame(oldItem: FlightOffer, newItem: FlightOffer): Boolean {
-        return oldItem == newItem
-    }
-}) {
-    override fun getLayoutRes(viewType: Int): Int {
-        return R.layout.item_flight_search
-    }
-
-    override fun bindFirstTime(binding: ItemFlightSearchBinding) {
-        binding.apply {
-            root.setSingleClick {
-                flight?.apply {
-                    itemClickListener(this)
-                }
-            }
+    private val onItemClickListener: RecyclerItemListener = object : RecyclerItemListener {
+        override fun onItemSelected(recipe: FlightOffer) {
+            //todo details
         }
     }
 
-    override fun bindView(binding: ItemFlightSearchBinding, item: FlightOffer, position: Int) {
-        TODO("Not yet implemented")
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightViewHolder {
+        val itemBinding = ListFlightSearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return FlightViewHolder(itemBinding)
+    }
+
+    override fun onBindViewHolder(holder: FlightViewHolder, position: Int) {
+        holder.bind(flightOffers[position], onItemClickListener)
+    }
+
+    override fun getItemCount(): Int {
+        return flightOffers.size
     }
 }

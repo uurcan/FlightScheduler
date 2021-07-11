@@ -5,31 +5,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.java.flightscheduler.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.java.flightscheduler.databinding.FragmentFlightListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_flight_offers.*
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment() {
+    private lateinit var binding: FragmentFlightListBinding
     private lateinit var flightSearchViewModel: FlightSearchViewModel
+    private lateinit var flightSearchAdapter : FlightSearchAdapter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_flight_offers, container, false)
+        val binding: FragmentFlightListBinding = FragmentFlightListBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val layoutManager = LinearLayoutManager(context)
+        binding.rvFlightList.layoutManager = layoutManager
+        binding.rvFlightList.setHasFixedSize(true)
+        flightSearchViewModel.getFlightData()
+
         flightSearchViewModel = ViewModelProvider(this).get(FlightSearchViewModel::class.java)
-        flightSearchViewModel.getFlightData()?.observe(viewLifecycleOwner, Observer {
+        flightSearchViewModel.getFlightData()?.observe(viewLifecycleOwner, {
             flightData ->
-            if (flightData != null)
-                flightData[0].id.toString()
+                flightSearchAdapter = FlightSearchAdapter(flightData)
+                binding.rvFlightList.adapter = flightSearchAdapter
         })
     }
 }

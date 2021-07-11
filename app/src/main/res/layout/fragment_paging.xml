@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
-        <import type="android.view.View"/>
-        <variable
-            name="viewModel"
-            type="com.java.flightscheduler.ui.base.paging.BasePagingViewModel" />
-    </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
-        android:background="@color/grey_white_1000"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/container"
+    android:background="@color/grey_white_1000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
-            app:isRefreshing="@{viewModel.isRefresh()}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +25,6 @@
             android:id="@+id/progress_loading"
             style="?android:attr/progressBarStyleLarge"
             android:layout_marginBottom="16dp"
-            app:isLoading="@{viewModel.isLoading()}"
             app:layout_constraintBottom_toTopOf="@+id/text_empty"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +39,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/grey_black_1000"
             android:textSize="30sp"
-            android:visibility="@{viewModel.isEmptyList() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@+id/button_reload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,15 +47,12 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_reload"
-            clickSafe="@{ () -> viewModel.reload() }"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/reload"
-            android:visibility="@{viewModel.isEmptyList() ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_empty"
             app:layout_constraintWidth_percent="0.3"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data class="ListFlightSearchItemBinding"/>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_marginStart="@dimen/margin_medium"
     android:layout_marginEnd="@dimen/margin_medium"
     android:layout_marginTop="@dimen/margin_small"
     android:layout_marginBottom="@dimen/margin_small"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/flight_search_ticket_dimen"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="@dimen/flight_search_ticket_dimen">
     <com.vipulasri.ticketview.TicketView
         app:ticketShadowColor="@color/grey_google"
         android:layout_width="match_parent"
@@ -211,3 +212,4 @@
         android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

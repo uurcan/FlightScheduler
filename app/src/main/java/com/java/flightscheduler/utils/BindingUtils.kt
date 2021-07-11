@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.java.flightscheduler.data.constants.TimeConstants
 
+/*
 @BindingAdapter("isRefreshing")
 fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?){
     isRefreshing = refreshing == true
@@ -43,4 +44,4 @@ fun View.setSingleClick(execution: () -> Unit) {
             execution.invoke()
         }
     })
-}
+}*/
