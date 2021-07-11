@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.remote.api.services
+package com.java.flightscheduler.data.remote.services
 
 import com.java.flightscheduler.data.model.auth.AccessToken
 import retrofit2.Call

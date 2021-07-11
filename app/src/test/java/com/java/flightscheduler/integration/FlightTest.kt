@@ -1,12 +1,5 @@
 package com.java.flightscheduler.integration
 
-import com.java.flightscheduler.data.remote.response.TokenInitializer
-import com.squareup.moshi.Moshi
-import kotlinx.coroutines.runBlocking
-import okhttp3.logging.HttpLoggingInterceptor
-import org.junit.BeforeClass
-import org.junit.Test
-
 class FlightTest {
     /*companion object {
         lateinit var tokenInitializer: TokenInitializer

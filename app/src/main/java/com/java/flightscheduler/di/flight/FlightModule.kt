@@ -1,7 +1,7 @@
 package com.java.flightscheduler.di.flight
 
-import com.java.flightscheduler.data.remote.api.services.*
-import com.java.flightscheduler.data.remote.response.TokenInitializer
+import com.java.flightscheduler.data.remote.repository.TokenRepository
+import com.java.flightscheduler.data.remote.services.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 object FlightModule {
     @Singleton
     @Provides
-    fun provideToken() : OkHttpClient = TokenInitializer().tokenClient
+    fun provideToken() : OkHttpClient = TokenRepository().tokenClient
 
     @Singleton
     @Provides
@@ -31,7 +31,8 @@ object FlightModule {
 
     @Singleton
     @Provides
-    fun provideFlightStatus(retrofit: Retrofit) : FlightStatusService = retrofit.create(FlightStatusService::class.java)
+    fun provideFlightStatus(retrofit: Retrofit) : FlightStatusService = retrofit.create(
+        FlightStatusService::class.java)
 
     @Singleton
     @Provides
@@ -39,5 +40,6 @@ object FlightModule {
 
     @Singleton
     @Provides
-    fun provideDelayPredictions(retrofit: Retrofit) : PredictionService = retrofit.create(PredictionService::class.java)
+    fun provideDelayPredictions(retrofit: Retrofit) : PredictionService = retrofit.create(
+        PredictionService::class.java)
 }

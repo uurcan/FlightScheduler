@@ -3,7 +3,7 @@ package com.java.flightscheduler.ui.flightsearch
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.flight.FlightOffer
-import com.java.flightscheduler.data.repository.FlightRepository
+import com.java.flightscheduler.data.remote.repository.FlightRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*

@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.remote.api.services
+package com.java.flightscheduler.data.remote.services
 
 import com.java.flightscheduler.data.model.metrics.ItineraryPriceMetrics
 import com.java.flightscheduler.data.remote.request.base.BaseApiResponse

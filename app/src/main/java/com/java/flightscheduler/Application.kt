@@ -5,6 +5,5 @@ import androidx.multidex.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FlightApplication : Application() {
-}
+class FlightApplication : Application()
 fun enableLogging() = BuildConfig.BUILD_TYPE != "release"

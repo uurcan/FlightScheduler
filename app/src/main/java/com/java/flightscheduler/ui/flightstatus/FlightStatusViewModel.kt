@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.status.base.FlightStatus
-import com.java.flightscheduler.data.remote.response.TokenInitializer
-import com.java.flightscheduler.data.repository.FlightStatusRepository
+import com.java.flightscheduler.data.remote.repository.TokenRepository
+import com.java.flightscheduler.data.remote.repository.FlightStatusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,10 +20,10 @@ class FlightStatusViewModel @Inject constructor(private val flightStatusReposito
 
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     private var flightStatusLiveData : MutableLiveData<List<FlightStatus>>? = MutableLiveData()
-    private lateinit var tokenInitializer: TokenInitializer
+    private lateinit var tokenRepository: TokenRepository
 
     fun getFlightStatusLiveData() : MutableLiveData<List<FlightStatus>>?{
-        tokenInitializer = TokenInitializer()
+        tokenRepository = TokenRepository()
 
         scope.launch {
             val flightStatusResults = flightStatusRepository.get(

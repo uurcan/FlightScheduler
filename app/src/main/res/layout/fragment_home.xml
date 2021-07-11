@@ -4,7 +4,7 @@
         <import type="android.view.View" />
         <variable
             name="placeComponent"
-            type="com.java.flightscheduler.data.model.Places" />
+            type="com.java.flightscheduler.data.model.places.Places" />
         <variable
             name="viewModel"
             type="com.java.flightscheduler.ui.home.HomeViewModel"/>

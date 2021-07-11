@@ -2,9 +2,8 @@ package com.java.flightscheduler.di
 
 import android.content.Context
 import com.java.flightscheduler.di.flight.FlightModule.provideToken
-import com.java.flightscheduler.utils.adapters.BigDecimalJsonAdapter
-import com.java.flightscheduler.utils.adapters.NumbersAdapter
-import com.java.flightscheduler.utils.adapters.TypesAdapterFactory
+import com.java.flightscheduler.utils.NumbersAdapter
+import com.java.flightscheduler.utils.TypesAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

@@ -3,7 +3,7 @@ package com.java.flightscheduler.ui.delayprediction
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.prediction.DelayPrediction
-import com.java.flightscheduler.data.repository.PredictionRepository
+import com.java.flightscheduler.data.remote.repository.PredictionRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*

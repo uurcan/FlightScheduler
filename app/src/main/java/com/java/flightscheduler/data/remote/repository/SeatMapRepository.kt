@@ -1,6 +1,6 @@
-package com.java.flightscheduler.data.repository
+package com.java.flightscheduler.data.remote.repository
 
-import com.java.flightscheduler.data.remote.api.services.SeatMapService
+import com.java.flightscheduler.data.remote.services.SeatMapService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.java.flightscheduler.di.dispatcher.IoDispatcher
 import com.squareup.moshi.Moshi

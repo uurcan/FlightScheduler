@@ -1,7 +1,7 @@
-package com.java.flightscheduler.data.remote.response
+package com.java.flightscheduler.data.remote.repository
 
 import com.java.flightscheduler.data.model.auth.AccessToken
-import com.java.flightscheduler.data.remote.api.services.TokenService
+import com.java.flightscheduler.data.remote.services.TokenService
 import com.java.flightscheduler.data.remote.request.auth.TokenAuthenticator
 import com.java.flightscheduler.data.remote.request.auth.TokenInterceptor
 import com.java.flightscheduler.data.remote.request.auth.TokenProvider
@@ -18,7 +18,7 @@ import com.java.flightscheduler.data.constants.TimeConstants.HTTP_TIMEOUT
 import com.java.flightscheduler.data.constants.TimeConstants.HTTP_VALID_UNTIL
 import com.java.flightscheduler.data.constants.TimeConstants.TOKEN_VALIDITY_MILLISECONDS
 
-class TokenInitializer : TokenProvider{
+class TokenRepository : TokenProvider{
 
     private val tokenService : TokenService
     private var accessToken : AccessToken? = null

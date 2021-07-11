@@ -1,6 +1,7 @@
-package com.java.flightscheduler
+package com.java.flightscheduler.ui
 
 import androidx.activity.viewModels
+import com.java.flightscheduler.R
 import com.java.flightscheduler.databinding.ActivityMainBinding
 import com.java.flightscheduler.ui.base.BaseActivity
 import com.java.flightscheduler.ui.base.BaseViewModel

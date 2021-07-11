@@ -1,4 +1,4 @@
-package com.java.flightscheduler.utils.adapters
+package com.java.flightscheduler.utils
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.JsonReader

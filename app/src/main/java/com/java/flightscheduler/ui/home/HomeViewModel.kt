@@ -2,7 +2,7 @@ package com.java.flightscheduler.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.java.flightscheduler.data.model.Places
+import com.java.flightscheduler.data.model.places.Places
 import com.java.flightscheduler.ui.base.BaseViewModel
 import javax.inject.Inject
 

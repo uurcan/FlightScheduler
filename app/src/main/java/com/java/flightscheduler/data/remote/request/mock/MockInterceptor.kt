@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.remote.api
+package com.java.flightscheduler.data.remote.request.mock
 
 import android.content.res.AssetManager
 import okhttp3.Interceptor
