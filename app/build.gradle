@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.java.flightscheduler"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -116,6 +116,7 @@ dependencies {
 
     //ticket view
     implementation 'com.vipulasri:ticketview:1.1.2'
+    implementation 'com.github.yongbeam:AirCalendar:1.2.1'
 
     //unit test
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")

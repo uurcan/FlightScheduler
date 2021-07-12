@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     package="com.java.flightscheduler">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -21,6 +22,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.base.BaseActivity" />
+        <activity android:name="com.yongbeom.aircalendar.AirCalendarDatePickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            app:colorCurrentDay ="@color/red_google"
+            app:colorSelectedDayBackground ="@color/red_google"
+            app:colorPreviousDay ="@color/red_google"/>
     </application>
 
 </manifest>
