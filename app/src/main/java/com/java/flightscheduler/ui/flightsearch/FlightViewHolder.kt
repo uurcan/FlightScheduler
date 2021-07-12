@@ -13,9 +13,9 @@ class FlightViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val segments : SearchSegment? = recipesItem.itineraries?.get(0)?.segments?.get(0)
         itemView.txt_flight_detail_origin_iata.text = segments?.departure?.iataCode
         itemView.txt_flight_detail_destination_iata.text = segments?.arrival?.iataCode
+        itemView.txt_flight_detail_origin_local_date.text = segments?.departure?.at?.substring(11,16)
+        itemView.txt_flight_detail_destination_local_date.text = segments?.arrival?.at?.substring(11,16)
         itemView.txt_flight_list_price.text = StringBuilder(recipesItem.price?.grandTotal.toString() + "€")
-        itemView.txt_flight_detail_origin_local_date.text = segments?.departure?.at?.substring(11,19)
-        itemView.txt_flight_detail_destination_local_date.text = segments?.arrival?.at?.substring(11,19)
         itemView.flight_list_flight_number.text = StringBuilder(segments?.carrierCode + "-" + segments?.number)
         itemView.flight_list_flight_duration.text = segments?.duration
     }
