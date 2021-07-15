@@ -41,4 +41,6 @@
     <string name="text_from">From</string>
     <string name="text_child">Child</string>
     <string name="text_zero">0</string>
+    <string name="text_date_parser_format">yyyy-MM-dd</string>
+    <string name="text_date_formatter">dd MMM yyyy</string>
 </resources>

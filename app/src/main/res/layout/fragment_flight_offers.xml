@@ -112,6 +112,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
 
             <com.google.android.material.textfield.TextInputEditText
+                android:textColorHint="@color/grey_black_1000"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -120,7 +121,7 @@
                 android:id="@+id/edt_flight_search_origin"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"
                 app:layout_constraintTop_toBottomOf="@+id/tv_flight_search_from"
-                android:text="@string/text_origin"
+                android:hint="@string/text_origin"
                 android:textColor="#202040"
                 android:textSize="18sp"
                 android:inputType="text"
@@ -178,10 +179,11 @@
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
+                android:textColorHint="@color/grey_black_1000"
                 android:id="@+id/edt_flight_search_destination"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"
                 app:layout_constraintTop_toBottomOf="@+id/tv_flight_search_to"
-                android:text="@string/text_destination"
+                android:hint="@string/text_destination"
                 android:textColor="#202040"
                 android:textSize="18sp"
                 android:inputType="text"
