@@ -6,10 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.yongbeom.aircalendar.AirCalendarDatePickerActivity
@@ -21,7 +25,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment() {
-    private lateinit var flightSearchViewModel : FlightSearchViewModel
+    private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private lateinit var  flightSearch : FlightSearch
     private lateinit var departureDate : String
     private lateinit var arrivalDate : String
@@ -47,28 +51,24 @@ class FlightSearchFragment : Fragment() {
     private fun saveFlightResults() {
         val flightSearchOrigin : String = edt_flight_search_origin.text.toString()
         val flightSearchDestination : String = edt_flight_search_destination.text.toString()
-        flightSearchViewModel = ViewModelProvider(this).get(FlightSearchViewModel::class.java)
 
-        flightSearch = FlightSearch(flightSearchOrigin
-            ,flightSearchDestination
-            ,departureDate
-            ,arrivalDate
-            ,1
-            ,"PC"
-            ,10)
+        flightSearch = FlightSearch(
+            flightSearchOrigin, flightSearchDestination, departureDate, arrivalDate, 1, "PC", 10
+        )
 
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
         beginTransaction()
     }
 
     private fun beginTransaction() {
+        val fragmentManager : FragmentManager? = activity?.supportFragmentManager
         fragmentManager?.beginTransaction()
-            ?.replace(R.id.nav_host_fragment,FlightResultsFragment())
+            ?.add(R.id.nav_host_fragment, FlightResultsFragment())
+            ?.addToBackStack("FlightSearchFragment")
             ?.commit()
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.let { initializeDateParser(it) }
         }
@@ -87,10 +87,22 @@ class FlightSearchFragment : Fragment() {
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun initializeDateParser(data: Intent) {
-        val parser = SimpleDateFormat(getString(R.string.text_date_parser_format),Locale.ENGLISH)
-        val formatter = SimpleDateFormat(getString(R.string.text_date_formatter),Locale.ENGLISH)
-        val parsedDeparture: String = formatter.format(parser.parse(data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE)))
-        val parsedArrival: String = formatter.format(parser.parse(data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE)))
+        val parser = SimpleDateFormat(getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(getString(R.string.text_date_formatter), Locale.ENGLISH)
+        val parsedDeparture: String = formatter.format(
+            parser.parse(
+                data.getStringExtra(
+                    AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE
+                )
+            )
+        )
+        val parsedArrival: String = formatter.format(
+            parser.parse(
+                data.getStringExtra(
+                    AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE
+                )
+            )
+        )
 
         departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
         arrivalDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()

@@ -111,7 +111,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:textColorHint="@color/grey_black_1000"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="@dimen/margin_small"
@@ -173,7 +173,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"/>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
                 android:background="@android:color/transparent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"

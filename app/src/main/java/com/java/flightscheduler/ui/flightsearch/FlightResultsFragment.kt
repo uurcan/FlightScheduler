@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.R
@@ -14,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_flight_list.*
 
 @AndroidEntryPoint
 class FlightResultsFragment : Fragment() {
-    private lateinit var flightSearchViewModel: FlightSearchViewModel
+    private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private lateinit var flightSearchAdapter : FlightSearchAdapter
     private var flightSearch : FlightSearch? = null
 
@@ -32,8 +34,7 @@ class FlightResultsFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         rv_flight_list.layoutManager = layoutManager
         rv_flight_list.setHasFixedSize(true)
-        flightSearchViewModel = ViewModelProvider(this).get(FlightSearchViewModel::class.java)
-        flightSearch = flightSearchViewModel.getFlightSearchLiveData()
+        flightSearch = flightSearchViewModel.getFlightSearchLiveData()?.value
         flightSearch?.let {
             flightSearchViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
                 flightSearchAdapter = FlightSearchAdapter(flightData)
