@@ -1,8 +1,10 @@
 package com.java.flightscheduler.ui.flightsearch
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.remote.repository.FlightRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,18 +16,18 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
+    private var flightSearchLiveData : MutableLiveData<FlightSearch>? = MutableLiveData()
 
-    fun getFlightData() : MutableLiveData<List<FlightOffer>>?{
+    fun getFlightData(flightSearch : FlightSearch) : MutableLiveData<List<FlightOffer>>?{
         scope.launch {
             val flightOffersSearches = flightRepository.get(
-                originLocationCode = "IST",
-                destinationLocationCode = "ECN",
-                departureDate = "2021-07-26",
-                adults = 1,
-                excludedAirlineCodes = "PC",
-                max = 10
+                originLocationCode = flightSearch.originLocationCode,
+                destinationLocationCode = flightSearch.destinationLocationCode,
+                departureDate = flightSearch.departureDate,
+                adults = flightSearch.adults,
+                excludedAirlineCodes = flightSearch.excludedAirlineCodes,
+                max = flightSearch.max
             )
 
             if (flightOffersSearches is BaseApiResult.Success) {
@@ -36,4 +38,9 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
         }
         return flightLiveData
     }
+
+    fun setFlightSearchLiveData(flightSearch: FlightSearch){
+        flightSearchLiveData?.value = flightSearch
+    }
+    fun getFlightSearchLiveData() : LiveData<FlightSearch>? = flightSearchLiveData
 }
