@@ -76,7 +76,7 @@
                 android:id="@+id/txt_flight_detail_destination_iata"
                 android:textSize="26sp"
                 android:textColor="@color/grey_white_1000"
-                android:text="ECN"
+                android:text="ADB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -84,7 +84,7 @@
                 android:id="@+id/txt_flight_detail_destination_city"
                 android:textSize="20sp"
                 android:textColor="@color/grey_white_1000"
-                android:text="Kibris"
+                android:text="Izmir"
                 android:layout_marginLeft="@dimen/margin_xlarge"
                 android:layout_marginStart="@dimen/margin_xlarge"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_destination_iata"

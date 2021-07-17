@@ -3,28 +3,30 @@ package com.java.flightscheduler.ui.flightsearch
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Adapter
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.activityViewModels
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.*
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
+import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
 import com.yongbeom.aircalendar.AirCalendarDatePickerActivity
 import com.yongbeom.aircalendar.core.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_flight_offers.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class FlightSearchFragment : Fragment() {
+class FlightSearchFragment : Fragment(),View.OnClickListener {
+    private lateinit var fragmentFlightOffersBinding : FragmentFlightOffersBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private lateinit var  flightSearch : FlightSearch
     private lateinit var departureDate : String
@@ -35,25 +37,35 @@ class FlightSearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_flight_offers, container, false)
+        fragmentFlightOffersBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_offers,container,false)
+        return fragmentFlightOffersBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        layout_flight_arrival_picker.setOnClickListener {
-            initializeDatePicker()
-        }
-        btn_flight_search_flights.setOnClickListener {
-            saveFlightResults()
-        }
+        initializeAirportDropdown()
+        fragmentFlightOffersBinding.btnFlightOneWay.setOnClickListener(this)
+        fragmentFlightOffersBinding.btnFlightRoundTrip.setOnClickListener(this)
+        fragmentFlightOffersBinding.layoutFlightDeparturePicker.setOnClickListener(this)
+        fragmentFlightOffersBinding.btnFlightSearchFlights.setOnClickListener(this)
+    }
+
+    private fun initializeAirportDropdown() {
+        val cities = arrayOf("İstanbul","İzmir")
+        val adapter =
+            context?.let {
+                ArrayAdapter(it,android.R.layout.simple_list_item_1,cities)
+            }
+        fragmentFlightOffersBinding.edtFlightSearchOrigin.setAdapter(adapter)
+        fragmentFlightOffersBinding.edtFlightSearchDestination.setAdapter(adapter)
     }
 
     private fun saveFlightResults() {
-        val flightSearchOrigin : String = edt_flight_search_origin.text.toString()
-        val flightSearchDestination : String = edt_flight_search_destination.text.toString()
+        val flightSearchOrigin : String = fragmentFlightOffersBinding.edtFlightSearchOrigin.text.toString()
+        val flightSearchDestination : String = fragmentFlightOffersBinding.edtFlightSearchDestination.text.toString()
 
         flightSearch = FlightSearch(
-            flightSearchOrigin, flightSearchDestination, departureDate, arrivalDate, 1, "PC", 10
+            flightSearchOrigin, flightSearchDestination, departureDate, arrivalDate, 1, null, 10
         )
 
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
@@ -61,11 +73,10 @@ class FlightSearchFragment : Fragment() {
     }
 
     private fun beginTransaction() {
-        val fragmentManager : FragmentManager? = activity?.supportFragmentManager
-        fragmentManager?.beginTransaction()
-            ?.add(R.id.nav_host_fragment, FlightResultsFragment())
-            ?.addToBackStack("FlightSearchFragment")
-            ?.commit()
+        activity?.supportFragmentManager?.commit {
+            setReorderingAllowed(true)
+            add<FlightResultsFragment>(R.id.nav_host_fragment,null)
+        }
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -79,7 +90,7 @@ class FlightSearchFragment : Fragment() {
         intent.setSelectButtonText("Select")
         intent.setResetBtnText("Reset")
         intent.isBooking(false)
-        intent.isSelect(false)
+        intent.isSingleSelect(true)
         intent.isMonthLabels(false)
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
         startForResult.launch(intent)
@@ -92,7 +103,7 @@ class FlightSearchFragment : Fragment() {
         val parsedDeparture: String = formatter.format(
             parser.parse(
                 data.getStringExtra(
-                    AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE
+                    AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE,
                 )
             )
         )
@@ -106,7 +117,30 @@ class FlightSearchFragment : Fragment() {
 
         departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
         arrivalDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
-        txt_flight_search_departure_date.text = parsedDeparture
-        txt_flight_search_arrival_date.text = parsedArrival
+        fragmentFlightOffersBinding.txtFlightSearchDepartureDate.text = parsedDeparture
+        fragmentFlightOffersBinding.txtFlightSearchArrivalDate.text = parsedArrival
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            fragmentFlightOffersBinding.btnFlightOneWay.id -> initOneWayAnimation()
+            fragmentFlightOffersBinding.btnFlightRoundTrip.id -> initRoundTripAnimation()
+            fragmentFlightOffersBinding.layoutFlightDeparturePicker.id -> initializeDatePicker()
+            fragmentFlightOffersBinding.btnFlightSearchFlights.id -> saveFlightResults()
+        }
+    }
+
+    private fun initRoundTripAnimation() {
+        fragmentFlightOffersBinding.btnFlightRoundTrip.isSelected = true
+        TransitionManager.beginDelayedTransition(fragmentFlightOffersBinding.layoutFlightArrivalPicker)
+        fragmentFlightOffersBinding.layoutFlightDeparturePicker.layoutParams.width = 0
+        fragmentFlightOffersBinding.layoutFlightArrivalPicker.visibility = VISIBLE
+    }
+
+    private fun initOneWayAnimation() {
+        fragmentFlightOffersBinding.btnFlightOneWay.isSelected = true
+        TransitionManager.beginDelayedTransition(fragmentFlightOffersBinding.layoutFlightArrivalPicker)
+        fragmentFlightOffersBinding.layoutFlightDeparturePicker.layoutParams.width = MATCH_PARENT
+        fragmentFlightOffersBinding.layoutFlightArrivalPicker.visibility = GONE
     }
 }
