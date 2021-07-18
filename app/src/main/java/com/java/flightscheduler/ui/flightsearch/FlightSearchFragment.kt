@@ -11,6 +11,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
@@ -26,8 +27,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
-    private lateinit var fragmentFlightOffersBinding : FragmentFlightOffersBinding
+    private lateinit var binding : FragmentFlightOffersBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
+    private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
     private lateinit var  flightSearch : FlightSearch
     private lateinit var departureDate : String
     private lateinit var arrivalDate : String
@@ -37,18 +39,24 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentFlightOffersBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_offers,container,false)
-        return fragmentFlightOffersBinding.root
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_offers,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeViews()
         initializeAirportDropdown()
-        fragmentFlightOffersBinding.btnFlightOneWay.setOnClickListener(this)
-        fragmentFlightOffersBinding.btnFlightRoundTrip.setOnClickListener(this)
-        fragmentFlightOffersBinding.layoutFlightDeparturePicker.setOnClickListener(this)
-        fragmentFlightOffersBinding.btnFlightSearchFlights.setOnClickListener(this)
+        temp()
     }
+
+    private fun temp() {
+        context?.let { flightRoutesViewModel.getIATACodes()?.observe(viewLifecycleOwner,{
+            iataCode ->
+                Toast.makeText(context,iataCode[5].LOCAL_CODE.toString(),Toast.LENGTH_LONG).show()
+        }) }
+    }
+
 
     private fun initializeAirportDropdown() {
         val cities = arrayOf("İstanbul","İzmir")
@@ -56,13 +64,13 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
             context?.let {
                 ArrayAdapter(it,android.R.layout.simple_list_item_1,cities)
             }
-        fragmentFlightOffersBinding.edtFlightSearchOrigin.setAdapter(adapter)
-        fragmentFlightOffersBinding.edtFlightSearchDestination.setAdapter(adapter)
+        binding.edtFlightSearchOrigin.setAdapter(adapter)
+        binding.edtFlightSearchDestination.setAdapter(adapter)
     }
 
     private fun saveFlightResults() {
-        val flightSearchOrigin : String = fragmentFlightOffersBinding.edtFlightSearchOrigin.text.toString()
-        val flightSearchDestination : String = fragmentFlightOffersBinding.edtFlightSearchDestination.text.toString()
+        val flightSearchOrigin : String = binding.edtFlightSearchOrigin.text.toString()
+        val flightSearchDestination : String = binding.edtFlightSearchDestination.text.toString()
 
         flightSearch = FlightSearch(
             flightSearchOrigin, flightSearchDestination, departureDate, arrivalDate, 1, null, 10
@@ -117,30 +125,37 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
 
         departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
         arrivalDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
-        fragmentFlightOffersBinding.txtFlightSearchDepartureDate.text = parsedDeparture
-        fragmentFlightOffersBinding.txtFlightSearchArrivalDate.text = parsedArrival
+        binding.txtFlightSearchDepartureDate.text = parsedDeparture
+        binding.txtFlightSearchArrivalDate.text = parsedArrival
     }
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-            fragmentFlightOffersBinding.btnFlightOneWay.id -> initOneWayAnimation()
-            fragmentFlightOffersBinding.btnFlightRoundTrip.id -> initRoundTripAnimation()
-            fragmentFlightOffersBinding.layoutFlightDeparturePicker.id -> initializeDatePicker()
-            fragmentFlightOffersBinding.btnFlightSearchFlights.id -> saveFlightResults()
+            binding.btnFlightOneWay.id -> initOneWayAnimation()
+            binding.btnFlightRoundTrip.id -> initRoundTripAnimation()
+            binding.layoutFlightDeparturePicker.id -> initializeDatePicker()
+            binding.btnFlightSearchFlights.id -> saveFlightResults()
         }
     }
 
+    private fun initializeViews() {
+        binding.btnFlightOneWay.setOnClickListener(this)
+        binding.btnFlightRoundTrip.setOnClickListener(this)
+        binding.layoutFlightDeparturePicker.setOnClickListener(this)
+        binding.btnFlightSearchFlights.setOnClickListener(this)
+    }
+
     private fun initRoundTripAnimation() {
-        fragmentFlightOffersBinding.btnFlightRoundTrip.isSelected = true
-        TransitionManager.beginDelayedTransition(fragmentFlightOffersBinding.layoutFlightArrivalPicker)
-        fragmentFlightOffersBinding.layoutFlightDeparturePicker.layoutParams.width = 0
-        fragmentFlightOffersBinding.layoutFlightArrivalPicker.visibility = VISIBLE
+        TransitionManager.beginDelayedTransition(binding.layoutFlightArrivalPicker)
+        binding.btnFlightRoundTrip.isSelected = true
+        binding.layoutFlightDeparturePicker.layoutParams.width = 0
+        binding.layoutFlightArrivalPicker.visibility = VISIBLE
     }
 
     private fun initOneWayAnimation() {
-        fragmentFlightOffersBinding.btnFlightOneWay.isSelected = true
-        TransitionManager.beginDelayedTransition(fragmentFlightOffersBinding.layoutFlightArrivalPicker)
-        fragmentFlightOffersBinding.layoutFlightDeparturePicker.layoutParams.width = MATCH_PARENT
-        fragmentFlightOffersBinding.layoutFlightArrivalPicker.visibility = GONE
+        TransitionManager.beginDelayedTransition(binding.layoutFlightArrivalPicker)
+        binding.btnFlightOneWay.isSelected = true
+        binding.layoutFlightDeparturePicker.layoutParams.width = MATCH_PARENT
+        binding.layoutFlightArrivalPicker.visibility = GONE
     }
 }
