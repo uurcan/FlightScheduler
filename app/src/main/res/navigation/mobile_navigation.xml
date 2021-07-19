@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/nav_flight_search"
-        android:name="com.java.flightscheduler.ui.flightsearch.FlightSearchFragment"
+        android:name="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragment"
         android:label="@string/text_flight_offers_lower"
         tools:layout="@layout/fragment_flight_offers" />
 
