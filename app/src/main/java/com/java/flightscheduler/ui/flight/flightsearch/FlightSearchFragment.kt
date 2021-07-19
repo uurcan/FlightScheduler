@@ -1,8 +1,9 @@
-package com.java.flightscheduler.ui.flightsearch
+package com.java.flightscheduler.ui.flight.flightsearch
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
@@ -16,14 +17,18 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
+import androidx.lifecycle.Observer
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
+import com.java.flightscheduler.data.model.flight.IATACodes
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
+import com.java.flightscheduler.ui.flight.flightresults.FlightResultsFragment
 import com.yongbeom.aircalendar.AirCalendarDatePickerActivity
 import com.yongbeom.aircalendar.core.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
@@ -47,25 +52,24 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initializeViews()
         initializeAirportDropdown()
-        temp()
     }
-
-    private fun temp() {
-        context?.let { flightRoutesViewModel.getIATACodes()?.observe(viewLifecycleOwner,{
-            iataCode ->
-                Toast.makeText(context,iataCode[5].LOCAL_CODE.toString(),Toast.LENGTH_LONG).show()
-        }) }
-    }
-
 
     private fun initializeAirportDropdown() {
-        val cities = arrayOf("İstanbul","İzmir")
-        val adapter =
-            context?.let {
-                ArrayAdapter(it,android.R.layout.simple_list_item_1,cities)
-            }
-        binding.edtFlightSearchOrigin.setAdapter(adapter)
-        binding.edtFlightSearchDestination.setAdapter(adapter)
+        context?.let { flightRoutesViewModel.getIATACodes()?.observe(viewLifecycleOwner,{
+            val adapter = FlightRoutesAdapter(requireContext(), it.toTypedArray())
+            binding.edtFlightSearchOrigin.setAdapter(adapter)
+            binding.edtFlightSearchDestination.setAdapter(adapter)
+        }) }
+        binding.edtFlightSearchOrigin.setOnItemClickListener { adapterView, _, i, _ ->
+            val iataCode = adapterView.getItemAtPosition(i)
+            if (iataCode is IATACodes)
+                binding.edtFlightSearchOrigin.setText(iataCode.IATA_CODE)
+        }
+        binding.edtFlightSearchDestination.setOnItemClickListener { adapterView, _, i, _ ->
+            val iataCode = adapterView.getItemAtPosition(i)
+            if (iataCode is IATACodes)
+                binding.edtFlightSearchDestination.setText(iataCode.IATA_CODE)
+        }
     }
 
     private fun saveFlightResults() {
@@ -135,7 +139,15 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
             binding.btnFlightRoundTrip.id -> initRoundTripAnimation()
             binding.layoutFlightDeparturePicker.id -> initializeDatePicker()
             binding.btnFlightSearchFlights.id -> saveFlightResults()
+            binding.layoutFlightSearchRouteSwap.id -> swapFlightRoutes()
         }
+    }
+
+    private fun swapFlightRoutes() {
+        val tempOrigin : Editable? = binding.edtFlightSearchOrigin.text
+        binding.edtFlightSearchOrigin.text = binding.edtFlightSearchDestination.text
+        binding.edtFlightSearchDestination.text = tempOrigin
+        binding.edtFlightSearchDestination.isFocusable = false
     }
 
     private fun initializeViews() {
@@ -143,6 +155,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         binding.btnFlightRoundTrip.setOnClickListener(this)
         binding.layoutFlightDeparturePicker.setOnClickListener(this)
         binding.btnFlightSearchFlights.setOnClickListener(this)
+        binding.layoutFlightSearchRouteSwap.setOnClickListener(this)
     }
 
     private fun initRoundTripAnimation() {

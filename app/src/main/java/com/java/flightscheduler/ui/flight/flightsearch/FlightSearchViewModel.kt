@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.flightsearch
+package com.java.flightscheduler.ui.flight.flightsearch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

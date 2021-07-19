@@ -8,7 +8,7 @@ import javax.inject.Inject
 class FlightRoutesRepository @Inject constructor(
     private val bufferedReader: BufferedReader,
 ) {
-    suspend fun getIataCodes() : List<IATACodes>{
+    fun getIataCodes() : List<IATACodes>{
         val iataDataList : ArrayList<IATACodes> = ArrayList()
         try {
             bufferedReader.readLines().forEach {

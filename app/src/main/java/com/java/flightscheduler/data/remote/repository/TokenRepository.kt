@@ -18,7 +18,7 @@ import com.java.flightscheduler.data.constants.TimeConstants.HTTP_TIMEOUT
 import com.java.flightscheduler.data.constants.TimeConstants.HTTP_VALID_UNTIL
 import com.java.flightscheduler.data.constants.TimeConstants.TOKEN_VALIDITY_MILLISECONDS
 
-class TokenRepository : TokenProvider{
+class TokenRepository : TokenProvider {
 
     private val tokenService : TokenService
     private var accessToken : AccessToken? = null
