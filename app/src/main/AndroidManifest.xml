@@ -22,11 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.base.BaseActivity" />
-        <activity android:name="com.yongbeom.aircalendar.AirCalendarDatePickerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            app:colorCurrentDay ="@color/red_google"
-            app:colorSelectedDayBackground ="@color/red_google"
-            app:colorPreviousDay ="@color/red_google"/>
+        <activity android:name=".utils.flightcalendar.AirCalendarDatePickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

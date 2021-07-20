@@ -11,24 +11,20 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import androidx.lifecycle.Observer
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.IATACodes
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
 import com.java.flightscheduler.ui.flight.flightresults.FlightResultsFragment
-import com.yongbeom.aircalendar.AirCalendarDatePickerActivity
-import com.yongbeom.aircalendar.core.AirCalendarIntent
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
@@ -102,7 +98,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         intent.setSelectButtonText("Select")
         intent.setResetBtnText("Reset")
         intent.isBooking(false)
-        intent.isSingleSelect(true)
+        intent.isSingleSelect(false)
         intent.isMonthLabels(false)
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
         startForResult.launch(intent)
