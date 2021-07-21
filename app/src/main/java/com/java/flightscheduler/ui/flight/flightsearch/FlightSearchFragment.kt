@@ -11,24 +11,22 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import androidx.lifecycle.Observer
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.IATACodes
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
 import com.java.flightscheduler.ui.flight.flightresults.FlightResultsFragment
-import com.yongbeom.aircalendar.AirCalendarDatePickerActivity
-import com.yongbeom.aircalendar.core.AirCalendarIntent
+import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
+import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
@@ -37,7 +35,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
     private lateinit var  flightSearch : FlightSearch
     private lateinit var departureDate : String
-    private lateinit var arrivalDate : String
+    private lateinit var returnDate : String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,9 +73,18 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private fun saveFlightResults() {
         val flightSearchOrigin : String = binding.edtFlightSearchOrigin.text.toString()
         val flightSearchDestination : String = binding.edtFlightSearchDestination.text.toString()
+        val flightSearchDepartureDate : String = departureDate
+        val flightSearchReturnDate : String = returnDate
+        val flightSearchAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
+        val flightSearchChildrenCount : Int? = binding.txtFlightChildCount.text.toString().toIntOrNull()
 
         flightSearch = FlightSearch(
-            flightSearchOrigin, flightSearchDestination, departureDate, arrivalDate, 1, null, 10
+            originLocationCode = flightSearchOrigin,
+            destinationLocationCode = flightSearchDestination,
+            departureDate = flightSearchDepartureDate,
+            returnDate = flightSearchReturnDate,
+            adults = flightSearchAdultCount,
+            children = flightSearchChildrenCount
         )
 
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
@@ -102,7 +109,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         intent.setSelectButtonText("Select")
         intent.setResetBtnText("Reset")
         intent.isBooking(false)
-        intent.isSingleSelect(true)
+        intent.isSingleSelect(false)
         intent.isMonthLabels(false)
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
         startForResult.launch(intent)
@@ -128,7 +135,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         )
 
         departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
-        arrivalDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+        returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
         binding.txtFlightSearchDepartureDate.text = parsedDeparture
         binding.txtFlightSearchArrivalDate.text = parsedArrival
     }
@@ -140,14 +147,42 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
             binding.layoutFlightDeparturePicker.id -> initializeDatePicker()
             binding.btnFlightSearchFlights.id -> saveFlightResults()
             binding.layoutFlightSearchRouteSwap.id -> swapFlightRoutes()
+            binding.imgFlightAdultIncrease.id -> increaseAdultCount()
+            binding.imgFlightAdultDecrease.id -> decreaseAdultCount()
+            binding.imgFlightChildIncrease.id -> increaseChildrenCount()
+            binding.imgFlightChildDecrease.id -> decreaseChildrenCount()
         }
+    }
+
+    private fun decreaseChildrenCount() {
+        val previousChildCount : Int? = binding.txtFlightChildCount.text.toString().toInt()
+        val currentChildCount : Int? = flightRoutesViewModel.decreaseChildCount(previousChildCount)
+        binding.txtFlightChildCount.text = currentChildCount.toString()
+    }
+
+    private fun increaseChildrenCount() {
+        val previousChildCount : Int? = binding.txtFlightChildCount.text.toString().toInt()
+        val currentChildCount : Int? = flightRoutesViewModel.increaseChildCount(previousChildCount)
+        binding.txtFlightChildCount.text = currentChildCount.toString()
+    }
+
+    private fun decreaseAdultCount() {
+        val previousAdultCount : Int? = binding.txtFlightAdultCount.text.toString().toInt()
+        val currentAdultCount : Int? = flightRoutesViewModel.decreaseAdultCount(previousAdultCount)
+        binding.txtFlightAdultCount.text = currentAdultCount.toString()
+    }
+
+    private fun increaseAdultCount() {
+        val previousAdultCount : Int? = binding.txtFlightAdultCount.text.toString().toInt()
+        val currentAdultCount : Int? = flightRoutesViewModel.increaseAdultCount(previousAdultCount)
+        binding.txtFlightAdultCount.text = currentAdultCount.toString()
     }
 
     private fun swapFlightRoutes() {
         val tempOrigin : Editable? = binding.edtFlightSearchOrigin.text
         binding.edtFlightSearchOrigin.text = binding.edtFlightSearchDestination.text
         binding.edtFlightSearchDestination.text = tempOrigin
-        binding.edtFlightSearchDestination.isFocusable = false
+        binding.edtFlightSearchDestination.clearFocus()
     }
 
     private fun initializeViews() {
@@ -156,6 +191,10 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         binding.layoutFlightDeparturePicker.setOnClickListener(this)
         binding.btnFlightSearchFlights.setOnClickListener(this)
         binding.layoutFlightSearchRouteSwap.setOnClickListener(this)
+        binding.imgFlightAdultDecrease.setOnClickListener(this)
+        binding.imgFlightAdultIncrease.setOnClickListener(this)
+        binding.imgFlightChildDecrease.setOnClickListener(this)
+        binding.imgFlightChildIncrease.setOnClickListener(this)
     }
 
     private fun initRoundTripAnimation() {

@@ -282,4 +282,15 @@
     <color name="blue_grey_700">#455a64</color>
     <color name="blue_grey_800">#37474f</color>
     <color name="blue_grey_900">#263238</color>
+
+    <color name="normal_day">#000000</color>
+    <color name="colorMonthDayLabelPaint">#424242</color>
+    <color name="selected_day_background">#4a4a4a</color>
+    <color name="selected_day_interval_text">#ffffff</color>
+    <color name="selected_day_text">#ffffff</color>
+    <color name="colorWeekDayLineColor">#d8d8d8</color>
+    <color name="colorWeekEndColor">#000000</color>
+    <color name="colorTest">#1abc9c</color>
+    <color name="colorMonthTextColor">#252525</color>
+    <color name="color_old_day_text_color">#bbbbbb</color>
 </resources>

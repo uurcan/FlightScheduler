@@ -1,5 +1,10 @@
 package com.java.flightscheduler.data.remote.repository
 
+import com.java.flightscheduler.data.constants.AppConstants
+import com.java.flightscheduler.data.constants.AppConstants.MAX_ADULT_COUNT
+import com.java.flightscheduler.data.constants.AppConstants.MAX_CHILD_COUNT
+import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
+import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
 import com.java.flightscheduler.data.model.flight.IATACodes
 import java.io.BufferedReader
 import java.io.IOException
@@ -35,4 +40,11 @@ class FlightRoutesRepository @Inject constructor(
         }
         return iataDataList
     }
+    fun decreaseAdultCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(MIN_ADULT_COUNT)
+
+    fun increaseAdultCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(MAX_ADULT_COUNT)
+
+    fun decreaseChildCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(MIN_CHILD_COUNT)
+
+    fun increaseChildCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(MAX_CHILD_COUNT)
 }
