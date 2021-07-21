@@ -1,17 +1,18 @@
 package com.java.flightscheduler.data.model.flight
 
-import android.os.Parcelable
-import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
-@JsonClass(generateAdapter = true)
-data class FlightSearch internal constructor(
-    val originLocationCode : String,
-    val destinationLocationCode : String,
-    val departureDate : String,
-    val arrivalDate : String,
-    val adults : Int,
-    val excludedAirlineCodes : String? = null,
-    val max : Int? = 0
-) : Parcelable
+class FlightSearch(
+    val originLocationCode: String,
+    val destinationLocationCode: String,
+    val departureDate: String,
+    val returnDate: String,
+    val adults: Int,
+    val children: Int?,
+) {
+    val infants : Int? = 0
+    val includedAirlineCodes : String? = null
+    val excludedAirlineCodes : String? = null
+    val nonStop : Boolean? = false
+    val currencyCode: String? = null
+    val maxPrice: Int? = 0
+    val max : Int? = 10
+}

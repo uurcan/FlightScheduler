@@ -633,8 +633,8 @@ class AirMonthView extends View {
         mOnDayClickListener = onDayClickListener;
     }
 
-    public static abstract interface OnDayClickListener {
-        public abstract void onDayClick(AirMonthView airMonthView, AirMonthAdapter.CalendarDay calendarDay);
+    public interface OnDayClickListener {
+       void onDayClick(AirMonthView airMonthView, AirMonthAdapter.CalendarDay calendarDay);
     }
 
 }

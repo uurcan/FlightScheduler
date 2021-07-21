@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.flight.flightsearch
+package com.java.flightscheduler.ui.flight.flightroutes
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -42,7 +42,8 @@ class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array
                 else
                     iataCodes.filter {
                         it.MUNICIPALITY.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.NAME.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
+                                it.NAME.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
+                                it.IATA_CODE.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
                     }
                 return filterResults
             }

@@ -25,8 +25,9 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
                 originLocationCode = flightSearch.originLocationCode,
                 destinationLocationCode = flightSearch.destinationLocationCode,
                 departureDate = flightSearch.departureDate,
+                returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,
-                excludedAirlineCodes = flightSearch.excludedAirlineCodes,
+                children = flightSearch.children,
                 max = flightSearch.max
             )
 
