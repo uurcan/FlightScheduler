@@ -7,6 +7,9 @@ class FlightSearch(
     val returnDate: String,
     val adults: Int,
     val children: Int?,
+    var formattedDepartureDate : String? = null,
+    var originLocationCity : String? = null,
+    var destinationLocationCity : String? = null
 ) {
     val infants : Int? = 0
     val includedAirlineCodes : String? = null

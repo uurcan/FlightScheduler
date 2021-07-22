@@ -33,7 +33,9 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private lateinit var binding : FragmentFlightOffersBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
-    private lateinit var  flightSearch : FlightSearch
+    private lateinit var flightSearch : FlightSearch
+    private lateinit var flightOriginCity : String
+    private lateinit var flightDestinationCity : String
     private lateinit var departureDate : String
     private lateinit var returnDate : String
 
@@ -57,34 +59,41 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
             val adapter = FlightRoutesAdapter(requireContext(), it.toTypedArray())
             binding.edtFlightSearchOrigin.setAdapter(adapter)
             binding.edtFlightSearchDestination.setAdapter(adapter)
-        }) }
+        })
+        }
         binding.edtFlightSearchOrigin.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
-            if (iataCode is IATACodes)
+            if (iataCode is IATACodes) {
                 binding.edtFlightSearchOrigin.setText(iataCode.IATA_CODE)
+                flightOriginCity = iataCode.MUNICIPALITY.toString()
+            }
         }
         binding.edtFlightSearchDestination.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
-            if (iataCode is IATACodes)
+            if (iataCode is IATACodes) {
                 binding.edtFlightSearchDestination.setText(iataCode.IATA_CODE)
+                flightDestinationCity = iataCode.MUNICIPALITY.toString()
+            }
         }
     }
 
     private fun saveFlightResults() {
         val flightSearchOrigin : String = binding.edtFlightSearchOrigin.text.toString()
         val flightSearchDestination : String = binding.edtFlightSearchDestination.text.toString()
-        val flightSearchDepartureDate : String = departureDate
-        val flightSearchReturnDate : String = returnDate
+        val formattedDepartureDate : String = binding.txtFlightSearchDepartureDate.text.toString()
         val flightSearchAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
         val flightSearchChildrenCount : Int? = binding.txtFlightChildCount.text.toString().toIntOrNull()
 
         flightSearch = FlightSearch(
             originLocationCode = flightSearchOrigin,
             destinationLocationCode = flightSearchDestination,
-            departureDate = flightSearchDepartureDate,
-            returnDate = flightSearchReturnDate,
+            originLocationCity = flightOriginCity,
+            destinationLocationCity = flightDestinationCity,
+            departureDate = departureDate,
+            returnDate = returnDate,
             adults = flightSearchAdultCount,
-            children = flightSearchChildrenCount
+            children = flightSearchChildrenCount,
+            formattedDepartureDate = formattedDepartureDate
         )
 
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)

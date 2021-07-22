@@ -25,25 +25,24 @@ class FlightRoutesViewModel @Inject constructor(private val flightRoutesReposito
         }
         return iataCodeLiveData
     }
+
     fun increaseChildCount(currentPassengerCount : Int?) : Int?{
-        val passengerCount = flightRoutesRepository.increaseChildCount(currentPassengerCount)
-        passengerCountLiveData?.value = passengerCount
+        passengerCountLiveData?.value = flightRoutesRepository.increaseChildCount(currentPassengerCount)
         return passengerCountLiveData?.value
     }
+
     fun decreaseChildCount(currentPassengerCount : Int?): Int?{
-        val passengerCount = flightRoutesRepository.decreaseChildCount(currentPassengerCount)
-        passengerCountLiveData?.value = passengerCount
+        passengerCountLiveData?.value = flightRoutesRepository.decreaseChildCount(currentPassengerCount)
         return passengerCountLiveData?.value
     }
+
     fun increaseAdultCount(currentPassengerCount : Int?) : Int?{
-        val passengerCount = flightRoutesRepository.increaseAdultCount(currentPassengerCount)
-        passengerCountLiveData?.value = passengerCount
+        passengerCountLiveData?.value = flightRoutesRepository.increaseAdultCount(currentPassengerCount)
         return passengerCountLiveData?.value
     }
 
     fun decreaseAdultCount(currentPassengerCount : Int?): Int?{
-        val passengerCount = flightRoutesRepository.decreaseAdultCount(currentPassengerCount)
-        passengerCountLiveData?.value = passengerCount
+        passengerCountLiveData?.value = flightRoutesRepository.decreaseAdultCount(currentPassengerCount)
         return passengerCountLiveData?.value
     }
 }
