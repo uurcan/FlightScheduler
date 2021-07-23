@@ -60,11 +60,26 @@ class FlightResultsFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.rvFlightList.layoutManager = layoutManager
         binding.rvFlightList.setHasFixedSize(true)
+
         flightSearch?.let {
             flightSearchViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
+                if (flightData.isEmpty()) {
+                    binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
+                    binding.txtFlightSearchErrorMessage.text =
+                        getString(R.string.text_no_flight_found)
+                }
                 flightSearchAdapter = FlightResultsAdapter(flightData)
                 binding.rvFlightList.adapter = flightSearchAdapter
             })
         }
+
+        flightSearchViewModel.loadingLiveData.observe(viewLifecycleOwner, {
+            binding.pbFlightSearch.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        flightSearchViewModel.errorLiveData?.observe(viewLifecycleOwner, {
+            binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
+            binding.txtFlightSearchErrorMessage.text = it
+        })
     }
 }

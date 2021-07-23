@@ -48,6 +48,9 @@
     <string name="text_return_date">Return Date</string>
     <string name="text_missing_date">Date parameters missing.</string>
     <string name="text_audits">Audits</string>
+    <string name="text_no_flight_found">No flight found</string>
+    <string name="text_select">Select</string>
+    <string name="text_reset">Reset</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

@@ -38,6 +38,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private lateinit var flightDestinationCity : String
     private lateinit var departureDate : String
     private lateinit var returnDate : String
+    private var isRoundTrip : Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,7 +96,6 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
             children = flightSearchChildrenCount,
             formattedDepartureDate = formattedDepartureDate
         )
-
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
         beginTransaction()
     }
@@ -115,9 +115,8 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
 
     private fun initializeDatePicker() {
         val intent = AirCalendarIntent(context)
-        intent.setSelectButtonText("Select")
-        intent.setResetBtnText("Reset")
-        intent.isBooking(false)
+        intent.setSelectButtonText(getString(R.string.text_select))
+        intent.setResetBtnText(getString(R.string.text_reset))
         intent.isSingleSelect(false)
         intent.isMonthLabels(false)
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
@@ -128,38 +127,37 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private fun initializeDateParser(data: Intent) {
         val parser = SimpleDateFormat(getString(R.string.text_date_parser_format), Locale.ENGLISH)
         val formatter = SimpleDateFormat(getString(R.string.text_date_formatter), Locale.ENGLISH)
-        val parsedDeparture: String = formatter.format(
-            parser.parse(
-                data.getStringExtra(
-                    AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE,
+        if (!isRoundTrip) {
+            binding.txtFlightSearchDepartureDate.text = formatter.format(
+                parser.parse(
+                    data.getStringExtra(
+                        AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE,
+                    )
                 )
             )
-        )
-        val parsedArrival: String = formatter.format(
+        }
+        binding.txtFlightSearchArrivalDate.text = formatter.format(
             parser.parse(
                 data.getStringExtra(
                     AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE
                 )
             )
         )
-
         departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
         returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
-        binding.txtFlightSearchDepartureDate.text = parsedDeparture
-        binding.txtFlightSearchArrivalDate.text = parsedArrival
     }
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
             binding.btnFlightOneWay.id -> initOneWayAnimation()
             binding.btnFlightRoundTrip.id -> initRoundTripAnimation()
-            binding.layoutFlightDeparturePicker.id -> initializeDatePicker()
             binding.btnFlightSearchFlights.id -> saveFlightResults()
-            binding.layoutFlightSearchRouteSwap.id -> swapFlightRoutes()
             binding.imgFlightAdultIncrease.id -> increaseAdultCount()
             binding.imgFlightAdultDecrease.id -> decreaseAdultCount()
             binding.imgFlightChildIncrease.id -> increaseChildrenCount()
             binding.imgFlightChildDecrease.id -> decreaseChildrenCount()
+            binding.layoutFlightDeparturePicker.id -> initializeDatePicker()
+            binding.layoutFlightSearchRouteSwap.id -> swapFlightRoutes()
         }
     }
 
@@ -207,6 +205,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     }
 
     private fun initRoundTripAnimation() {
+        isRoundTrip = true
         TransitionManager.beginDelayedTransition(binding.layoutFlightArrivalPicker)
         binding.btnFlightRoundTrip.isSelected = true
         binding.layoutFlightDeparturePicker.layoutParams.width = 0
@@ -214,6 +213,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     }
 
     private fun initOneWayAnimation() {
+        isRoundTrip = false
         TransitionManager.beginDelayedTransition(binding.layoutFlightArrivalPicker)
         binding.btnFlightOneWay.isSelected = true
         binding.layoutFlightDeparturePicker.layoutParams.width = MATCH_PARENT
