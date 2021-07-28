@@ -254,14 +254,16 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
                 SELECT_START_DATE = "";
                 SELECT_END_DATE = "";
             } else {
-                if (SELECT_START_DATE == null || SELECT_START_DATE.equals("")) {
-                    tv_popup_msg.setText(R.string.text_missing_date);
-                    rl_checkout_select_info_popup.setVisibility(View.VISIBLE);
-                    return;
-                } else if (SELECT_END_DATE == null || SELECT_END_DATE.equals("")) {
-                    tv_popup_msg.setText(R.string.text_missing_date);
-                    rl_checkout_select_info_popup.setVisibility(View.VISIBLE);
-                    return;
+                if (!isSingleSelect) {
+                    if (SELECT_START_DATE == null || SELECT_START_DATE.equals("")) {
+                        tv_popup_msg.setText(R.string.text_missing_date);
+                        rl_checkout_select_info_popup.setVisibility(View.VISIBLE);
+                        return;
+                    } else if (SELECT_END_DATE == null || SELECT_END_DATE.equals("")) {
+                        tv_popup_msg.setText(R.string.text_missing_date);
+                        rl_checkout_select_info_popup.setVisibility(View.VISIBLE);
+                        return;
+                    }
                 }
             }
 
@@ -298,23 +300,19 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
     @Override
     public void onDayOfMonthSelected(int year, int month, int day) {
         try {
-            String start_month_str = String.format(Locale.ENGLISH,"%02d", (month + 1));
-            String start_day_str = String.format(Locale.ENGLISH,"%02d", day);
+            String start_month_str = String.format("%02d", (month + 1));
+            String start_day_str = String.format("%02d", day);
             String startSetDate = year + start_month_str + start_day_str;
 
-            String startDateDay = AirCalendarUtils.getDateDay(this, startSetDate, firstDayOfWeek);
-
-            tv_start_date.setText(new StringBuilder(year)
-                    .append("-")
-                    .append(start_month_str)
-                    .append("-")
-                    .append(start_day_str)
-                    .append(" ")
-                    .append(startDateDay));
+            String startDateDay = AirCalendarUtils.getDateDay(this, startSetDate, "yyyyMMdd", firstDayOfWeek);
+            String startDate = year + "-" + start_month_str + "-" + start_day_str;
+            String formattedStartDate = year + "-" + start_month_str + "-" + start_day_str + " " + startDateDay;
+            tv_start_date.setText(formattedStartDate);
             tv_start_date.setTextColor(0xff4a4a4a);
 
             tv_end_date.setText("-");
             tv_end_date.setTextColor(0xff1abc9c);
+            SELECT_START_DATE = startDate;
             SELECT_END_DATE = "";
         } catch (Exception e) {
             e.printStackTrace();
@@ -330,31 +328,34 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
             cl.setTimeInMillis(selectedDays.getFirst().getDate().getTime());
 
             int start_month_int = (cl.get(Calendar.MONTH) + 1);
-            String start_month_str = String.format(Locale.ENGLISH,"%02d", start_month_int);
+            String start_month_str = String.format("%02d", start_month_int);
 
+            // 일
             int start_day_int = cl.get(Calendar.DAY_OF_MONTH);
-            String start_day_str = String.format(Locale.ENGLISH,"%02d", start_day_int);
+            String start_day_str = String.format("%02d", start_day_int);
 
             String startSetDate = cl.get(Calendar.YEAR) + start_month_str + start_day_str;
-            String startDateDay = AirCalendarUtils.getDateDay(this, startSetDate, firstDayOfWeek);
+            String startDateDay = AirCalendarUtils.getDateDay(this, startSetDate, "yyyyMMdd", firstDayOfWeek);
             String startDate = cl.get(Calendar.YEAR) + "-" + start_month_str + "-" + start_day_str;
 
             cl.setTimeInMillis(selectedDays.getLast().getDate().getTime());
 
+            // 월
             int end_month_int = (cl.get(Calendar.MONTH) + 1);
-            String end_month_str = String.format(Locale.ENGLISH,"%02d", end_month_int);
+            String end_month_str = String.format("%02d", end_month_int);
 
+            // 일
             int end_day_int = cl.get(Calendar.DAY_OF_MONTH);
-            String end_day_str = String.format(Locale.ENGLISH,"%02d", end_day_int);
+            String end_day_str = String.format("%02d", end_day_int);
 
             String endSetDate = cl.get(Calendar.YEAR) + end_month_str + end_day_str;
-            String endDateDay = AirCalendarUtils.getDateDay(this, endSetDate, firstDayOfWeek);
+            String endDateDay = AirCalendarUtils.getDateDay(this, endSetDate, "yyyyMMdd", firstDayOfWeek);
             String endDate = cl.get(Calendar.YEAR) + "-" + end_month_str + "-" + end_day_str;
 
-            tv_start_date.setText(new StringBuilder(startDate).append(" ").append(startDateDay));
+            tv_start_date.setText(startDate + " " + startDateDay);
             tv_start_date.setTextColor(0xff4a4a4a);
 
-            tv_end_date.setText(new StringBuilder(endDate).append(" ").append(endDateDay));
+            tv_end_date.setText(endDate + " " + endDateDay);
             tv_end_date.setTextColor(0xff4a4a4a);
 
             SELECT_START_DATE = startDate;

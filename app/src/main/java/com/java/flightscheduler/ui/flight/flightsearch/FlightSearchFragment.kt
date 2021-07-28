@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -85,17 +86,30 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         val flightSearchAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
         val flightSearchChildrenCount : Int? = binding.txtFlightChildCount.text.toString().toIntOrNull()
 
-        flightSearch = FlightSearch(
-            originLocationCode = flightSearchOrigin,
-            destinationLocationCode = flightSearchDestination,
-            originLocationCity = flightOriginCity,
-            destinationLocationCity = flightDestinationCity,
-            departureDate = departureDate,
-            returnDate = returnDate,
-            adults = flightSearchAdultCount,
-            children = flightSearchChildrenCount,
-            formattedDepartureDate = formattedDepartureDate
-        )
+        if (isRoundTrip) {
+            flightSearch = FlightSearch(
+                originLocationCode = flightSearchOrigin,
+                destinationLocationCode = flightSearchDestination,
+                originLocationCity = flightOriginCity,
+                destinationLocationCity = flightDestinationCity,
+                departureDate = departureDate,
+                returnDate = returnDate,
+                adults = flightSearchAdultCount,
+                children = flightSearchChildrenCount,
+                formattedDepartureDate = formattedDepartureDate
+            )
+        } else {
+            flightSearch = FlightSearch(
+                originLocationCode = flightSearchOrigin,
+                destinationLocationCode = flightSearchDestination,
+                originLocationCity = flightOriginCity,
+                destinationLocationCity = flightDestinationCity,
+                departureDate = departureDate,
+                adults = flightSearchAdultCount,
+                children = flightSearchChildrenCount,
+                formattedDepartureDate = formattedDepartureDate
+            )
+        }
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
         beginTransaction()
     }
@@ -117,7 +131,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         val intent = AirCalendarIntent(context)
         intent.setSelectButtonText(getString(R.string.text_select))
         intent.setResetBtnText(getString(R.string.text_reset))
-        intent.isSingleSelect(false)
+        intent.isSingleSelect(!isRoundTrip)
         intent.isMonthLabels(false)
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
         startForResult.launch(intent)
@@ -127,24 +141,26 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private fun initializeDateParser(data: Intent) {
         val parser = SimpleDateFormat(getString(R.string.text_date_parser_format), Locale.ENGLISH)
         val formatter = SimpleDateFormat(getString(R.string.text_date_formatter), Locale.ENGLISH)
-        if (!isRoundTrip) {
-            binding.txtFlightSearchDepartureDate.text = formatter.format(
-                parser.parse(
-                    data.getStringExtra(
-                        AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE,
-                    )
-                )
-            )
-        }
-        binding.txtFlightSearchArrivalDate.text = formatter.format(
+
+        binding.txtFlightSearchDepartureDate.text = formatter.format(
             parser.parse(
                 data.getStringExtra(
-                    AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE
+                    AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE,
                 )
             )
         )
         departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
-        returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+
+        if (isRoundTrip) {
+            binding.txtFlightSearchArrivalDate.text = formatter.format(
+                parser.parse(
+                    data.getStringExtra(
+                        AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE
+                    )
+                )
+            )
+            returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+        }
     }
 
     override fun onClick(p0: View?) {

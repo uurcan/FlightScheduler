@@ -51,6 +51,7 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
                     }
                 }
                 is BaseApiResult.Error -> {
+                    //todo : not working as expected.
                     errorLiveData?.value = flightOffersSearches.errors[0].detail
                     loadingLiveData.value = false
                 }

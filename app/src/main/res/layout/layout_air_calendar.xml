@@ -179,7 +179,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
                         <TextView
-                            android:text="화"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -193,7 +192,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
                         <TextView
-                            android:text="수"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -207,7 +205,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
                         <TextView
-                            android:text="목"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -221,7 +218,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
                         <TextView
-                            android:text="금"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -235,7 +231,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1">
                         <TextView
-                            android:text="토"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -275,7 +270,6 @@
         android:textSize="16sp"
         android:textColor="#ffffff"
         android:layout_centerHorizontal="true"
-        android:text="저장"
         />
 
 
@@ -286,7 +280,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:focusable="true">
 
         <RelativeLayout
             android:layout_width="308dp"
@@ -297,7 +292,7 @@
                 android:id="@+id/tv_popup_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="안내"
+                android:text="Warning"
                 android:gravity="center"
                 android:textColor="#000000"
                 android:textSize="16sp"
@@ -311,8 +306,7 @@
                 android:gravity="center"
                 android:textSize="13sp"
                 android:textColor="#4a4a4a"
-                android:layout_marginTop="13dp"
-                android:text="날짜를 선택해주세요."/>
+                android:layout_marginTop="13dp"/>
 
 
             <RelativeLayout
@@ -329,7 +323,6 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="#ffffff"
-                    android:text="확인"
                     android:textSize="15sp"/>
 
             </RelativeLayout>
