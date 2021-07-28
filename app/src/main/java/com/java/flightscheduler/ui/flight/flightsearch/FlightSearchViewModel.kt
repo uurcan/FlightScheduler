@@ -8,7 +8,10 @@ import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.remote.repository.FlightRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,10 +19,14 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
+    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
+    var errorLiveData : MutableLiveData<String>? = MutableLiveData()
     private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
     private var flightSearchLiveData : MutableLiveData<FlightSearch>? = MutableLiveData()
 
-    fun getFlightData(flightSearch : FlightSearch) : MutableLiveData<List<FlightOffer>>?{
+    fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
+        loadingLiveData.value = true
+
         scope.launch {
             val flightOffersSearches = flightRepository.get(
                 originLocationCode = flightSearch.originLocationCode,
@@ -28,12 +35,25 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
                 returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,
                 children = flightSearch.children,
-                max = flightSearch.max
+                excludedAirlineCodes = flightSearch.excludedAirlineCodes,
+                includedAirlineCodes = flightSearch.includedAirlineCodes,
+                currencyCode = flightSearch.currencyCode,
+                infants = flightSearch.infants,
+                max = flightSearch.max,
+                nonStop = flightSearch.nonStop
             )
 
-            if (flightOffersSearches is BaseApiResult.Success) {
-                flightLiveData.apply {
-                    flightLiveData?.postValue(flightOffersSearches.data)
+            when (flightOffersSearches){
+                is BaseApiResult.Success -> {
+                    flightLiveData.apply {
+                        flightLiveData?.postValue(flightOffersSearches.data)
+                        loadingLiveData.value = false
+                    }
+                }
+                is BaseApiResult.Error -> {
+                    //todo : not working as expected.
+                    errorLiveData?.value = flightOffersSearches.errors[0].detail
+                    loadingLiveData.value = false
                 }
             }
         }
