@@ -34,12 +34,4 @@ object ApplicationModule {
     @Singleton
     @Provides
     fun provideSharedPreferences(context: Context):SharedPreferences = context.getSharedPreferences(context.packageName,Context.MODE_PRIVATE)
-
-    @Singleton
-    @Provides
-    fun provideInputStream(context: Context) : InputStream = context.resources.openRawResource(R.raw.airport_codes)
-
-    @Singleton
-    @Provides
-    fun provideBufferedReader(context: Context) : BufferedReader = BufferedReader(InputStreamReader(provideInputStream(context), StandardCharsets.UTF_8))
 }

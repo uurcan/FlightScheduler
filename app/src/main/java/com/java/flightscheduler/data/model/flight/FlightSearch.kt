@@ -26,7 +26,7 @@ class FlightSearch {
         returnDate : String,
         adults: Int,
         children: Int?,
-        formattedDepartureDate: String
+        formattedDepartureDate: String,
     ) {
         this.originLocationCode = originLocationCode
         this.destinationLocationCode = destinationLocationCode

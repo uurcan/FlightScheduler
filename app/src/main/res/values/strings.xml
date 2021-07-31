@@ -51,6 +51,7 @@
     <string name="text_no_flight_found">No flight found</string>
     <string name="text_select">Select</string>
     <string name="text_reset">Reset</string>
+    <string name="text_flight_results">Flight Results</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

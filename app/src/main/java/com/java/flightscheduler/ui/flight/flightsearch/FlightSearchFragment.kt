@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -16,11 +15,11 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
+import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.IATACodes
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
-import com.java.flightscheduler.ui.flight.flightresults.FlightResultsFragment
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
@@ -61,8 +60,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
             val adapter = FlightRoutesAdapter(requireContext(), it.toTypedArray())
             binding.edtFlightSearchOrigin.setAdapter(adapter)
             binding.edtFlightSearchDestination.setAdapter(adapter)
-        })
-        }
+        })}
         binding.edtFlightSearchOrigin.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
             if (iataCode is IATACodes) {
@@ -96,7 +94,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
                 returnDate = returnDate,
                 adults = flightSearchAdultCount,
                 children = flightSearchChildrenCount,
-                formattedDepartureDate = formattedDepartureDate
+                formattedDepartureDate = formattedDepartureDate,
             )
         } else {
             flightSearch = FlightSearch(
@@ -115,10 +113,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     }
 
     private fun beginTransaction() {
-        activity?.supportFragmentManager?.commit {
-            setReorderingAllowed(true)
-            add<FlightResultsFragment>(R.id.nav_host_fragment,null)
-        }
+        findNavController().navigate(R.id.nav_flight_results)
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
