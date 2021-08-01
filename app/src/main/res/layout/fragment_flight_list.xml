@@ -143,6 +143,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="@dimen/flight_search_header_extended_dimen"
             android:layout_marginTop="@dimen/margin_small"
             android:id="@+id/rv_flight_list"
             tools:listitem="@layout/list_flight_search_item"
