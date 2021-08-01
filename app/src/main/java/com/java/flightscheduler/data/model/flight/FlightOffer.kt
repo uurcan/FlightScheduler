@@ -8,6 +8,7 @@ import com.java.flightscheduler.data.model.flight.pricing.TravelerPricing
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class FlightOffer internal constructor(
@@ -25,3 +26,18 @@ data class FlightOffer internal constructor(
     val validatingAirlineCodes: List<String>? = null,
     val travelerPricings: List<TravelerPricing>? = null
 ) : Parcelable
+{
+    override fun hashCode(): Int {
+        val prime = 31
+        var result = 1
+        result = (prime * result + (itineraries?.hashCode() ?: 0))
+        return result
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+
+        val offer = other as FlightOffer
+        return itineraries == offer.itineraries
+    }
+}

@@ -14,4 +14,3 @@ data class IATACodes constructor(
     val LOCAL_CODE: String?,
     val COORDINATES : String?
 )
-;

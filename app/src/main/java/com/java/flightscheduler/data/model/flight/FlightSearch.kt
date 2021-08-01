@@ -15,7 +15,7 @@ class FlightSearch {
     val nonStop : Boolean? = false
     val currencyCode: String? = null
     val maxPrice: Int? = 0
-    val max : Int? = 10
+    val max : Int? = 250
 
     constructor (
         originLocationCode: String,
@@ -26,7 +26,7 @@ class FlightSearch {
         returnDate : String,
         adults: Int,
         children: Int?,
-        formattedDepartureDate: String
+        formattedDepartureDate: String,
     ) {
         this.originLocationCode = originLocationCode
         this.destinationLocationCode = destinationLocationCode

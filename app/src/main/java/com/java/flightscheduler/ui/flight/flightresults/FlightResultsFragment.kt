@@ -68,7 +68,7 @@ class FlightResultsFragment : Fragment() {
                     binding.txtFlightSearchErrorMessage.text =
                         getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter = FlightResultsAdapter(flightData)
+                flightSearchAdapter = context?.let { it1 -> FlightResultsAdapter(flightData, it1) }!!
                 binding.rvFlightList.adapter = flightSearchAdapter
             })
         }
