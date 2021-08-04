@@ -7,6 +7,9 @@ import com.java.flightscheduler.data.constants.AppConstants.MAX_CHILD_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
 import com.java.flightscheduler.data.model.flight.IATACodes
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -47,6 +50,13 @@ class FlightRoutesRepository @Inject constructor(
         }
         return iataDataList
     }
+
+    fun getNameFromData(cityCode : String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            getIataCodes().find { value -> cityCode == value.MUNICIPALITY }?.MUNICIPALITY.toString()
+        }
+    }
+
     fun decreaseAdultCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(MIN_ADULT_COUNT)
 
     fun increaseAdultCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(MAX_ADULT_COUNT)

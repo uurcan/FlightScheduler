@@ -2,6 +2,7 @@ package com.java.flightscheduler.ui.flight.flightsearch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
@@ -16,9 +17,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FlightSearchViewModel @Inject constructor(private val flightRepository: FlightRepository) : BaseViewModel() {
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.Main + job)
-
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData : MutableLiveData<String>? = MutableLiveData()
     private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
@@ -27,7 +25,7 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
     fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
         loadingLiveData.value = true
 
-        scope.launch {
+        viewModelScope.launch {
             val flightOffersSearches = flightRepository.get(
                 originLocationCode = flightSearch.originLocationCode,
                 destinationLocationCode = flightSearch.destinationLocationCode,

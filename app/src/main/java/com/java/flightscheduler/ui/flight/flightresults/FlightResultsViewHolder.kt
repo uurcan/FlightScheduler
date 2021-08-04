@@ -4,24 +4,31 @@ import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.data.model.flight.Airlines
 import com.java.flightscheduler.data.model.flight.FlightOffer
-import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
-import kotlinx.android.synthetic.main.list_flight_search_item.view.*
-import java.lang.StringBuilder
+import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
+import com.java.flightscheduler.databinding.FlightListBinding
 
-class FlightResultsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
+    RecyclerView.ViewHolder(flightResultsBinding.root),FlightResultsAdapter.FlightResultsListener {
 
-    fun bind(flightOffer: FlightOffer, airlines: Airlines, context: Context) {
-        val segments : SearchSegment? = flightOffer.itineraries?.get(0)?.segments?.get(0)
-        itemView.txt_flight_detail_origin_iata.text = segments?.departure?.iataCode
-        itemView.txt_flight_detail_destination_iata.text = segments?.arrival?.iataCode
-        itemView.txt_flight_detail_origin_local_date.text = segments?.departure?.at?.substring(11,16)
-        itemView.txt_flight_detail_destination_local_date.text = segments?.arrival?.at?.substring(11,16)
-        itemView.txt_flight_list_price.text = StringBuilder(flightOffer.price?.grandTotal.toString() + "€")
-        itemView.flight_list_flight_number.text = StringBuilder(segments?.carrierCode + "-" + segments?.number)
-        itemView.flight_list_flight_duration.text = segments?.duration
-        itemView.flight_list_carrier_name.text = airlines.NAME
-        Glide.with(context).load(airlines.LOGO).into(itemView.flight_list_carrier_logo)
+    private lateinit var flightOfferViewModel: FlightResultsViewModel
+    private val flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
+
+    fun bind(flightOffer: FlightOffer, airlines: Airlines,context: Context) {
+        flightOfferViewModel = FlightResultsViewModel(flightOffer, this)
+        flightResultsBinding.setVariable(BR.flightListViewModel , flightOfferViewModel)
+        flightResultsBinding.executePendingBindings()
+
+        flightResultsBinding.flightListCarrierName.text = airlines.NAME
+        Glide.with(context).load(airlines.LOGO).into(flightResultsBinding.flightListCarrierLogo)
+
+        flightResultsBinding.txtFlightDetailOriginCity.text = flightRoutesRepository.getNameFromData(flightOfferViewModel.origin)
+        flightResultsBinding.txtFlightDetailDestinationCity.text = flightRoutesRepository.getNameFromData(flightOfferViewModel.destination)
+    }
+
+    override fun onItemClick(view: View, item: FlightOffer) {
+g
     }
 }
