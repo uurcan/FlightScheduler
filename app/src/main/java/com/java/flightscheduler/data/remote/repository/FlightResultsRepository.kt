@@ -9,8 +9,9 @@ class FlightResultsRepository constructor(private val flightOffer: FlightOffer
     fun getPriceResults() = flightOffer.price?.grandTotal.toString() + "€"
     fun getItineraries() = flightOffer.itineraries?.get(0)
     fun getSegments() = flightOffer.itineraries?.get(0)?.segments?.get(0)
+    fun getCarrierCode() = getSegments()?.carrierCode
     fun getFlightNumber() = getSegments()?.carrierCode + "-" + getSegments()?.number
     fun getDuration() = getSegments()?.duration
-    fun getOrigin() = getSegments()?.departure?.at
-    fun getDestination() = getSegments()?.arrival?.at
+    fun getOrigin() = getSegments()?.departure?.iataCode
+    fun getDestination() = getSegments()?.arrival?.iataCode
 }

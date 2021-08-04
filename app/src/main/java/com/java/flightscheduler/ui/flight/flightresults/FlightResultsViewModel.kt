@@ -15,8 +15,9 @@ class FlightResultsViewModel(flightOffer: FlightOffer, private val itemClickList
     val segments : ObservableField<SearchSegment> = ObservableField(flightResultsRepository.getSegments())
     val flightNumber : ObservableField<String> = ObservableField(flightResultsRepository.getFlightNumber())
     val duration : ObservableField<String> = ObservableField(flightResultsRepository.getDuration())
-    val origin : ObservableField<String> = ObservableField(flightResultsRepository.getOrigin())
-    val destination : ObservableField<String> = ObservableField(flightResultsRepository.getDestination())
+    val carrierCode : String = flightResultsRepository.getCarrierCode().toString()
+    val origin : String? = flightResultsRepository.getOrigin()
+    val destination : String? = flightResultsRepository.getDestination()
 
     fun onItemClick(view: View) {
         itemClickListener.onItemClick(view,flightResultsRepository.getResults())

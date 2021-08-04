@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Airlines
+import com.java.flightscheduler.data.model.flight.FlightInfo
 import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.data.model.flight.IATACodes
 import com.java.flightscheduler.data.remote.repository.AirlineRepository
 import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
 import com.java.flightscheduler.ui.base.SelectedItemListener
@@ -15,8 +18,7 @@ import com.java.flightscheduler.ui.base.SelectedItemListener
 class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context : Context)
     : RecyclerView.Adapter<FlightResultsViewHolder>() {
     private val airlines : List<Airlines> = AirlineRepository(context).getAirlines()
-    private val flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
-
+    private val locations : List<IATACodes> = FlightRoutesRepository(context).getIataCodes()
     private var filteredOffers : ArrayList<FlightOffer> = flightOffers.distinctBy { it.itineraries?.get(0)?.segments?.get(0)?.number } as ArrayList<FlightOffer>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightResultsViewHolder {
@@ -25,12 +27,15 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context 
 
     override fun onBindViewHolder(holderResults: FlightResultsViewHolder, position: Int) {
         val segment = filteredOffers[position].itineraries?.get(0)?.segments?.get(0)
-        val carrierCode : String = segment?.carrierCode.toString()
-        val iata = airlines.find { airline -> carrierCode == airline.ID }
 
+        val carrier : Airlines? = airlines.find { data -> segment?.carrierCode == data.ID }
+        val origin = locations.find { value -> segment?.departure?.iataCode == value.IATA_CODE }?.MUNICIPALITY.toString()
+        val destination = locations.find { value -> segment?.arrival?.iataCode == value.IATA_CODE }?.MUNICIPALITY.toString()
 
-        if (iata != null) {
-            holderResults.bind(filteredOffers[position], iata, context)
+        val flightInfo = carrier?.let { FlightInfo(it,origin,destination) }
+
+        if (flightInfo != null) {
+            holderResults.bind(filteredOffers[position], flightInfo, context)
         }
     }
 

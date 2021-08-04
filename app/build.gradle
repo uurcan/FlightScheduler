@@ -30,6 +30,7 @@ android {
         }
     }
     compileOptions {
+        encoding "ISO-8859-1"
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }

@@ -1,6 +1,7 @@
 package com.java.flightscheduler.data.remote.repository
 
 import android.content.Context
+import androidx.databinding.ObservableField
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.MAX_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MAX_CHILD_COUNT
@@ -16,6 +17,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class FlightRoutesRepository @Inject constructor(
     context : Context
@@ -49,12 +51,6 @@ class FlightRoutesRepository @Inject constructor(
             e.printStackTrace()
         }
         return iataDataList
-    }
-
-    fun getNameFromData(cityCode : String) {
-        GlobalScope.launch(Dispatchers.Default) {
-            getIataCodes().find { value -> cityCode == value.MUNICIPALITY }?.MUNICIPALITY.toString()
-        }
     }
 
     fun decreaseAdultCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(MIN_ADULT_COUNT)
