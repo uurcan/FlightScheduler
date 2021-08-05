@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.model.flight.IATACodes
+import com.java.flightscheduler.data.model.flight.Airport
 import kotlinx.android.synthetic.main.iata_list_item_view.view.*
 import java.util.*
 
-class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array<IATACodes>) :
-    ArrayAdapter<IATACodes>(ctx,0,iataCodes) {
+class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array<Airport>) :
+    ArrayAdapter<Airport>(ctx,0,iataCodes) {
 
-    var filteredIataCodes: List<IATACodes> = listOf()
+    var filteredIataCodes: List<Airport> = listOf()
 
     override fun getCount(): Int = filteredIataCodes.size
 
-    override fun getItem(position: Int): IATACodes = filteredIataCodes[position]
+    override fun getItem(position: Int): Airport = filteredIataCodes[position]
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(ctx).inflate(R.layout.iata_list_item_view, parent, false)
@@ -30,7 +30,7 @@ class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array
         return object : Filter() {
             override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults) {
                 @Suppress("UNCHECKED_CAST")
-                filteredIataCodes = filterResults.values as List<IATACodes>
+                filteredIataCodes = filterResults.values as List<Airport>
                 notifyDataSetChanged()
             }
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
@@ -41,9 +41,9 @@ class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array
                     iataCodes.asList()
                 else
                     iataCodes.filter {
-                        it.MUNICIPALITY.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
+                        it.CITY.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
                                 it.NAME.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.IATA_CODE.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
+                                it.IATA.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
                     }
                 return filterResults
             }

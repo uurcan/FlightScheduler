@@ -1,6 +1,6 @@
 package com.java.flightscheduler.data.model.flight
 
-data class Airlines constructor(
+data class Airline constructor(
     val ID: String,
     val ICC: String,
     val NAME: String?,

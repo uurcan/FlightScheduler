@@ -2,17 +2,17 @@ package com.java.flightscheduler.ui.flight.flightroutes
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.java.flightscheduler.data.model.flight.IATACodes
+import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FlightRoutesViewModel @Inject constructor(private val flightRoutesRepository: FlightRoutesRepository) : ViewModel(){
-    private var iataCodeLiveData : MutableLiveData<List<IATACodes>>? = MutableLiveData()
+    private var iataCodeLiveData : MutableLiveData<List<Airport>>? = MutableLiveData()
     private var passengerCountLiveData : MutableLiveData<Int>? = MutableLiveData()
 
-    fun getIATACodes() : MutableLiveData<List<IATACodes>>?{
+    fun getIATACodes() : MutableLiveData<List<Airport>>?{
         val iataList = flightRoutesRepository.getIataCodes()
         iataCodeLiveData?.postValue(iataList)
         return iataCodeLiveData

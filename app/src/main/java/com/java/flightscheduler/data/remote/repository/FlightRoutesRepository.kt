@@ -1,16 +1,12 @@
 package com.java.flightscheduler.data.remote.repository
 
 import android.content.Context
-import androidx.databinding.ObservableField
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.MAX_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MAX_CHILD_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
-import com.java.flightscheduler.data.model.flight.IATACodes
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.java.flightscheduler.data.model.flight.Airport
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -25,13 +21,13 @@ class FlightRoutesRepository @Inject constructor(
     private var inputStream : InputStream = context.resources.openRawResource(R.raw.airport_codes)
     private var bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
 
-    fun getIataCodes() : List<IATACodes>{
-        val iataDataList : ArrayList<IATACodes> = ArrayList()
+    fun getIataCodes() : List<Airport>{
+        val iataDataList : ArrayList<Airport> = ArrayList()
         try {
             bufferedReader.readLines().forEach {
                 val tokens = it.split(",")
                 iataDataList.add(
-                    IATACodes(
+                    Airport(
                         tokens[0],
                         tokens[1],
                         tokens[2],
@@ -39,11 +35,7 @@ class FlightRoutesRepository @Inject constructor(
                         tokens[4],
                         tokens[5],
                         tokens[6],
-                        tokens[7],
-                        tokens[8],
-                        tokens[9],
-                        tokens[10],
-                        tokens[11]
+                        tokens[7]
                     )
                 )
             }

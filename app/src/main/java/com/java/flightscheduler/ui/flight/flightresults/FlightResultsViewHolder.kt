@@ -5,10 +5,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.java.flightscheduler.BR
-import com.java.flightscheduler.data.model.flight.Airlines
 import com.java.flightscheduler.data.model.flight.FlightInfo
 import com.java.flightscheduler.data.model.flight.FlightOffer
-import com.java.flightscheduler.data.remote.repository.AirlineRepository
 import com.java.flightscheduler.databinding.FlightListBinding
 
 class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :

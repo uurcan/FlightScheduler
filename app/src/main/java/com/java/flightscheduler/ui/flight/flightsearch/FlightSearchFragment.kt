@@ -18,7 +18,7 @@ import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
-import com.java.flightscheduler.data.model.flight.IATACodes
+import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
@@ -63,16 +63,16 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         })}
         binding.edtFlightSearchOrigin.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
-            if (iataCode is IATACodes) {
-                binding.edtFlightSearchOrigin.setText(iataCode.IATA_CODE)
-                flightOriginCity = iataCode.MUNICIPALITY.toString()
+            if (iataCode is Airport) {
+                binding.edtFlightSearchOrigin.setText(iataCode.IATA)
+                flightOriginCity = iataCode.CITY.toString()
             }
         }
         binding.edtFlightSearchDestination.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
-            if (iataCode is IATACodes) {
-                binding.edtFlightSearchDestination.setText(iataCode.IATA_CODE)
-                flightDestinationCity = iataCode.MUNICIPALITY.toString()
+            if (iataCode is Airport) {
+                binding.edtFlightSearchDestination.setText(iataCode.IATA)
+                flightDestinationCity = iataCode.CITY.toString()
             }
         }
     }
