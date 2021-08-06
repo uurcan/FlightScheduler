@@ -12,6 +12,4 @@ class FlightResultsRepository constructor(private val flightOffer: FlightOffer
     fun getCarrierCode() = getSegments()?.carrierCode
     fun getFlightNumber() = getSegments()?.carrierCode + "-" + getSegments()?.number
     fun getDuration() = getSegments()?.duration
-    fun getOrigin() = getSegments()?.departure?.iataCode
-    fun getDestination() = getSegments()?.arrival?.iataCode
 }

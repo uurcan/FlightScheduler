@@ -6,7 +6,6 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.remote.repository.FlightResultsRepository
-import com.java.flightscheduler.ui.base.SelectedItemListener
 
 class FlightResultsViewModel(flightOffer: FlightOffer, private val itemClickListener: FlightResultsAdapter.FlightResultsListener) {
     private var flightResultsRepository : FlightResultsRepository = FlightResultsRepository(flightOffer)
@@ -16,14 +15,8 @@ class FlightResultsViewModel(flightOffer: FlightOffer, private val itemClickList
     val flightNumber : ObservableField<String> = ObservableField(flightResultsRepository.getFlightNumber())
     val duration : ObservableField<String> = ObservableField(flightResultsRepository.getDuration())
     val carrierCode : String = flightResultsRepository.getCarrierCode().toString()
-    val origin : String? = flightResultsRepository.getOrigin()
-    val destination : String? = flightResultsRepository.getDestination()
 
     fun onItemClick(view: View) {
         itemClickListener.onItemClick(view,flightResultsRepository.getResults())
-    }
-
-    interface FavoriteMovieItemClickListener : SelectedItemListener<FlightOffer> {
-        // to be implemented by the adapter.
     }
 }

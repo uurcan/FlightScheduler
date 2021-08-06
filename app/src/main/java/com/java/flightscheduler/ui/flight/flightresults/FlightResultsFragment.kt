@@ -7,17 +7,22 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FlightResultsFragment : Fragment() {
+class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsListener {
     private lateinit var binding : FragmentFlightResultsBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
+
     private lateinit var flightSearchAdapter : FlightResultsAdapter
     private var flightSearch : FlightSearch? = null
 
@@ -68,7 +73,7 @@ class FlightResultsFragment : Fragment() {
                     binding.txtFlightSearchErrorMessage.text =
                         getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter = context?.let { it1 -> FlightResultsAdapter(flightData, it1) }!!
+                flightSearchAdapter = context?.let { it1 -> FlightResultsAdapter(flightData, it1,this) }!!
                 binding.rvFlightList.adapter = flightSearchAdapter
             })
         }
@@ -81,5 +86,10 @@ class FlightResultsFragment : Fragment() {
             binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
             binding.txtFlightSearchErrorMessage.text = it
         })
+    }
+
+    override fun onItemClick(view: View, item: FlightOffer) {
+        val action = R.id.action_nav_flight_results_to_flightDetailsFragment
+        findNavController().navigate(action)
     }
 }

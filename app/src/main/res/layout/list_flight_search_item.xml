@@ -7,12 +7,14 @@
             type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:onClick="@{(view)->flightListViewModel.onItemClick(view)}"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
         android:layout_width="match_parent"
         android:layout_height="@dimen/flight_search_ticket_dimen">
+
         <com.vipulasri.ticketview.TicketView
             app:ticketShadowColor="@color/grey_google"
             android:layout_width="match_parent"
