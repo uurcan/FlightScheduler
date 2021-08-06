@@ -14,8 +14,6 @@ import kotlinx.coroutines.launch
 
 abstract class BasePagingFragment <ViewBinding : ViewDataBinding, ViewModel : BasePagingViewModel<Item>,Item : Any>
     :BaseFragment<ViewBinding,ViewModel>(){
-    override val layoutId : Int = R.layout.fragment_paging
-
     abstract val pagingAdapter : BasePagingAdapter<Item, out ViewDataBinding>
 
     abstract val swipeRefreshLayout : SwipeRefreshLayout?

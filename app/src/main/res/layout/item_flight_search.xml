@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="flight"
-            type="com.java.flightscheduler.data.model.flight.FlightOffer" />
-    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,7 +16,6 @@
             android:paddingTop="16dp"
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
-            android:text="@{ flight.id }"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Title" />

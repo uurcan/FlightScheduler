@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data>
+    <data
+        class="FragmentHomeBinding">
         <import type="android.view.View" />
-        <variable
-            name="placeComponent"
-            type="com.java.flightscheduler.data.model.places.Places" />
         <variable
             name="viewModel"
             type="com.java.flightscheduler.ui.home.HomeViewModel"/>
@@ -58,7 +56,6 @@
         <TextView
             android:textColor="@color/grey_white_1000"
             android:id="@+id/textLocationName"
-            android:text="@{placeComponent.name}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -70,7 +67,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:gravity="start" />
         <TextView
-            android:text="@{placeComponent.country}"
             android:layout_marginBottom="10dp"
             android:textColor="@color/grey_white_1000"
             android:id="@+id/textLocationCountry"
