@@ -10,13 +10,48 @@
         android:name="com.java.flightscheduler.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_flight_search"
+            app:destination="@id/nav_flight_search"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+
+        <action
+            android:id="@+id/action_nav_home_to_nav_hotel_search"
+            app:destination="@id/nav_hotel_search"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_delay_prediction"
+            app:destination="@id/nav_delay_prediction" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_itinerary_metrics"
+            app:destination="@id/nav_itinerary_metrics" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_flight_status"
+            app:destination="@id/nav_flight_status" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_seat_map"
+            app:destination="@id/nav_seat_map" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_flight_search"
         android:name="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragment"
         android:label="@string/text_flight_offers_lower"
-        tools:layout="@layout/fragment_flight_offers" />
+        tools:layout="@layout/fragment_flight_offers" >
+        <action
+            android:id="@+id/action_nav_flight_search_to_nav_flight_results"
+            app:destination="@id/nav_flight_results"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_hotel_search"
