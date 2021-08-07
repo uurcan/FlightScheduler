@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data class="FragmentFlightDetailBinding"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_gravity="center"
@@ -15,53 +15,88 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/flight_detail_header_dimen">
+            <TextView
+                android:id="@+id/txt_flight_detail_source_text"
+                android:textSize="15sp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txt_flight_detail_source"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAlignment="viewStart"
+                android:gravity="start"
+                android:text="Source : "
+                android:textColor="@color/grey_black_1000"/>
             <TextView
                 android:textSize="15sp"
                 android:id="@+id/txt_flight_detail_source"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_source_text"
                 app:layout_constraintTop_toTopOf="parent"
                 android:textAlignment="viewStart"
                 android:gravity="start"
-                android:text="Source : GDS"
                 android:textColor="@color/grey_black_1000" />
+
             <TextView
-                android:id="@+id/txt_flight_detail_ticketing_date"
+                android:id="@+id/txt_flight_detail_ticketing_date_text"
                 android:textSize="15sp"
                 android:textColor="@color/grey_black_1000"
-                android:text="Last Ticketing Date : 15 May 2021"
+                android:text="Last Ticketing Date : "
                 android:textAlignment="viewStart"
                 android:gravity="start"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_medium"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_source"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txt_flight_detail_ticketing_date"
+                android:textSize="15sp"
+                android:textColor="@color/grey_black_1000"
+                android:textAlignment="viewStart"
+                android:gravity="start"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_medium"
+                app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_ticketing_date_text"
+                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/txt_flight_detail_seat_count_text"
+                android:textSize="15sp"
+                android:textColor="@color/grey_black_1000"
+                android:text="Bookable Seats : "
+                android:textAlignment="viewStart"
+                android:gravity="start"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_medium"
+                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_ticketing_date"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/txt_flight_detail_seat_count"
                 android:textSize="15sp"
                 android:textColor="@color/grey_black_1000"
-                android:text="Bookable Seats : 7"
                 android:textAlignment="viewStart"
                 android:gravity="start"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_medium"
+                app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_seat_count_text"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_ticketing_date"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_medium"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_seat_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -70,15 +105,26 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:textStyle="bold"
-                    android:id="@+id/txt_flight_detail_price"
+                    android:id="@+id/txt_flight_detail_price_text"
                     android:textSize="19sp"
                     android:textColor="@color/green_google"
-                    android:text="Price : 321.99 €"
+                    android:text="Price : "
                     android:textAlignment="viewStart"
                     android:gravity="start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-
+                <TextView
+                    app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_price_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textStyle="bold"
+                    android:id="@+id/txt_flight_detail_price"
+                    android:textSize="19sp"
+                    android:textColor="@color/green_google"
+                    android:textAlignment="viewStart"
+                    android:gravity="start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <ImageView
                     android:src="@drawable/icon_flight_detail_info"
                     android:contentDescription="@null"
@@ -91,708 +137,15 @@
                     app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_price" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <ScrollView
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="@dimen/flight_search_header_extended_dimen"
+            android:id="@+id/rv_flight_detail"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/layout_flight_detail_third_leg"
+            tools:listitem="@layout/item_flight_detail"
             app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_info"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_detail_first_leg"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_extended"
-            android:background="@drawable/layout_flight_legs_background"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/margin_small"
-                android:id="@+id/txt_flight_detail_first_leg_header"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/txt_flight_detail_first_leg_origin"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/grey_black_1000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="IST"/>
-                <ImageView
-                    android:padding="@dimen/margin_small"
-                    android:contentDescription="@null"
-                    android:id="@+id/img_flight_detail_first_leg_logo"
-                    android:src="@drawable/icon_flight_list_plane"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_first_leg_origin"
-                    android:layout_width="@dimen/flight_search_small_icon_dimen"
-                    android:layout_height="@dimen/flight_search_small_icon_dimen"/>
-                <TextView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/txt_flight_detail_first_leg_destination"
-                    app:layout_constraintLeft_toRightOf="@+id/img_flight_detail_first_leg_logo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/grey_black_1000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="UAA"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <TextView
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:text="Saturday May 15 2021"
-                android:textColor="@color/grey_600"
-                android:id="@+id/txt_flight_detail_first_leg_date"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:text="6:45 A.M. - 8:50 A.M."
-                android:textColor="@color/grey_black_1000"
-                android:id="@+id/txt_flight_detail_first_leg_time"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
-                android:layout_marginRight="@dimen/activity_horizontal_margin_extended"
-                android:text="3h 5m"
-                android:textColor="@color/grey_600"
-                android:id="@+id/txt_flight_detail_first_leg_duration"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_duration"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/v_flight_detail_first_leg_flight_code_open"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@color/grey_400"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginTop="@dimen/margin_x_small"
-                    android:layout_marginBottom="@dimen/margin_x_small"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_flight_detail_first_leg_flight_code_open"
-                    android:id="@+id/layout_flight_detail_first_leg_flight_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/txt_flight_detail_first_leg_flight_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LH 1305"
-                        android:textColor="@color/red_google"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/img_flight_details_first_leg_divider"
-                        android:padding="@dimen/margin_small"
-                        android:layout_width="@dimen/activity_horizontal_margin_extended"
-                        android:layout_height="@dimen/activity_horizontal_margin_extended"
-                        android:contentDescription="@null"
-                        android:src="@color/grey_400"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_first_leg_flight_code"/>
-                    <TextView
-                        android:id="@+id/txt_flight_detail_first_leg_aircraft_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:layout_marginLeft="@dimen/margin_small"
-                        android:text="32Q-Airbus A321 Neo"
-                        android:textColor="@color/red_google"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/img_flight_details_first_leg_divider" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <View
-                    android:id="@+id/v_flight_detail_first_leg_flight_code_close"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_first_leg_flight_info"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@color/grey_400"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_flight_detail_first_leg_flight_code_close"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/blue_900"
-                        android:text="Main Cabin Full Flexible"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_first_leg_details_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Meals : N/A"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_header"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_first_leg_details_meals"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Booking Code : Y"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_meals"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_first_leg_details_booking_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Class : Economy"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_booking_code"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_first_leg_details_class"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <View
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_class"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_small"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_detail_first_leg_connection_time"
-            android:layout_margin="@dimen/margin_medium"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_first_leg"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_horizontal_margin_extended">
-            <ImageView
-                android:contentDescription="@null"
-                android:background="@drawable/dotted_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_small"/>
-            <TextView
-                android:paddingStart="@dimen/margin_medium"
-                android:paddingLeft="@dimen/margin_medium"
-                android:paddingEnd="@dimen/margin_medium"
-                android:paddingRight="@dimen/margin_medium"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:text="Connection Time : 1h 40m"
-                android:background="@color/grey_white_1000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_detail_second_leg"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_extended"
-            android:background="@drawable/layout_flight_legs_background"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_first_leg_connection_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/margin_small"
-                android:id="@+id/txt_flight_detail_second_leg_header"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/txt_flight_detail_second_leg_origin"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/grey_black_1000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="UAA"/>
-                <ImageView
-                    android:padding="@dimen/margin_small"
-                    android:contentDescription="@null"
-                    android:id="@+id/img_flight_detail_second_leg_logo"
-                    android:src="@drawable/icon_flight_list_plane"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_second_leg_origin"
-                    android:layout_width="@dimen/flight_search_small_icon_dimen"
-                    android:layout_height="@dimen/flight_search_small_icon_dimen"/>
-                <TextView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/txt_flight_detail_second_leg_destination"
-                    app:layout_constraintLeft_toRightOf="@+id/img_flight_detail_second_leg_logo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/grey_black_1000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="PVG"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <TextView
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:text="Saturday May 15 2021"
-                android:textColor="@color/grey_600"
-                android:id="@+id/txt_flight_detail_second_leg_date"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:text="5:09 P.M. - 9:59 P.M."
-                android:textColor="@color/grey_black_1000"
-                android:id="@+id/txt_flight_detail_second_leg_time"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
-                android:layout_marginRight="@dimen/activity_horizontal_margin_extended"
-                android:text="3h 50m"
-                android:textColor="@color/grey_600"
-                android:id="@+id/txt_flight_detail_second_leg_duration"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_duration"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/v_flight_detail_second_leg_flight_code_open"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@color/grey_400"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginTop="@dimen/margin_x_small"
-                    android:layout_marginBottom="@dimen/margin_x_small"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_flight_detail_second_leg_flight_code_open"
-                    android:id="@+id/layout_flight_detail_second_leg_flight_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/txt_flight_detail_second_leg_flight_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="AA 71"
-                        android:textColor="@color/red_google"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/img_flight_details_second_leg_divider"
-                        android:padding="@dimen/margin_small"
-                        android:layout_width="@dimen/activity_horizontal_margin_extended"
-                        android:layout_height="@dimen/activity_horizontal_margin_extended"
-                        android:contentDescription="@null"
-                        android:src="@color/grey_400"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_second_leg_flight_code"/>
-                    <TextView
-                        android:id="@+id/txt_flight_detail_second_leg_aircraft_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:layout_marginLeft="@dimen/margin_small"
-                        android:text="738 Boeing 737"
-                        android:textColor="@color/red_google"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/img_flight_details_second_leg_divider" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <View
-                    android:id="@+id/v_flight_detail_second_leg_flight_code_close"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_second_leg_flight_info"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@color/grey_400"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_flight_detail_second_leg_flight_code_close"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/blue_900"
-                        android:text="Main Cabin Full Flexible"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_second_leg_details_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Meals : N/A"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_details_header"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_second_leg_details_meals"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Booking Code : Y"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_details_meals"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_second_leg_details_booking_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Class : Economy"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_details_booking_code"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_second_leg_details_class"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <View
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_second_leg_details_class"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_small"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_detail_second_leg_connection_time"
-            android:layout_margin="@dimen/margin_medium"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_second_leg"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/activity_horizontal_margin_extended">
-            <ImageView
-                android:contentDescription="@null"
-                android:background="@drawable/dotted_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_small"/>
-            <TextView
-                android:paddingStart="@dimen/margin_medium"
-                android:paddingLeft="@dimen/margin_medium"
-                android:paddingEnd="@dimen/margin_medium"
-                android:paddingRight="@dimen/margin_medium"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:text="Connection Time : 1h 20m"
-                android:background="@color/grey_white_1000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_detail_third_leg"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/activity_horizontal_margin_extended"
-            android:background="@drawable/layout_flight_legs_background"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_second_leg_connection_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="@dimen/margin_small"
-                android:id="@+id/txt_flight_detail_third_leg_header"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/txt_flight_detail_third_leg_origin"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/grey_black_1000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="IST"/>
-                <ImageView
-                    android:padding="@dimen/margin_small"
-                    android:contentDescription="@null"
-                    android:id="@+id/img_flight_detail_third_leg_logo"
-                    android:src="@drawable/icon_flight_list_plane"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_third_leg_origin"
-                    android:layout_width="@dimen/flight_search_small_icon_dimen"
-                    android:layout_height="@dimen/flight_search_small_icon_dimen"/>
-                <TextView
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:id="@+id/txt_flight_detail_third_leg_destination"
-                    app:layout_constraintLeft_toRightOf="@+id/img_flight_detail_third_leg_logo"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/grey_black_1000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="UAA"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <TextView
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:text="Saturday May 15 2021"
-                android:textColor="@color/grey_600"
-                android:id="@+id/txt_flight_detail_third_leg_date"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:text="6:45 A.M. - 8:50 A.M."
-                android:textColor="@color/grey_black_1000"
-                android:id="@+id/txt_flight_detail_third_leg_time"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
-                android:layout_marginRight="@dimen/activity_horizontal_margin_extended"
-                android:text="3h 5m"
-                android:textColor="@color/grey_600"
-                android:id="@+id/txt_flight_detail_third_leg_duration"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_duration"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <View
-                    android:id="@+id/v_flight_detail_third_leg_flight_code_open"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@color/grey_400"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginTop="@dimen/margin_x_small"
-                    android:layout_marginBottom="@dimen/margin_x_small"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_flight_detail_third_leg_flight_code_open"
-                    android:id="@+id/layout_flight_detail_third_leg_flight_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/txt_flight_detail_third_leg_flight_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="LH 1305"
-                        android:textColor="@color/grey_600"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/img_flight_details_third_leg_divider"
-                        android:padding="@dimen/margin_small"
-                        android:layout_width="@dimen/activity_horizontal_margin_extended"
-                        android:layout_height="@dimen/activity_horizontal_margin_extended"
-                        android:contentDescription="@null"
-                        android:src="@color/grey_400"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_third_leg_flight_code"/>
-                    <TextView
-                        android:id="@+id/txt_flight_detail_third_leg_aircraft_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_small"
-                        android:layout_marginLeft="@dimen/margin_small"
-                        android:text="32Q-Airbus A321 Neo"
-                        android:textColor="@color/grey_600"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/img_flight_details_third_leg_divider" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <View
-                    android:id="@+id/v_flight_detail_third_leg_flight_code_close"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_flight_detail_third_leg_flight_info"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:background="@color/grey_400"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginTop="@dimen/margin_small"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/v_flight_detail_third_leg_flight_code_close"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/blue_900"
-                        android:text="Main Cabin Full Flexible"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_third_leg_details_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Meals : N/A"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_details_header"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_third_leg_details_meals"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Booking Code : Y"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_details_meals"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_third_leg_details_booking_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Class : Economy"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_details_booking_code"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_third_leg_details_class"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <View
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_third_leg_details_class"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/margin_small"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

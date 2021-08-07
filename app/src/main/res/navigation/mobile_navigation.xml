@@ -100,5 +100,9 @@
         tools:layout="@layout/fragment_flight_detail"
         android:id="@+id/nav_flight_details"
         android:name="com.java.flightscheduler.ui.flight.flightdetail.FlightDetailsFragment"
-        android:label="@string/text_flight_details" />
+        android:label="@string/text_flight_details" >
+        <argument
+            android:name="offer"
+            app:argType="com.java.flightscheduler.data.model.flight.FlightOffer" />
+    </fragment>
 </navigation>

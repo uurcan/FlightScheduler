@@ -1,5 +1,6 @@
 package com.java.flightscheduler.di.flight
 
+import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.remote.repository.TokenRepository
 import com.java.flightscheduler.data.remote.services.*
 import dagger.Module
@@ -42,4 +43,8 @@ object FlightModule {
     @Provides
     fun provideDelayPredictions(retrofit: Retrofit) : PredictionService = retrofit.create(
         PredictionService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideFlightSegment() : SearchSegment = SearchSegment()
 }

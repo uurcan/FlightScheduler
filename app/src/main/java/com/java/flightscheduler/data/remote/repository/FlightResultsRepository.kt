@@ -3,8 +3,8 @@ package com.java.flightscheduler.data.remote.repository
 
 import com.java.flightscheduler.data.model.flight.FlightOffer
 
-class FlightResultsRepository constructor(private val flightOffer: FlightOffer
-) {
+class FlightResultsRepository constructor(private val flightOffer: FlightOffer)
+{
     fun getResults() = flightOffer
     fun getPriceResults() = flightOffer.price?.grandTotal.toString() + "€"
     fun getItineraries() = flightOffer.itineraries?.get(0)
