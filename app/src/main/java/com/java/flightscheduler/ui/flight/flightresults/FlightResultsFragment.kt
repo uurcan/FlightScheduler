@@ -30,7 +30,7 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_list,container,false)
         return binding.root
     }
@@ -47,16 +47,16 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         val originLocationCode : String? = flightSearch?.originLocationCode
         val destinationLocationCode : String? = flightSearch?.destinationLocationCode
         val departureDate : String? = flightSearch?.formattedDepartureDate
-        val isOneWay : String? = if (flightSearch?.returnDate == null) getString(R.string.text_one_way) else getString(R.string.text_round_trip)
-        val audits : String? = flightSearch?.children?.let { flightSearch?.adults?.plus(it) }.toString() + " " + getString(R.string.text_audits)
-        val originLocationCity : String? = flightSearch?.originLocationCity.toString()
-        val destinationLocationCity : String? = flightSearch?.destinationLocationCity.toString()
+        val isOneWay : String = if (flightSearch?.returnDate == null) getString(R.string.text_one_way) else getString(R.string.text_round_trip)
+        val audits : String = flightSearch?.children?.let { flightSearch?.adults?.plus(it) }.toString() + " " + getString(R.string.text_audits)
+        val originLocationCity : String = flightSearch?.originLocationCity.toString()
+        val destinationLocationCity : String = flightSearch?.destinationLocationCity.toString()
 
         binding.txtFlightDetailOriginIata.text = originLocationCode
         binding.txtFlightDetailDestinationIata.text = destinationLocationCode
         binding.txtFlightDetailDepartureDate.text = departureDate
         binding.txtFlightDetailOneWay.text = isOneWay
-        binding.txtFlightDetailAudits.text = audits.toString()
+        binding.txtFlightDetailAudits.text = audits
         binding.txtFlightDetailOriginCity.text = originLocationCity
         binding.txtFlightDetailDestinationCity.text = destinationLocationCity
     }
@@ -89,7 +89,7 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
     }
 
     override fun onItemClick(view: View, item: FlightOffer) {
-        val action = R.id.action_nav_flight_results_to_flightDetailsFragment
+        val action = FlightResultsFragmentDirections.actionNavFlightResultsToFlightDetailsFragment(item)
         findNavController().navigate(action)
     }
 }
