@@ -14,10 +14,9 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class FlightDetailsFragment : Fragment() {
     private val args by navArgs<FlightDetailsFragmentArgs>()
-    private val flightDetailsViewModel : FlightDetailsViewModel by viewModels()
+    private lateinit var flightDetailsViewModel : FlightDetailsViewModel
     private lateinit var binding : FragmentFlightDetailBinding
     private lateinit var flightDetailsAdapter : FlightDetailsAdapter
 
@@ -40,7 +39,7 @@ class FlightDetailsFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         binding.rvFlightDetail.layoutManager = layoutManager
         binding.rvFlightDetail.setHasFixedSize(true)
-
+        flightDetailsViewModel = flightOffer.itineraries?.get(0)?.segments?.get(0)?.let { FlightDetailsViewModel(it) }!!
         flightDetailsViewModel.getSegments(flightOffer).observe(viewLifecycleOwner,{
             flightDetailsAdapter = FlightDetailsAdapter(flightOffer)
             binding.rvFlightDetail.adapter = flightDetailsAdapter

@@ -4,14 +4,14 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import javax.inject.Inject
 
-class FlightDetailsRepository @Inject constructor() {
+class FlightDetailsRepository (private val segment: SearchSegment) {
 
-    fun getAircraft(segment: SearchSegment) = segment.aircraft?.code
-    fun getOrigin(segment: SearchSegment) = segment.departure?.iataCode
-    fun getDestination(segment: SearchSegment) = segment.arrival?.iataCode
-    fun getDepartureDate(segment: SearchSegment) = segment.departure?.at
-    fun getArrivalDate(segment: SearchSegment) = segment.arrival?.at
-    fun getFlightCode(segment: SearchSegment) = segment.carrierCode
+    fun getAircraft() = segment.aircraft?.code
+    fun getOrigin() = segment.departure?.iataCode
+    fun getDestination() = segment.arrival?.iataCode
+    fun getDepartureDate() = segment.departure?.at
+    fun getArrivalDate() = segment.arrival?.at
+    fun getFlightCode() = segment.carrierCode
 
     fun getLegCount(flightOffer: FlightOffer) : Int? {
         val itinerary = flightOffer.itineraries

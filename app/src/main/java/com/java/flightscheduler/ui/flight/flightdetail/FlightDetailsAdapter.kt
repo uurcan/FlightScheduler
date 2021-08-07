@@ -14,8 +14,9 @@ import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 class FlightDetailsAdapter(flightOffer: FlightOffer)
     : RecyclerView.Adapter<FlightDetailsAdapter.FlightDetailsViewHolder>(){
 
-    private val segments : List<SearchSegment>? = FlightDetailsRepository().getFlightDetails(flightOffer)
-    private val legCount = FlightDetailsRepository().getLegCount(flightOffer)
+    private val segment : SearchSegment = flightOffer.itineraries?.get(0)?.segments?.get(0)!!
+    private val segments : List<SearchSegment>? = FlightDetailsRepository(segment).getFlightDetails(flightOffer)
+    private val legCount = FlightDetailsRepository(segment).getLegCount(flightOffer)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
