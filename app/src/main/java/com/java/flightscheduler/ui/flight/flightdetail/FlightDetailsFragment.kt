@@ -14,9 +14,10 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FlightDetailsFragment : Fragment() {
     private val args by navArgs<FlightDetailsFragmentArgs>()
-    private lateinit var flightDetailsViewModel : FlightDetailsViewModel
+    private val flightDetailsViewModel : FlightDetailsViewModel by viewModels()
     private lateinit var binding : FragmentFlightDetailBinding
     private lateinit var flightDetailsAdapter : FlightDetailsAdapter
 
@@ -33,16 +34,23 @@ class FlightDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val flightOffer : FlightOffer = args.offer
         initializeFlightResults(flightOffer)
+        initializeViews(flightOffer)
     }
 
     private fun initializeFlightResults(flightOffer: FlightOffer) {
         val layoutManager = LinearLayoutManager(context)
         binding.rvFlightDetail.layoutManager = layoutManager
         binding.rvFlightDetail.setHasFixedSize(true)
-        flightDetailsViewModel = flightOffer.itineraries?.get(0)?.segments?.get(0)?.let { FlightDetailsViewModel(it) }!!
         flightDetailsViewModel.getSegments(flightOffer).observe(viewLifecycleOwner,{
-            flightDetailsAdapter = FlightDetailsAdapter(flightOffer)
+            flightDetailsAdapter = context?.let { it1 -> FlightDetailsAdapter(flightOffer, it1) }!!
             binding.rvFlightDetail.adapter = flightDetailsAdapter
         })
+    }
+
+    private fun initializeViews(flightOffer: FlightOffer) {
+        binding.txtFlightDetailSource.text = flightOffer.source
+        binding.txtFlightDetailSeatCount.text = flightOffer.numberOfBookableSeats.toString()
+        binding.txtFlightDetailPrice.text = flightOffer.price?.total.toString()
+        binding.txtFlightDetailTicketingDate.text = flightOffer.lastTicketingDate.toString()
     }
 }

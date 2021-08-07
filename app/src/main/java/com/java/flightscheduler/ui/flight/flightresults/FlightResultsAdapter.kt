@@ -20,6 +20,7 @@ import com.java.flightscheduler.ui.base.SelectedItemListener
 
 class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context : Context, private val listener: FlightResultsListener)
     : RecyclerView.Adapter<FlightResultsAdapter.FlightResultsViewHolder>() {
+
     private val airlines : List<Airline> = AirlineRepository(context).getAirlines()
     private val locations : List<Airport> = FlightRoutesRepository(context).getIataCodes()
     private val filteredOffers : ArrayList<FlightOffer> = flightOffers.distinctBy { it.itineraries?.get(0)?.segments?.get(0)?.number } as ArrayList<FlightOffer>
