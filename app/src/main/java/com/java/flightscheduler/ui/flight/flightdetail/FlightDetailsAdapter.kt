@@ -10,6 +10,7 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Aircraft
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
+import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.remote.repository.AircraftRepository
 import com.java.flightscheduler.data.remote.repository.FlightDetailsRepository
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.item_flight_detail.view.*
 class FlightDetailsAdapter(flightOffer: FlightOffer,context : Context)
     : RecyclerView.Adapter<FlightDetailsAdapter.FlightDetailsViewHolder>(){
 
-    private val segments : List<SearchSegment>? = FlightDetailsRepository().getFlightDetails(flightOffer)
+    private val segments : List<SearchSegment>? = FlightDetailsRepository().getSegmentDetails(flightOffer)
+    private val fareDetails : List<FareDetailsBySegment>? = FlightDetailsRepository().getFareDetails(flightOffer)
     private val legCount = FlightDetailsRepository().getLegCount(flightOffer)
     private val aircraftList : List<Aircraft> = AircraftRepository(context).getAircraft()
 
@@ -37,7 +39,7 @@ class FlightDetailsAdapter(flightOffer: FlightOffer,context : Context)
         val aircraftName : String? = aircraftList.find { aircraft -> aircraftCode == aircraft.iata }?.name
         holder.itemView.txt_flight_detail_first_leg_aircraft_code.text = aircraftName
 
-        segments?.get(position)?.let { holder.bind(it) }
+        holder.bind(segments!![position],fareDetails!![position])
     }
 
     override fun getItemCount(): Int {
@@ -48,9 +50,9 @@ class FlightDetailsAdapter(flightOffer: FlightOffer,context : Context)
         RecyclerView.ViewHolder(itemFlightDetailBinding.root){
         private lateinit var flightDetailsViewModel: FlightDetailsViewModel
 
-        fun bind(segment: SearchSegment) {
-            flightDetailsViewModel = FlightDetailsViewModel(segment)
-            itemFlightDetailBinding.setVariable(BR.flightDetailViewModel , flightDetailsViewModel)
+        fun bind(segment: SearchSegment,fareDetailsBySegment: FareDetailsBySegment) {
+            flightDetailsViewModel = FlightDetailsViewModel(segment,fareDetailsBySegment)
+            itemFlightDetailBinding.setVariable(BR.flightDetailViewModel,flightDetailsViewModel)
             itemFlightDetailBinding.executePendingBindings()
         }
     }

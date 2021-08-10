@@ -165,7 +165,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_marginLeft="@dimen/margin_medium"
                         android:layout_marginStart="@dimen/margin_medium"
                         android:textColor="@color/blue_900"
                         android:text="Main Cabin Full Flexible"
@@ -177,42 +176,68 @@
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
                         android:layout_marginStart="@dimen/margin_medium"
                         android:textColor="@color/grey_900"
-                        android:text="Meals : N/A"
+                        android:text="Class Code :"
                         app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_header"
-                        app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_first_leg_details_meals"
-                        android:layout_width="match_parent"
+                        android:id="@+id/txt_flight_detail_first_leg_details_class_text"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
                         android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
+                        android:layout_marginStart="@dimen/margin_x_small"
                         android:textColor="@color/grey_900"
-                        android:text="Booking Code : Y"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_meals"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:id="@+id/txt_flight_detail_first_leg_details_booking_code"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_marginTop="@dimen/margin_x_small"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginStart="@dimen/margin_medium"
-                        android:textColor="@color/grey_900"
-                        android:text="Class : Economy"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_booking_code"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:text="@{flightDetailViewModel.classCode}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_header"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_first_leg_details_class_text"
                         android:id="@+id/txt_flight_detail_first_leg_details_class"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:textColor="@color/grey_900"
+                        android:text="Cabin Code :"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_class"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/txt_flight_detail_first_leg_details_booking_code_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:layout_marginStart="@dimen/margin_x_small"
+                        android:textColor="@color/grey_900"
+                        android:text="@{flightDetailViewModel.cabinCode}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_class"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_first_leg_details_booking_code_text"
+                        android:id="@+id/txt_flight_detail_first_leg_details_booking_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:textColor="@color/grey_900"
+                        android:text="Fare Basis :"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_booking_code"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/txt_flight_detail_first_leg_details_fare_basis_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:layout_marginStart="@dimen/margin_x_small"
+                        android:textColor="@color/grey_900"
+                        android:text="@{flightDetailViewModel.fareBasis}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_booking_code"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_first_leg_details_booking_code_text"
+                        android:id="@+id/txt_flight_detail_first_leg_details_fare_basis"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <View
-                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_class"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_first_leg_details_fare_basis"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/margin_small"/>

@@ -7,23 +7,6 @@ NDC,Aerospatiale SN601
 EH1,Agusta EH101
 AGH,AgustaWestland A109
 AWH,AgustaWestland AW139
-312,Airbus A310-200
-313,Airbus A310-300
-318,Airbus A318
-32C,Airbus A318
-319,Airbus A319
-32D,Airbus A319
-320,Airbus A320
-32A,Airbus A320
-321,Airbus A321
-32B,Airbus A321
-359,Airbus A350-900
-332,Airbus A330-200
-333,Airbus A330-300
-342,Airbus A340-200
-343,Airbus A340-300
-345,Airbus A340-500
-346,Airbus A340-600
 AT3,Alenia ATR-42-300
 AT4,Alenia ATR-42-400
 AT5,Alenia ATR-42-500
@@ -32,6 +15,31 @@ AT7,Alenia ATR-72
 AR1,Avro RJ100 Avroliner
 AR7,Avro RJ70 Avroliner
 AR8,Avro RJ85 Avroliner
+312,Airbus A310-200
+313,Airbus A310-300
+318,Airbus A318
+31A,Airbus A318
+319,Airbus A319
+31B,Airbus A319 w\ Sharklet
+31N,Airbus A319neo
+320,Airbus A320
+32A,Airbus A320 w\ Sharklet
+32N,Airbus A320neo
+321,Airbus A321
+32B,Airbus A321 w\ Sharklet
+32Q,Airbus A321neo
+332,Airbus A330-200
+33X,Airbus A330-200 Freighter
+333,Airbus A330-300
+33Y,Airbus A330-300 Freighter
+339,Airbus A330-900neo
+342,Airbus A340-200
+343,Airbus A340-300
+345,Airbus A340-500
+346,Airbus A340-600
+351,Airbus A350-1000
+359,Airbus A350-900
+388,Airbus A380-800
 141,Bae 146-100
 142,Bae 146-200
 143,Bae 146-300
@@ -39,36 +47,83 @@ J31,Bae Jetstream 31
 J32,Bae Jetstream 32
 J41,Bae Jetstream 41
 BET,Beech King Air
+703,Boeing 707-300
+707,Boeing 707/720
+70F,Boeing 707 Freighter
+70M,Boeing 717
+721,Boeing 727-100
+722,Boeing 727-200
+727,Boeing 727
+72B,Boeing 727-100 Mixed
+72C,Boeing 727-200 Mixed
+72F,Boeing 727 Freighter (100/200)
+72M,Boeing 727
+72S,Boeing 727-200
+72W,Boeing 727-200 \w Winglets
+72X,Boeing 727-100
+72Y,Boeing 727-200
+731,Boeing 737-100
+732,Boeing 737-200
 733,Boeing 737-300
-73C,Boeing 737-300
 734,Boeing 737-400
 735,Boeing 737-500
-73E,Boeing 737-500
 736,Boeing 737-600
-73G,Boeing 737-700
-73W,Boeing 737-700
+737,Boeing 737
 738,Boeing 737-800
-73H,Boeing 737-800
 739,Boeing 737-900
-73J,Boeing 737-900
-73W,Boeing 737-BBJ
-73H,Boeing 737-BBJ2
-73J,Boeing 737-BBJ3
-744,Boeing 747-400
-748,Boeing 747-8
-74L,Boeing 747-SP
+73C,Boeing 737-300 \w Winglets
+73E,Boeing 737-500 \w Winglets
+73F,Boeing 737
+73G,Boeing 737-700
+73H,Boeing 737-800 \w Winglets
+73J,Boeing 737-900 \w Winglets
+73L,Boeing 737-200
+73M,Boeing 737
+73P,Boeing 737-400 Freighter
+73Q,Boeing 737-400
+73R,Boeing 737-700
+73W,Boeing 737-700 \w Winglets
+73X,Boeing 737-200 Freighter
+73Y,Boeing 737-300 Freighter
+741,Boeing 747-100 Passenger
+742,Boeing 747-200 Passenger
+743,Boeing 747-300 Passenger
+744,Boeing 747-400 Passenger
+747,Boeing 747
+74B,Boeing 747-400 Swingtail Freighter
+74C,Boeing 747-200
+74D,Boeing 747-300
+74E,Boeing 747-400
+74F,Boeing 747 Freighter
+74J,Boeing 747-400
+74L,Boeing 747SP
+74M,Boeing 747
+74R,Boeing 747SR Passenger
+74T,Boeing 747-100 Freighter
+74U,Boeing 747-300 / 747-200 SUD Freighter
+74V,Boeing 747SR Freighter
+74X,Boeing 747-200 Freighter
+74Y,Boeing 747-400 Freighter
 752,Boeing 757-200
-75W,Boeing 757-200
+753,Boeing 757-300
+757,Boeing 757
+75F,Boeing 757 Freighter
+75M,Boeing 757 Mixed
+75W,Boeing 757 Mixed
 762,Boeing 767-200
 763,Boeing 767-300
-76W,Boeing 767-300
 764,Boeing 767-400
+767,Boeing 767
+76F,Boeing 767
+76W,Boeing 767-300 \w Winglets
 772,Boeing 777-200
-77L,Boeing 777-200 LR
 773,Boeing 777-300
-77W,Boeing 777-300 ER
-788,Boeing 787-800
-789,Boeing 787-900
+777,Boeing 777 All
+77L,Boeing 777-200LR
+77W,Boeing 777-300ER
+783,Boeing 787-3
+788,Boeing 787-8
+789,Boeing 787-9
 MBH,Bolkow Bo-105
 CCX,Bombardier BD700 Global 5000
 CL3,Bombardier Challenger 300
@@ -230,9 +285,6 @@ PAT,Piper Pa-42
 PAG,Piper Pa-46
 S20,SAAB 2000
 SF3,SAAB SF340
-S61,Sikorsky S-61
-S76,Sikorsky S-76
-S92,Sikorsky S-92
 TBM,SOCATA TBM700
 TBM,SOCATA TBM850
 TU3,Tupolev Tu-134
