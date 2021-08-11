@@ -53,6 +53,12 @@
     <string name="text_reset">Reset</string>
     <string name="text_flight_results">Flight Results</string>
     <string name="text_flight_details">Flight Details</string>
+    <string name="text_end_flight">Final leg of the flight.</string>
+    <string name="text_return_segments">Return segments..</string>
+    <string name="text_cabin_code">Cabin Code :</string>
+    <string name="text_fare_basis">Fare Basis :</string>
+    <string name="text_class_Code">Class Code :</string>
+    <string name="text_main_cabin_full_flexible">Main Cabin Full Flexible</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

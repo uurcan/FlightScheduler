@@ -20,18 +20,16 @@ AR8,Avro RJ85 Avroliner
 318,Airbus A318
 31A,Airbus A318
 319,Airbus A319
-31B,Airbus A319 w\ Sharklet
+31B,Airbus A319
 31N,Airbus A319neo
 320,Airbus A320
-32A,Airbus A320 w\ Sharklet
+32A,Airbus A320
 32N,Airbus A320neo
 321,Airbus A321
-32B,Airbus A321 w\ Sharklet
+32B,Airbus A321
 32Q,Airbus A321neo
 332,Airbus A330-200
-33X,Airbus A330-200 Freighter
 333,Airbus A330-300
-33Y,Airbus A330-300 Freighter
 339,Airbus A330-900neo
 342,Airbus A340-200
 343,Airbus A340-300
@@ -49,17 +47,15 @@ J41,Bae Jetstream 41
 BET,Beech King Air
 703,Boeing 707-300
 707,Boeing 707/720
-70F,Boeing 707 Freighter
 70M,Boeing 717
 721,Boeing 727-100
 722,Boeing 727-200
 727,Boeing 727
 72B,Boeing 727-100 Mixed
 72C,Boeing 727-200 Mixed
-72F,Boeing 727 Freighter (100/200)
 72M,Boeing 727
 72S,Boeing 727-200
-72W,Boeing 727-200 \w Winglets
+72W,Boeing 727-200
 72X,Boeing 727-100
 72Y,Boeing 727-200
 731,Boeing 737-100
@@ -71,43 +67,32 @@ BET,Beech King Air
 737,Boeing 737
 738,Boeing 737-800
 739,Boeing 737-900
-73C,Boeing 737-300 \w Winglets
-73E,Boeing 737-500 \w Winglets
+73C,Boeing 737-300
+73E,Boeing 737-500
 73F,Boeing 737
 73G,Boeing 737-700
-73H,Boeing 737-800 \w Winglets
-73J,Boeing 737-900 \w Winglets
+73H,Boeing 737-800
+73J,Boeing 737-900
 73L,Boeing 737-200
 73M,Boeing 737
-73P,Boeing 737-400 Freighter
 73Q,Boeing 737-400
 73R,Boeing 737-700
-73W,Boeing 737-700 \w Winglets
-73X,Boeing 737-200 Freighter
-73Y,Boeing 737-300 Freighter
+73W,Boeing 737-700
 741,Boeing 747-100 Passenger
 742,Boeing 747-200 Passenger
 743,Boeing 747-300 Passenger
 744,Boeing 747-400 Passenger
 747,Boeing 747
-74B,Boeing 747-400 Swingtail Freighter
 74C,Boeing 747-200
 74D,Boeing 747-300
 74E,Boeing 747-400
-74F,Boeing 747 Freighter
 74J,Boeing 747-400
 74L,Boeing 747SP
 74M,Boeing 747
 74R,Boeing 747SR Passenger
-74T,Boeing 747-100 Freighter
-74U,Boeing 747-300 / 747-200 SUD Freighter
-74V,Boeing 747SR Freighter
-74X,Boeing 747-200 Freighter
-74Y,Boeing 747-400 Freighter
 752,Boeing 757-200
 753,Boeing 757-300
 757,Boeing 757
-75F,Boeing 757 Freighter
 75M,Boeing 757 Mixed
 75W,Boeing 757 Mixed
 762,Boeing 767-200
@@ -115,7 +100,7 @@ BET,Beech King Air
 764,Boeing 767-400
 767,Boeing 767
 76F,Boeing 767
-76W,Boeing 767-300 \w Winglets
+76W,Boeing 767-300
 772,Boeing 777-200
 773,Boeing 777-300
 777,Boeing 777 All
