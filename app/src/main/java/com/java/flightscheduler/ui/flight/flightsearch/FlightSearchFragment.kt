@@ -177,25 +177,25 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     }
 
     private fun decreaseChildrenCount() {
-        val previousChildCount : Int? = binding.txtFlightChildCount.text.toString().toInt()
+        val previousChildCount : Int = binding.txtFlightChildCount.text.toString().toInt()
         val currentChildCount : Int? = flightRoutesViewModel.decreaseChildCount(previousChildCount)
         binding.txtFlightChildCount.text = currentChildCount.toString()
     }
 
     private fun increaseChildrenCount() {
-        val previousChildCount : Int? = binding.txtFlightChildCount.text.toString().toInt()
+        val previousChildCount : Int = binding.txtFlightChildCount.text.toString().toInt()
         val currentChildCount : Int? = flightRoutesViewModel.increaseChildCount(previousChildCount)
         binding.txtFlightChildCount.text = currentChildCount.toString()
     }
 
     private fun decreaseAdultCount() {
-        val previousAdultCount : Int? = binding.txtFlightAdultCount.text.toString().toInt()
+        val previousAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
         val currentAdultCount : Int? = flightRoutesViewModel.decreaseAdultCount(previousAdultCount)
         binding.txtFlightAdultCount.text = currentAdultCount.toString()
     }
 
     private fun increaseAdultCount() {
-        val previousAdultCount : Int? = binding.txtFlightAdultCount.text.toString().toInt()
+        val previousAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
         val currentAdultCount : Int? = flightRoutesViewModel.increaseAdultCount(previousAdultCount)
         binding.txtFlightAdultCount.text = currentAdultCount.toString()
     }

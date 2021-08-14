@@ -1,61 +1,44 @@
 package com.java.flightscheduler.integration
 
+import com.java.flightscheduler.data.model.flight.FlightOffer
+import org.junit.Test
+import java.text.SimpleDateFormat
+import java.util.*
+
 class FlightTest {
-    /*companion object {
-        lateinit var tokenInitializer: TokenInitializer
-        lateinit var moshi: Moshi
+    @Test
+    fun eq(){
+        assert(true)
+    }
+    @Test
+    fun boundIndexTest(){
+        val connectionVariables = mutableListOf("Ahmed","Mehmed","Murad","Mustafa","Kemal")
 
-        @BeforeClass
-        @JvmStatic
-        fun before(){
-            tokenInitializer = TokenInitializer.Builder()
-                .setClientId("g0Bxb6Aar7qN0SNg22fGfGZJG0Uy1YWz")
-                .setClientSecret("HAWQf0DsgPedZLGo")
-                .setLogLevel(HttpLoggingInterceptor.Level.BODY)
-                .build()
-
-            moshi = Moshi.Builder().build()
+        for (index in 0..connectionVariables.size.minus(1)){
+            val result : String = doStuff(connectionVariables[index],connectionVariables[index.plus(1)])
+            connectionVariables.add(result)
         }
+        println(connectionVariables)
     }
 
-    @Test
-    fun flightOffersTest() = runBlocking {assert(
-            tokenInitializer.flightRepository.get(
-                "MAD",
-                "MUC",
-                "2021-06-22",
-                1
-            ).succeeded
-        )
+    private fun doStuff(a : String, b : String) : String{
+        return  a + b
     }
+    @Test
+    fun timeDifferenceTest(){
+        val firstLegArrivalDate = "2021-09-30T18:30:00"
+        val secondLegDepartureDate = "2021-10-01T18:30:00"
 
-    @Test
-    fun hotelOffersTest() = runBlocking {assert(
-            tokenInitializer.hotelSearch.get(
-               cityCode = "LON"
-            ).succeeded
-        )
-    }
+        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
+        val parsedFirstLegDate: Date? = format.parse(firstLegArrivalDate)
+        val parsedSecondLegDate: Date? = format.parse(secondLegDepartureDate)
 
-    @Test
-    fun priceMetricsTest() = runBlocking {assert(
-            tokenInitializer.priceMetrics.get(
-                originIataCode = "MAD",
-                destinationIataCode = "CDG",
-                departureDate = "2021-03-21",
-                currencyCode = "USD",
-                oneWay = false
-            ).succeeded
-        )
+        val timeDiff: Long? = parsedSecondLegDate?.time?.minus(parsedFirstLegDate?.time!!)
+        val hours = (timeDiff?.div((1000 * 60 * 60)))?.toInt()
+        val mins =(timeDiff?.div((1000 * 60 ))?.rem(60))?.toInt()
+
+        println(hours)
+        println(mins)
+        assert(mins.toString() == "320") { 1 }
     }
-    @Test
-    fun getFlightStatus() = runBlocking {
-        assert(
-            tokenInitializer.flightStatus.get(
-                carrierCode = "PR",
-                flightNumber = 212,
-                scheduledDepartureDate = "2021-06-22"
-            ).succeeded
-        )
-    }*/
 }

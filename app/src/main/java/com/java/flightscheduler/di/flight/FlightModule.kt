@@ -1,6 +1,7 @@
 package com.java.flightscheduler.di.flight
 
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
+import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.remote.repository.TokenRepository
 import com.java.flightscheduler.data.remote.services.*
 import dagger.Module
@@ -47,4 +48,8 @@ object FlightModule {
     @Singleton
     @Provides
     fun provideFlightSegment() : SearchSegment = SearchSegment()
+
+    @Singleton
+    @Provides
+    fun provideFareDetails() : FareDetailsBySegment = FareDetailsBySegment()
 }
