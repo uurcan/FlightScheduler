@@ -5,7 +5,6 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
-import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -16,22 +15,31 @@ class FlightDetailsRepository @Inject constructor(private val context: Context){
     fun getOrigin(segment: SearchSegment) = segment.departure?.iataCode
     fun getDestination(segment: SearchSegment) = segment.arrival?.iataCode
     fun getFlightCode(segment: SearchSegment) = segment.carrierCode + " - " + segment.number
-    fun getDuration(segment: SearchSegment) = segment.duration
+    fun getDuration(segment: SearchSegment) = segment.duration?.substring(2)
     fun getClassCode(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.segmentClass
-    fun getFareBasis(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.fareBasis
     fun getCabinCode(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.cabin
 
+    fun getFareBasis(fareDetailsBySegment: FareDetailsBySegment) : String{
+        return if (fareDetailsBySegment.fareBasis.equals(fareDetailsBySegment.cabin)){
+            context.getString(R.string.text_non_applicable)
+        } else {
+            fareDetailsBySegment.fareBasis.toString()
+        }
+    }
 
     fun getFormattedFlightDate(segment: SearchSegment) : String {
         val departureTime = segment.departure?.at?.substring(11,16)
         val arrivalTime = segment.arrival?.at?.substring(11,16)
         val arrivalDate : String? = segment.arrival?.at?.substring(0,10)
+        var formattedDate = arrivalDate
 
-        /*val parser = SimpleDateFormat(getString(R.string.text_date_parser_format), Locale.ENGLISH)
-        val formatter = SimpleDateFormat(getString(R.string.text_date_formatter), Locale.ENGLISH)
-        val formattedDate : String? = formatter.format(parser.parse(arrivalDate!!)!!)*/
-        //todo parse data
-        return "$departureTime - $arrivalTime "
+        val parser = SimpleDateFormat(context.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context.getString(R.string.text_date_formatter_day), Locale.ENGLISH)
+        if (arrivalDate != null) {
+            formattedDate = formatter.format(parser.parse(arrivalDate) as Date)
+        }
+
+        return "$departureTime - $arrivalTime  $formattedDate"
     }
 
     fun getLegCount(flightOffer: FlightOffer) : Int? {
@@ -63,7 +71,7 @@ class FlightDetailsRepository @Inject constructor(private val context: Context){
             if (oneWaySegment?.size == 1){
                 return listOf(context.getString(R.string.text_end_flight))
             } else {
-                extractSegmentInfo(oneWaySegment,context.getString(R.string.text_end_flight))
+                connectionVariables.addAll(extractSegmentInfo(oneWaySegment,context.getString(R.string.text_end_flight)))
             }
         } else {
             val firstSegmentData = itinerary?.get(0)?.segments
@@ -116,7 +124,12 @@ class FlightDetailsRepository @Inject constructor(private val context: Context){
         val timeDiff: Long? = parsedSecondLegDate?.time?.minus(parsedFirstLegDate?.time!!)
         val hours = timeDiff?.div((1000 * 60 * 60))?.toInt()
         val minutes = String.format("%02d", timeDiff?.div((1000 * 60 ))?.rem(60)?.toInt())
-        return "Connection time : $hours h $minutes m"
+
+        return if (hours == 0){
+            "Connection time : $minutes m"
+        } else {
+            "Connection time : $hours h $minutes m"
+        }
     }
 
     fun getFareDetails(flightOffer: FlightOffer) : List<FareDetailsBySegment>?

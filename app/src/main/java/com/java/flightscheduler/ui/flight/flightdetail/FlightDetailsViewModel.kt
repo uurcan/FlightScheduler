@@ -27,7 +27,7 @@ class FlightDetailsViewModel @Inject constructor(context: Context,segment: Searc
     val classCode : ObservableField<String> = ObservableField(flightDetailsRepository.getClassCode(fareDetailsBySegment))
     val fareBasis : ObservableField<String> = ObservableField(flightDetailsRepository.getFareBasis(fareDetailsBySegment))
     val cabinCode : ObservableField<String> = ObservableField(flightDetailsRepository.getCabinCode(fareDetailsBySegment))
-    val formattedDate : String = flightDetailsRepository.getFormattedFlightDate(segment)
+    val formattedDate : ObservableField<String> = ObservableField(flightDetailsRepository.getFormattedFlightDate(segment))
 
     fun getSegments(flightOffer: FlightOffer) : MutableLiveData<List<SearchSegment>> {
         val searchSegments = flightDetailsRepository.getSegmentDetails(flightOffer)

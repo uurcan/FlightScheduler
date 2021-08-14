@@ -59,6 +59,8 @@
     <string name="text_fare_basis">Fare Basis :</string>
     <string name="text_class_Code">Class Code :</string>
     <string name="text_main_cabin_full_flexible">Main Cabin Full Flexible</string>
+    <string name="text_date_formatter_day">EEEE, dd MMM yyyy</string>
+    <string name="text_non_applicable">N/A</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

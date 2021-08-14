@@ -94,7 +94,7 @@
                 android:layout_marginEnd="@dimen/margin_medium"
                 android:text="@{flightDetailViewModel.duration}"
                 android:textSize="14sp"
-                android:textColor="@color/grey_600"
+                android:textColor="@color/grey_black_1000"
                 android:id="@+id/txt_flight_detail_duration"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="wrap_content"
