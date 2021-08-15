@@ -16,6 +16,7 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
+import com.java.flightscheduler.utils.ParsingUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,8 +50,8 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         val departureDate : String? = flightSearch?.formattedDepartureDate
         val isOneWay : String = if (flightSearch?.returnDate == null) getString(R.string.text_one_way) else getString(R.string.text_round_trip)
         val audits : String = flightSearch?.children?.let { flightSearch?.adults?.plus(it) }.toString() + " " + getString(R.string.text_audits)
-        val originLocationCity : String = flightSearch?.originLocationCity.toString()
-        val destinationLocationCity : String = flightSearch?.destinationLocationCity.toString()
+        val originLocationCity : String = ParsingUtils().crop(flightSearch?.originLocationCity.toString())
+        val destinationLocationCity : String = ParsingUtils().crop(flightSearch?.destinationLocationCity.toString())
 
         binding.txtFlightDetailOriginIata.text = originLocationCode
         binding.txtFlightDetailDestinationIata.text = destinationLocationCode

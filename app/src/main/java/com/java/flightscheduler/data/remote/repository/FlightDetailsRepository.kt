@@ -5,6 +5,7 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.java.flightscheduler.data.model.flight.pricing.Price
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -138,5 +139,9 @@ class FlightDetailsRepository @Inject constructor(private val context: Context){
 
     private fun <T> merge(first: List<T>?, second: List<T>?): List<T> {
         return first!!.plus(second!!)
+    }
+
+    fun getFlightPrice(flightOffer: FlightOffer): Price? {
+        return flightOffer.price
     }
 }
