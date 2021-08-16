@@ -1,6 +1,5 @@
 package com.java.flightscheduler.ui.flight.flightdetail
 
-import android.app.ActionBar
 import android.app.Dialog
 import android.os.Bundle
 import android.view.*
