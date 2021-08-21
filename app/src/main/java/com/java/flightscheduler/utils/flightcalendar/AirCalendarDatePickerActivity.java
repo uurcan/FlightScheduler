@@ -2,10 +2,10 @@ package com.java.flightscheduler.utils.flightcalendar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.java.flightscheduler.R;
@@ -22,7 +22,6 @@ import java.util.Locale;
 import java.util.Objects;
 
 import timber.log.Timber;
-
 
 public class AirCalendarDatePickerActivity extends AppCompatActivity implements DatePickerController {
 
@@ -58,9 +57,6 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
 
     private TextView tv_start_date;
     private TextView tv_end_date;
-    private TextView tv_popup_msg;
-
-    private RelativeLayout rl_checkout_select_info_popup;
 
     private String SELECT_START_DATE = "";
     private String SELECT_END_DATE = "";
@@ -72,7 +68,7 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
     private boolean isBooking = false;
     private boolean isMonthLabel = false;
     private boolean isSingleSelect = false;
-    private List<String> weekDays = new ArrayList<>();
+    private final List<String> weekDays = new ArrayList<>();
     private ArrayList<String> dates;
     private SelectModel selectDate;
 
@@ -138,11 +134,7 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
         TextView tv_done_btn = findViewById(R.id.rl_done_btn);
         tv_start_date = findViewById(R.id.tv_start_date);
         tv_end_date = findViewById(R.id.tv_end_date);
-        tv_popup_msg = findViewById(R.id.tv_popup_msg);
-        rl_checkout_select_info_popup = findViewById(R.id.rl_checkout_select_info_popup);
         TextView tv_reset_btn = findViewById(R.id.rl_reset_btn);
-        RelativeLayout rl_popup_select_checkout_info_ok = findViewById(R.id.rl_popup_select_checkout_info_ok);
-        rl_checkout_select_info_popup = findViewById(R.id.rl_checkout_select_info_popup);
         RelativeLayout rl_iv_back_btn_bg = findViewById(R.id.rl_iv_back_btn_bg);
 
         TextView tv_day_one = findViewById(R.id.tv_day_one);
@@ -255,13 +247,8 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
                 SELECT_END_DATE = "";
             } else {
                 if (!isSingleSelect) {
-                    if (SELECT_START_DATE == null || SELECT_START_DATE.equals("")) {
-                        tv_popup_msg.setText(R.string.text_missing_date);
-                        rl_checkout_select_info_popup.setVisibility(View.VISIBLE);
-                        return;
-                    } else if (SELECT_END_DATE == null || SELECT_END_DATE.equals("")) {
-                        tv_popup_msg.setText(R.string.text_missing_date);
-                        rl_checkout_select_info_popup.setVisibility(View.VISIBLE);
+                    if (SELECT_END_DATE == null || SELECT_END_DATE.equals("")) {
+                        initializeAlertDialog();
                         return;
                     }
                 }
@@ -287,9 +274,16 @@ public class AirCalendarDatePickerActivity extends AppCompatActivity implements 
             init();
         });
 
-        rl_popup_select_checkout_info_ok.setOnClickListener(v -> rl_checkout_select_info_popup.setVisibility(View.GONE));
-
         rl_iv_back_btn_bg.setOnClickListener(v -> finish());
+    }
+
+    private void initializeAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Warning");
+        alertDialog.setMessage(getString(R.string.text_missing_date));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.show();
     }
 
     @Override

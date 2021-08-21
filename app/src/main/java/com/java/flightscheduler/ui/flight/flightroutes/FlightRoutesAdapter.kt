@@ -23,6 +23,7 @@ class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(ctx).inflate(R.layout.iata_list_item_view, parent, false)
         view.txt_flight_search_iata_data.text = filteredIataCodes[position].NAME
+        view.txt_flight_search_iata_code.text = filteredIataCodes[position].IATA
         return view
     }
 

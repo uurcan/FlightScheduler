@@ -46,7 +46,7 @@
     <string name="text_disclaimer">Disclaimer : This application only provides search results regarding Amadeus Self Service API. No online transaction is allowed for the application. For more info, please contact info@amadeus.com</string>
     <string name="text_flight_date">Flight Date</string>
     <string name="text_return_date">Return Date</string>
-    <string name="text_missing_date">Date parameters missing.</string>
+    <string name="text_missing_date">Please select the return date.</string>
     <string name="text_audits">Audits</string>
     <string name="text_no_flight_found">No flight found</string>
     <string name="text_select">Select</string>
@@ -61,6 +61,8 @@
     <string name="text_main_cabin_full_flexible">Main Cabin Full Flexible</string>
     <string name="text_date_formatter_day">EEEE, dd MMM yyyy</string>
     <string name="text_non_applicable">N/A</string>
+    <string name="ok">OK</string>
+    <string name="text_pricing_info">"Pricing Info"</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

@@ -128,7 +128,6 @@
                 <ImageView
                     android:src="@drawable/icon_flight_detail_info"
                     android:contentDescription="@null"
-                    android:layout_marginLeft="@dimen/margin_medium"
                     android:layout_marginStart="@dimen/margin_medium"
                     android:layout_width="@dimen/activity_horizontal_margin_extended"
                     android:layout_height="@dimen/activity_horizontal_margin_extended"

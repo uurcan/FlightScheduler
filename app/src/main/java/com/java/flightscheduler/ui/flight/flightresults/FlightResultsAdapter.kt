@@ -17,6 +17,7 @@ import com.java.flightscheduler.data.remote.repository.AirlineRepository
 import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
+import com.java.flightscheduler.utils.ParsingUtils
 
 class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context : Context, private val listener: FlightResultsListener)
     : RecyclerView.Adapter<FlightResultsAdapter.FlightResultsViewHolder>() {
@@ -36,7 +37,7 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context 
         val origin = locations.find { value -> segment?.departure?.iataCode == value.IATA }?.CITY.toString()
         val destination = locations.find { value -> segment?.arrival?.iataCode == value.IATA }?.CITY.toString()
 
-        val flightInfo = carrier?.let { FlightInfo(it,origin,destination) }
+        val flightInfo = carrier?.let { FlightInfo(it,ParsingUtils().crop(origin),ParsingUtils().crop(destination)) }
 
         if (flightInfo != null) {
             holderResults.bind(filteredOffers[position], flightInfo, context)
@@ -46,6 +47,8 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context 
     override fun getItemCount(): Int {
         return filteredOffers.size
     }
+
+
     interface FlightResultsListener : SelectedItemListener<FlightOffer>
 
     inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :

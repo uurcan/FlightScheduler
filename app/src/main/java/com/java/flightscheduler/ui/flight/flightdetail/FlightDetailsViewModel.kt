@@ -7,14 +7,16 @@ import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.java.flightscheduler.data.model.flight.pricing.Price
 import com.java.flightscheduler.data.remote.repository.FlightDetailsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FlightDetailsViewModel @Inject constructor(context: Context,segment: SearchSegment,fareDetailsBySegment: FareDetailsBySegment)
+class FlightDetailsViewModel @Inject constructor(context: Context,
+                                                 segment: SearchSegment,
+                                                 fareDetailsBySegment: FareDetailsBySegment)
     : ViewModel(){
-
     private var flightDetailsRepository : FlightDetailsRepository = FlightDetailsRepository(context)
     private var flightSegmentLiveData : MutableLiveData<List<SearchSegment>> = MutableLiveData()
     private var fareDetailsLiveData : MutableLiveData<List<FareDetailsBySegment>> = MutableLiveData()
@@ -29,7 +31,7 @@ class FlightDetailsViewModel @Inject constructor(context: Context,segment: Searc
     val cabinCode : ObservableField<String> = ObservableField(flightDetailsRepository.getCabinCode(fareDetailsBySegment))
     val formattedDate : ObservableField<String> = ObservableField(flightDetailsRepository.getFormattedFlightDate(segment))
 
-    fun getSegments(flightOffer: FlightOffer) : MutableLiveData<List<SearchSegment>> {
+    fun getSegments(flightOffer: FlightOffer): MutableLiveData<List<SearchSegment>> {
         val searchSegments = flightDetailsRepository.getSegmentDetails(flightOffer)
         flightSegmentLiveData.postValue(searchSegments)
         return flightSegmentLiveData

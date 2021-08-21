@@ -16,14 +16,16 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class FlightRoutesRepository @Inject constructor(
-    context : Context
+    private val context : Context
 ) {
-    private var inputStream : InputStream = context.resources.openRawResource(R.raw.airport_codes)
-    private var bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
+    private lateinit var bufferedReader: BufferedReader
 
     fun getIataCodes() : List<Airport>{
         val iataDataList : ArrayList<Airport> = ArrayList()
         try {
+            val inputStream : InputStream = context.resources.openRawResource(R.raw.airport_codes)
+            bufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
+
             bufferedReader.readLines().forEach {
                 val tokens = it.split(",")
                 iataDataList.add(
