@@ -1,5 +1,11 @@
 <layout>
-    <data class="FragmentFlightOffersBinding"/>
+    <data
+        class="FragmentFlightSearchBinding">
+        <import type="android.view.View" />
+        <variable
+            name="flightSearchViewModel"
+            type="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:background="@color/grey_white_1000"

@@ -17,11 +17,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
-import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
+import com.java.flightscheduler.databinding.FragmentFlightSearchBinding
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
@@ -32,7 +31,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
-    private lateinit var binding : FragmentFlightOffersBinding
+    private lateinit var binding : FragmentFlightSearchBinding
     private lateinit var navController : NavController
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
@@ -48,7 +47,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_offers,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_search,container,false)
         return binding.root
     }
 
@@ -136,6 +135,12 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         startForResult.launch(intent)
     }
 
+    private fun validateFields(){
+        flightSearchViewModel.isFlightSearchFormValidMediator.observe(viewLifecycleOwner, {
+
+        })
+    }
+
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun initializeDateParser(data: Intent) {
         val parser = SimpleDateFormat(getString(R.string.text_date_parser_format), Locale.ENGLISH)
@@ -166,7 +171,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         when (p0?.id) {
             binding.btnFlightOneWay.id -> initOneWayAnimation()
             binding.btnFlightRoundTrip.id -> initRoundTripAnimation()
-            binding.btnFlightSearchFlights.id -> saveFlightResults()
+            binding.btnFlightSearchFlights.id -> validateFields()
             binding.imgFlightAdultIncrease.id -> increaseAdultCount()
             binding.imgFlightAdultDecrease.id -> decreaseAdultCount()
             binding.imgFlightChildIncrease.id -> increaseChildrenCount()
