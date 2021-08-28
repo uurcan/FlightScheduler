@@ -95,6 +95,10 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right" />
+        <argument
+            android:name="search"
+            app:argType="com.java.flightscheduler.data.model.flight.FlightSearch" />
+
     </fragment>
     <fragment
         tools:layout="@layout/fragment_flight_detail"
