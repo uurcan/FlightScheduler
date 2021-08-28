@@ -1,5 +1,4 @@
 <layout>
-    <data class="FragmentFlightOffersBinding"/>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:background="@color/grey_white_1000"

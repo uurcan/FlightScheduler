@@ -10,11 +10,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
+import com.java.flightscheduler.ui.flight.flightdetail.FlightDetailsFragmentArgs
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import com.java.flightscheduler.utils.ParsingUtils
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,10 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsListener {
     private lateinit var binding : FragmentFlightResultsBinding
-    private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
-
+    private val flightResultsViewModel : FlightResultsViewModel by viewModels()
+    private val flightSearch by navArgs<FlightResultsFragmentArgs>()
     private lateinit var flightSearchAdapter : FlightResultsAdapter
-    private var flightSearch : FlightSearch? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,14 +45,13 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
     }
 
     private fun initializeFlightHeader() {
-        flightSearch = flightSearchViewModel.getFlightSearchLiveData()?.value
-        val originLocationCode : String? = flightSearch?.originLocationCode
-        val destinationLocationCode : String? = flightSearch?.destinationLocationCode
-        val departureDate : String? = flightSearch?.formattedDepartureDate
-        val isOneWay : String = if (flightSearch?.returnDate == null) getString(R.string.text_one_way) else getString(R.string.text_round_trip)
-        val audits : String = flightSearch?.children?.let { flightSearch?.adults?.plus(it) }.toString() + " " + getString(R.string.text_audits)
-        val originLocationCity : String = ParsingUtils().crop(flightSearch?.originLocationCity.toString())
-        val destinationLocationCity : String = ParsingUtils().crop(flightSearch?.destinationLocationCity.toString())
+        val originLocationCode : String = flightSearch.search.originLocationCode
+        val destinationLocationCode : String = flightSearch.search.destinationLocationCode
+        val departureDate : String = flightSearch.search.formattedDepartureDate
+        val isOneWay : String = if (flightSearch.search.returnDate == null) getString(R.string.text_one_way) else getString(R.string.text_round_trip)
+        val audits : String = flightSearch.search.children?.let { flightSearch.search.adults.plus(it) }.toString() + " " + getString(R.string.text_audits)
+        val originLocationCity : String = ParsingUtils().crop(flightSearch.search.originLocationCity)
+        val destinationLocationCity : String = ParsingUtils().crop(flightSearch.search.destinationLocationCity.toString())
 
         binding.txtFlightDetailOriginIata.text = originLocationCode
         binding.txtFlightDetailDestinationIata.text = destinationLocationCode
@@ -67,26 +67,24 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         binding.rvFlightList.layoutManager = layoutManager
         binding.rvFlightList.setHasFixedSize(true)
 
-        flightSearch?.let {
-            flightSearchViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
-                if (flightData.isEmpty()) {
-                    binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
-                    binding.txtFlightSearchErrorMessage.text =
-                        getString(R.string.text_no_flight_found)
-                }
-                flightSearchAdapter = context?.let { it1 -> FlightResultsAdapter(flightData, it1,this) }!!
-                binding.rvFlightList.adapter = flightSearchAdapter
-            })
+        flightResultsViewModel.getFlightData(flightSearch.search)?.observe(viewLifecycleOwner, { flightData ->
+            if (flightData.isEmpty()) {
+                binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
+                binding.txtFlightSearchErrorMessage.text =
+                    getString(R.string.text_no_flight_found)
+            }
+            flightSearchAdapter = context?.let { it1 -> FlightResultsAdapter(flightData, it1,this) }!!
+            binding.rvFlightList.adapter = flightSearchAdapter
+        })
+
+        flightResultsViewModel.loadingLiveData.observe(viewLifecycleOwner) {
+            binding.pbFlightSearch.visibility = if (it) View.VISIBLE else View.GONE
         }
 
-        flightSearchViewModel.loadingLiveData.observe(viewLifecycleOwner, {
-            binding.pbFlightSearch.visibility = if (it) View.VISIBLE else View.GONE
-        })
-
-        flightSearchViewModel.errorLiveData?.observe(viewLifecycleOwner, {
+        flightResultsViewModel.errorLiveData?.observe(viewLifecycleOwner) {
             binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
             binding.txtFlightSearchErrorMessage.text = it
-        })
+        }
     }
 
     override fun onItemClick(view: View, item: FlightOffer) {
