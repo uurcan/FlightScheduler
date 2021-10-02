@@ -19,12 +19,17 @@ import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
 import com.java.flightscheduler.utils.ParsingUtils
 
-class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context : Context, private val listener: FlightResultsListener)
+class FlightResultsAdapter(flightOffers: List<FlightOffer>,
+                           private val context : Context,
+                           private val listener: FlightResultsListener)
+
     : RecyclerView.Adapter<FlightResultsAdapter.FlightResultsViewHolder>() {
 
     private val airlines : List<Airline> = AirlineRepository(context).getAirlines()
     private val locations : List<Airport> = FlightRoutesRepository(context).getIataCodes()
-    private val filteredOffers : ArrayList<FlightOffer> = flightOffers.distinctBy { it.itineraries?.get(0)?.segments?.get(0)?.number } as ArrayList<FlightOffer>
+    private var filteredOffers : ArrayList<FlightOffer> = flightOffers.distinctBy {
+        it.itineraries?.get(0)?.segments?.get(0)?.number
+    } as ArrayList<FlightOffer>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightResultsViewHolder {
         return FlightResultsViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context) , R.layout.list_flight_search_item , parent , false))
@@ -36,7 +41,6 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context 
         val carrier : Airline? = airlines.find { data -> segment?.carrierCode == data.ID }
         val origin = locations.find { value -> segment?.departure?.iataCode == value.IATA }?.CITY.toString()
         val destination = locations.find { value -> segment?.arrival?.iataCode == value.IATA }?.CITY.toString()
-
         val flightInfo = carrier?.let { FlightInfo(it,ParsingUtils().crop(origin),ParsingUtils().crop(destination)) }
 
         if (flightInfo != null) {
@@ -48,7 +52,6 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context 
         return filteredOffers.size
     }
 
-
     interface FlightResultsListener : SelectedItemListener<FlightOffer>
 
     inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
@@ -57,7 +60,7 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>, private val context 
         private lateinit var flightOfferViewModel: FlightResultsViewModel
 
         fun bind(flightOffer: FlightOffer, flightInfo: FlightInfo ,context: Context) {
-            flightOfferViewModel = FlightResultsViewModel(flightOffer,listener)
+            flightOfferViewModel = FlightResultsViewModel(flightOffer,null)
             flightResultsBinding.setVariable(BR.flightListViewModel , flightOfferViewModel)
             flightResultsBinding.executePendingBindings()
 

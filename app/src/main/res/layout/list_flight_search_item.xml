@@ -7,7 +7,7 @@
             type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{(view)->flightListViewModel.onItemClick(view)}"
+        android:id="@+id/layout_flight_search"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_small"

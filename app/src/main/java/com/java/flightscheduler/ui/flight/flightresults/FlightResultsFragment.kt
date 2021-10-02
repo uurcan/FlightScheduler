@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.R
@@ -22,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsListener {
     private lateinit var binding : FragmentFlightResultsBinding
+    private val flightResultsViewModel: FlightResultsViewModel by viewModels()
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
 
     private lateinit var flightSearchAdapter : FlightResultsAdapter
@@ -68,7 +68,7 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         binding.rvFlightList.setHasFixedSize(true)
 
         flightSearch?.let {
-            flightSearchViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
+            flightResultsViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
                 if (flightData.isEmpty()) {
                     binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
                     binding.txtFlightSearchErrorMessage.text =
@@ -79,11 +79,11 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
             })
         }
 
-        flightSearchViewModel.loadingLiveData.observe(viewLifecycleOwner, {
+        flightResultsViewModel.loadingLiveData.observe(viewLifecycleOwner, {
             binding.pbFlightSearch.visibility = if (it) View.VISIBLE else View.GONE
         })
 
-        flightSearchViewModel.errorLiveData?.observe(viewLifecycleOwner, {
+        flightResultsViewModel.errorLiveData?.observe(viewLifecycleOwner, {
             binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
             binding.txtFlightSearchErrorMessage.text = it
         })
