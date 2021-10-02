@@ -21,7 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
-import com.java.flightscheduler.databinding.FragmentFlightSearchBinding
+import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
@@ -31,14 +31,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class FlightSearchFragment : Fragment(), View.OnClickListener {
-    private lateinit var binding : FragmentFlightSearchBinding
+class FlightSearchFragment : Fragment(),View.OnClickListener {
+    private lateinit var binding : FragmentFlightOffersBinding
     private lateinit var navController : NavController
+    private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
+    private lateinit var flightSearch : FlightSearch
     private lateinit var flightOriginCity : String
     private lateinit var flightDestinationCity : String
     private lateinit var departureDate : String
-    private var returnDate : String? = null
+    private lateinit var returnDate : String
     private var isRoundTrip : Boolean = true
 
     override fun onCreateView(
@@ -46,7 +48,7 @@ class FlightSearchFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_search,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_offers,container,false)
         return binding.root
     }
 
@@ -86,24 +88,36 @@ class FlightSearchFragment : Fragment(), View.OnClickListener {
         val flightSearchAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
         val flightSearchChildrenCount : Int? = binding.txtFlightChildCount.text.toString().toIntOrNull()
 
-        val flightSearch = FlightSearch(
-            originLocationCode = flightSearchOrigin,
-            destinationLocationCode = flightSearchDestination,
-            originLocationCity = flightOriginCity,
-            destinationLocationCity = flightDestinationCity,
-            departureDate = departureDate,
-            returnDate = returnDate,
-            adults = flightSearchAdultCount,
-            children = flightSearchChildrenCount,
-            formattedDepartureDate = formattedDepartureDate,
-        )
-
-        beginTransaction(flightSearch)
+        if (isRoundTrip) {
+            flightSearch = FlightSearch(
+                originLocationCode = flightSearchOrigin,
+                destinationLocationCode = flightSearchDestination,
+                originLocationCity = flightOriginCity,
+                destinationLocationCity = flightDestinationCity,
+                departureDate = departureDate,
+                returnDate = returnDate,
+                adults = flightSearchAdultCount,
+                children = flightSearchChildrenCount,
+                formattedDepartureDate = formattedDepartureDate,
+            )
+        } else {
+            flightSearch = FlightSearch(
+                originLocationCode = flightSearchOrigin,
+                destinationLocationCode = flightSearchDestination,
+                originLocationCity = flightOriginCity,
+                destinationLocationCity = flightDestinationCity,
+                departureDate = departureDate,
+                adults = flightSearchAdultCount,
+                children = flightSearchChildrenCount,
+                formattedDepartureDate = formattedDepartureDate
+            )
+        }
+        flightSearchViewModel.setFlightSearchLiveData(flightSearch)
+        beginTransaction()
     }
 
-    private fun beginTransaction(flightSearch : FlightSearch) {
-        val action = FlightSearchFragmentDirections.actionNavFlightSearchToNavFlightResults(flightSearch)
-        findNavController().navigate(action)
+    private fun beginTransaction() {
+        navController.navigate(R.id.action_nav_flight_search_to_nav_flight_results)
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -121,7 +135,6 @@ class FlightSearchFragment : Fragment(), View.OnClickListener {
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
         startForResult.launch(intent)
     }
-
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun initializeDateParser(data: Intent) {
