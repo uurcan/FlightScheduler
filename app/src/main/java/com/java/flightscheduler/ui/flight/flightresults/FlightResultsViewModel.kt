@@ -1,45 +1,36 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
 import android.view.View
-import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.remote.repository.FlightRepository
 import com.java.flightscheduler.data.remote.repository.FlightResultsRepository
-import androidx.lifecycle.viewModelScope
-import com.java.flightscheduler.data.model.base.BaseApiResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FlightResultsViewModel constructor(
-    private val flightRepository: FlightRepository?,
+@HiltViewModel
+class FlightResultsViewModel @Inject constructor(
     flightOffer: FlightOffer,
-    private val itemClickListener: FlightResultsAdapter.FlightResultsListener) : ViewModel() {
-
-    constructor(
-        flightOffer: FlightOffer,
-        itemClickListener: FlightResultsAdapter.FlightResultsListener
-    ) : this(
-        flightOffer = flightOffer,
-        itemClickListener = itemClickListener,
-        flightRepository = null
-    )
-
+    private val flightRepository: FlightRepository?
+): ViewModel(){
     private var flightResultsRepository : FlightResultsRepository = FlightResultsRepository(flightOffer)
-    val price: ObservableField<String> = ObservableField(flightResultsRepository.getPriceResults())
-    val itineraries : ObservableField<Itinerary> = ObservableField(flightResultsRepository.getItineraries())
-    val segments : ObservableField<SearchSegment> = ObservableField(flightResultsRepository.getSegments())
-    val flightNumber : ObservableField<String> = ObservableField(flightResultsRepository.getFlightNumber())
-    val duration : ObservableField<String> = ObservableField(flightResultsRepository.getDuration())
-    val carrierCode : String = flightResultsRepository.getCarrierCode().toString()
-
-
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData : MutableLiveData<String>? = MutableLiveData()
     private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
+
+    val price: MutableLiveData<String> = MutableLiveData(flightResultsRepository.getPriceResults())
+    val itineraries : MutableLiveData<Itinerary> = MutableLiveData(flightResultsRepository.getItineraries())
+    val segments : MutableLiveData<SearchSegment> = MutableLiveData(flightResultsRepository.getSegments())
+    val flightNumber : MutableLiveData<String> = MutableLiveData(flightResultsRepository.getFlightNumber())
+    val duration : MutableLiveData<String> = MutableLiveData(flightResultsRepository.getDuration())
+    val carrierCode : String = flightResultsRepository.getCarrierCode().toString()
 
     fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
         loadingLiveData.value = true
@@ -51,7 +42,13 @@ class FlightResultsViewModel constructor(
                 departureDate = flightSearch.departureDate,
                 returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,
-                children = flightSearch.children
+                children = flightSearch.children,
+                excludedAirlineCodes = flightSearch.excludedAirlineCodes,
+                includedAirlineCodes = flightSearch.includedAirlineCodes,
+                currencyCode = flightSearch.currencyCode,
+                infants = flightSearch.infants,
+                max = flightSearch.max,
+                nonStop = flightSearch.nonStop
             )
 
             when (flightOffersSearches){
@@ -69,9 +66,5 @@ class FlightResultsViewModel constructor(
             }
         }
         return flightLiveData
-    }
-
-    fun onItemClick(view: View) {
-        itemClickListener.onItemClick(view,flightResultsRepository.getResults())
     }
 }

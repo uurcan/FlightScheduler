@@ -6,7 +6,11 @@ import com.java.flightscheduler.data.constants.AppConstants.MAX_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MAX_CHILD_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
+import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
+import com.java.flightscheduler.data.model.flight.FlightInfo
+import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.utils.ParsingUtils
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -19,6 +23,20 @@ class FlightRoutesRepository @Inject constructor(
     private val context : Context
 ) {
     private lateinit var bufferedReader: BufferedReader
+
+    fun getMatchingFlightRoute(iata: List<Airport>, segment: String?): String {
+        return iata.find { value -> segment == value.IATA }?.CITY.toString()
+    }
+
+    fun getFlightInfo(carrier: Airline?, origin: String, destination: String): FlightInfo {
+        return FlightInfo(carrier, ParsingUtils().crop(origin), ParsingUtils().crop(destination))
+    }
+
+    fun getFilteredFlightResults(flightOffers : List<FlightOffer>): ArrayList<FlightOffer> {
+        return flightOffers.distinctBy {
+            it.itineraries?.get(0)?.segments?.get(0)?.number
+        } as ArrayList<FlightOffer>
+    }
 
     fun getIataCodes() : List<Airport>{
         val iataDataList : ArrayList<Airport> = ArrayList()

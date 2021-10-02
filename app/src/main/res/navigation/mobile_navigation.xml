@@ -43,7 +43,7 @@
         android:id="@+id/nav_flight_search"
         android:name="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragment"
         android:label="@string/text_flight_offers_lower"
-        tools:layout="@layout/fragment_flight_search" >
+        tools:layout="@layout/fragment_flight_offers" >
         <action
             android:id="@+id/action_nav_flight_search_to_nav_flight_results"
             app:destination="@id/nav_flight_results"
@@ -95,10 +95,6 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right" />
-        <argument
-            android:name="search"
-            app:argType="com.java.flightscheduler.data.model.flight.FlightSearch" />
-
     </fragment>
     <fragment
         tools:layout="@layout/fragment_flight_detail"
