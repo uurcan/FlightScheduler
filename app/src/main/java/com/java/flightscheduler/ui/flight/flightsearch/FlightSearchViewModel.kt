@@ -11,6 +11,10 @@ import javax.inject.Inject
 class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
     private var flightSearchLiveData : MutableLiveData<FlightSearch>? = MutableLiveData()
 
+    fun getFlightSearch() : FlightSearch? {
+        return flightSearchLiveData?.value
+    }
+
     fun setFlightSearchLiveData(flightSearch: FlightSearch){
         flightSearchLiveData?.value = flightSearch
     }

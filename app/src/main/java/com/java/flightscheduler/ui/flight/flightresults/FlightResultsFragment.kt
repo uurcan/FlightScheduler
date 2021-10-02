@@ -6,26 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
-import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
-import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
-import com.java.flightscheduler.utils.ParsingUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsListener {
     private lateinit var binding : FragmentFlightResultsBinding
     private val flightResultsViewModel: FlightResultsViewModel by viewModels()
-    private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
-
     private lateinit var flightSearchAdapter : FlightResultsAdapter
-    private var flightSearch : FlightSearch? = null
+    private val arguments by navArgs<FlightResultsFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,22 +40,8 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
     }
 
     private fun initializeFlightHeader() {
-        flightSearch = flightSearchViewModel.getFlightSearchLiveData()?.value
-        val originLocationCode : String? = flightSearch?.originLocationCode
-        val destinationLocationCode : String? = flightSearch?.destinationLocationCode
-        val departureDate : String? = flightSearch?.formattedDepartureDate
-        val isOneWay : String = if (flightSearch?.returnDate == null) getString(R.string.text_one_way) else getString(R.string.text_round_trip)
-        val audits : String = flightSearch?.children?.let { flightSearch?.adults?.plus(it) }.toString() + " " + getString(R.string.text_audits)
-        val originLocationCity : String = ParsingUtils().crop(flightSearch?.originLocationCity.toString())
-        val destinationLocationCity : String = ParsingUtils().crop(flightSearch?.destinationLocationCity.toString())
-
-        binding.txtFlightDetailOriginIata.text = originLocationCode
-        binding.txtFlightDetailDestinationIata.text = destinationLocationCode
-        binding.txtFlightDetailDepartureDate.text = departureDate
-        binding.txtFlightDetailOneWay.text = isOneWay
-        binding.txtFlightDetailAudits.text = audits
-        binding.txtFlightDetailOriginCity.text = originLocationCity
-        binding.txtFlightDetailDestinationCity.text = destinationLocationCity
+        binding.setVariable(BR.flightSearch,arguments.flightSearch)
+        binding.executePendingBindings()
     }
 
     private fun initializeFlightResults() {
@@ -67,7 +49,7 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         binding.rvFlightList.layoutManager = layoutManager
         binding.rvFlightList.setHasFixedSize(true)
 
-        flightSearch?.let {
+        arguments.flightSearch.let {
             flightResultsViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
                 if (flightData.isEmpty()) {
                     binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE

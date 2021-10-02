@@ -15,13 +15,14 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
+import com.java.flightscheduler.ui.flight.flightdetail.FlightDetailsFragmentArgs
+import com.java.flightscheduler.ui.flight.flightresults.FlightResultsFragmentArgs
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
@@ -33,10 +34,8 @@ import java.util.*
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
     private lateinit var binding : FragmentFlightOffersBinding
-    private lateinit var navController : NavController
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
-    private lateinit var flightSearch : FlightSearch
     private lateinit var flightOriginCity : String
     private lateinit var flightDestinationCity : String
     private lateinit var departureDate : String
@@ -54,7 +53,6 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
         initializeViews()
         initializeAirportDropdown()
     }
@@ -86,38 +84,27 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         val flightSearchDestination : String = binding.edtFlightSearchDestination.text.toString()
         val formattedDepartureDate : String = binding.txtFlightSearchDepartureDate.text.toString()
         val flightSearchAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
-        val flightSearchChildrenCount : Int? = binding.txtFlightChildCount.text.toString().toIntOrNull()
+        val flightSearchChildrenCount : Int = binding.txtFlightChildCount.text.toString().toInt()
 
-        if (isRoundTrip) {
-            flightSearch = FlightSearch(
-                originLocationCode = flightSearchOrigin,
-                destinationLocationCode = flightSearchDestination,
-                originLocationCity = flightOriginCity,
-                destinationLocationCity = flightDestinationCity,
-                departureDate = departureDate,
-                returnDate = returnDate,
-                adults = flightSearchAdultCount,
-                children = flightSearchChildrenCount,
-                formattedDepartureDate = formattedDepartureDate,
-            )
-        } else {
-            flightSearch = FlightSearch(
-                originLocationCode = flightSearchOrigin,
-                destinationLocationCode = flightSearchDestination,
-                originLocationCity = flightOriginCity,
-                destinationLocationCity = flightDestinationCity,
-                departureDate = departureDate,
-                adults = flightSearchAdultCount,
-                children = flightSearchChildrenCount,
-                formattedDepartureDate = formattedDepartureDate
-            )
-        }
+        val flightSearch = FlightSearch(
+            originLocationCode = flightSearchOrigin,
+            destinationLocationCode = flightSearchDestination,
+            originLocationCity = flightOriginCity,
+            destinationLocationCity = flightDestinationCity,
+            departureDate = departureDate,
+            returnDate = returnDate,
+            adults = flightSearchAdultCount,
+            children = flightSearchChildrenCount,
+            formattedDepartureDate = formattedDepartureDate,
+            audits = flightSearchAdultCount.plus(flightSearchChildrenCount)
+        )
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
-        beginTransaction()
+        beginTransaction(flightSearch)
     }
 
-    private fun beginTransaction() {
-        navController.navigate(R.id.action_nav_flight_search_to_nav_flight_results)
+    private fun beginTransaction(flightSearch : FlightSearch) {
+        val action = FlightSearchFragmentDirections.actionNavFlightSearchToNavFlightResults(flightSearch)
+        findNavController().navigate(action)
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
