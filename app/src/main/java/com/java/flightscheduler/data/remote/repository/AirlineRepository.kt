@@ -35,4 +35,7 @@ class AirlineRepository @Inject constructor(
         }
         return airportList
     }
+    fun getMatchingAirline(airlines : List<Airline>,carrier : String?) : Airline? {
+        return airlines.find { data -> carrier == data.ID }
+    }
 }
