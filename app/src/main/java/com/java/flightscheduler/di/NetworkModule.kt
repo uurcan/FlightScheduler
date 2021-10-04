@@ -59,6 +59,6 @@ object NetworkModule {
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(NumbersAdapter.FACTORY)
         .add(TypesAdapterFactory())
-        .addLast(KotlinJsonAdapterFactory())
+        .add(KotlinJsonAdapterFactory())
         .build()
 }

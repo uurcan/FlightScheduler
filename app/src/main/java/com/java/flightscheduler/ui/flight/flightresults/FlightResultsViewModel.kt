@@ -1,6 +1,5 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -54,8 +53,7 @@ class FlightResultsViewModel @Inject constructor(
                     }
                 }
                 is BaseApiResult.Error -> {
-                    //todo : not working as expected.
-                    errorLiveData?.value = flightOffersSearches.errors[0].detail
+                    errorLiveData?.value = flightResultsRepository.getQueryErrors(flightOffersSearches.errors)
                     loadingLiveData.value = false
                 }
             }

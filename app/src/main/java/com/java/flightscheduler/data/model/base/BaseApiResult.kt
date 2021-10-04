@@ -2,7 +2,6 @@ package com.java.flightscheduler.data.model.base
 
 import com.java.flightscheduler.data.constants.PaginationConstants
 import com.squareup.moshi.JsonClass
-import java.lang.Exception
 
 sealed class BaseApiResult <out R>{
     var method : String? = null
@@ -35,15 +34,13 @@ sealed class BaseApiResult <out R>{
     @JsonClass(generateAdapter = true)
     data class Error internal constructor(
         val errors: List<Issue> = ArrayList(),
-        val exception : Exception? = null
     ) : BaseApiResult<Nothing>() {
         @JsonClass(generateAdapter = true)
         data class Issue internal constructor(
             val status : Int? = null,
             val code: Int? = null,
             val title : String? = null,
-            val detail : String? = null,
-            val source : Source? = null
+            val detail : String? = null
         )
 
 

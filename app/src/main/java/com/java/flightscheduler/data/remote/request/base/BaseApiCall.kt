@@ -6,7 +6,6 @@ import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import java.lang.Exception
 
 @Suppress("BlockingMethodInNonBlockingContext")
 open class BaseApiCall(private val moshi : Moshi, private val dispatcher: CoroutineDispatcher) {
@@ -24,11 +23,11 @@ open class BaseApiCall(private val moshi : Moshi, private val dispatcher: Corout
                     }
                 } else {
                     moshi.adapter(BaseApiResult.Error::class.java)
-                        .fromJson(response.errorBody()?.toString() ?: "")
-                        ?: BaseApiResult.Error(exception = IOException())
+                        .fromJson(response.errorBody()?.string() ?: "")
+                        ?: BaseApiResult.Error()
                 }
             } catch (ex : Exception){
-                BaseApiResult.Error(exception = ex)
+                BaseApiResult.Error()
             }
         }
     }

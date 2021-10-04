@@ -19,8 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsListener {
     private lateinit var binding : FragmentFlightResultsBinding
-    private val flightResultsViewModel: FlightResultsViewModel by viewModels()
     private lateinit var flightSearchAdapter : FlightResultsAdapter
+    private val flightResultsViewModel: FlightResultsViewModel by viewModels()
     private val arguments by navArgs<FlightResultsFragmentArgs>()
 
     override fun onCreateView(
