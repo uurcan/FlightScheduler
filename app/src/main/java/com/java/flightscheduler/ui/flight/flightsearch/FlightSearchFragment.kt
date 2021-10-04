@@ -15,8 +15,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
@@ -33,14 +31,9 @@ import java.util.*
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
     private lateinit var binding : FragmentFlightOffersBinding
-    private lateinit var navController : NavController
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
-    private lateinit var flightSearch : FlightSearch
-    private lateinit var flightOriginCity : String
-    private lateinit var flightDestinationCity : String
-    private lateinit var departureDate : String
-    private lateinit var returnDate : String
+    private val flightSearch : FlightSearch = FlightSearch()
     private var isRoundTrip : Boolean = true
 
     override fun onCreateView(
@@ -54,7 +47,6 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
         initializeViews()
         initializeAirportDropdown()
     }
@@ -68,56 +60,34 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         binding.edtFlightSearchOrigin.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
             if (iataCode is Airport) {
-                binding.edtFlightSearchOrigin.setText(iataCode.IATA)
-                flightOriginCity = iataCode.CITY.toString()
+                binding.edtFlightSearchOrigin.setText(iataCode.CITY)
+                flightSearch.originLocationCode = iataCode.IATA.toString()
             }
         }
         binding.edtFlightSearchDestination.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
             if (iataCode is Airport) {
-                binding.edtFlightSearchDestination.setText(iataCode.IATA)
-                flightDestinationCity = iataCode.CITY.toString()
+                binding.edtFlightSearchDestination.setText(iataCode.CITY)
+                flightSearch.destinationLocationCode = iataCode.IATA.toString()
             }
         }
     }
 
     private fun saveFlightResults() {
-        val flightSearchOrigin : String = binding.edtFlightSearchOrigin.text.toString()
-        val flightSearchDestination : String = binding.edtFlightSearchDestination.text.toString()
-        val formattedDepartureDate : String = binding.txtFlightSearchDepartureDate.text.toString()
-        val flightSearchAdultCount : Int = binding.txtFlightAdultCount.text.toString().toInt()
-        val flightSearchChildrenCount : Int? = binding.txtFlightChildCount.text.toString().toIntOrNull()
+        flightSearch.originLocationCity = binding.edtFlightSearchOrigin.text.toString()
+        flightSearch.destinationLocationCity = binding.edtFlightSearchDestination.text.toString()
+        flightSearch.formattedDepartureDate = binding.txtFlightSearchDepartureDate.text.toString()
+        flightSearch.adults = binding.txtFlightAdultCount.text.toString().toInt()
+        flightSearch.children = binding.txtFlightChildCount.text.toString().toInt()
+        flightSearch.audits = flightSearch.adults.plus(flightSearch.children)
 
-        if (isRoundTrip) {
-            flightSearch = FlightSearch(
-                originLocationCode = flightSearchOrigin,
-                destinationLocationCode = flightSearchDestination,
-                originLocationCity = flightOriginCity,
-                destinationLocationCity = flightDestinationCity,
-                departureDate = departureDate,
-                returnDate = returnDate,
-                adults = flightSearchAdultCount,
-                children = flightSearchChildrenCount,
-                formattedDepartureDate = formattedDepartureDate,
-            )
-        } else {
-            flightSearch = FlightSearch(
-                originLocationCode = flightSearchOrigin,
-                destinationLocationCode = flightSearchDestination,
-                originLocationCity = flightOriginCity,
-                destinationLocationCity = flightDestinationCity,
-                departureDate = departureDate,
-                adults = flightSearchAdultCount,
-                children = flightSearchChildrenCount,
-                formattedDepartureDate = formattedDepartureDate
-            )
-        }
         flightSearchViewModel.setFlightSearchLiveData(flightSearch)
-        beginTransaction()
+        beginTransaction(flightSearch)
     }
 
-    private fun beginTransaction() {
-        navController.navigate(R.id.action_nav_flight_search_to_nav_flight_results)
+    private fun beginTransaction(flightSearch : FlightSearch) {
+        val action = FlightSearchFragmentDirections.actionNavFlightSearchToNavFlightResults(flightSearch)
+        findNavController().navigate(action)
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -148,7 +118,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
                 )
             )
         )
-        departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
+        flightSearch.departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
 
         if (isRoundTrip) {
             binding.txtFlightSearchArrivalDate.text = formatter.format(
@@ -158,7 +128,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
                     )
                 )
             )
-            returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+            flightSearch.returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
         }
     }
 

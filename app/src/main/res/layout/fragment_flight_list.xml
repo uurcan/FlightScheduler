@@ -1,9 +1,18 @@
-<layout>
-    <data class="FragmentFlightResultsBinding"/>
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class="FragmentFlightResultsBinding">
+        <import type="android.view.View" />
+        <variable
+            name="flightSearch"
+            type="com.java.flightscheduler.data.model.flight.FlightSearch" />
+        <variable
+            name="flightSearchViewModel"
+            type="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel" />
+  </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/grey_300"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -27,12 +36,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="@dimen/flight_search_editor_dimen"
                 android:layout_height="@dimen/flight_search_editor_dimen"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginBottom="@dimen/margin_medium"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/img_flight_list_logo"
-                android:layout_marginRight="@dimen/margin_xlarge"
                 android:layout_marginEnd="@dimen/margin_xlarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -44,7 +53,7 @@
                     android:id="@+id/txt_flight_detail_origin_iata"
                     android:textSize="26sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="IST"
+                    android:text="@{flightSearch.originLocationCode}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -52,24 +61,22 @@
                     android:id="@+id/txt_flight_detail_origin_city"
                     android:textSize="20sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="Istanbul"
-                    android:layout_marginLeft="@dimen/margin_xlarge"
+                    android:text="@{flightSearch.originLocationCity}"
                     android:layout_marginStart="@dimen/margin_xlarge"
                     app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_origin_iata"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:ignore="MissingConstraints" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_marginBottom="@dimen/margin_medium"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_list_logo"
-                android:layout_marginLeft="@dimen/margin_xlarge"
                 android:layout_marginStart="@dimen/margin_xlarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-
                 <TextView
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -77,7 +84,7 @@
                     android:id="@+id/txt_flight_detail_destination_iata"
                     android:textSize="26sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="ADB"
+                    android:text="@{flightSearch.destinationLocationCode}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -85,8 +92,7 @@
                     android:id="@+id/txt_flight_detail_destination_city"
                     android:textSize="20sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="Izmir"
-                    android:layout_marginLeft="@dimen/margin_xlarge"
+                    android:text="@{flightSearch.destinationLocationCity}"
                     android:layout_marginStart="@dimen/margin_xlarge"
                     app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_destination_iata"
                     android:layout_width="wrap_content"
@@ -100,12 +106,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:text="@{flightSearch.returnDate != null ? `Round-Trip` : `One Way`}"
                     android:id="@+id/txt_flight_detail_one_way"
                     android:layout_marginBottom="@dimen/margin_small"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin_extended"
                     android:layout_marginStart="@dimen/activity_horizontal_margin_extended"
                     android:textColor="@color/grey_white_1000"
-                    android:text="One Way"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -116,10 +121,9 @@
                 <TextView
                     android:id="@+id/txt_flight_detail_audits"
                     android:layout_marginBottom="@dimen/margin_small"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin_extended"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@string/text_audits"
+                    android:text="@{String.valueOf(flightSearch.audits) + ` Audits`}"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -131,7 +135,7 @@
                     android:id="@+id/txt_flight_detail_departure_date"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:textColor="@color/grey_white_1000"
-                    android:text="27 May 2021"
+                    android:text="@{flightSearch.formattedDepartureDate}"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -161,6 +165,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
         <TextView
+            android:textColor="@color/grey_black_1000"
             android:visibility="gone"
             android:id="@+id/txt_flight_search_error_message"
             android:layout_height="wrap_content"

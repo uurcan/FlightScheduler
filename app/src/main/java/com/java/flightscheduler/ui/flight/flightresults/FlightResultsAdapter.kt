@@ -18,7 +18,6 @@ import com.java.flightscheduler.data.remote.repository.AirlineRepository
 import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
-import com.java.flightscheduler.utils.ParsingUtils
 
 class FlightResultsAdapter(flightOffers: List<FlightOffer>,
                            private val context : Context,

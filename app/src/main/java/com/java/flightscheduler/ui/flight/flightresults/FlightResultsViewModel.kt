@@ -1,6 +1,5 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +19,7 @@ class FlightResultsViewModel @Inject constructor(
     flightOffer: FlightOffer,
     private val flightRepository: FlightRepository?
 ): ViewModel(){
+
     private var flightResultsRepository : FlightResultsRepository = FlightResultsRepository(flightOffer)
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     var errorLiveData : MutableLiveData<String>? = MutableLiveData()
@@ -42,13 +42,7 @@ class FlightResultsViewModel @Inject constructor(
                 departureDate = flightSearch.departureDate,
                 returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,
-                children = flightSearch.children,
-                excludedAirlineCodes = flightSearch.excludedAirlineCodes,
-                includedAirlineCodes = flightSearch.includedAirlineCodes,
-                currencyCode = flightSearch.currencyCode,
-                infants = flightSearch.infants,
-                max = flightSearch.max,
-                nonStop = flightSearch.nonStop
+                children = flightSearch.children
             )
 
             when (flightOffersSearches){
@@ -59,8 +53,7 @@ class FlightResultsViewModel @Inject constructor(
                     }
                 }
                 is BaseApiResult.Error -> {
-                    //todo : not working as expected.
-                    errorLiveData?.value = flightOffersSearches.errors[0].detail
+                    errorLiveData?.value = flightResultsRepository.getQueryErrors(flightOffersSearches.errors)
                     loadingLiveData.value = false
                 }
             }
