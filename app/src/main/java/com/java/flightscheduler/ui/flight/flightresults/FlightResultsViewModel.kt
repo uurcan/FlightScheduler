@@ -25,6 +25,10 @@ class FlightResultsViewModel @Inject constructor(
     var errorLiveData : MutableLiveData<String>? = MutableLiveData()
     private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
 
+    init {
+        loadingLiveData.value = true
+    }
+
     val price: MutableLiveData<String> = MutableLiveData(flightResultsRepository.getPriceResults())
     val itineraries : MutableLiveData<Itinerary> = MutableLiveData(flightResultsRepository.getItineraries())
     val segments : MutableLiveData<SearchSegment> = MutableLiveData(flightResultsRepository.getSegments())
@@ -33,8 +37,6 @@ class FlightResultsViewModel @Inject constructor(
     val carrierCode : String = flightResultsRepository.getCarrierCode().toString()
 
     fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
-        loadingLiveData.value = true
-
         viewModelScope.launch {
             val flightOffersSearches = flightRepository?.get(
                 originLocationCode = flightSearch.originLocationCode,

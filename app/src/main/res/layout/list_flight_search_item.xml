@@ -5,10 +5,7 @@
         <variable
             name="view"
             type="android.view.View"/>
-        <variable
-            name="fragment"
-            type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsFragment"/>
-        <variable
+         <variable
             name="flightListViewModel"
             type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsViewModel" />
         <variable
@@ -16,7 +13,6 @@
             type="com.java.flightscheduler.data.model.flight.FlightOffer"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{() -> fragment.onItemClick(view,item)}"
         android:id="@+id/layout_flight_search"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"

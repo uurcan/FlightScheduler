@@ -2,7 +2,6 @@ package com.java.flightscheduler.ui.flight.flightresults
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -52,7 +51,7 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
     interface FlightResultsListener : SelectedItemListener<FlightOffer>
 
     inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
-        RecyclerView.ViewHolder(flightResultsBinding.root),FlightResultsListener {
+        RecyclerView.ViewHolder(flightResultsBinding.root) {
 
         private lateinit var flightOfferViewModel: FlightResultsViewModel
 
@@ -66,10 +65,10 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
 
             flightResultsBinding.txtFlightDetailOriginCity.text = flightInfo.origin
             flightResultsBinding.txtFlightDetailDestinationCity.text = flightInfo.destination
-        }
 
-        override fun onItemClick(view: View, item: FlightOffer) {
-            listener.onItemClick(view,item)
+            flightResultsBinding.root.setOnClickListener {
+                listener.onItemClick(it, flightOffer)
+            }
         }
     }
 }

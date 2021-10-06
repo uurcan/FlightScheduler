@@ -14,6 +14,7 @@ import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
+import com.java.flightscheduler.ui.base.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,25 +51,26 @@ class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsList
         binding.rvFlightList.setHasFixedSize(true)
 
         arguments.flightSearch.let {
-            flightResultsViewModel.getFlightData(it)?.observe(viewLifecycleOwner, { flightData ->
+            flightResultsViewModel.getFlightData(it)?.observeOnce { flightData ->
                 if (flightData.isEmpty()) {
                     binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
                     binding.txtFlightSearchErrorMessage.text =
                         getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter = context?.let { it1 -> FlightResultsAdapter(flightData, it1,this) }!!
+                flightSearchAdapter =
+                    context?.let { it1 -> FlightResultsAdapter(flightData, it1, this) }!!
                 binding.rvFlightList.adapter = flightSearchAdapter
-            })
+            }
         }
 
-        flightResultsViewModel.loadingLiveData.observe(viewLifecycleOwner, {
+        flightResultsViewModel.loadingLiveData.observe(viewLifecycleOwner) {
             binding.pbFlightSearch.visibility = if (it) View.VISIBLE else View.GONE
-        })
+        }
 
-        flightResultsViewModel.errorLiveData?.observe(viewLifecycleOwner, {
+        flightResultsViewModel.errorLiveData?.observeOnce {
             binding.txtFlightSearchErrorMessage.visibility = View.VISIBLE
             binding.txtFlightSearchErrorMessage.text = it
-        })
+        }
     }
 
     override fun onItemClick(view: View, item: FlightOffer) {
