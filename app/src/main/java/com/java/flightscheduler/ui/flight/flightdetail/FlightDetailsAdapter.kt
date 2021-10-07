@@ -14,9 +14,9 @@ import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
-import com.java.flightscheduler.data.remote.repository.AircraftRepository
-import com.java.flightscheduler.data.remote.repository.FlightDetailsRepository
-import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
+import com.java.flightscheduler.data.repository.AircraftRepository
+import com.java.flightscheduler.data.repository.FlightDetailsRepository
+import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 
 class FlightDetailsAdapter(flightOffer: FlightOffer,private val context : Context)

@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.status.base.FlightStatus
-import com.java.flightscheduler.data.remote.repository.TokenRepository
-import com.java.flightscheduler.data.remote.repository.FlightStatusRepository
+import com.java.flightscheduler.data.repository.TokenRepository
+import com.java.flightscheduler.data.repository.FlightStatusRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

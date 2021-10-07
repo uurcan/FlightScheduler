@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.remote.repository
+package com.java.flightscheduler.data.repository
 
 import com.java.flightscheduler.data.model.auth.AccessToken
 import com.java.flightscheduler.data.remote.services.TokenService

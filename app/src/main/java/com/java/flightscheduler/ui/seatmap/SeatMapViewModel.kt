@@ -3,7 +3,7 @@ package com.java.flightscheduler.ui.seatmap
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.seatmap.base.SeatMap
-import com.java.flightscheduler.data.remote.repository.SeatMapRepository
+import com.java.flightscheduler.data.repository.SeatMapRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

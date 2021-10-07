@@ -13,8 +13,8 @@ import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.flight.FlightInfo
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
-import com.java.flightscheduler.data.remote.repository.AirlineRepository
-import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
+import com.java.flightscheduler.data.repository.AirlineRepository
+import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
 

@@ -8,10 +8,12 @@ class FlightSearch(
     var destinationLocationCode: String = "",
     var originLocationCity: String = "",
     var destinationLocationCity: String = "",
+    var isRoundTrip: Boolean = true,
     var departureDate: String = "",
     var returnDate: String? = null,
-    var adults: Int = 0,
+    var adults: Int = 1,
     var children: Int = 0,
     var formattedDepartureDate: String = "",
-    var audits : Int = 0
+    var formattedReturnDate: String? = null,
+    var audits : Int = 1
 ) : Parcelable

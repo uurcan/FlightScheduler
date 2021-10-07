@@ -8,8 +8,8 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
-import com.java.flightscheduler.data.remote.repository.FlightRepository
-import com.java.flightscheduler.data.remote.repository.FlightResultsRepository
+import com.java.flightscheduler.data.repository.FlightRepository
+import com.java.flightscheduler.data.repository.FlightResultsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

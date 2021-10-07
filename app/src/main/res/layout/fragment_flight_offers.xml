@@ -1,5 +1,10 @@
 <layout>
-    <data class="FragmentFlightOffersBinding"/>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="search"
+            type="com.java.flightscheduler.data.model.flight.FlightSearch" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:background="@color/grey_white_1000"
@@ -35,6 +40,7 @@
         android:layout_marginTop="@dimen/flight_search_small_icon_dimen">
 
         <androidx.appcompat.widget.AppCompatRadioButton
+            android:checked="@{!search.roundTrip}"
             android:textSize="16sp"
             android:button="@android:color/transparent"
             android:background="@drawable/button_selector"
@@ -53,7 +59,7 @@
             android:layout_height="@dimen/flight_search_switch_dimen"/>
 
         <androidx.appcompat.widget.AppCompatRadioButton
-            android:checked="true"
+            android:checked="@{search.roundTrip}"
             android:textSize="16sp"
             android:button="@android:color/transparent"
             android:background="@drawable/button_selector"
@@ -112,6 +118,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
 
             <AutoCompleteTextView
+                android:text="@{search.originLocationCity}"
                 android:gravity="top"
                 android:textColorHint="@color/grey_black_1000"
                 android:background="@android:color/transparent"
@@ -174,6 +181,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"/>
 
             <AutoCompleteTextView
+                android:text="@{search.destinationLocationCity}"
                 android:gravity="top"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="@dimen/margin_small"
@@ -238,7 +246,7 @@
             android:layout_marginEnd="@dimen/margin_small"
             android:layout_weight="1"
             android:id="@+id/layout_flight_departure_picker"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/flight_search_selector_dimen"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -265,7 +273,7 @@
                 android:background="@android:color/transparent"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:text="@string/text_temp_date"
+                android:text="@{search.formattedDepartureDate}"
                 android:textColor="@color/grey_black_1000"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
@@ -297,11 +305,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="@{search.roundTrip ? View.VISIBLE : View.GONE}"
             android:animateLayoutChanges="true"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:id="@+id/layout_flight_arrival_picker"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/flight_search_selector_dimen"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -328,7 +337,7 @@
                 android:background="@android:color/transparent"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:text="@string/text_temp_date"
+                android:text="@{search.formattedReturnDate}"
                 android:textColor="@color/grey_black_1000"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"
@@ -392,12 +401,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:text="@{String.valueOf(search.adults)}"
                 android:layout_marginTop="@dimen/margin_small"
                 android:id="@+id/txt_flight_adult_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
-                android:text="@string/text_one"
                 android:textSize="20sp"
                 android:textColor="@color/grey_black_1000"
                 app:layout_constraintTop_toTopOf="parent"
@@ -468,7 +477,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
-                android:text="@string/text_zero"
+                android:text="@{String.valueOf(search.children)}"
                 android:textSize="20sp"
                 android:textColor="@color/grey_black_1000"
                 app:layout_constraintTop_toTopOf="parent"
