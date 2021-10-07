@@ -66,6 +66,8 @@ public class AirMonthAdapter extends RecyclerView.Adapter<AirMonthAdapter.ViewHo
         if (mSelectModel != null) {
             isSelected = mSelectModel.isSelected();
         }
+
+        init();
     }
 
     @NonNull
@@ -153,6 +155,10 @@ public class AirMonthAdapter extends RecyclerView.Adapter<AirMonthAdapter.ViewHo
             airMonthView.setClickable(true);
             airMonthView.setOnDayClickListener(onDayClickListener);
         }
+    }
+
+    private void init() {
+            onDayTapped(new CalendarDay(System.currentTimeMillis()));
     }
 
     public void onDayClick(AirMonthView airMonthView, CalendarDay calendarDay) {

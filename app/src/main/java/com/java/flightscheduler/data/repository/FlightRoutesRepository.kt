@@ -29,7 +29,7 @@ class FlightRoutesRepository @Inject constructor(
     }
 
     fun getFlightInfo(carrier: Airline?, origin: String, destination: String): FlightInfo {
-        return FlightInfo(carrier, ParsingUtils().crop(origin), ParsingUtils().crop(destination))
+        return FlightInfo(carrier, ParsingUtils(context).crop(origin), ParsingUtils(context).crop(destination))
     }
 
     fun getFilteredFlightResults(flightOffers : List<FlightOffer>): ArrayList<FlightOffer> {

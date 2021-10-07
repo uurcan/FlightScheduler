@@ -1,14 +1,11 @@
 package com.java.flightscheduler.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
-import com.java.flightscheduler.R
 import java.text.SimpleDateFormat
-import java.util.*
+import java.time.Instant
 
 open class ParsingUtils (context: Context?){
-
-    val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
-    val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
 
     fun crop (word : String ) : String{
         val wordArray = word.split(" ")
@@ -33,7 +30,9 @@ open class ParsingUtils (context: Context?){
             )
         )
     }
+
+    @SuppressLint("NewApi")
     fun getCurrentDate(): String {
-        return Calendar.getInstance().time.toString()
+        return Instant.now().toString()
     }
 }

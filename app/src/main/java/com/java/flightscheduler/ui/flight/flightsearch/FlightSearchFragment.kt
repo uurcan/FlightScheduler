@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
@@ -19,12 +20,15 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
+import com.java.flightscheduler.ui.base.observeOnce
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
 import com.java.flightscheduler.utils.ParsingUtils
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
@@ -51,14 +55,17 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     }
 
     private fun initializeFlightParams() {
-        if (flightSearch.departureDate.isBlank()){
-            flightSearch.departureDate = parsingUtils.dateParser(
-                parser = parsingUtils.parser,
-                formatter =  parsingUtils.formatter,
-                date = parsingUtils.getCurrentDate()
-            )
+        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+        val parsedCurrentDate = parsingUtils.dateParser(
+            parser = parser,
+            formatter = formatter,
+            date = parsingUtils.getCurrentDate()
+        )
+        if (flightSearch.formattedDepartureDate.isBlank()){
+            flightSearch.formattedDepartureDate = parsedCurrentDate
+            flightSearch.formattedReturnDate = parsedCurrentDate
         }
-
         binding.setVariable(BR.search,flightSearch)
     }
 
@@ -99,8 +106,22 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         flightSearch.children = binding.txtFlightChildCount.text.toString().toInt()
         flightSearch.audits = flightSearch.adults.plus(flightSearch.children)
 
-        flightSearchViewModel.setFlightSearchLiveData(flightSearch)
-        beginTransaction(flightSearch)
+        if (isFlightParamsValid(origin = flightSearch.originLocationCode,
+                                destination = flightSearch.destinationLocationCode)){
+            flightSearchViewModel.setFlightSearchLiveData(flightSearch)
+            beginTransaction(flightSearch)
+        }
+    }
+
+    private fun isFlightParamsValid(origin: String, destination : String) : Boolean {
+        var isValid = true
+        flightSearchViewModel.performValidation(origin,destination).observeOnce { errorMessage ->
+            if (errorMessage.isNotBlank()) {
+                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+                isValid = false
+            }
+        }
+        return isValid
     }
 
     private fun beginTransaction(flightSearch : FlightSearch) {
@@ -128,17 +149,20 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     }
 
     private fun initializeDateParser(data: Intent) {
+        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+
         binding.txtFlightSearchDepartureDate.text = parsingUtils.dateParser(
-            parser = parsingUtils.parser,
-            formatter = parsingUtils.formatter,
+            parser = parser,
+            formatter = formatter,
             date = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE)
         )
         flightSearch.departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
 
         if (flightSearch.isRoundTrip) {
             binding.txtFlightSearchArrivalDate.text = parsingUtils.dateParser(
-                parser = parsingUtils.parser,
-                formatter = parsingUtils.formatter,
+                parser = parser,
+                formatter = formatter,
                 date = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE)
             )
             flightSearch.returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
