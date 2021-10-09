@@ -1,11 +1,10 @@
 package com.java.flightscheduler.utils
 
 import android.annotation.SuppressLint
-import android.content.Context
 import java.text.SimpleDateFormat
 import java.time.Instant
 
-open class ParsingUtils (context: Context?){
+open class ParsingUtils {
 
     fun crop (word : String ) : String{
         val wordArray = word.split(" ")

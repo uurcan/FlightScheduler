@@ -13,7 +13,7 @@ class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
 
     private val validationMessage = MutableLiveData("")
 
-    fun performValidation(origin : String, destination : String) : MutableLiveData<String>{
+    fun performValidation(origin : String, destination : String, departureDate : String) : MutableLiveData<String>{
         validationMessage.value = ""
 
         if (origin.isBlank()) {
@@ -22,6 +22,10 @@ class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
 
         if (destination.isBlank()) {
             validationMessage.value = "Destination is missing"
+        }
+
+        if (departureDate.isBlank()) {
+            validationMessage.value = "Flight date is missing"
         }
         return validationMessage
     }

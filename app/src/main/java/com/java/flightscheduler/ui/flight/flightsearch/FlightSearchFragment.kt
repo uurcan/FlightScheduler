@@ -9,7 +9,6 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
@@ -20,7 +19,7 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
-import com.java.flightscheduler.ui.base.observeOnce
+import com.java.flightscheduler.ui.base.MessageHelper
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
 import com.java.flightscheduler.utils.ParsingUtils
@@ -35,7 +34,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private lateinit var binding : FragmentFlightOffersBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
-    private val parsingUtils = ParsingUtils(context)
+    private val parsingUtils = ParsingUtils()
     private val flightSearch : FlightSearch = FlightSearch()
 
     override fun onCreateView(
@@ -107,17 +106,19 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         flightSearch.audits = flightSearch.adults.plus(flightSearch.children)
 
         if (isFlightParamsValid(origin = flightSearch.originLocationCode,
-                                destination = flightSearch.destinationLocationCode)){
+                                destination = flightSearch.destinationLocationCode,
+                                departureDate = flightSearch.departureDate)){
             flightSearchViewModel.setFlightSearchLiveData(flightSearch)
             beginTransaction(flightSearch)
         }
     }
 
-    private fun isFlightParamsValid(origin: String, destination : String) : Boolean {
+    private fun isFlightParamsValid(origin: String, destination : String, departureDate : String) : Boolean {
         var isValid = true
-        flightSearchViewModel.performValidation(origin,destination).observeOnce { errorMessage ->
+        flightSearchViewModel.performValidation(origin,destination,departureDate).observe(viewLifecycleOwner)
+        { errorMessage ->
             if (errorMessage.isNotBlank()) {
-                Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+                MessageHelper.displayErrorMessage(view,errorMessage)
                 isValid = false
             }
         }
