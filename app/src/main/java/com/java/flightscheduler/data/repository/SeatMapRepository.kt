@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.remote.repository
+package com.java.flightscheduler.data.repository
 
 import com.java.flightscheduler.data.remote.services.SeatMapService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall

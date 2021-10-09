@@ -15,6 +15,7 @@
     <dimen name="margin_x_small">3dp</dimen>
     <dimen name="margin_small">5dp</dimen>
     <dimen name="margin_medium">10dp</dimen>
+    <dimen name="margin_large">30dp</dimen>
     <dimen name="margin_xlarge">30dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>

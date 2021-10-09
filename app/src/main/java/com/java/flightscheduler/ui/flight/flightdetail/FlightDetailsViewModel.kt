@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
-import com.java.flightscheduler.data.model.flight.pricing.Price
-import com.java.flightscheduler.data.remote.repository.FlightDetailsRepository
+import com.java.flightscheduler.data.repository.FlightDetailsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

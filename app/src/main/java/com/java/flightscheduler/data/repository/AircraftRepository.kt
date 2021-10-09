@@ -1,9 +1,8 @@
-package com.java.flightscheduler.data.remote.repository
+package com.java.flightscheduler.data.repository
 
 import android.content.Context
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Aircraft
-import com.java.flightscheduler.data.model.flight.Airline
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream

@@ -2,7 +2,6 @@ package com.java.flightscheduler.ui.flight.flightresults
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +13,8 @@ import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.flight.FlightInfo
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
-import com.java.flightscheduler.data.remote.repository.AirlineRepository
-import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
+import com.java.flightscheduler.data.repository.AirlineRepository
+import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
 
@@ -52,7 +51,7 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
     interface FlightResultsListener : SelectedItemListener<FlightOffer>
 
     inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
-        RecyclerView.ViewHolder(flightResultsBinding.root),FlightResultsListener {
+        RecyclerView.ViewHolder(flightResultsBinding.root) {
 
         private lateinit var flightOfferViewModel: FlightResultsViewModel
 
@@ -66,10 +65,10 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
 
             flightResultsBinding.txtFlightDetailOriginCity.text = flightInfo.origin
             flightResultsBinding.txtFlightDetailDestinationCity.text = flightInfo.destination
-        }
 
-        override fun onItemClick(view: View, item: FlightOffer) {
-            listener.onItemClick(view,item)
+            flightResultsBinding.root.setOnClickListener {
+                listener.onItemClick(it, flightOffer)
+            }
         }
     }
 }

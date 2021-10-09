@@ -1,6 +1,11 @@
 package com.java.flightscheduler.utils
 
-class ParsingUtils {
+import android.annotation.SuppressLint
+import java.text.SimpleDateFormat
+import java.time.Instant
+
+open class ParsingUtils {
+
     fun crop (word : String ) : String{
         val wordArray = word.split(" ")
         return if (word.length >= 8) {
@@ -14,5 +19,19 @@ class ParsingUtils {
         } else {
             word
         }
+    }
+
+    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+    fun dateParser(parser : SimpleDateFormat,formatter : SimpleDateFormat ,date : String?) : String {
+        return formatter.format(
+            parser.parse(
+                date
+            )
+        )
+    }
+
+    @SuppressLint("NewApi")
+    fun getCurrentDate(): String {
+        return Instant.now().toString()
     }
 }

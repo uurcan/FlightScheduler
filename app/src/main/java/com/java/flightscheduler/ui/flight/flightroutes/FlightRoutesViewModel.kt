@@ -3,7 +3,7 @@ package com.java.flightscheduler.ui.flight.flightroutes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.flight.Airport
-import com.java.flightscheduler.data.remote.repository.FlightRoutesRepository
+import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

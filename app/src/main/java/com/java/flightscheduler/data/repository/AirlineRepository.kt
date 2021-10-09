@@ -1,4 +1,4 @@
-package com.java.flightscheduler.data.remote.repository
+package com.java.flightscheduler.data.repository
 
 import android.content.Context
 import com.java.flightscheduler.R

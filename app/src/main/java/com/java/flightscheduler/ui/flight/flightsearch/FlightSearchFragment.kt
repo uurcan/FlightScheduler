@@ -4,24 +4,25 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
+import com.java.flightscheduler.ui.base.MessageHelper
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
+import com.java.flightscheduler.utils.ParsingUtils
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,8 +34,8 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     private lateinit var binding : FragmentFlightOffersBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
+    private val parsingUtils = ParsingUtils()
     private val flightSearch : FlightSearch = FlightSearch()
-    private var isRoundTrip : Boolean = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,41 +49,80 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeViews()
+        initializeFlightParams()
         initializeAirportDropdown()
     }
 
+    private fun initializeFlightParams() {
+        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+        val parsedCurrentDate = parsingUtils.dateParser(
+            parser = parser,
+            formatter = formatter,
+            date = parsingUtils.getCurrentDate()
+        )
+        if (flightSearch.formattedDepartureDate.isBlank()){
+            flightSearch.formattedDepartureDate = parsedCurrentDate
+            flightSearch.formattedReturnDate = parsedCurrentDate
+        }
+        binding.setVariable(BR.search,flightSearch)
+    }
+
     private fun initializeAirportDropdown() {
-        context?.let { flightRoutesViewModel.getIATACodes()?.observe(viewLifecycleOwner,{
-            val adapter = FlightRoutesAdapter(requireContext(), it.toTypedArray())
-            binding.edtFlightSearchOrigin.setAdapter(adapter)
-            binding.edtFlightSearchDestination.setAdapter(adapter)
-        })}
-        binding.edtFlightSearchOrigin.setOnItemClickListener { adapterView, _, i, _ ->
+        context?.let {
+            flightRoutesViewModel.getIATACodes()?.observe(viewLifecycleOwner,
+                {
+                    val adapter = FlightRoutesAdapter(requireContext(), it.toTypedArray())
+                    binding.edtFlightSearchOrigin.setAdapter(adapter)
+                    binding.edtFlightSearchDestination.setAdapter(adapter)
+                }
+            )
+        }
+        binding.edtFlightSearchOrigin.setOnItemClickListener{ adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
             if (iataCode is Airport) {
-                binding.edtFlightSearchOrigin.setText(iataCode.CITY)
+                val origin = "${iataCode.CITY} (${iataCode.IATA})"
+                binding.edtFlightSearchOrigin.setText(origin)
                 flightSearch.originLocationCode = iataCode.IATA.toString()
+                flightSearch.originLocationCity = iataCode.CITY.toString()
             }
         }
         binding.edtFlightSearchDestination.setOnItemClickListener { adapterView, _, i, _ ->
             val iataCode = adapterView.getItemAtPosition(i)
             if (iataCode is Airport) {
-                binding.edtFlightSearchDestination.setText(iataCode.CITY)
+                val destination = "${iataCode.CITY} (${iataCode.IATA})"
+                binding.edtFlightSearchDestination.setText(destination)
                 flightSearch.destinationLocationCode = iataCode.IATA.toString()
+                flightSearch.destinationLocationCity = iataCode.CITY.toString()
             }
         }
     }
 
     private fun saveFlightResults() {
-        flightSearch.originLocationCity = binding.edtFlightSearchOrigin.text.toString()
-        flightSearch.destinationLocationCity = binding.edtFlightSearchDestination.text.toString()
         flightSearch.formattedDepartureDate = binding.txtFlightSearchDepartureDate.text.toString()
+        flightSearch.formattedReturnDate = binding.txtFlightSearchArrivalDate.text.toString()
         flightSearch.adults = binding.txtFlightAdultCount.text.toString().toInt()
         flightSearch.children = binding.txtFlightChildCount.text.toString().toInt()
         flightSearch.audits = flightSearch.adults.plus(flightSearch.children)
 
-        flightSearchViewModel.setFlightSearchLiveData(flightSearch)
-        beginTransaction(flightSearch)
+        if (isFlightParamsValid(origin = flightSearch.originLocationCode,
+                                destination = flightSearch.destinationLocationCode,
+                                departureDate = flightSearch.departureDate)){
+            flightSearchViewModel.setFlightSearchLiveData(flightSearch)
+            beginTransaction(flightSearch)
+        }
+    }
+
+    private fun isFlightParamsValid(origin: String, destination : String, departureDate : String) : Boolean {
+        var isValid = true
+        flightSearchViewModel.performValidation(origin,destination,departureDate).observe(viewLifecycleOwner)
+        { errorMessage ->
+            if (errorMessage.isNotBlank()) {
+                MessageHelper.displayErrorMessage(view,errorMessage)
+                isValid = false
+            }
+        }
+        return isValid
     }
 
     private fun beginTransaction(flightSearch : FlightSearch) {
@@ -90,9 +130,12 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         findNavController().navigate(action)
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            result.data?.let { initializeDateParser(it) }
+            result.data?.let {
+                initializeDateParser(it)
+            }
         }
     }
 
@@ -100,33 +143,28 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         val intent = AirCalendarIntent(context)
         intent.setSelectButtonText(getString(R.string.text_select))
         intent.setResetBtnText(getString(R.string.text_reset))
-        intent.isSingleSelect(!isRoundTrip)
+        intent.isSingleSelect(!flightSearch.isRoundTrip)
         intent.isMonthLabels(false)
         intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
         startForResult.launch(intent)
     }
 
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     private fun initializeDateParser(data: Intent) {
-        val parser = SimpleDateFormat(getString(R.string.text_date_parser_format), Locale.ENGLISH)
-        val formatter = SimpleDateFormat(getString(R.string.text_date_formatter), Locale.ENGLISH)
+        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
 
-        binding.txtFlightSearchDepartureDate.text = formatter.format(
-            parser.parse(
-                data.getStringExtra(
-                    AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE,
-                )
-            )
+        binding.txtFlightSearchDepartureDate.text = parsingUtils.dateParser(
+            parser = parser,
+            formatter = formatter,
+            date = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE)
         )
         flightSearch.departureDate = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
 
-        if (isRoundTrip) {
-            binding.txtFlightSearchArrivalDate.text = formatter.format(
-                parser.parse(
-                    data.getStringExtra(
-                        AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE
-                    )
-                )
+        if (flightSearch.isRoundTrip) {
+            binding.txtFlightSearchArrivalDate.text = parsingUtils.dateParser(
+                parser = parser,
+                formatter = formatter,
+                date = data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE)
             )
             flightSearch.returnDate =  data.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
         }
@@ -134,8 +172,8 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-            binding.btnFlightOneWay.id -> initOneWayAnimation()
-            binding.btnFlightRoundTrip.id -> initRoundTripAnimation()
+            binding.btnFlightOneWay.id -> oneWaySelection()
+            binding.btnFlightRoundTrip.id -> roundTripSelection()
             binding.btnFlightSearchFlights.id -> saveFlightResults()
             binding.imgFlightAdultIncrease.id -> increaseAdultCount()
             binding.imgFlightAdultDecrease.id -> decreaseAdultCount()
@@ -189,19 +227,14 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         binding.imgFlightChildIncrease.setOnClickListener(this)
     }
 
-    private fun initRoundTripAnimation() {
-        isRoundTrip = true
-        TransitionManager.beginDelayedTransition(binding.layoutFlightArrivalPicker)
-        binding.btnFlightRoundTrip.isSelected = true
-        binding.layoutFlightDeparturePicker.layoutParams.width = 0
+    private fun roundTripSelection() {
+        flightSearch.isRoundTrip = true
         binding.layoutFlightArrivalPicker.visibility = VISIBLE
     }
 
-    private fun initOneWayAnimation() {
-        isRoundTrip = false
-        TransitionManager.beginDelayedTransition(binding.layoutFlightArrivalPicker)
-        binding.btnFlightOneWay.isSelected = true
-        binding.layoutFlightDeparturePicker.layoutParams.width = MATCH_PARENT
+    private fun oneWaySelection() {
+        flightSearch.isRoundTrip = false
+        flightSearch.returnDate = null
         binding.layoutFlightArrivalPicker.visibility = GONE
     }
 }

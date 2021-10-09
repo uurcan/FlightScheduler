@@ -11,6 +11,25 @@ import javax.inject.Inject
 class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
     private var flightSearchLiveData : MutableLiveData<FlightSearch>? = MutableLiveData()
 
+    private val validationMessage = MutableLiveData("")
+
+    fun performValidation(origin : String, destination : String, departureDate : String) : MutableLiveData<String>{
+        validationMessage.value = ""
+
+        if (origin.isBlank()) {
+            validationMessage.value = "Origin is missing"
+        }
+
+        if (destination.isBlank()) {
+            validationMessage.value = "Destination is missing"
+        }
+
+        if (departureDate.isBlank()) {
+            validationMessage.value = "Flight date is missing"
+        }
+        return validationMessage
+    }
+
     fun setFlightSearchLiveData(flightSearch: FlightSearch){
         flightSearchLiveData?.value = flightSearch
     }

@@ -8,8 +8,8 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
-import com.java.flightscheduler.data.remote.repository.FlightRepository
-import com.java.flightscheduler.data.remote.repository.FlightResultsRepository
+import com.java.flightscheduler.data.repository.FlightRepository
+import com.java.flightscheduler.data.repository.FlightResultsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +25,10 @@ class FlightResultsViewModel @Inject constructor(
     var errorLiveData : MutableLiveData<String>? = MutableLiveData()
     private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
 
+    init {
+        loadingLiveData.value = true
+    }
+
     val price: MutableLiveData<String> = MutableLiveData(flightResultsRepository.getPriceResults())
     val itineraries : MutableLiveData<Itinerary> = MutableLiveData(flightResultsRepository.getItineraries())
     val segments : MutableLiveData<SearchSegment> = MutableLiveData(flightResultsRepository.getSegments())
@@ -33,8 +37,6 @@ class FlightResultsViewModel @Inject constructor(
     val carrierCode : String = flightResultsRepository.getCarrierCode().toString()
 
     fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
-        loadingLiveData.value = true
-
         viewModelScope.launch {
             val flightOffersSearches = flightRepository?.get(
                 originLocationCode = flightSearch.originLocationCode,
