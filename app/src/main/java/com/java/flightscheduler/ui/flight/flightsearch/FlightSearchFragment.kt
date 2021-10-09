@@ -18,7 +18,7 @@ import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
-import com.java.flightscheduler.databinding.FragmentFlightOffersBinding
+import com.java.flightscheduler.databinding.FragmentFlightSearchBinding
 import com.java.flightscheduler.ui.base.MessageHelper
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
 import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
@@ -31,7 +31,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class FlightSearchFragment : Fragment(),View.OnClickListener {
-    private lateinit var binding : FragmentFlightOffersBinding
+    private lateinit var binding : FragmentFlightSearchBinding
     private val flightSearchViewModel: FlightSearchViewModel by activityViewModels()
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
     private val parsingUtils = ParsingUtils()
@@ -42,7 +42,7 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_offers,container,false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_flight_search,container,false)
         return binding.root
     }
 

@@ -63,6 +63,12 @@
     <string name="text_non_applicable">N/A</string>
     <string name="ok">OK</string>
     <string name="text_pricing_info">"Pricing Info"</string>
+    <string name="text_rooms">Rooms</string>
+    <string name="text_check_in_date">Check In Date</string>
+    <string name="text_check_out_date">Check Out Date</string>
+    <string name="text_hotel_search">Hotel Search</string>
+    <string name="text_search_hotels">Search Hotels</string>
+    <string name="text_city">City</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

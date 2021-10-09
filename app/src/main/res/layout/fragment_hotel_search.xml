@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="search"
+            type="com.java.flightscheduler.data.model.hotel.base.HotelOffer" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:gravity="center"
+        android:background="@color/grey_white_1000"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.hotel.HotelSearchFragment">
+        <TextView
+            android:id="@+id/txt_hotel_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_search_city"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="26sp"
+            android:textColor="@color/grey_black_1000"
+            android:layout_marginTop="@dimen/margin_xlarge"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:textStyle="normal"
+            android:text="@string/text_hotel_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="@dimen/flight_search_small_icon_dimen"
+            app:layout_constraintTop_toBottomOf="@+id/txt_hotel_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/layout_hotel_search_city"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_search_selector_dimen">
+
+            <View
+                android:background="@drawable/button_unselected_state_holder"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_small"
+                android:id="@+id/tv_hotel_search_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:text="@string/text_to"
+                android:textSize="14sp"
+                android:textColor="@color/grey_700"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/img_hotel_search"/>
+
+            <AutoCompleteTextView
+                android:gravity="top"
+                android:textColorHint="@color/grey_black_1000"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_width="0dp"
+                android:id="@+id/edt_hotel_search"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/img_hotel_search"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hotel_search_from"
+                android:hint="@string/text_city"
+                android:textColor="@color/grey_black_1000"
+                android:textSize="18sp"
+                android:inputType="text"
+                android:layout_height="0dp"/>
+
+            <ImageView
+                android:contentDescription="@null"
+                android:src="@drawable/hotel_icon_main"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:padding="@dimen/margin_small"
+                android:layout_width="@dimen/flight_search_small_icon_dimen"
+                android:layout_height="@dimen/flight_search_small_icon_dimen"
+                android:id="@+id/img_hotel_search"
+                android:layout_marginStart="@dimen/activity_horizontal_margin" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_hotel_date_text"
+            android:layout_marginTop="@dimen/margin_large"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/layout_hotel_date_picker"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_search_city"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/text_check_in_date"
+                android:layout_weight="1"
+                android:textColor="@color/grey_black_1000"
+                android:layout_marginStart="@dimen/fab_margin"
+                android:textStyle="normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/text_check_out_date"
+                android:layout_weight="1"
+                android:textColor="@color/grey_black_1000"
+                android:textStyle="normal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/margin_small"
+            android:id="@+id/layout_hotel_date_picker"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_Search_edit_text_dimen"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_date_text"
+            android:baselineAligned="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:animateLayoutChanges="true"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_weight="1"
+                android:id="@+id/layout_hotel_departure_picker"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/flight_search_selector_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:text="17 Oct 2021"
+                    app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_arrival_more"
+                    android:id="@+id/txt_hotel_search_departure_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_small"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/grey_black_1000"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_search_arrival_date" />
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_calendar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"
+                    android:id="@+id/img_hotel_search_arrival_date"
+                    android:layout_marginStart="@dimen/margin_small"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:id="@+id/img_hotel_search_arrival_more"
+                    android:src="@drawable/icon_flight_arrow"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:animateLayoutChanges="true"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:id="@+id/layout_hotel_arrival_picker"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/flight_search_selector_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:text="21 Oct 2021"
+                    app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_departure_more"
+                    android:id="@+id/txt_hotel_search_arrival_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_small"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:background="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/grey_black_1000"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_search_departure_date" />
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_calendar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"
+                    android:id="@+id/img_hotel_search_departure_date"
+                    android:layout_marginStart="@dimen/margin_small"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:id="@+id/img_hotel_search_departure_more"
+                    android:src="@drawable/icon_flight_arrow"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_hotel_passenger_info"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_Search_edit_text_dimen"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_date_picker"
+            android:baselineAligned="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_weight="1"
+                android:id="@+id/layout_hotel_audit_info"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/flight_search_selector_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginEnd="@dimen/margin_small">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:text="1"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:id="@+id/txt_hotel_audit_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:textSize="20sp"
+                    android:textColor="@color/grey_black_1000"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/txt_hotel_audit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@android:color/transparent"
+                    android:text="@string/text_audits"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_hotel_audit_count"
+                    android:layout_marginStart="@dimen/margin_small" />
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_plus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_hotel_audit_increase"
+                    android:layout_marginStart="@dimen/margin_medium"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_minus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_hotel_audit_decrease"
+                    android:layout_marginEnd="@dimen/margin_medium"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:id="@+id/layout_hotel_rooms_info"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/flight_search_selector_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:text="1"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:id="@+id/txt_hotel_rooms_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:textSize="20sp"
+                    android:textColor="@color/grey_black_1000"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/txt_hotel_rooms_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:background="@android:color/transparent"
+                    android:text="@string/text_rooms"
+                    android:textColor="@color/grey_700"
+                    android:textSize="14sp"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_hotel_rooms_count"
+                    android:layout_marginStart="@dimen/margin_small" />
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_plus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_hotel_rooms_increase"
+                    android:layout_marginStart="@dimen/margin_medium"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_minus"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_hotel_rooms_decrease"
+                    android:layout_marginEnd="@dimen/margin_medium"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_hotel_search_preferences"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_Search_edit_text_dimen"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_passenger_info"
+            android:baselineAligned="false">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_weight="1"
+                android:id="@+id/layout_hotel_sort"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/flight_search_selector_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginEnd="@dimen/margin_small">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:textSize="16sp"
+                    android:padding="@dimen/margin_small"
+                    android:gravity="center"
+                    android:text="Sort Options"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:id="@+id/txt_hotel_sort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:textColor="@color/grey_black_1000"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_sort"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_sort"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_hotel_sort"
+                    android:layout_marginStart="@dimen/margin_medium"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:id="@+id/layout_hotel_language"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/flight_search_selector_dimen"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:padding="@dimen/margin_small"
+                    android:id="@+id/txt_hotel_language_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/grey_black_1000"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_language"
+                    app:layout_constraintTop_toTopOf="@+id/view"
+                    android:text="Language" />
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_language"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_hotel_language"
+                    android:layout_marginStart="@dimen/margin_medium"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_flight_search_hotels"
+            android:background="@color/red_google"
+            android:textColor="@color/grey_white_1000"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:text="@string/text_search_hotels"
+            android:layout_marginTop="@dimen/flight_search_small_icon_dimen"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_search_preferences"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_search_editor_dimen"/>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/btn_flight_search_hotels"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:text="@string/text_disclaimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

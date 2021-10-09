@@ -43,7 +43,7 @@
         android:id="@+id/nav_flight_search"
         android:name="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragment"
         android:label="@string/text_flight_offers_lower"
-        tools:layout="@layout/fragment_flight_offers" >
+        tools:layout="@layout/fragment_flight_search" >
         <action
             android:id="@+id/action_nav_flight_search_to_nav_flight_results"
             app:destination="@id/nav_flight_results"
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_hotel_search"
-        android:name="com.java.flightscheduler.ui.hotelsearch.HotelSearchFragment"
+        android:name="com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchFragment"
         android:label="@string/text_hotel_offers_lower"
         tools:layout="@layout/fragment_slideshow" />
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_hotel_search_dropdown"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/grey_black_1000"
+            tools:text="(IST)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:id="@+id/txt_hotel_search_code"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/margin_small"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toRightOf="@+id/txt_hotel_search_code"
+            tools:text="Istanbul Airport"
+            android:id="@+id/txt_hotel_search_data"
+            android:textColor="@color/grey_black_1000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_marginTop="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@+id/layout_hotel_search_dropdown"
+        android:background="@color/grey_500"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

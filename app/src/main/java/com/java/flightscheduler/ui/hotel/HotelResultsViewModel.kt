@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.hotelsearch
+package com.java.flightscheduler.ui.hotel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,14 +13,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HotelSearchViewModel @Inject constructor(private val hotelRepository: HotelRepository): ViewModel() {
+class HotelResultsViewModel @Inject constructor(private val hotelRepository: HotelRepository): ViewModel() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
     private var hotelLiveData : MutableLiveData<List<HotelOffer>>? = MutableLiveData()
 
-    fun getHotelData() : MutableLiveData<List<HotelOffer>>?{
+    fun getCityData() : MutableLiveData<List<HotelOffer>>?{
         scope.launch {
             val hotelOfferSearches = hotelRepository.get(
                 cityCode = "LON",
