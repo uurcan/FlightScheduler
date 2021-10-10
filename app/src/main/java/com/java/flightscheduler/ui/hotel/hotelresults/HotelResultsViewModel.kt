@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.hotel
+package com.java.flightscheduler.ui.hotel.hotelresults
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

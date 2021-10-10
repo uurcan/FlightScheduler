@@ -137,7 +137,7 @@
                 android:animateLayoutChanges="true"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:layout_weight="1"
-                android:id="@+id/layout_hotel_departure_picker"
+                android:id="@+id/layout_hotel_check_in_picker"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/flight_search_selector_dimen"
                 app:layout_constraintTop_toTopOf="parent"
@@ -156,8 +156,8 @@
 
                 <TextView
                     android:text="17 Oct 2021"
-                    app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_arrival_more"
-                    android:id="@+id/txt_hotel_search_departure_date"
+                    app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_check_out_more"
+                    android:id="@+id/txt_hotel_search_check_in_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_small"
@@ -168,7 +168,7 @@
                     android:gravity="center"
                     android:textColor="@color/grey_black_1000"
                     android:textSize="16sp"
-                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_search_arrival_date" />
+                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_search_check_out_date" />
 
                 <ImageView
                     android:contentDescription="@null"
@@ -179,13 +179,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_smaller_icon_dimen"
                     android:layout_height="@dimen/flight_search_smaller_icon_dimen"
-                    android:id="@+id/img_hotel_search_arrival_date"
+                    android:id="@+id/img_hotel_search_check_out_date"
                     android:layout_marginStart="@dimen/margin_small"/>
 
                 <ImageView
                     android:contentDescription="@null"
                     android:layout_marginEnd="@dimen/margin_small"
-                    android:id="@+id/img_hotel_search_arrival_more"
+                    android:id="@+id/img_hotel_search_check_out_more"
                     android:src="@drawable/icon_flight_arrow"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -199,7 +199,7 @@
                 android:animateLayoutChanges="true"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:id="@+id/layout_hotel_arrival_picker"
+                android:id="@+id/layout_hotel_check_out_picker"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/flight_search_selector_dimen"
                 app:layout_constraintTop_toTopOf="parent"
@@ -218,8 +218,8 @@
 
                 <TextView
                     android:text="21 Oct 2021"
-                    app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_departure_more"
-                    android:id="@+id/txt_hotel_search_arrival_date"
+                    app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_check_in_more"
+                    android:id="@+id/txt_hotel_search_check_out_date"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/margin_small"
@@ -230,7 +230,7 @@
                     android:gravity="center"
                     android:textColor="@color/grey_black_1000"
                     android:textSize="16sp"
-                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_search_departure_date" />
+                    app:layout_constraintLeft_toRightOf="@+id/img_hotel_search_check_in_date" />
 
                 <ImageView
                     android:contentDescription="@null"
@@ -241,13 +241,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_smaller_icon_dimen"
                     android:layout_height="@dimen/flight_search_smaller_icon_dimen"
-                    android:id="@+id/img_hotel_search_departure_date"
+                    android:id="@+id/img_hotel_search_check_in_date"
                     android:layout_marginStart="@dimen/margin_small"/>
 
                 <ImageView
                     android:contentDescription="@null"
                     android:layout_marginEnd="@dimen/margin_small"
-                    android:id="@+id/img_hotel_search_departure_more"
+                    android:id="@+id/img_hotel_search_check_in_more"
                     android:src="@drawable/icon_flight_arrow"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

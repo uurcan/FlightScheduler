@@ -1,25 +1,40 @@
 package com.java.flightscheduler.ui.hotel.hotelsearch
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.constants.AppConstants
+import com.java.flightscheduler.data.constants.AppConstants.LanguageOptions
+import com.java.flightscheduler.data.constants.AppConstants.FilterOptions
 import com.java.flightscheduler.data.model.hotel.City
+import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.databinding.FragmentHotelSearchBinding
+import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.ParsingUtils
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @AndroidEntryPoint
-class HotelSearchFragment : Fragment(),View.OnClickListener {
+class HotelSearchFragment : Fragment(), View.OnClickListener {
     private val hotelSearchViewModel: HotelSearchViewModel by viewModels()
     private lateinit var binding : FragmentHotelSearchBinding
+    private val parsingUtils = ParsingUtils()
+    private val hotelSearch : HotelSearch = HotelSearch()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +62,9 @@ class HotelSearchFragment : Fragment(),View.OnClickListener {
         binding.imgHotelRoomsDecrease.setOnClickListener(this)
         binding.imgHotelRoomsIncrease.setOnClickListener(this)
         binding.layoutHotelLanguage.setOnClickListener(this)
+        binding.layoutHotelCheckInPicker.setOnClickListener(this)
         binding.layoutHotelSort.setOnClickListener(this)
+        binding.btnFlightSearchHotels.setOnClickListener(this)
     }
 
     private fun initializeCityDropdown() {
@@ -61,6 +78,7 @@ class HotelSearchFragment : Fragment(),View.OnClickListener {
             val city = adapterView.getItemAtPosition(i)
             if (city is City) {
                 binding.edtHotelSearch.setText(city.name)
+                hotelSearch.city = city.code
             }
         }
     }
@@ -97,11 +115,91 @@ class HotelSearchFragment : Fragment(),View.OnClickListener {
             binding.imgHotelRoomsIncrease.id -> increaseRoomCount()
             binding.layoutHotelSort.id -> sortDialog()
             binding.layoutHotelLanguage.id -> languageDialog()
+            binding.layoutHotelCheckInPicker.id -> initializeDatePicker()
+            binding.btnFlightSearchHotels.id -> saveHotelResults()
         }
     }
 
-    private fun languageDialog() {
+    private fun saveHotelResults() {
+        hotelSearch.formattedCheckInDate = binding.txtHotelSearchCheckInDate.text.toString()
+        hotelSearch.auditCount = binding.txtHotelAuditCount.text.toString().toInt()
 
+        if (paramValidation(city = hotelSearch.city)){
+            hotelSearchViewModel.setHotelSearchLiveData(hotelSearch)
+            beginTransaction(hotelSearch)
+        }
+    }
+
+    private fun beginTransaction(hotelSearch: HotelSearch) {
+        val action = HotelSearchFragmentDirections.actionNavHotelSearchToNavHotelResults(hotelSearch)
+        findNavController().navigate(action)
+    }
+
+    private fun paramValidation(city : String): Boolean {
+        var isValid = true
+        hotelSearchViewModel.performValidation(city).observe(viewLifecycleOwner)
+        { errorMessage ->
+            if (errorMessage.isNotBlank()) {
+                MessageHelper.displayErrorMessage(view,errorMessage)
+                isValid = false
+            }
+        }
+        return isValid
+    }
+
+    private fun initializeDatePicker() {
+        val intent = AirCalendarIntent(context)
+        intent.setSelectButtonText(getString(R.string.text_select))
+        intent.setResetBtnText(getString(R.string.text_reset))
+        intent.isSingleSelect(false)
+        intent.isMonthLabels(false)
+        intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
+        startForResult.launch(intent)
+    }
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.let {
+                    initializeDateParser(it)
+                }
+            }
+        }
+
+    private fun initializeDateParser(intent: Intent) {
+        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+
+        binding.txtHotelSearchCheckInDate.text = parsingUtils.dateParser(
+            parser = parser,
+            formatter = formatter,
+            date = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE)
+        )
+        hotelSearch.checkInDate = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
+
+        binding.txtHotelSearchCheckOutDate.text = parsingUtils.dateParser(
+            parser = parser,
+            formatter = formatter,
+            date = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE)
+        )
+        hotelSearch.checkOutDate =  intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+    }
+
+    private fun languageDialog() {
+        val builderSingle = AlertDialog.Builder(context)
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            LanguageOptions.values()
+        )
+        builderSingle.setAdapter(
+            adapter
+        ) { dialog, which ->
+            binding.txtHotelLanguageText.text = LanguageOptions.values()[which].name
+
+            dialog.dismiss()
+        }
+        builderSingle.show()
     }
 
     private fun sortDialog() {
@@ -109,12 +207,13 @@ class HotelSearchFragment : Fragment(),View.OnClickListener {
         val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,
-            AppConstants.FilterOptions.values()
+            FilterOptions.values()
         )
         builderSingle.setAdapter(
             adapter
-        ) { _, which ->
-            binding.txtHotelSort.text = AppConstants.FilterOptions.values()[which].toString()
+        ) { dialog, which ->
+            binding.txtHotelSort.text = FilterOptions.values()[which].name
+            dialog.dismiss()
         }
         builderSingle.show()
     }

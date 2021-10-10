@@ -1,13 +1,9 @@
 package com.java.flightscheduler.ui.base
 
-import android.app.AlertDialog
-import android.content.Context
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.constants.AppConstants
 
 object MessageHelper {
     fun displayErrorMessage(view : View?, text : String){
@@ -31,20 +27,4 @@ object MessageHelper {
             ).show()
         }
     }
-    inline fun <reified T: Enum<T>> iterator():Iterator<T> = enumValues<T>().iterator()
-
-    /*fun initializeDialog(enum : Enum<T>,){
-        val builderSingle = AlertDialog.Builder(context)
-        adapter = ArrayAdapter(
-            context,
-            android.R.layout.simple_list_item_1,
-            E
-        )
-        builderSingle.setAdapter(
-            adapter
-        ) { _, which ->
-            binding.txtHotelSort.text = AppConstants.FilterOptions.values()[which].toString()
-        }
-        builderSingle.show()
-    }*/
 }
