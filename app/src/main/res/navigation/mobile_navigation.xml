@@ -125,7 +125,7 @@
 
     <fragment
         android:id="@+id/nav_flight_status"
-        android:name="com.java.flightscheduler.ui.flightstatus.FlightStatusFragment"
+        android:name="com.java.flightscheduler.ui.flight.flightstatus.FlightStatusFragment"
         android:label="@string/text_flight_status"
         tools:layout="@layout/fragment_flight_status" />
 

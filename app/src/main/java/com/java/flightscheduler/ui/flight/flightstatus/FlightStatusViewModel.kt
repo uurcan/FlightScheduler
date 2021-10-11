@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.flightstatus
+package com.java.flightscheduler.ui.flight.flightstatus
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

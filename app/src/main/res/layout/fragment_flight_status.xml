@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.flightstatus.FlightStatusFragment">
+    tools:context=".ui.flight.flightstatus.FlightStatusFragment">
 
     <TextView
         android:id="@+id/text_flight_status"

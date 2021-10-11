@@ -7,9 +7,6 @@
         <variable
             name="flightSearch"
             type="com.java.flightscheduler.data.model.flight.FlightSearch" />
-        <variable
-            name="flightSearchViewModel"
-            type="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel" />
   </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/grey_300"
@@ -156,7 +153,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <ProgressBar
+
+        <pl.droidsonroids.gif.GifImageView
             android:id="@+id/pb_flight_search"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -164,7 +162,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_flight_list_header"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/rotating_plane"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:textColor="@color/grey_black_1000"
             android:visibility="gone"

@@ -1,6 +1,5 @@
 package com.java.flightscheduler.data.model.base
 
-import com.java.flightscheduler.data.constants.PaginationConstants
 import com.squareup.moshi.JsonClass
 
 sealed class BaseApiResult <out R>{
@@ -22,14 +21,6 @@ sealed class BaseApiResult <out R>{
     ) : BaseApiResult<T>(){
         @JsonClass(generateAdapter = true)
         data class MetaResult(val count: Int?, val links: Map<String,String>?)
-
-        fun hasFirst() = hasMeta(PaginationConstants.FIRST)
-        fun hasLast() = hasMeta(PaginationConstants.LAST)
-        fun hasNext() = hasMeta(PaginationConstants.NEXT)
-        fun hasSelf() = hasMeta(PaginationConstants.SELF)
-        fun hasPrevious() = hasMeta(PaginationConstants.PREVIOUS)
-
-        private fun hasMeta(key : String) = meta?.links?.get(key) != null
     }
     @JsonClass(generateAdapter = true)
     data class Error internal constructor(

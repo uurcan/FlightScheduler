@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.flightstatus
+package com.java.flightscheduler.ui.flight.flightstatus
 
 import android.os.Bundle
 import android.view.LayoutInflater

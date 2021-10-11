@@ -6,6 +6,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class HotelSearch internal constructor(
     var city : String = "",
+    var name : String = "",
+    var country : String = "",
     var checkInDate : String? = null,
     var checkOutDate : String? = null,
     var formattedCheckInDate : String? = null,

@@ -3,6 +3,7 @@ package com.java.flightscheduler.di.flight
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.java.flightscheduler.data.model.hotel.base.HotelOffer
 import com.java.flightscheduler.data.repository.TokenRepository
 import com.java.flightscheduler.data.remote.services.*
 import dagger.Module
@@ -57,4 +58,8 @@ object FlightModule {
     @Singleton
     @Provides
     fun provideFlightOffers() : FlightOffer = FlightOffer()
+
+    @Singleton
+    @Provides
+    fun provideHotelOffers() : HotelOffer = HotelOffer()
 }

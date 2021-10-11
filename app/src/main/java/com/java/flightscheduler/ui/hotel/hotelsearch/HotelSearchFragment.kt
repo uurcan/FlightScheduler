@@ -31,10 +31,9 @@ import java.util.*
 
 @AndroidEntryPoint
 class HotelSearchFragment : Fragment(), View.OnClickListener {
-    private val hotelSearchViewModel: HotelSearchViewModel by viewModels()
-    private lateinit var binding : FragmentHotelSearchBinding
-    private val parsingUtils = ParsingUtils()
     private val hotelSearch : HotelSearch = HotelSearch()
+    private lateinit var binding : FragmentHotelSearchBinding
+    private val hotelSearchViewModel: HotelSearchViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,32 +78,10 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
             if (city is City) {
                 binding.edtHotelSearch.setText(city.name)
                 hotelSearch.city = city.code
+                hotelSearch.name = city.name
+                hotelSearch.country = city.country
             }
         }
-    }
-
-    private fun decreaseAuditCount() {
-        val previousCount : Int = binding.txtHotelAuditCount.text.toString().toInt()
-        val currentCount : Int? = hotelSearchViewModel.decreaseAuditCount(previousCount)
-        binding.txtHotelAuditCount.text = currentCount.toString()
-    }
-
-    private fun increaseAuditCount() {
-        val previousCount : Int = binding.txtHotelAuditCount.text.toString().toInt()
-        val currentCount : Int? = hotelSearchViewModel.increaseAuditCount(previousCount)
-        binding.txtHotelAuditCount.text = currentCount.toString()
-    }
-
-    private fun decreaseRoomCount() {
-        val previousCount : Int = binding.txtHotelRoomsCount.text.toString().toInt()
-        val currentCount : Int? = hotelSearchViewModel.decreaseRoomCount(previousCount)
-        binding.txtHotelRoomsCount.text = currentCount.toString()
-    }
-
-    private fun increaseRoomCount() {
-        val previousCount : Int = binding.txtHotelRoomsCount.text.toString().toInt()
-        val currentCount : Int? = hotelSearchViewModel.increaseRoomCount(previousCount)
-        binding.txtHotelRoomsCount.text = currentCount.toString()
     }
 
     override fun onClick(p0: View?) {
@@ -170,14 +147,14 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
         val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
         val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
 
-        binding.txtHotelSearchCheckInDate.text = parsingUtils.dateParser(
+        binding.txtHotelSearchCheckInDate.text = ParsingUtils.dateParser(
             parser = parser,
             formatter = formatter,
             date = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE)
         )
         hotelSearch.checkInDate = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
 
-        binding.txtHotelSearchCheckOutDate.text = parsingUtils.dateParser(
+        binding.txtHotelSearchCheckOutDate.text = ParsingUtils.dateParser(
             parser = parser,
             formatter = formatter,
             date = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE)
@@ -185,6 +162,30 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
         hotelSearch.checkOutDate =  intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
     }
 
+    private fun decreaseAuditCount() {
+        val previousCount : Int = binding.txtHotelAuditCount.text.toString().toInt()
+        val currentCount : Int? = hotelSearchViewModel.decreaseAuditCount(previousCount)
+        binding.txtHotelAuditCount.text = currentCount.toString()
+    }
+
+    private fun increaseAuditCount() {
+        val previousCount : Int = binding.txtHotelAuditCount.text.toString().toInt()
+        val currentCount : Int? = hotelSearchViewModel.increaseAuditCount(previousCount)
+        binding.txtHotelAuditCount.text = currentCount.toString()
+    }
+
+    private fun decreaseRoomCount() {
+        val previousCount : Int = binding.txtHotelRoomsCount.text.toString().toInt()
+        val currentCount : Int? = hotelSearchViewModel.decreaseRoomCount(previousCount)
+        binding.txtHotelRoomsCount.text = currentCount.toString()
+    }
+
+    private fun increaseRoomCount() {
+        val previousCount : Int = binding.txtHotelRoomsCount.text.toString().toInt()
+        val currentCount : Int? = hotelSearchViewModel.increaseRoomCount(previousCount)
+        binding.txtHotelRoomsCount.text = currentCount.toString()
+    }
+    //todo: try to find more efficient way
     private fun languageDialog() {
         val builderSingle = AlertDialog.Builder(context)
         val adapter = ArrayAdapter(
@@ -196,7 +197,7 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
             adapter
         ) { dialog, which ->
             binding.txtHotelLanguageText.text = LanguageOptions.values()[which].name
-
+            hotelSearch.language = LanguageOptions.values()[which].code
             dialog.dismiss()
         }
         builderSingle.show()
@@ -213,6 +214,7 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
             adapter
         ) { dialog, which ->
             binding.txtHotelSort.text = FilterOptions.values()[which].name
+            hotelSearch.sortOptions = FilterOptions.values()[which].param
             dialog.dismiss()
         }
         builderSingle.show()

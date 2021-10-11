@@ -121,6 +121,9 @@ dependencies {
     implementation 'com.vipulasri:ticketview:1.1.2'
     implementation 'net.danlew:android.joda:2.10.9.1'
 
+    //loading screen animations
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
     //unittest
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.9")
     testImplementation("junit:junit:4.13.2")
