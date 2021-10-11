@@ -1,6 +1,5 @@
 package com.java.flightscheduler.ui.base
 
-import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar

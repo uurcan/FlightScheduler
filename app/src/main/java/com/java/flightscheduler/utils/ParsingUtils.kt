@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.time.Instant
 
-open class ParsingUtils {
+object ParsingUtils {
 
     fun crop (word : String ) : String{
         val wordArray = word.split(" ")

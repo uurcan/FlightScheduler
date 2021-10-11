@@ -8,9 +8,6 @@
          <variable
             name="flightListViewModel"
             type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsViewModel" />
-        <variable
-            name="item"
-            type="com.java.flightscheduler.data.model.flight.FlightOffer"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_flight_search"

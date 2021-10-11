@@ -43,7 +43,7 @@
         android:id="@+id/nav_flight_search"
         android:name="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragment"
         android:label="@string/text_flight_offers_lower"
-        tools:layout="@layout/fragment_flight_offers" >
+        tools:layout="@layout/fragment_flight_search" >
         <action
             android:id="@+id/action_nav_flight_search_to_nav_flight_results"
             app:destination="@id/nav_flight_results"
@@ -79,11 +79,43 @@
             android:name="offer"
             app:argType="com.java.flightscheduler.data.model.flight.FlightOffer" />
     </fragment>
+
     <fragment
         android:id="@+id/nav_hotel_search"
-        android:name="com.java.flightscheduler.ui.hotelsearch.HotelSearchFragment"
+        android:name="com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchFragment"
         android:label="@string/text_hotel_offers_lower"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_hotel_search" >
+        <action
+            android:id="@+id/action_nav_hotel_search_to_nav_hotel_results"
+            app:destination="@id/nav_hotel_results"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_hotel_results"
+        android:name="com.java.flightscheduler.ui.hotel.hotelresults.HotelResultsFragment"
+        android:label="@string/text_hotel_results"
+        tools:layout="@layout/fragment_hotel_list" >
+        <action
+            android:id="@+id/action_nav_hotel_results_to_hotelDetailsFragment"
+            app:destination="@id/nav_hotel_details"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+        <argument
+            android:name="hotelSearch"
+            app:argType="com.java.flightscheduler.data.model.hotel.HotelSearch" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_hotel_details"
+        android:name="com.java.flightscheduler.ui.hotel.hoteldetails.HotelDetailsFragment"
+        android:label="@string/text_hotel_details"
+        tools:layout="@layout/fragment_hotel_details" />
 
     <fragment
         android:id="@+id/nav_itinerary_metrics"
@@ -93,7 +125,7 @@
 
     <fragment
         android:id="@+id/nav_flight_status"
-        android:name="com.java.flightscheduler.ui.flightstatus.FlightStatusFragment"
+        android:name="com.java.flightscheduler.ui.flight.flightstatus.FlightStatusFragment"
         android:label="@string/text_flight_status"
         tools:layout="@layout/fragment_flight_status" />
 
