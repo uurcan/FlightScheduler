@@ -8,7 +8,6 @@
             type="com.java.flightscheduler.ui.hotel.hotelresults.HotelResultsViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:elevation="@dimen/activity_horizontal_margin"
         android:background="@drawable/list_item_rounded_background"
         android:id="@+id/layout_flight_search"
         android:layout_marginStart="@dimen/margin_medium"
@@ -16,8 +15,8 @@
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/flight_search_ticket_dimen"
-        tools:targetApi="lollipop">
+        android:layout_height="@dimen/flight_search_ticket_dimen">
+
         <LinearLayout
             android:id="@+id/layout_hotel_image"
             android:orientation="horizontal"
@@ -29,8 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ImageView
-                android:scaleType="fitEnd"
                 android:id="@+id/img_hotel_image"
+                android:src="@drawable/oslo_norway_temp"
                 android:layout_weight="30"
                 android:contentDescription="@null"
                 app:layout_constraintBottom_toBottomOf="parent"

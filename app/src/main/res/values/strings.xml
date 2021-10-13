@@ -69,7 +69,7 @@
     <string name="text_hotel_search">Hotel Search</string>
     <string name="text_search_hotels">Search Hotels</string>
     <string name="text_city">City</string>
-    <string name="text_hotel_results">HotelResults</string>
+    <string name="text_hotel_results">Hotel Results</string>
     <string name="text_hotel_details">Hotel Details</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
