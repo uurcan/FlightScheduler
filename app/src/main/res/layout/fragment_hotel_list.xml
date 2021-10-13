@@ -10,6 +10,7 @@
             type="com.java.flightscheduler.data.model.hotel.HotelSearch" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/grey_200"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="@{hotelSearch.auditCount + `Audit(s)`}"
+                    android:text="@{hotelSearch.auditCount + ` Audit(s)`}"
                     android:id="@+id/txt_flight_detail_one_way"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginStart="@dimen/activity_horizontal_margin_extended"
@@ -86,7 +87,7 @@
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{hotelSearch.roomCount + `Room(s)`}"
+                    android:text="@{hotelSearch.roomCount + ` Room(s)`}"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -109,7 +110,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingBottom="@dimen/flight_search_header_extended_dimen"
+            android:paddingBottom="@dimen/hotel_search_card_dimen"
             android:layout_marginTop="@dimen/margin_small"
             android:id="@+id/rv_flight_list"
             tools:listitem="@layout/list_hotel_search_item"

@@ -44,7 +44,7 @@ class FlightDetailsFragment : Fragment(),View.OnClickListener {
         binding.rvFlightDetail.layoutManager = layoutManager
         binding.rvFlightDetail.setHasFixedSize(true)
         flightDetailsViewModel.getSegments(flightOffer).observe(viewLifecycleOwner,{
-            flightDetailsAdapter = context?.let { it1 -> FlightDetailsAdapter(flightOffer, it1) }!!
+            flightDetailsAdapter = context?.let { FlightDetailsAdapter(flightOffer, it) }!!
             binding.rvFlightDetail.adapter = flightDetailsAdapter
         })
     }

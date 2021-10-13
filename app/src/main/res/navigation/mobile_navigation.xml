@@ -115,7 +115,12 @@
         android:id="@+id/nav_hotel_details"
         android:name="com.java.flightscheduler.ui.hotel.hoteldetails.HotelDetailsFragment"
         android:label="@string/text_hotel_details"
-        tools:layout="@layout/fragment_hotel_details" />
+        tools:layout="@layout/fragment_hotel_details" >
+
+        <argument
+            android:name="hotel"
+            app:argType="com.java.flightscheduler.data.model.hotel.base.HotelOffer" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_itinerary_metrics"

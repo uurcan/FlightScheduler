@@ -50,7 +50,7 @@ class HotelResultsFragment : Fragment(),HotelResultsAdapter.HotelResultsListener
                 binding.txtHotelSearchErrorMessage.text =
                     getString(R.string.text_no_flight_found)
             }
-            hotelSearchAdapter = HotelResultsAdapter(hotelData,this)
+            hotelSearchAdapter = HotelResultsAdapter(hotelData,requireContext(),this)
             binding.rvFlightList.adapter = hotelSearchAdapter
         }
         hotelResultsViewModel.loadingLiveData.observe(viewLifecycleOwner) {
@@ -69,7 +69,7 @@ class HotelResultsFragment : Fragment(),HotelResultsAdapter.HotelResultsListener
     }
 
     override fun onItemClick(view: View, item: HotelOffer) {
-        val action = HotelResultsFragmentDirections.actionNavHotelResultsToHotelDetailsFragment()
+        val action = HotelResultsFragmentDirections.actionNavHotelResultsToHotelDetailsFragment(item)
         findNavController().navigate(action)
     }
 }

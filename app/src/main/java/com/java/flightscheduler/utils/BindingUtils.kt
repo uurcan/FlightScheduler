@@ -1,46 +1,17 @@
 package com.java.flightscheduler.utils
 
-import android.view.View
-import androidx.core.widget.ContentLoadingProgressBar
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.java.flightscheduler.data.constants.TimeConstants
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.java.flightscheduler.R
 
-@BindingAdapter("isRefreshing")
-fun SwipeRefreshLayout.customRefreshing(refreshing: Boolean?){
-    isRefreshing = refreshing == true
-}
-
-@BindingAdapter(value = ["isLoading"])
-fun ContentLoadingProgressBar.show(isLoading : Boolean?){
-    if (isLoading == true)
-        show()
-    else
-        hide()
-}
-
-@BindingAdapter("clickSafe")
-fun View.setClickSafe(listener : View.OnClickListener?){
-    setOnClickListener(object :  View.OnClickListener {
-        var lastClickTime : Long = 0
-
-        override fun onClick(p0: View?) {
-            if (System.currentTimeMillis() - lastClickTime < TimeConstants.THRESHOLD_CLICK_TIME) return
-            listener?.onClick(p0)
-            lastClickTime = System.currentTimeMillis()
-        }
-    })
-}
-
-@BindingAdapter("onSingleClick")
-fun View.setSingleClick(execution: () -> Unit) {
-    setOnClickListener(object : View.OnClickListener {
-        var lastClickTime: Long = 0
-
-        override fun onClick(p0: View?) {
-            if (System.currentTimeMillis() - lastClickTime < TimeConstants.THRESHOLD_CLICK_TIME) return
-            lastClickTime = System.currentTimeMillis()
-            execution.invoke()
-        }
-    })
+@BindingAdapter("app:setImageUrl")
+fun ImageView.setImageUrl(url: String?) {
+    Glide.with(this.context)
+        .load(url)
+        .placeholder(R.drawable.hotel_placeholder)
+        .error(R.drawable.hotel_placeholder)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(this)
 }

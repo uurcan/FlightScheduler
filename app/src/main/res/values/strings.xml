@@ -69,8 +69,11 @@
     <string name="text_hotel_search">Hotel Search</string>
     <string name="text_search_hotels">Search Hotels</string>
     <string name="text_city">City</string>
-    <string name="text_hotel_results">HotelResults</string>
+    <string name="text_hotel_results">Hotel Results</string>
     <string name="text_hotel_details">Hotel Details</string>
+    <string name="text_rating">Rating</string>
+    <string name="read_more">Read More..</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consectetur viverra dolor non rutrum. Donec quis pharetra leo. Praesent erat neque, maximus id rutrum eu, accumsan vel felis. Proin finibus lorem in nulla posuere varius. Nam sit amet risus sollicitudin, laoreet nulla quis, lobortis quam. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer posuere erat vel volutpat dapibus. Mauris a varius arcu, eget eleifend ante. Etiam ultricies erat eu augue sodales, nec vulputate nisl rutrum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas, urna vitae cursus porttitor, arcu odio tempus sapien, sed fringilla diam purus at lectus.</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

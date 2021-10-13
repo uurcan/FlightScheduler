@@ -8,21 +8,16 @@
             type="com.java.flightscheduler.ui.hotel.hotelresults.HotelResultsViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:elevation="@dimen/activity_horizontal_margin"
+        android:background="@drawable/list_item_rounded_background"
         android:id="@+id/layout_flight_search"
         android:layout_marginStart="@dimen/margin_medium"
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/flight_search_ticket_dimen">
-        <com.vipulasri.ticketview.TicketView
-            app:ticketShadowColor="@color/grey_google"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/ticketView"
-            app:ticketDividerType="normal"
-            app:ticketDividerPadding="0dp"/>
-
+        android:layout_height="@dimen/flight_search_ticket_dimen"
+        tools:targetApi="lollipop">
         <LinearLayout
             android:id="@+id/layout_hotel_image"
             android:orientation="horizontal"
@@ -33,9 +28,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/margin_small"
+                android:src="@drawable/temp_hotel"
                 android:id="@+id/img_hotel_image"
-                android:src="@drawable/oslo_norway_temp"
                 android:layout_weight="30"
                 android:contentDescription="@null"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +47,7 @@
                 android:layout_weight="70"
                 android:layout_height="match_parent">
                 <TextView
+                    tools:text="Random long hotel image name test 123456"
                     android:layout_margin="@dimen/margin_small"
                     android:id="@+id/txt_hotel_list_hotel_name"
                     android:textStyle="bold"
@@ -75,8 +74,7 @@
                         android:layout_width="80dp"
                         android:layout_height="@dimen/activity_horizontal_margin"/>
                     <TextView
-                        android:text="@{String.valueOf(hotelListViewModel.hotelInfo.rating)}"
-                        tools:text="Rating"
+                        android:text="@string/text_rating"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginBottom="@dimen/margin_small"
@@ -95,6 +93,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        tools:text="1.5"
                         android:id="@+id/txt_hotel_list_distance_number"
                         android:textSize="17sp"
                         android:textStyle="bold"
@@ -107,6 +106,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        tools:text="KM"
                         app:layout_constraintLeft_toRightOf="@+id/txt_hotel_list_distance_number"
                         android:id="@+id/txt_hotel_list_distance_unit"
                         android:layout_margin="@dimen/margin_small"
@@ -128,27 +128,44 @@
                         android:layout_height="wrap_content"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <TextView
+                    android:id="@+id/txt_hotel_list_city"
+                    app:layout_constraintBottom_toTopOf="@+id/layout_hotel_list_price_info"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_list_location"
+                    tools:text="Istanbul - 33450"
+                    android:textColor="@color/grey_black_1000"
+                    android:layout_marginTop="@dimen/margin_x_small"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:text="@{hotelListViewModel.hotelAddress.cityName + ` - ` + hotelListViewModel.hotelAddress.postalCode}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginTop="@dimen/margin_small"
+                    app:layout_constraintVertical_weight="1"
                     android:layout_marginEnd="@dimen/margin_x_small"
-                    android:layout_marginStart="@dimen/margin_x_small"
                     android:id="@+id/layout_hotel_list_price_info"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="0dp"
                     android:background="#ddffdd"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_list_location">
+                    app:layout_constraintTop_toBottomOf="@+id/txt_hotel_list_city">
 
                     <TextView
-                        android:textColor="@color/grey_black_1000"
+                        android:id="@+id/txt_Hotel_City_availability"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Available"
+                        android:textColor="@color/red_google"
                         android:layout_marginTop="@dimen/margin_x_small"
                         android:layout_marginStart="@dimen/margin_small"
-                        android:text="@{hotelListViewModel.hotelAddress.cityName}"
-                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="@{hotelListViewModel.hotelOffer.available ? `Available` : `Not Available`}"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        tools:text="199.00€"
                         android:textSize="18sp"
                         android:textColor="@color/green_google"
                         android:textStyle="bold"

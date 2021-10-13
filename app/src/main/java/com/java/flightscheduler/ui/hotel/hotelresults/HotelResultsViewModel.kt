@@ -28,6 +28,7 @@ class HotelResultsViewModel @Inject constructor(hotelOffer: HotelOffer, private 
         loadingLiveData.value = true
     }
 
+    val hotelOffer = MutableLiveData(hotelResultsRepository.getOffer())
     val hotelPrice = MutableLiveData<Price>(hotelResultsRepository.getPriceResults())
     val hotelDistance =  MutableLiveData<Distance>(hotelResultsRepository.getDistance())
     val hotelInfo =  MutableLiveData<Hotel>(hotelResultsRepository.getResults())
