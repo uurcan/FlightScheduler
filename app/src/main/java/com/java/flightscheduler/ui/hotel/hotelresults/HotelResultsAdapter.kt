@@ -30,8 +30,8 @@ class HotelResultsAdapter(private val hotelOffers: List<HotelOffer>,
     }
 
     override fun onBindViewHolder(holderResults: HotelResultsViewHolder, position: Int) {
-        val hotelImage = hotelImages.random()
-        holderResults.bind(hotelOffers[position],hotelImage)
+        hotelOffers[position].hotel?.media?.get(0)?.uri = hotelImages[position]
+        holderResults.bind(hotelOffers[position])
     }
 
     override fun getItemCount(): Int {
@@ -49,7 +49,7 @@ class HotelResultsAdapter(private val hotelOffers: List<HotelOffer>,
 
         private lateinit var hotelOfferViewModel: HotelResultsViewModel
 
-        fun bind(hotelOffer: HotelOffer,hotelImage : String) {
+        fun bind(hotelOffer: HotelOffer) {
             hotelOfferViewModel = HotelResultsViewModel(hotelOffer, null)
             hotelResultsBinding.setVariable(BR.hotelListViewModel ,hotelOfferViewModel)
             hotelResultsBinding.executePendingBindings()
@@ -57,7 +57,10 @@ class HotelResultsAdapter(private val hotelOffers: List<HotelOffer>,
             hotelResultsBinding.root.setOnClickListener {
                 listener.onItemClick(it, hotelOffer)
             }
-            Glide.with(context).load(hotelImage).into(hotelResultsBinding.imgHotelImage)
+            Glide.with(context).load(hotelOffer.hotel?.media?.get(0)?.uri)
+                .placeholder(R.drawable.hotel_placeholder)
+                .centerCrop()
+                .into(hotelResultsBinding.imgHotelImage)
         }
     }
 }

@@ -10,7 +10,7 @@
             type="com.java.flightscheduler.data.model.hotel.HotelSearch" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/grey_300"
+        android:background="@color/grey_200"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -110,7 +110,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingBottom="@dimen/flight_search_header_extended_dimen"
+            android:paddingBottom="@dimen/hotel_search_card_dimen"
             android:layout_marginTop="@dimen/margin_small"
             android:id="@+id/rv_flight_list"
             tools:listitem="@layout/list_hotel_search_item"

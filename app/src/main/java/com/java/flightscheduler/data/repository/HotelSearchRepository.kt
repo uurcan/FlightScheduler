@@ -62,6 +62,7 @@ class HotelSearchRepository @Inject constructor(
         } catch (e: IOException) {
             e.printStackTrace()
         }
+        iataDataList.shuffle()
         return iataDataList
     }
 }

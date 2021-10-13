@@ -69,7 +69,7 @@ class HotelResultsFragment : Fragment(),HotelResultsAdapter.HotelResultsListener
     }
 
     override fun onItemClick(view: View, item: HotelOffer) {
-        val action = HotelResultsFragmentDirections.actionNavHotelResultsToHotelDetailsFragment()
+        val action = HotelResultsFragmentDirections.actionNavHotelResultsToHotelDetailsFragment(item)
         findNavController().navigate(action)
     }
 }
