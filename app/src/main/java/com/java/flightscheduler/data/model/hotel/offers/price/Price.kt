@@ -9,5 +9,6 @@ import kotlinx.android.parcel.Parcelize
 data class Price internal constructor(
     val currency : String? = null,
     val total : Double = 0.0,
+    val base : Double = 0.0,
     val variations : Variations? = null
 ) : Parcelable

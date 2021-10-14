@@ -33,6 +33,8 @@
     <dimen name="text_size_day_name">11sp</dimen>
     <dimen name="header_month_height">80dp</dimen>
     <dimen name="selected_day_radius">18dp</dimen>
+    <dimen name="detail_window_hotel">250dp</dimen>
+    <dimen name="detail_window_hotel_extended">300dp</dimen>
     <dimen name="calendar_height">320dp</dimen>
     <dimen name="hotel_search_ticket_dimen">200dp</dimen>
 
