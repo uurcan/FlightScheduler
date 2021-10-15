@@ -131,7 +131,10 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.4.0")
-    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    testImplementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.10")
+
+    //maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
 }
 kapt {
     generateStubs = true

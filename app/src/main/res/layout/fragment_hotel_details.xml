@@ -10,24 +10,18 @@
             name="hotelDetail"
             type="com.java.flightscheduler.data.model.hotel.base.HotelOffer" />
     </data>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:background="@color/grey_white_1000">
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:fitsSystemWindows="true"
-            android:id="@+id/application_bar">
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/collapsing_toolbar_feed_detail"
-                app:contentScrim="@color/grey_black_1000"
-                app:titleEnabled="false"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="@dimen/detail_window_hotel"
+            android:id="@+id/hotel_detail_header">
                 <ImageView
                     app:setImageUrl="@{hotelDetail.hotel.media.get(0).uri.toString()}"
                     android:id="@+id/layout_hotel_detail_image"
@@ -39,14 +33,12 @@
                     android:contentDescription="@null"
                     android:layout_height="match_parent"
                     tools:targetApi="lollipop" />
-
                 <RelativeLayout
                     app:layout_collapseMode="pin"
                     android:fitsSystemWindows="true"
                     android:layout_centerInParent="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="70dp"
@@ -62,57 +54,401 @@
                         android:id="@+id/feed_detail_bottom_shadow"
                         android:scaleType="centerCrop"/>
                 </RelativeLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/feed_details_date"
-            app:layout_anchor="@+id/application_bar"
-            android:adjustViewBounds="true"
-            app:layout_anchorGravity="right|end|bottom"
-            android:clickable="false"
-            android:background="@color/grey_white_1000"
-            android:padding="5dp"
-            android:layout_alignParentBottom="true">
-            <ImageView
-                android:paddingEnd="@dimen/margin_xx_small"
-                android:paddingStart="@dimen/margin_xx_small"
-                android:contentDescription="@null"
-                android:src="@drawable/icon_flight_calendar"
-                android:layout_width="18dp"
-                android:layout_height="18dp"/>
-            <TextView
-                tools:text="12:34:56"
-                android:id="@+id/feed_detail_datetime"
-                android:textColor="#606060"
+            <FrameLayout
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="27dp" />
-        </FrameLayout>
+                android:id="@+id/feed_details_date"
+                android:clickable="false"
+                android:background="@color/grey_white_1000"
+                android:padding="5dp">
+                <ImageView
+                    android:paddingEnd="@dimen/margin_xx_small"
+                    android:paddingStart="@dimen/margin_xx_small"
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_calendar"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"/>
+                <TextView
+                    app:setDateParserTest="@{hotelDetail.offers.get(0).checkInDate}"
+                    tools:text="12 May 2016"
+                    android:id="@+id/feed_detail_datetime"
+                    android:textColor="#606060"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="27dp" />
+            </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+        <ScrollView
+            android:layout_marginTop="@dimen/detail_window_hotel"
+            android:id="@+id/layout_hotel_detail_swipe"
+            app:layout_constraintTop_toBottomOf="@+id/hotel_detail_header"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <com.java.flightscheduler.utils.ReadMoreTextView
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:layout_constraintTop_toBottomOf="@+id/hotel_detail_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum"
-                app:readMoreColor="@color/colorPrimary"
-                app:readMoreMaxLine="4"
-                app:readMoreText="More" />
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="visible"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/layout_hotel_detail_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@{hotelDetail.hotel.name}"
+                        app:layout_constraintBottom_toTopOf="@+id/txt_hotel_detail_rating"
+                        android:id="@+id/txt_hotel_detail_name"
+                        android:textSize="18sp"
+                        tools:text="Text hotel name"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey_black_1000"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:contentDescription="@null"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_name"
+                        android:id="@+id/txt_hotel_detail_rating"
+                        android:src="@drawable/five_stars_rating"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="@{hotelDetail.hotel.address.cityName}"
+                        android:id="@+id/txt_hotel_detail_city"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        android:gravity="center_vertical"
+                        android:src="@drawable/four_stars_rating"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_name"
+                        tools:text="Istanbul"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="visible"
+                    app:setVisibility="@{hotelDetail.hotel.description.text.toString()}"
+                    android:id="@+id/layout_hotel_detail_description"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_detail_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/text_description"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:id="@+id/txt_hotel_detail_description_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textColor="@color/grey_black_1000"
+                        tools:text="Description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        app:layout_constraintBottom_toTopOf="@+id/txt_hotel_detail_description"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_description_text"
+                        android:id="@+id/v_hotel_detail_description_divider"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/grey_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                    <com.java.flightscheduler.utils.ReadMoreTextView
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:id="@+id/txt_hotel_detail_description"
+                        android:text="@{hotelDetail.hotel.description.text}"
+                        app:readMoreColor="@color/red_google"
+                        app:readMoreText=" More"
+                        app:readMoreMaxLine="4"
+                        tools:text="@string/lorem_ipsum"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_description_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="visible"
+                    android:padding="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:background="@drawable/layout_flight_legs_background"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_detail_description"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/layout_hotel_detail_amenities"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/text_amenities"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:id="@+id/txt_hotel_detail_amenity_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textColor="@color/grey_black_1000"
+                        tools:text="Amenities"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        app:layout_constraintBottom_toTopOf="@+id/txt_hotel_detail_amenity"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_amenity_text"
+                        android:id="@+id/v_hotel_detail_amenity_divider"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/grey_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                    <com.java.flightscheduler.utils.ReadMoreTextView
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:id="@+id/txt_hotel_detail_amenity"
+                        app:readMoreColor="@color/red_google"
+                        app:readMoreText=" More"
+                        app:readMoreMaxLine="6"
+                        app:setDisplayList="@{hotelDetail.hotel.amenities}"
+                        tools:text="@string/text_hotel_search"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_amenity_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:visibility="visible"
+                    android:padding="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:background="@drawable/layout_flight_legs_background"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_detail_amenities"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/layout_hotel_detail_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/text_location"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:id="@+id/txt_hotel_detail_location_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textColor="@color/grey_black_1000"
+                        tools:text="Location"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        app:layout_constraintBottom_toTopOf="@+id/txt_hotel_detail_location"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_location_text"
+                        android:id="@+id/v_hotel_detail_location_divider"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/grey_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                    <com.java.flightscheduler.utils.ReadMoreTextView
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:id="@+id/txt_hotel_detail_location"
+                        app:readMoreColor="@color/red_google"
+                        app:readMoreText=" More"
+                        app:readMoreMaxLine="4"
+                        tools:text="@{hotelDetail.hotel.address.lines.get(0) + ` - ` + hotelDetail.hotel.address.postalCode + ` - ` + hotelDetail.hotel.address.cityName + ` - ` + hotelDetail.hotel.address.countryCode}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_location_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <androidx.fragment.app.FragmentContainerView
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_small"
+                        app:layout_constraintTop_toBottomOf="@id/txt_hotel_detail_location"
+                        android:id="@+id/layout_hotel_detail_map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/flight_search_ticket_line" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:padding="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:background="@drawable/layout_flight_legs_background"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_detail_location"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/layout_hotel_detail_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/text_pricing_info"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:id="@+id/txt_hotel_detail_price_text"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textColor="@color/grey_black_1000"
+                        tools:text="Pricing Info"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        app:layout_constraintBottom_toTopOf="@+id/txt_hotel_detail_price_start_date"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_text"
+                        android:id="@+id/v_hotel_detail_price_divider"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:background="@color/grey_400"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                    <TextView
+                        android:text="@string/text_start_date"
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/txt_hotel_detail_price_start_date_text"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        tools:text="13 May 2021"
+                        android:paddingTop="@dimen/margin_small"
+                        android:paddingBottom="@dimen/margin_small"                             android:layout_marginTop="@dimen/margin_x_small"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_hotel_detail_price_start_date_text"
+                        android:id="@+id/txt_hotel_detail_price_start_date"
+                        app:setDateParserTest="@{hotelDetail.offers.get(0).price.variations.changes.get(0).startDate}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="@string/text_end_date"
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/txt_hotel_detail_price_end_date_text"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        tools:text="13 May 2021"
+                        android:paddingTop="@dimen/margin_small"
+                        android:paddingBottom="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:id="@+id/txt_hotel_detail_price_end_date"
+                        app:layout_constraintLeft_toRightOf="@+id/txt_hotel_detail_price_end_date_text"
+                        app:setDateParserTest="@{hotelDetail.offers.get(0).price.variations.changes.get(0).endDate}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        tools:text="Base Price : 156,99 $"
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:id="@+id/txt_hotel_detail_price_base_price"
+                        android:text="@{`Base Price : ` + hotelDetail.offers.get(0).price.base + ` ` + hotelDetail.offers.get(0).price.currency}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_end_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textColor="@color/green_google"
+                        tools:text="Total Price : 220,99 $"
+                        android:padding="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:id="@+id/txt_hotel_detail_price_total_price"
+                        android:text="@{`Total Price : ` + hotelDetail.offers.get(0).price.total + ` ` + hotelDetail.offers.get(0).price.currency}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_base_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="@string/text_refund_deadline"
+                        android:textColor="@color/red_google"
+                        android:padding="@dimen/margin_small"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:id="@+id/txt_hotel_detail_price_deadline_text"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        app:layout_constraintLeft_toRightOf="@+id/txt_hotel_detail_price_deadline_text"
+                        android:textColor="@color/red_google"
+                        tools:text="13 Mar 2021 19:00"
+                        android:paddingTop="@dimen/margin_small"
+                        android:paddingBottom="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_x_small"
+                        android:id="@+id/txt_hotel_detail_price_deadline"
+                        app:setTimeStampParser="@{hotelDetail.offers.get(0).policies.cancellation.deadline}"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_hotel_detail_price_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:background="@color/red_google"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_detail_price"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/layout_hotel_detail_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/icon_phone"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="@dimen/margin_large"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="@dimen/flight_search_small_icon_dimen"
+                        android:layout_height="@dimen/flight_search_small_icon_dimen"/>
+                    <TextView
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        tools:text="+90(545) 835 9522"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/btn_hotel_detail_contact"
+                        android:textColor="@color/grey_white_1000"
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:text="@{hotelDetail.hotel.contact.phone.toString()}"
+                        android:layout_marginLeft="@dimen/margin_x_small"
+                        android:layout_marginRight="@dimen/margin_x_small"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/flight_search_toggle_dimen"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_hotel_detail_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_large"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
