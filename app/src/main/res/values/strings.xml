@@ -80,6 +80,7 @@
     <string name="text_start_date">Start Date :</string>
     <string name="text_end_date">End Date :</string>
     <string name="text_refund_deadline">Refund Deadline :</string>
+    <string name="text_permission_required">You need to accept permission in order to continue..</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>
