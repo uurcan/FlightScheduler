@@ -59,6 +59,7 @@ class HotelResultsAdapter(private val hotelOffers: List<HotelOffer>,
             }
             Glide.with(context).load(hotelOffer.hotel?.media?.get(0)?.uri)
                 .placeholder(R.drawable.hotel_placeholder)
+                .error(R.drawable.hotel_placeholder)
                 .centerCrop()
                 .into(hotelResultsBinding.imgHotelImage)
         }
