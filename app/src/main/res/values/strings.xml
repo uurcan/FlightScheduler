@@ -53,7 +53,7 @@
     <string name="text_reset">Reset</string>
     <string name="text_flight_results">Flight Results</string>
     <string name="text_flight_details">Flight Details</string>
-    <string name="text_end_flight">Final leg of the flight.</string>
+    <string name="text_end_flight">End of the flight.</string>
     <string name="text_return_segments">Return segments..</string>
     <string name="text_cabin_code">Cabin Code :</string>
     <string name="text_fare_basis">Fare Basis :</string>

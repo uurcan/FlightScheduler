@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools">
-    <data class="FragmentFlightDetailBinding"/>
+    <data class="FragmentFlightDetailBinding">
+        <variable
+            name="flightDetailViewModel"
+            type="com.java.flightscheduler.ui.flight.flightdetail.FlightDetailsViewModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_gravity="center"
         android:background="@color/grey_white_1000"
@@ -10,6 +14,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/flight_search_header"
             android:id="@+id/layout_flight_detail_info"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,8 +34,9 @@
                 android:textAlignment="viewStart"
                 android:gravity="start"
                 android:text="Source : "
-                android:textColor="@color/grey_black_1000"/>
+                android:textColor="@color/grey_white_1000"/>
             <TextView
+                android:text="@{flightDetailViewModel.offer.source.toString()}"
                 android:textSize="15sp"
                 android:id="@+id/txt_flight_detail_source"
                 android:layout_marginTop="@dimen/margin_medium"
@@ -41,12 +47,12 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:textAlignment="viewStart"
                 android:gravity="start"
-                android:textColor="@color/grey_black_1000" />
+                android:textColor="@color/grey_white_1000" />
 
             <TextView
                 android:id="@+id/txt_flight_detail_ticketing_date_text"
                 android:textSize="15sp"
-                android:textColor="@color/grey_black_1000"
+                android:textColor="@color/grey_white_1000"
                 android:text="Last Ticketing Date : "
                 android:textAlignment="viewStart"
                 android:gravity="start"
@@ -57,9 +63,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                app:setDateParserText="@{flightDetailViewModel.offer.source.toString()}"
                 android:id="@+id/txt_flight_detail_ticketing_date"
                 android:textSize="15sp"
-                android:textColor="@color/grey_black_1000"
+                android:textColor="@color/grey_white_1000"
                 android:textAlignment="viewStart"
                 android:gravity="start"
                 android:layout_marginTop="@dimen/margin_small"
@@ -72,7 +79,7 @@
             <TextView
                 android:id="@+id/txt_flight_detail_seat_count_text"
                 android:textSize="15sp"
-                android:textColor="@color/grey_black_1000"
+                android:textColor="@color/grey_white_1000"
                 android:text="Bookable Seats : "
                 android:textAlignment="viewStart"
                 android:gravity="start"
@@ -83,9 +90,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:text="@{String.valueOf(flightDetailViewModel.offer.numberOfBookableSeats)}"
                 android:id="@+id/txt_flight_detail_seat_count"
                 android:textSize="15sp"
-                android:textColor="@color/grey_black_1000"
+                android:textColor="@color/grey_white_1000"
                 android:textAlignment="viewStart"
                 android:gravity="start"
                 android:layout_marginTop="@dimen/margin_small"
@@ -107,33 +115,26 @@
                     android:textStyle="bold"
                     android:id="@+id/txt_flight_detail_price_text"
                     android:textSize="19sp"
-                    android:textColor="@color/green_google"
+                    android:textColor="@color/grey_white_1000"
                     android:text="Price : "
                     android:textAlignment="viewStart"
                     android:gravity="start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
+                    android:text="@{flightDetailViewModel.offer.price.total + ` ` + flightDetailViewModel.offer.price.currency}"
+                    tools:text="299.99 €"
                     app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_price_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:textStyle="bold"
                     android:id="@+id/txt_flight_detail_price"
                     android:textSize="19sp"
-                    android:textColor="@color/green_google"
+                    android:textColor="@color/grey_white_1000"
                     android:textAlignment="viewStart"
                     android:gravity="start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <ImageView
-                    android:src="@drawable/icon_flight_detail_info"
-                    android:contentDescription="@null"
-                    android:layout_marginStart="@dimen/margin_medium"
-                    android:layout_width="@dimen/activity_horizontal_margin_extended"
-                    android:layout_height="@dimen/activity_horizontal_margin_extended"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_price" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

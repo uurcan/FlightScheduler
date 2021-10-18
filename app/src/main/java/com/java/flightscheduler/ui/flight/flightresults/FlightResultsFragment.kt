@@ -15,13 +15,14 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
 import com.java.flightscheduler.ui.base.observeOnce
+import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FlightResultsFragment : Fragment(), FlightResultsAdapter.FlightResultsListener {
     private lateinit var binding : FragmentFlightResultsBinding
     private lateinit var flightSearchAdapter : FlightResultsAdapter
-    private val flightResultsViewModel: FlightResultsViewModel by viewModels()
+    private val flightResultsViewModel: FlightSearchViewModel by viewModels()
     private val arguments by navArgs<FlightResultsFragmentArgs>()
 
     override fun onCreateView(

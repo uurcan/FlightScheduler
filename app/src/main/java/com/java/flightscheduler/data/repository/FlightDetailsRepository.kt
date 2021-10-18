@@ -8,10 +8,10 @@ import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.model.flight.pricing.Price
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
-class FlightDetailsRepository @Inject constructor(private val context: Context){
+class FlightDetailsRepository constructor(private val context: Context){
 
+    fun getOffer(flightOffer: FlightOffer) = flightOffer
     fun getAircraft(segment: SearchSegment) = segment.aircraft?.code
     fun getOrigin(segment: SearchSegment) = segment.departure?.iataCode
     fun getDestination(segment: SearchSegment) = segment.arrival?.iataCode

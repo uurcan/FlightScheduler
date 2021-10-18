@@ -30,4 +30,8 @@ object AppConstants {
         Japanese("JA"),
         Turkish("TR")
     }
+
+    const val text_date_parser_format = "yyyy-MM-dd"
+    const val text_date_formatter = "dd MMM yyyy"
+
 }
