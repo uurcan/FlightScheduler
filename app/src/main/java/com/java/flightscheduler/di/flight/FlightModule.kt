@@ -46,6 +46,18 @@ object FlightModule {
     @Provides
     fun provideDelayPredictions(retrofit: Retrofit) : PredictionService = retrofit.create(
         PredictionService::class.java)
+    //todo: is this the right way to inject ?
+    @Singleton
+    @Provides
+    fun provideFlightOffers() : FlightOffer = FlightOffer()
+
+    @Singleton
+    @Provides
+    fun provideFlightSegment() : SearchSegment = SearchSegment()
+
+    @Singleton
+    @Provides
+    fun provideFareDetails() : FareDetailsBySegment = FareDetailsBySegment()
 
     @Singleton
     @Provides

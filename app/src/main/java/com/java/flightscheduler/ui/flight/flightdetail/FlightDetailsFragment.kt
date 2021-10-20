@@ -1,45 +1,42 @@
 package com.java.flightscheduler.ui.flight.flightdetail
 
-import android.os.Bundle
-import android.view.*
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightDetailBinding
+import com.java.flightscheduler.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class FlightDetailsFragment : Fragment(){
+@AndroidEntryPoint
+class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel,FragmentFlightDetailBinding>
+    (R.layout.fragment_flight_detail){
     private val args by navArgs<FlightDetailsFragmentArgs>()
-    private val flightDetailsViewModel : FlightDetailsViewModel by viewModels()
-    private lateinit var binding : FragmentFlightDetailBinding
     private lateinit var flightDetailsAdapter : FlightDetailsAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_flight_detail,container,false)
-        return binding.root
+    override fun init() {
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setViewModelFactory(): ViewModelProvider.Factory? {
+        return defaultViewModelProviderFactory
+    }
+
+    override fun setViewModelClass(): Class<FlightDetailsViewModel> = FlightDetailsViewModel::class.java
+
+    override fun onBind() {
         val flightOffer : FlightOffer = args.offer
         initializeFlightResults(flightOffer)
     }
 
     private fun initializeFlightResults(flightOffer: FlightOffer) {
         val layoutManager = LinearLayoutManager(context)
-        binding.rvFlightDetail.layoutManager = layoutManager
-        binding.rvFlightDetail.setHasFixedSize(true)
-        flightDetailsViewModel.getSegments(flightOffer).observe(viewLifecycleOwner,{
+        binding?.rvFlightDetail?.layoutManager = layoutManager
+        binding?.rvFlightDetail?.setHasFixedSize(true)
+        viewModel?.getSegments(flightOffer)?.observe(viewLifecycleOwner,{
             flightDetailsAdapter = context?.let { FlightDetailsAdapter(flightOffer, it) }!!
-            binding.rvFlightDetail.adapter = flightDetailsAdapter
+            binding?.rvFlightDetail?.adapter = flightDetailsAdapter
         })
     }
 }

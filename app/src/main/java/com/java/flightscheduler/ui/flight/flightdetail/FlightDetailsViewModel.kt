@@ -7,8 +7,11 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FlightDetailsViewModel (context: Context,
+@HiltViewModel
+class FlightDetailsViewModel @Inject constructor(context: Context,
                                          flightOffer: FlightOffer,
                                          segment: SearchSegment,
                                          fareDetailsBySegment: FareDetailsBySegment)
