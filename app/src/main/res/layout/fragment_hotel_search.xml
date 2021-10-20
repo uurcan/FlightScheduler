@@ -2,9 +2,10 @@
 <layout>
     <data>
         <import type="android.view.View"/>
+        <import type="com.java.flightscheduler.utils.ParsingUtils"/>
         <variable
-            name="search"
-            type="com.java.flightscheduler.data.model.hotel.base.HotelOffer" />
+            name="hotelSearch"
+            type="com.java.flightscheduler.data.model.hotel.HotelSearch" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:gravity="center"
@@ -155,7 +156,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="17 Oct 2021"
+                    tools:text="20 Oct 2021"
+                    app:setDateParserText="@{ParsingUtils.getCurrentDate(hotelSearch.checkInDate).toString()}"
                     app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_check_out_more"
                     android:id="@+id/txt_hotel_search_check_in_date"
                     android:layout_width="wrap_content"
@@ -217,7 +219,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="21 Oct 2021"
+                    app:setDateParserText="@{ParsingUtils.getNextDate(hotelSearch.checkOutDate).toString()}"
                     app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_check_in_more"
                     android:id="@+id/txt_hotel_search_check_out_date"
                     android:layout_width="wrap_content"
@@ -289,7 +291,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="1"
+                    tools:text="1"
+                    android:text="@{String.valueOf(hotelSearch.auditCount)}"
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_hotel_audit_count"
                     android:layout_width="wrap_content"
@@ -360,7 +363,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="1"
+                    android:text="@{String.valueOf(hotelSearch.roomCount)}"
+                    tools:text="1"
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_hotel_rooms_count"
                     android:layout_width="wrap_content"
@@ -443,10 +447,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    tools:text="Sort Options"
                     android:textSize="16sp"
                     android:padding="@dimen/margin_small"
                     android:gravity="center"
-                    android:text="Sort Options"
+                    android:text='@{hotelSearch.sortOptions.toString().toUpperCase() ?? "Sort Options"}'
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_hotel_sort"
                     android:layout_width="wrap_content"
@@ -491,6 +496,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    tools:text="Language"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:padding="@dimen/margin_small"
@@ -503,7 +509,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/img_hotel_language"
                     app:layout_constraintTop_toTopOf="@+id/view"
-                    android:text="Language" />
+                    android:text='@{hotelSearch.language ?? "Language"}'
+                    />
 
                 <ImageView
                     android:contentDescription="@null"

@@ -14,6 +14,7 @@ import com.java.flightscheduler.data.model.flight.FlightInfo
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.repository.AirlineRepository
+import com.java.flightscheduler.data.repository.FlightResultsRepository
 import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
@@ -21,7 +22,6 @@ import com.java.flightscheduler.ui.base.SelectedItemListener
 class FlightResultsAdapter(flightOffers: List<FlightOffer>,
                            private val context : Context,
                            private val listener: FlightResultsListener)
-
     : RecyclerView.Adapter<FlightResultsAdapter.FlightResultsViewHolder>() {
 
     private val airlineRepository : AirlineRepository = AirlineRepository(context)
@@ -41,7 +41,7 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
         val destination = flightRoutesRepository.getMatchingFlightRoute(flightRoutes, segment?.arrival?.iataCode)
         val flightInfo = flightRoutesRepository.getFlightInfo(carrier,origin,destination)
 
-        holderResults.bind(filteredOffers[position], flightInfo, context)
+        holderResults.bind(filteredOffers[position], flightInfo)
     }
 
     override fun getItemCount(): Int {
@@ -53,11 +53,12 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
     inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
         RecyclerView.ViewHolder(flightResultsBinding.root) {
 
-        private lateinit var flightOfferViewModel: FlightResultsViewModel
+        private val flightResultsRepository = FlightResultsRepository()
+        private val flightResultsViewModel = FlightResultsViewModel(flightResultsRepository)
 
-        fun bind(flightOffer: FlightOffer, flightInfo: FlightInfo ,context: Context) {
-            flightOfferViewModel = FlightResultsViewModel(flightOffer,null)
-            flightResultsBinding.setVariable(BR.flightListViewModel , flightOfferViewModel)
+        fun bind(flightOffer: FlightOffer, flightInfo: FlightInfo) {
+            flightResultsBinding.setVariable(BR.flightOffer, flightOffer)
+            flightResultsBinding.setVariable(BR.flightListViewModel , flightResultsViewModel)
             flightResultsBinding.executePendingBindings()
 
             flightResultsBinding.flightListCarrierName.text = flightInfo.carrier?.NAME

@@ -58,10 +58,12 @@ class FlightSearchFragment : Fragment(),View.OnClickListener {
         val parsedCurrentDate = ParsingUtils.dateParser(
             parser = parser,
             formatter = formatter,
-            date = ParsingUtils.getCurrentDate()
+            date = ParsingUtils.getCurrentDate(null)
         )
         if (flightSearch.formattedDepartureDate.isBlank()){
-            flightSearch.formattedDepartureDate = parsedCurrentDate
+            if (parsedCurrentDate != null) {
+                flightSearch.formattedDepartureDate = parsedCurrentDate
+            }
             flightSearch.formattedReturnDate = parsedCurrentDate
         }
         binding.setVariable(BR.search,flightSearch)

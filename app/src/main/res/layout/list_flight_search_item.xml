@@ -5,6 +5,9 @@
         <variable
             name="view"
             type="android.view.View"/>
+        <variable
+            name="flightOffer"
+            type="com.java.flightscheduler.data.model.flight.FlightOffer" />
          <variable
             name="flightListViewModel"
             type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsViewModel" />
@@ -86,7 +89,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="22sp"
-                android:text="@{flightListViewModel.segments.departure.iataCode}"
+                android:text="@{flightListViewModel.getSegments(flightOffer).departure.iataCode}"
                 android:id="@+id/txt_flight_detail_origin_iata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -98,7 +101,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="16sp"
-                android:text="@{flightListViewModel.segments.departure.at.substring(11,16)}"
+                android:text="@{flightListViewModel.getSegments(flightOffer).departure.at.substring(11,16)}"
                 android:id="@+id/txt_flight_detail_origin_local_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -139,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:text="@{flightListViewModel.flightNumber}"
+                android:text="@{flightListViewModel.getFlightNumber(flightOffer)}"
                 app:layout_constraintBottom_toTopOf="@+id/v_flight_list_ticket_line"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
@@ -147,7 +150,7 @@
                 android:id="@+id/flight_list_flight_duration"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:text="@{flightListViewModel.duration}"
+                android:text="@{flightListViewModel.getDuration(flightOffer)}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v_flight_list_ticket_line"
@@ -181,7 +184,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="22sp"
-                android:text="@{flightListViewModel.segments.arrival.iataCode}"
+                android:text="@{flightListViewModel.getSegments(flightOffer).arrival.iataCode}"
                 android:id="@+id/txt_flight_detail_destination_iata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -193,7 +196,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="16sp"
-                android:text="@{flightListViewModel.segments.arrival.at.substring(11,16)}"
+                android:text="@{flightListViewModel.getSegments(flightOffer).arrival.at.substring(11,16)}"
                 android:id="@+id/txt_flight_detail_destination_local_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -211,7 +214,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:text="@{flightListViewModel.price}"
+                android:text="@{flightListViewModel.getPrice(flightOffer)}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

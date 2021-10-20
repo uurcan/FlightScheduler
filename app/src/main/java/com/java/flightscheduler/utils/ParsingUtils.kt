@@ -3,6 +3,7 @@ package com.java.flightscheduler.utils
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 object ParsingUtils {
 
@@ -22,16 +23,27 @@ object ParsingUtils {
     }
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    fun dateParser(parser : SimpleDateFormat,formatter : SimpleDateFormat ,date : String?) : String {
-        return formatter.format(
-            parser.parse(
-                date
+    fun dateParser(parser : SimpleDateFormat,formatter : SimpleDateFormat ,date : String?) : String? {
+        return if (date != null) {
+            formatter.format(
+                parser.parse(
+                    date
+                )
             )
-        )
+        } else {
+            "No date found."
+        }
     }
 
+    @JvmStatic
     @SuppressLint("NewApi")
-    fun getCurrentDate(): String {
-        return Instant.now().toString()
+    fun getCurrentDate(defaultDate : String?): String {
+        return defaultDate ?: Instant.now().toString()
+    }
+
+    @JvmStatic
+    @SuppressLint("NewApi")
+    fun getNextDate(defaultDate : String?): String? {
+        return defaultDate ?: Instant.now().plus(1,ChronoUnit.DAYS).toString()
     }
 }

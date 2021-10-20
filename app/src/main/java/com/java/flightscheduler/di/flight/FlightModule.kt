@@ -49,15 +49,15 @@ object FlightModule {
     //todo: is this the right way to inject ?
     @Singleton
     @Provides
+    fun provideFlightOffers() : FlightOffer = FlightOffer()
+
+    @Singleton
+    @Provides
     fun provideFlightSegment() : SearchSegment = SearchSegment()
 
     @Singleton
     @Provides
     fun provideFareDetails() : FareDetailsBySegment = FareDetailsBySegment()
-
-    @Singleton
-    @Provides
-    fun provideFlightOffers() : FlightOffer = FlightOffer()
 
     @Singleton
     @Provides

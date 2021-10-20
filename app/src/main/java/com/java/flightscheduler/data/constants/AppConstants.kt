@@ -13,11 +13,11 @@ object AppConstants {
     const val MAX_AUDIT_COUNT = 9
     const val REQUEST_CODE_CALL_PERMISSION = 101
     enum class FilterOptions(val param : String) {
-        Default("DEFAULT"),
-        Name("NAME"),
-        Price("PRICE"),
-        Distance("DISTANCE"),
-        Rating("RATING")
+        Default("none"),
+        Name("name"),
+        Price("price"),
+        Distance("distance"),
+        Rating("rating")
     }
     enum class LanguageOptions(val code : String) {
         Chinese("ZH"),
@@ -30,4 +30,8 @@ object AppConstants {
         Japanese("JA"),
         Turkish("TR")
     }
+
+    const val text_date_parser_format = "yyyy-MM-dd"
+    const val text_date_formatter = "dd MMM yyyy"
+
 }

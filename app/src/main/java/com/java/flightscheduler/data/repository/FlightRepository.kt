@@ -1,5 +1,6 @@
 package com.java.flightscheduler.data.repository
 
+import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.remote.services.FlightService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.java.flightscheduler.di.dispatcher.IoDispatcher
@@ -44,5 +45,13 @@ class FlightRepository @Inject constructor(
             maxPrice,
             max
         )
+    }
+    fun getQueryErrors(errorResults : List<BaseApiResult.Error.Issue>) : String? {
+        var errorMessages : String? = "Following errors found : \n \n"
+        errorResults.forEach {
+                error ->
+            errorMessages += "${error.code} - ${error.detail} \n"
+        }
+        return errorMessages
     }
 }

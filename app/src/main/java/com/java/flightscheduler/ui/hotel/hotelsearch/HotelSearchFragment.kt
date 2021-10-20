@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.LanguageOptions
 import com.java.flightscheduler.data.constants.AppConstants.FilterOptions
@@ -53,6 +54,19 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         initializeViews()
         initializeCityDropdown()
+        initializeHotelParams()
+    }
+
+    private fun initializeHotelParams() {
+        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
+        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+
+        val parsedCurrentDate : String? = ParsingUtils.dateParser(parser,formatter,ParsingUtils.getCurrentDate(null))
+        if (hotelSearch.formattedCheckInDate.isNullOrBlank()){
+            hotelSearch.formattedCheckInDate = parsedCurrentDate
+            hotelSearch.formattedCheckOutDate = parsedCurrentDate
+        }
+        binding.setVariable(BR.hotelSearch,hotelSearch)
     }
 
     private fun initializeViews() {
@@ -99,6 +113,8 @@ class HotelSearchFragment : Fragment(), View.OnClickListener {
 
     private fun saveHotelResults() {
         hotelSearch.formattedCheckInDate = binding.txtHotelSearchCheckInDate.text.toString()
+        hotelSearch.formattedCheckOutDate = binding.txtHotelSearchCheckOutDate.text.toString()
+        hotelSearch.roomCount = binding.txtHotelRoomsCount.text.toString().toInt()
         hotelSearch.auditCount = binding.txtHotelAuditCount.text.toString().toInt()
 
         if (paramValidation(city = hotelSearch.city)){
