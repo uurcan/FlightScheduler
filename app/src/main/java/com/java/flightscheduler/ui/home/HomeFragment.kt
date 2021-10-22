@@ -3,11 +3,13 @@ package com.java.flightscheduler.ui.home
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayoutMediator
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.databinding.FragmentHomeBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fragment_home), View.OnClickListener{
@@ -24,9 +26,8 @@ class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fr
     }
 
     private fun initializeResults() {
-        viewModel?.getPlaces()?.observe(viewLifecycleOwner, {
-            binding?.setVariable(BR.homeViewModel, viewModel)
-        })
+        binding?.pagerHomeItem?.adapter = HomeAdapter(requireContext())
+        TabLayoutMediator(binding?.intoTabLayout!!,binding?.pagerHomeItem!!) { _, _ ->}.attach()
     }
 
     private fun initializeViews() {

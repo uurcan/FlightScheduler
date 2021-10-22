@@ -12,6 +12,9 @@ object AppConstants {
     const val MIN_AUDIT_COUNT = 1
     const val MAX_AUDIT_COUNT = 9
     const val REQUEST_CODE_CALL_PERMISSION = 101
+    const val PAGER_ITEM_SIZE = 4
+
+
     enum class FilterOptions(val param : String) {
         Default("none"),
         Name("name"),

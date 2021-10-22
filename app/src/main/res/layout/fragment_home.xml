@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <data
-        class="FragmentHomeBinding">
-        <import type="android.view.View" />
-        <variable
-            name="homeViewModel"
-            type="com.java.flightscheduler.ui.home.HomeViewModel"/>
-    </data>
+    <data class="FragmentHomeBinding"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.home.HomeFragment">
-        <ImageView
-            app:setImageDrawable="@{homeViewModel.places.image}"
-            android:scaleType="centerCrop"
-            android:contentDescription="@null"
-            android:id="@+id/img_home_places"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager_home_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/into_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/tab_pager_selector"
+            app:tabGravity="center"
+            android:layout_marginBottom="@dimen/flight_search_editor_dimen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tabIndicatorHeight="0dp"
+            android:layout_gravity="bottom"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -63,34 +61,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <TextView
-            android:text="@{homeViewModel.places.name}"
-            android:textColor="@color/grey_white_1000"
-            android:id="@+id/textLocationName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="viewStart"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/textLocationCountry"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:gravity="start" />
-        <TextView
-            android:text="@{homeViewModel.places.country}"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/grey_white_1000"
-            android:id="@+id/textLocationCountry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="viewStart"
-            android:textSize="26sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="start" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+

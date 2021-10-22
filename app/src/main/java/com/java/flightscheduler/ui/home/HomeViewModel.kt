@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val locationRepository : LocationRepository) : ViewModel() {
 
-    fun getPlaces() = MutableLiveData<Places>().apply {
+    fun getPlaces() = MutableLiveData<List<Places>>().apply {
         value = locationRepository.initializeMockPlaces()
     }
 }
