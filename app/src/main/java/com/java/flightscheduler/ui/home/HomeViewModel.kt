@@ -1,19 +1,16 @@
 package com.java.flightscheduler.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.java.flightscheduler.data.model.places.Places
-import com.java.flightscheduler.ui.base.BaseViewModel
+import androidx.lifecycle.ViewModel
+import com.java.flightscheduler.data.model.home.Places
+import com.java.flightscheduler.data.repository.LocationRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor() : BaseViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val locationRepository : LocationRepository) : ViewModel() {
 
-    private val textCountry = MutableLiveData<Places>().apply {
-        value = Places(
-            "Kuala-Lumpur",
-            "Malaysia",
-            ""
-        )
+    fun getPlaces() = MutableLiveData<Places>().apply {
+        value = locationRepository.initializeMockPlaces()
     }
-    val text: LiveData<Places> = textCountry
 }

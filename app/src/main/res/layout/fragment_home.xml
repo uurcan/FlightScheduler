@@ -4,17 +4,27 @@
         class="FragmentHomeBinding">
         <import type="android.view.View" />
         <variable
-            name="viewModel"
+            name="homeViewModel"
             type="com.java.flightscheduler.ui.home.HomeViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/oslo_norway_temp"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
+        <ImageView
+            app:setImageDrawable="@{homeViewModel.places.image}"
+            android:scaleType="centerCrop"
+            android:contentDescription="@null"
+            android:id="@+id/img_home_places"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -54,6 +64,7 @@
                 android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
+            android:text="@{homeViewModel.places.name}"
             android:textColor="@color/grey_white_1000"
             android:id="@+id/textLocationName"
             android:layout_width="match_parent"
@@ -67,6 +78,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:gravity="start" />
         <TextView
+            android:text="@{homeViewModel.places.country}"
             android:layout_marginBottom="10dp"
             android:textColor="@color/grey_white_1000"
             android:id="@+id/textLocationCountry"
