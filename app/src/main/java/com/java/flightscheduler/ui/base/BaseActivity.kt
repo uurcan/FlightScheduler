@@ -33,7 +33,6 @@ abstract class BaseActivity<ViewBinding : ViewDataBinding, ViewModel : BaseViewM
         super.onCreate(savedInstanceState)
         viewBinding = DataBindingUtil.setContentView(this,layoutId)
         viewBinding.apply {
-            setVariable(BR.viewModel,viewModel)
             root.isClickable = true
             executePendingBindings()
         }
