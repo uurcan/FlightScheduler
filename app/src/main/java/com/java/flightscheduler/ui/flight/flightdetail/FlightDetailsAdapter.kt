@@ -18,7 +18,7 @@ import com.java.flightscheduler.data.repository.FlightDetailsRepository
 import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 
-class FlightDetailsAdapter(private val flightOffer: FlightOffer,private val context : Context)
+class FlightDetailsAdapter(flightOffer: FlightOffer, private val context : Context)
     : RecyclerView.Adapter<FlightDetailsAdapter.FlightDetailsViewHolder>(){
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
@@ -63,15 +63,15 @@ class FlightDetailsAdapter(private val flightOffer: FlightOffer,private val cont
 
     inner class FlightDetailsViewHolder(private var itemFlightDetailBinding: ItemFlightDetailBinding) :
         RecyclerView.ViewHolder(itemFlightDetailBinding.root){
-        private lateinit var flightDetailsViewModel: FlightDetailsViewModel
 
         fun bind(
             segment: SearchSegment,
             fareDetailsBySegment: FareDetailsBySegment?,
             status: String
         ) {
-            flightDetailsViewModel = FlightDetailsViewModel(context, flightOffer, segment, fareDetailsBySegment!!)
-            itemFlightDetailBinding.setVariable(BR.flightDetailViewModel,flightDetailsViewModel)
+            itemFlightDetailBinding.fareDetails = fareDetailsBySegment
+            itemFlightDetailBinding.repository = flightDetailsRepository
+            itemFlightDetailBinding.setVariable(BR.flightDetailSegment,segment)
             itemFlightDetailBinding.executePendingBindings()
 
             val aircraftCode : String = segment.aircraft?.code.toString()
@@ -81,7 +81,7 @@ class FlightDetailsAdapter(private val flightOffer: FlightOffer,private val cont
             val conStatusText : TextView = itemFlightDetailBinding.txtFlightDetailDetailsConnectionTime
             val destination = "$departureAirportName - $arrivalAirportName"
 
-            itemFlightDetailBinding.txtFlightDetailAircraftCode.text = aircraftName
+            itemFlightDetailBinding.txtFlightDetailAircraftCode.text = aircraftName ?: context.getString(R.string.no_aircraft_found)
             itemFlightDetailBinding.txtFlightDetailDetailsConnectionTime.text = status
             itemFlightDetailBinding.txtFlightDetailCityInfo.text = destination
             when (status) {

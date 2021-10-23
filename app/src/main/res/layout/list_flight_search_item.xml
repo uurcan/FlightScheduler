@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data class="FlightListBinding">
         <variable
             name="view"
             type="android.view.View"/>
         <variable
-            name="flightOffer"
+            name="flightListRepository"
+            type="com.java.flightscheduler.data.repository.FlightResultsRepository" />
+        <variable
+            name="flightInfo"
+            type="com.java.flightscheduler.data.model.flight.FlightInfo" />
+        <variable
+            name="flightListItem"
             type="com.java.flightscheduler.data.model.flight.FlightOffer" />
-         <variable
-            name="flightListViewModel"
-            type="com.java.flightscheduler.ui.flight.flightresults.FlightResultsViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_flight_search"
@@ -42,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                app:setImageUrl="@{flightInfo.carrier.LOGO}"
                 android:contentDescription="@null"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_small"
@@ -53,13 +58,14 @@
                 android:layout_width="@dimen/item_carrier_logo_margin"
                 android:layout_height="@dimen/item_carrier_logo_margin"/>
             <TextView
+                android:text="@{flightInfo.carrier.NAME}"
                 android:layout_marginStart="@dimen/margin_medium"
                 android:id="@+id/flight_list_carrier_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Turkish Airlines"
+                tools:text="Turkish Airlines"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -72,15 +78,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:text="@{flightInfo.origin}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textSize="18sp"
-                android:text="Istanbul"
+                tools:text="Istanbul"
                 android:id="@+id/txt_flight_detail_origin_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                tools:text="IST"
                 android:textColor="@color/grey_black_1000"
                 app:layout_constraintRight_toRightOf="parent"
                 android:gravity="center"
@@ -89,11 +97,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="22sp"
-                android:text="@{flightListViewModel.getSegments(flightOffer).departure.iataCode}"
+                android:text="@{flightListRepository.getSegments(flightListItem).departure.iataCode}"
                 android:id="@+id/txt_flight_detail_origin_iata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                tools:text="22:40"
                 android:gravity="center"
                 android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_origin_iata"
@@ -101,7 +110,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="16sp"
-                android:text="@{flightListViewModel.getSegments(flightOffer).departure.at.substring(11,16)}"
+                android:text="@{flightListRepository.getSegments(flightListItem).departure.at.substring(11,16)}"
                 android:id="@+id/txt_flight_detail_origin_local_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -137,20 +146,22 @@
                 android:layout_height="@dimen/margin_x_small"/>
 
             <TextView
+                tools:text="PC-2180"
                 android:id="@+id/flight_list_flight_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:text="@{flightListViewModel.getFlightNumber(flightOffer)}"
+                android:text="@{flightListRepository.getFlightNumber(flightListItem)}"
                 app:layout_constraintBottom_toTopOf="@+id/v_flight_list_ticket_line"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
             <TextView
+                tools:text="PT1H40M"
                 android:id="@+id/flight_list_flight_duration"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:text="@{flightListViewModel.getDuration(flightOffer)}"
+                android:text="@{flightListRepository.getDuration(flightListItem)}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v_flight_list_ticket_line"
@@ -167,15 +178,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:text="@{flightInfo.destination}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textSize="18sp"
-                android:text="Izmir"
+                tools:text="Izmir"
                 android:id="@+id/txt_flight_detail_destination_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                tools:text="ADB"
                 android:textColor="@color/grey_black_1000"
                 app:layout_constraintRight_toRightOf="parent"
                 android:gravity="center"
@@ -184,11 +197,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="22sp"
-                android:text="@{flightListViewModel.getSegments(flightOffer).arrival.iataCode}"
+                android:text="@{flightListRepository.getSegments(flightListItem).arrival.iataCode}"
                 android:id="@+id/txt_flight_detail_destination_iata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                tools:text="23:50"
                 android:gravity="center"
                 android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_destination_iata"
@@ -196,7 +210,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="16sp"
-                android:text="@{flightListViewModel.getSegments(flightOffer).arrival.at.substring(11,16)}"
+                android:text="@{flightListRepository.getSegments(flightListItem).arrival.at.substring(11,16)}"
                 android:id="@+id/txt_flight_detail_destination_local_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -209,12 +223,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                tools:text="220.00 €"
                 android:textStyle="bold"
                 android:textColor="@color/green_google"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textSize="18sp"
-                android:text="@{flightListViewModel.getPrice(flightOffer)}"
+                android:text="@{flightListRepository.getPriceResults(flightListItem)}"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

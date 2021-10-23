@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Airline
@@ -20,10 +19,11 @@ import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.SelectedItemListener
 
 class FlightResultsAdapter(flightOffers: List<FlightOffer>,
-                           private val context : Context,
+                           context : Context,
                            private val listener: FlightResultsListener)
     : RecyclerView.Adapter<FlightResultsAdapter.FlightResultsViewHolder>() {
 
+    private val flightResultsRepository = FlightResultsRepository()
     private val airlineRepository : AirlineRepository = AirlineRepository(context)
     private val flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
     private var filteredOffers = flightRoutesRepository.getFilteredFlightResults(flightOffers)
@@ -53,19 +53,11 @@ class FlightResultsAdapter(flightOffers: List<FlightOffer>,
     inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
         RecyclerView.ViewHolder(flightResultsBinding.root) {
 
-        private val flightResultsRepository = FlightResultsRepository()
-        private val flightResultsViewModel = FlightResultsViewModel(flightResultsRepository)
-
         fun bind(flightOffer: FlightOffer, flightInfo: FlightInfo) {
-            flightResultsBinding.setVariable(BR.flightOffer, flightOffer)
-            flightResultsBinding.setVariable(BR.flightListViewModel , flightResultsViewModel)
+            flightResultsBinding.flightInfo = flightInfo
+            flightResultsBinding.flightListRepository = flightResultsRepository
+            flightResultsBinding.setVariable(BR.flightListItem, flightOffer)
             flightResultsBinding.executePendingBindings()
-
-            flightResultsBinding.flightListCarrierName.text = flightInfo.carrier?.NAME
-            Glide.with(context).load(flightInfo.carrier?.LOGO).into(flightResultsBinding.flightListCarrierLogo)
-
-            flightResultsBinding.txtFlightDetailOriginCity.text = flightInfo.origin
-            flightResultsBinding.txtFlightDetailDestinationCity.text = flightInfo.destination
 
             flightResultsBinding.root.setOnClickListener {
                 listener.onItemClick(it, flightOffer)

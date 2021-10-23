@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class="HotelListBinding">
         <variable
-            name="hotelListViewModel"
-            type="com.java.flightscheduler.ui.hotel.hotelresults.HotelResultsViewModel" />
+            name="hotelOfferList"
+            type="com.java.flightscheduler.data.model.hotel.base.HotelOffer" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:elevation="@dimen/activity_horizontal_margin"
@@ -30,6 +30,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                app:setImageUrl="@{hotelOfferList.hotel.media.get(0).uri}"
                 android:scaleType="centerCrop"
                 android:layout_margin="@dimen/margin_small"
                 android:src="@drawable/temp_hotel"
@@ -52,7 +53,7 @@
                     android:id="@+id/txt_hotel_list_hotel_name"
                     android:textStyle="bold"
                     android:textColor="@color/grey_black_1000"
-                    android:text="@{hotelListViewModel.hotelInfo.name}"
+                    android:text="@{hotelOfferList.hotel.name}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_width="match_parent"
@@ -98,7 +99,7 @@
                         android:textSize="17sp"
                         android:textStyle="bold"
                         android:layout_margin="@dimen/margin_small"
-                        android:text="@{String.valueOf(hotelListViewModel.hotelDistance.distance)}"
+                        android:text="@{String.valueOf(hotelOfferList.hotel.hotelDistance.distance)}"
                         android:textColor="@color/green_google"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -110,7 +111,7 @@
                         app:layout_constraintLeft_toRightOf="@+id/txt_hotel_list_distance_number"
                         android:id="@+id/txt_hotel_list_distance_unit"
                         android:layout_margin="@dimen/margin_small"
-                        android:text="@{String.valueOf(hotelListViewModel.hotelDistance.distanceUnit)}"
+                        android:text="@{String.valueOf(hotelOfferList.hotel.hotelDistance.distanceUnit)}"
                         android:textColor="@color/green_google"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -120,7 +121,7 @@
                     <TextView
                         app:layout_constraintLeft_toRightOf="@+id/txt_hotel_list_distance_unit"
                         android:layout_margin="@dimen/margin_small"
-                        android:text=" from city center.."
+                        android:text="@string/text_from_city_center"
                         android:textColor="@color/grey_700"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -136,7 +137,7 @@
                     android:textColor="@color/grey_black_1000"
                     android:layout_marginTop="@dimen/margin_x_small"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@{hotelListViewModel.hotelAddress.cityName + ` - ` + hotelListViewModel.hotelAddress.postalCode}"
+                    android:text="@{hotelOfferList.hotel.address.cityName + ` - ` + hotelOfferList.hotel.address.postalCode}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -159,7 +160,7 @@
                         android:textColor="@color/red_google"
                         android:layout_marginTop="@dimen/margin_x_small"
                         android:layout_marginStart="@dimen/margin_small"
-                        android:text="@{hotelListViewModel.hotelOffer.available ? `Available` : `Not Available`}"
+                        android:text="@{hotelOfferList.available ? `Available` : `Not Available`}"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -169,7 +170,7 @@
                         android:textSize="18sp"
                         android:textColor="@color/green_google"
                         android:textStyle="bold"
-                        android:text='@{String.valueOf(hotelListViewModel.hotelPrice.total)+" "+String.valueOf(hotelListViewModel.hotelPrice.currency)}'
+                        android:text='@{String.valueOf(hotelOfferList.offers.get(0).price.total)+" "+String.valueOf(hotelOfferList.offers.get(0).price.currency)}'
                         android:layout_marginStart="@dimen/margin_small"
                         android:layout_marginBottom="@dimen/margin_small"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -182,7 +183,7 @@
                     android:layout_marginBottom="@dimen/margin_x_small"
                     android:textAllCaps="false"
                     android:layout_marginEnd="@dimen/margin_small"
-                    android:text="Details"
+                    android:text="@string/text_details"
                     android:background="@drawable/hotel_button_background"
                     android:textColor="@color/grey_white_1000"
                     android:id="@+id/buttonFlightOffersMain"

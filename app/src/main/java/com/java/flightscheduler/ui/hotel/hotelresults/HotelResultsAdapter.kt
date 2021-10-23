@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.hotel.base.HotelOffer
@@ -15,7 +14,7 @@ import com.java.flightscheduler.ui.base.SelectedItemListener
 
 
 class HotelResultsAdapter(private val hotelOffers: List<HotelOffer>,
-                           private val context: Context,
+                           context: Context,
                            private val listener: HotelResultsListener)
 
     : RecyclerView.Adapter<HotelResultsAdapter.HotelResultsViewHolder>() {
@@ -47,21 +46,13 @@ class HotelResultsAdapter(private val hotelOffers: List<HotelOffer>,
     inner class HotelResultsViewHolder(private var hotelResultsBinding: HotelListBinding) :
         RecyclerView.ViewHolder(hotelResultsBinding.root) {
 
-        private lateinit var hotelOfferViewModel: HotelResultsViewModel
-
         fun bind(hotelOffer: HotelOffer) {
-            hotelOfferViewModel = HotelResultsViewModel(hotelOffer, null)
-            hotelResultsBinding.setVariable(BR.hotelListViewModel ,hotelOfferViewModel)
+            hotelResultsBinding.setVariable(BR.hotelOfferList ,hotelOffer)
             hotelResultsBinding.executePendingBindings()
 
-            hotelResultsBinding.root.setOnClickListener {
+            hotelResultsBinding.buttonFlightOffersMain.setOnClickListener {
                 listener.onItemClick(it, hotelOffer)
             }
-            Glide.with(context).load(hotelOffer.hotel?.media?.get(0)?.uri)
-                .placeholder(R.drawable.hotel_placeholder)
-                .error(R.drawable.hotel_placeholder)
-                .centerCrop()
-                .into(hotelResultsBinding.imgHotelImage)
         }
     }
 }

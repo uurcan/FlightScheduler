@@ -4,8 +4,8 @@
         class="LocationListItemBinding">
         <import type="android.view.View" />
         <variable
-            name="homeViewModel"
-            type="com.java.flightscheduler.ui.home.HomeViewModel"/>
+            name="places"
+            type="com.java.flightscheduler.data.model.home.Places"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
         <ImageView
+            app:setImageDrawable="@{places.image}"
             android:scaleType="centerCrop"
             android:contentDescription="@null"
             android:id="@+id/img_home_places"
@@ -25,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <TextView
+            android:text="@{places.name}"
             android:textColor="@color/grey_white_1000"
             android:id="@+id/textLocationName"
             android:layout_width="match_parent"
@@ -38,6 +40,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:gravity="start" />
         <TextView
+            android:text="@{places.country}"
             android:layout_marginBottom="10dp"
             android:textColor="@color/grey_white_1000"
             android:id="@+id/textLocationCountry"

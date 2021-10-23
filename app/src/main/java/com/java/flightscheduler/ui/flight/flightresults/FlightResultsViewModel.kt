@@ -25,7 +25,4 @@ class FlightResultsViewModel @Inject constructor(
     fun getDuration(flightOffer: FlightOffer) : MutableLiveData<String> {
         return MutableLiveData(flightResultsRepository.getDuration(flightOffer))
     }
-    fun getCarrierCode(flightOffer: FlightOffer) : MutableLiveData<String> {
-        return MutableLiveData(flightResultsRepository.getCarrierCode(flightOffer).toString())
-    }
 }
