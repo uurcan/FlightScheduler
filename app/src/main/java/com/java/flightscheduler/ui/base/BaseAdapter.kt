@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import java.util.concurrent.Executors
 
-abstract class BaseListAdapter <Item : Any, ViewBinding : ViewDataBinding>
+abstract class BaseAdapter <Item : Any, ViewBinding : ViewDataBinding>
     (callBack : DiffUtil.ItemCallback<Item>) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
     AsyncDifferConfig.Builder<Item>(callBack)
         .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
@@ -32,7 +32,7 @@ abstract class BaseListAdapter <Item : Any, ViewBinding : ViewDataBinding>
 
     override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
         val item: Item? = getItem(position)
-        //holder.binding.setVariable(BR._all,item)//todo
+        holder.binding.setVariable(BR._all,item)
         if (item != null){
             bindView(holder.binding,item,position)
         }

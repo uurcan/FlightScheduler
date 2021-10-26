@@ -1,6 +1,7 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -44,15 +45,17 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
         binding?.rvFlightList?.layoutManager = layoutManager
         binding?.rvFlightList?.setHasFixedSize(true)
 
-        arguments.flightSearch.let {
+        arguments.flightSearch.let { it ->
             viewModel?.getFlightData(it)?.observeOnce { flightData ->
                 if (flightData.isEmpty()) {
                     binding?.txtFlightSearchErrorMessage?.visibility = View.VISIBLE
                     binding?.txtFlightSearchErrorMessage?.text =
                         getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter =
-                    context?.let { it1 -> FlightResultsAdapter(flightData, it1, this) }!!
+                flightSearchAdapter = FlightResultsAdapter {
+                    Toast.makeText(requireContext(), it.price.toString(),Toast.LENGTH_LONG).show()
+                }
+                flightSearchAdapter.submitList(flightData)
                 binding?.rvFlightList?.adapter = flightSearchAdapter
             }
         }
