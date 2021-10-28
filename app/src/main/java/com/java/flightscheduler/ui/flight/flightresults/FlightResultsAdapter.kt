@@ -1,70 +1,46 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
-import com.java.flightscheduler.data.model.flight.FlightInfo
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.repository.AirlineRepository
 import com.java.flightscheduler.data.repository.FlightResultsRepository
 import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.FlightListBinding
-import com.java.flightscheduler.ui.base.SelectedItemListener
+import com.java.flightscheduler.ui.base.BaseAdapter
+import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit,context : Context)
-    : ListAdapter<FlightOffer, FlightResultsAdapter.FlightResultsViewHolder>(FlightOffersDiffUtil()) {
+class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit, context : Context)
+    : BaseAdapter<FlightOffer,FlightListBinding>(R.layout.list_flight_search_item) {
+    //todo: scroll issue ?
+    private var flightResultsRepository : FlightResultsRepository = FlightResultsRepository()
+    private var airlineRepository : AirlineRepository = AirlineRepository(context)
+    private var flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
+    private var airlines : List<Airline>
+    private var flightRoutes : List<Airport>
 
-    private val flightResultsRepository = FlightResultsRepository()
-    private val airlineRepository : AirlineRepository = AirlineRepository(context)
-    private val flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
-    private var airlines : List<Airline> = airlineRepository.getAirlines()
-    private var flightRoutes : List<Airport> = flightRoutesRepository.getIataCodes()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlightResultsViewHolder {
-        return FlightResultsViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context) , R.layout.list_flight_search_item , parent , false))
+    init {
+        airlines = airlineRepository.getAirlines()
+        flightRoutes = flightRoutesRepository.getIataCodes()
     }
 
-    override fun onBindViewHolder(holderResults: FlightResultsViewHolder, position: Int) {
+    override fun onBind(holder: BaseViewHolder, position: Int) {
         val segment : SearchSegment? = getItem(position).itineraries?.get(0)?.segments?.get(0)
         val carrier = airlineRepository.getMatchingAirline(airlines, segment?.carrierCode)
         val origin = flightRoutesRepository.getMatchingFlightRoute(flightRoutes, segment?.departure?.iataCode)
         val destination = flightRoutesRepository.getMatchingFlightRoute(flightRoutes, segment?.arrival?.iataCode)
         val flightInfo = flightRoutesRepository.getFlightInfo(carrier,origin,destination)
 
-        holderResults.bind(getItem(position),flightInfo)
-    }
-
-    interface FlightResultsListener : SelectedItemListener<FlightOffer>
-
-    inner class FlightResultsViewHolder(private var flightResultsBinding: FlightListBinding) :
-        RecyclerView.ViewHolder(flightResultsBinding.root) {
-
-        fun bind(flightOffer: FlightOffer,flightInfo : FlightInfo) {
-            flightResultsBinding.flightInfo = flightInfo
-            flightResultsBinding.flightListRepository = flightResultsRepository
-            flightResultsBinding.setVariable(BR.flightListItem, flightOffer)
-            flightResultsBinding.executePendingBindings()
-            flightResultsBinding.root.setOnClickListener {
-                onClick(flightOffer)
-            }
-        }
-    }
-    class FlightOffersDiffUtil : DiffUtil.ItemCallback<FlightOffer>(){
-        override fun areItemsTheSame(oldItem: FlightOffer, newItem: FlightOffer): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: FlightOffer, newItem: FlightOffer): Boolean {
-            return oldItem == newItem
+        binding?.flightInfo = flightInfo
+        binding?.flightListRepository = flightResultsRepository
+        binding?.setVariable(BR.flightListItem, getItem(position))
+        binding?.executePendingBindings()
+        binding?.root?.setOnClickListener {
+            onClick(getItem(position))
         }
     }
 }

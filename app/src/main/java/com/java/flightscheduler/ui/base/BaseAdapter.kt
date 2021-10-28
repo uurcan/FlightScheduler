@@ -2,40 +2,35 @@ package com.java.flightscheduler.ui.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.databinding.library.baseAdapters.BR
-import androidx.recyclerview.widget.AsyncDifferConfig
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import java.util.concurrent.Executors
 
-abstract class BaseAdapter <Item : Any, ViewBinding : ViewDataBinding>
-    (callBack : DiffUtil.ItemCallback<Item>) : ListAdapter<Item, BaseViewHolder<ViewBinding>>(
-    AsyncDifferConfig.Builder<Item>(callBack)
-        .setBackgroundThreadExecutor(Executors.newSingleThreadExecutor())
-        .build()
-), BaseRecyclerAdapter<Item,ViewBinding>{
-    override fun submitList(list: MutableList<Item>?) {
-        super.submitList(ArrayList<Item>(list ?: listOf()))
+abstract class BaseAdapter<T : Any, DB : ViewDataBinding>(
+    @LayoutRes val layoutId: Int
+) : ListAdapter<T, BaseViewHolder>(BaseItemCallback<T>()) {
+    protected var binding: DB? = null
+
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        onBind(holder,position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ViewBinding> {
-        return BaseViewHolder(DataBindingUtil.inflate<ViewBinding>(
-            LayoutInflater.from(parent.context),
-            getLayoutRes(viewType),
-            parent, false
-        ).apply {
-            bindFirstTime(this)
-        })
+    abstract fun onBind(holder: BaseViewHolder, position: Int)
+
+    override fun getItemViewType(position: Int) = layoutId
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : BaseViewHolder {
+        initBinding(parent)
+        return BaseViewHolder(binding?.root as ViewGroup)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<ViewBinding>, position: Int) {
-        val item: Item? = getItem(position)
-        holder.binding.setVariable(BR._all,item)
-        if (item != null){
-            bindView(holder.binding,item,position)
-        }
-        holder.binding.executePendingBindings()
+    private fun initBinding(parent: ViewGroup) {
+        binding = DataBindingUtil.inflate<DB>(LayoutInflater.from(parent.context)
+            , layoutId
+            , parent
+            , false)
     }
+
+    override fun getItemCount() = currentList.size
 }

@@ -1,7 +1,6 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs

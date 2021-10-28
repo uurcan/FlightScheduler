@@ -14,8 +14,7 @@ import com.java.flightscheduler.ui.base.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HotelResultsFragment : BaseFragment<HotelResultsViewModel,FragmentHotelResultsBinding>(R.layout.fragment_hotel_list),
-    HotelResultsAdapter.HotelResultsListener{
+class HotelResultsFragment : BaseFragment<HotelResultsViewModel,FragmentHotelResultsBinding>(R.layout.fragment_hotel_list){
     private val arguments by navArgs<HotelResultsFragmentArgs>()
     private lateinit var hotelSearchAdapter : HotelResultsAdapter
 
@@ -41,7 +40,10 @@ class HotelResultsFragment : BaseFragment<HotelResultsViewModel,FragmentHotelRes
                 binding?.txtHotelSearchErrorMessage?.text =
                     getString(R.string.text_no_flight_found)
             }
-            hotelSearchAdapter = HotelResultsAdapter(hotelData,requireContext(),this)
+            hotelSearchAdapter = HotelResultsAdapter({
+                switchToDetails(it)
+            },requireContext())
+            hotelSearchAdapter.submitList(hotelData)
             binding?.rvFlightList?.adapter = hotelSearchAdapter
         }
         viewModel?.loadingLiveData?.observe(viewLifecycleOwner) {
@@ -54,14 +56,14 @@ class HotelResultsFragment : BaseFragment<HotelResultsViewModel,FragmentHotelRes
         }
     }
 
+    private fun switchToDetails(item: HotelOffer) {
+        val action = HotelResultsFragmentDirections.actionNavHotelResultsToHotelDetailsFragment(item)
+        findNavController().navigate(action)
+    }
+
     private fun initializeHotelHeader() {
         binding?.setVariable(BR.hotelSearch,arguments.hotelSearch)
         binding?.executePendingBindings()
-    }
-
-    override fun onItemClick(view: View, item: HotelOffer) {
-        val action = HotelResultsFragmentDirections.actionNavHotelResultsToHotelDetailsFragment(item)
-        findNavController().navigate(action)
     }
 }
 
