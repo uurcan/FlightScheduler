@@ -58,14 +58,12 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
                 is BaseApiResult.Success -> {
                     flightLiveData.apply {
                         flightLiveData?.postValue(flightOffersSearches.data.toObservable()
-                            .distinct {
-                                apply {
-                                    it.itineraries?.get(0)?.segments?.get(0)?.number
-                                }
-                            }.subscribeOn(Schedulers.io())
+                            .distinct { code -> code.itineraries?.get(0)?.segments?.get(0)?.number }
+                            .subscribeOn(Schedulers.io())
                             .toList()
                             .blockingGet())
                     }
+                    loadingLiveData.value = false
                 }
                 is BaseApiResult.Error -> {
                     errorLiveData?.value = flightRepository.getQueryErrors(flightOffersSearches.errors)

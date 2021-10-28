@@ -16,8 +16,7 @@ import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list),
-    FlightResultsAdapter.FlightResultsListener {
+class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list){
     private lateinit var flightSearchAdapter : FlightResultsAdapter
     private val arguments by navArgs<FlightResultsFragmentArgs>()
 
@@ -52,9 +51,9 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
                     binding?.txtFlightSearchErrorMessage?.text =
                         getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter = FlightResultsAdapter {
-                    Toast.makeText(requireContext(), it.price.toString(),Toast.LENGTH_LONG).show()
-                }
+                flightSearchAdapter = FlightResultsAdapter ({
+                    switchToDetails(it)
+                }, requireContext())
                 flightSearchAdapter.submitList(flightData)
                 binding?.rvFlightList?.adapter = flightSearchAdapter
             }
@@ -70,8 +69,10 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
         }
     }
 
-    override fun onItemClick(view: View, item: FlightOffer) {
-        val action = FlightResultsFragmentDirections.actionNavFlightResultsToFlightDetailsFragment(item)
+    private fun switchToDetails(it: FlightOffer) {
+        val action = FlightResultsFragmentDirections.actionNavFlightResultsToFlightDetailsFragment(it)
         findNavController().navigate(action)
     }
+
+
 }
