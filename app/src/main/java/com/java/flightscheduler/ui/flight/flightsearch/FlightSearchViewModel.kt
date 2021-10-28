@@ -9,6 +9,8 @@ import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.repository.FlightRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.kotlin.toObservable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,7 +45,7 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
 
     fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
         viewModelScope.launch {
-            val flightOffersSearches = flightRepository?.get(
+            val flightOffersSearches = flightRepository.get(
                 originLocationCode = flightSearch.originLocationCode,
                 destinationLocationCode = flightSearch.destinationLocationCode,
                 departureDate = flightSearch.departureDate,
@@ -55,9 +57,13 @@ class FlightSearchViewModel @Inject constructor(private val flightRepository: Fl
             when (flightOffersSearches){
                 is BaseApiResult.Success -> {
                     flightLiveData.apply {
-                        flightLiveData?.postValue(flightOffersSearches.data)
-                        loadingLiveData.value = false
+                        flightLiveData?.postValue(flightOffersSearches.data.toObservable()
+                            .distinct { code -> code.itineraries?.get(0)?.segments?.get(0)?.number }
+                            .subscribeOn(Schedulers.io())
+                            .toList()
+                            .blockingGet())
                     }
+                    loadingLiveData.value = false
                 }
                 is BaseApiResult.Error -> {
                     errorLiveData?.value = flightRepository.getQueryErrors(flightOffersSearches.errors)

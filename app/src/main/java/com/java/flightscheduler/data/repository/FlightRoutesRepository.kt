@@ -27,12 +27,6 @@ class FlightRoutesRepository @Inject constructor(
         return FlightInfo(carrier, ParsingUtils.crop(origin), ParsingUtils.crop(destination))
     }
 
-    fun getFilteredFlightResults(flightOffers : List<FlightOffer>): ArrayList<FlightOffer> {
-        return flightOffers.distinctBy {
-            it.itineraries?.get(0)?.segments?.get(0)?.number
-        } as ArrayList<FlightOffer>
-    }
-
     fun getMatchingAirport(airportList : List<Airport>,iata : String): String? {
         return airportList.find { port -> iata == port.IATA }?.CITY.toString()
     }

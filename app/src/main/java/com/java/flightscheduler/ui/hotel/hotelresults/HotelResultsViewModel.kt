@@ -5,34 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.hotel.HotelSearch
-import com.java.flightscheduler.data.model.hotel.base.Address
-import com.java.flightscheduler.data.model.hotel.base.Distance
-import com.java.flightscheduler.data.model.hotel.base.Hotel
 import com.java.flightscheduler.data.model.hotel.base.HotelOffer
-import com.java.flightscheduler.data.model.hotel.offers.price.Price
 import com.java.flightscheduler.data.repository.HotelRepository
-import com.java.flightscheduler.data.repository.HotelResultsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HotelResultsViewModel @Inject constructor(hotelOffer: HotelOffer, private val hotelRepository: HotelRepository?): ViewModel() {
+class HotelResultsViewModel @Inject constructor(private val hotelRepository: HotelRepository?): ViewModel() {
 
     var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
-    private val hotelResultsRepository = HotelResultsRepository(hotelOffer)
     private var hotelLiveData : MutableLiveData<List<HotelOffer>>? = MutableLiveData()
     var errorLiveData : MutableLiveData<String>? = MutableLiveData()
 
     init {
         loadingLiveData.value = true
     }
-
-    val hotelOffer = MutableLiveData(hotelResultsRepository.getOffer())
-    val hotelPrice = MutableLiveData<Price>(hotelResultsRepository.getPriceResults())
-    val hotelDistance =  MutableLiveData<Distance>(hotelResultsRepository.getDistance())
-    val hotelInfo =  MutableLiveData<Hotel>(hotelResultsRepository.getResults())
-    val hotelAddress =  MutableLiveData<Address>(hotelResultsRepository.getHotelAddress())
 
     fun getHotelData(hotelSearch : HotelSearch) : MutableLiveData<List<HotelOffer>>?{
         viewModelScope.launch {

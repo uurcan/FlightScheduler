@@ -81,6 +81,13 @@
     <string name="text_end_date">End Date :</string>
     <string name="text_refund_deadline">Refund Deadline :</string>
     <string name="text_permission_required">You need to accept permission in order to continue..</string>
+    <string name="text_price">Price :</string>
+    <string name="text_bookable_seats">Bookable Seats :</string>
+    <string name="text_last_ticketing_date">Last Ticketing Date :</string>
+    <string name="text_source">Source :</string>
+    <string name="no_aircraft_found">(Aircraft info not provided)</string>
+    <string name="text_from_city_center">from city center..</string>
+    <string name="text_details">Details</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

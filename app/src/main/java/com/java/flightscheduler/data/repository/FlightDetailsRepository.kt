@@ -5,17 +5,11 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
-import com.java.flightscheduler.data.model.flight.pricing.Price
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class FlightDetailsRepository constructor(private val context: Context){
-
-    fun getOffer(flightOffer: FlightOffer) = flightOffer
-    fun getAircraft(segment: SearchSegment) = segment.aircraft?.code
-    fun getOrigin(segment: SearchSegment) = segment.departure?.iataCode
-    fun getDestination(segment: SearchSegment) = segment.arrival?.iataCode
-    fun getFlightCode(segment: SearchSegment) = segment.carrierCode + " - " + segment.number
+class FlightDetailsRepository @Inject constructor(private val context: Context){
     fun getDuration(segment: SearchSegment) = segment.duration?.substring(2)
     fun getClassCode(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.segmentClass
     fun getCabinCode(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.cabin
@@ -139,9 +133,5 @@ class FlightDetailsRepository constructor(private val context: Context){
 
     private fun <T> merge(first: List<T>?, second: List<T>?): List<T> {
         return first!!.plus(second!!)
-    }
-
-    fun getFlightPrice(flightOffer: FlightOffer): Price? {
-        return flightOffer.price
     }
 }

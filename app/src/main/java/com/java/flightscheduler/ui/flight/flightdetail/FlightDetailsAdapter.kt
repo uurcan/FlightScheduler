@@ -1,12 +1,8 @@
 package com.java.flightscheduler.ui.flight.flightdetail
 
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Aircraft
@@ -17,9 +13,11 @@ import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
 import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
+import com.java.flightscheduler.ui.base.BaseAdapter
+import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class FlightDetailsAdapter(private val flightOffer: FlightOffer,private val context : Context)
-    : RecyclerView.Adapter<FlightDetailsAdapter.FlightDetailsViewHolder>(){
+class FlightDetailsAdapter(flightOffer: FlightOffer, private val context : Context)
+    : BaseAdapter<FlightOffer, ItemFlightDetailBinding>(R.layout.item_flight_detail){
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
     private val flightRoutesRepository = FlightRoutesRepository(context)
@@ -39,57 +37,31 @@ class FlightDetailsAdapter(private val flightOffer: FlightOffer,private val cont
         aircraftList = flightRoutesRepository.getAircraft()
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): FlightDetailsAdapter.FlightDetailsViewHolder {
-        return FlightDetailsViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context) , R.layout.item_flight_detail , parent , false))
+    override fun onBind(holder: BaseViewHolder, position: Int) {
+        binding?.fareDetails = fareDetails?.get(position)
+        binding?.repository = flightDetailsRepository
+        binding?.setVariable(BR.flightDetailSegment,segments[position])
+        binding?.executePendingBindings()
+
+        bindCustomized(position)
     }
+    //todo: submitList
+    private fun bindCustomized(position: Int) {
+        val aircraftCode : String = segments[position].aircraft?.code.toString()
+        val departureAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList,segments[position].departure?.iataCode.toString())
+        val arrivalAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList,segments[position].arrival?.iataCode.toString())
+        val aircraftName : String? = flightRoutesRepository.getMatchingAircraft(aircraftList,aircraftCode)
+        val conStatusText : TextView? = binding?.txtFlightDetailDetailsConnectionTime
+        val destination = "$departureAirportName - $arrivalAirportName"
 
-    override fun onBindViewHolder(
-        holder: FlightDetailsAdapter.FlightDetailsViewHolder,
-        position: Int
-    ) {
-        holder.bind(
-            segments[position],
-            fareDetails?.get(position),
-            connectionVariables[position]
-        )
-    }
-
-    override fun getItemCount(): Int {
-        return legCount ?: 0
-    }
-
-    inner class FlightDetailsViewHolder(private var itemFlightDetailBinding: ItemFlightDetailBinding) :
-        RecyclerView.ViewHolder(itemFlightDetailBinding.root){
-        private lateinit var flightDetailsViewModel: FlightDetailsViewModel
-
-        fun bind(
-            segment: SearchSegment,
-            fareDetailsBySegment: FareDetailsBySegment?,
-            status: String
-        ) {
-            flightDetailsViewModel = FlightDetailsViewModel(context, flightOffer, segment, fareDetailsBySegment!!)
-            itemFlightDetailBinding.setVariable(BR.flightDetailViewModel,flightDetailsViewModel)
-            itemFlightDetailBinding.executePendingBindings()
-
-            val aircraftCode : String = segment.aircraft?.code.toString()
-            val departureAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList,segment.departure?.iataCode.toString())
-            val arrivalAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList,segment.arrival?.iataCode.toString())
-            val aircraftName : String? = flightRoutesRepository.getMatchingAircraft(aircraftList,aircraftCode)
-            val conStatusText : TextView = itemFlightDetailBinding.txtFlightDetailDetailsConnectionTime
-            val destination = "$departureAirportName - $arrivalAirportName"
-
-            itemFlightDetailBinding.txtFlightDetailAircraftCode.text = aircraftName
-            itemFlightDetailBinding.txtFlightDetailDetailsConnectionTime.text = status
-            itemFlightDetailBinding.txtFlightDetailCityInfo.text = destination
-            when (status) {
-                context.getString(R.string.text_end_flight) -> conStatusText.setTextColor(ContextCompat.getColor(context,R.color.green_google))
-                context.getString(R.string.text_return_segments) -> conStatusText.setTextColor(ContextCompat.getColor(context,R.color.yellow_900))
-                else -> {
-                    conStatusText.setTextColor(ContextCompat.getColor(context,R.color.grey_500))
-                }
+        binding?.txtFlightDetailAircraftCode?.text = aircraftName ?: context.getString(R.string.no_aircraft_found)
+        binding?.txtFlightDetailDetailsConnectionTime?.text = connectionVariables[position]
+        binding?.txtFlightDetailCityInfo?.text = destination
+        when (connectionVariables[position]) {
+            context.getString(R.string.text_end_flight) -> conStatusText?.setTextColor(ContextCompat.getColor(context,R.color.green_google))
+            context.getString(R.string.text_return_segments) -> conStatusText?.setTextColor(ContextCompat.getColor(context,R.color.yellow_900))
+            else -> {
+                conStatusText?.setTextColor(ContextCompat.getColor(context,R.color.grey_500))
             }
         }
     }

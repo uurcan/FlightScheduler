@@ -1,6 +1,6 @@
 package com.java.flightscheduler.ui.base
 
-import androidx.databinding.ViewDataBinding
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-open class BaseViewHolder <ViewBinding : ViewDataBinding>(val binding : ViewBinding) : RecyclerView.ViewHolder(binding.root)
+class BaseViewHolder(container: ViewGroup) : RecyclerView.ViewHolder(container)

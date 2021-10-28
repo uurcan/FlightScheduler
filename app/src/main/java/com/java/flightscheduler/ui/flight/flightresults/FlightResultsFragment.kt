@@ -15,8 +15,7 @@ import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list),
-    FlightResultsAdapter.FlightResultsListener {
+class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list){
     private lateinit var flightSearchAdapter : FlightResultsAdapter
     private val arguments by navArgs<FlightResultsFragmentArgs>()
 
@@ -44,15 +43,17 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
         binding?.rvFlightList?.layoutManager = layoutManager
         binding?.rvFlightList?.setHasFixedSize(true)
 
-        arguments.flightSearch.let {
+        arguments.flightSearch.let { it ->
             viewModel?.getFlightData(it)?.observeOnce { flightData ->
                 if (flightData.isEmpty()) {
                     binding?.txtFlightSearchErrorMessage?.visibility = View.VISIBLE
                     binding?.txtFlightSearchErrorMessage?.text =
                         getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter =
-                    context?.let { it1 -> FlightResultsAdapter(flightData, it1, this) }!!
+                flightSearchAdapter = FlightResultsAdapter ({
+                    switchToDetails(it)
+                }, requireContext())
+                flightSearchAdapter.submitList(flightData)
                 binding?.rvFlightList?.adapter = flightSearchAdapter
             }
         }
@@ -67,8 +68,10 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
         }
     }
 
-    override fun onItemClick(view: View, item: FlightOffer) {
-        val action = FlightResultsFragmentDirections.actionNavFlightResultsToFlightDetailsFragment(item)
+    private fun switchToDetails(it: FlightOffer) {
+        val action = FlightResultsFragmentDirections.actionNavFlightResultsToFlightDetailsFragment(it)
         findNavController().navigate(action)
     }
+
+
 }

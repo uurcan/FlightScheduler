@@ -34,10 +34,10 @@ class LocationRepository @Inject constructor(private val context: Context) {
 
     fun initializeMockPlaces() : List<Places> {
         val locationList = arrayListOf<Places>()
-        locationList.add(Places(R.drawable.abu_dhabi_uae,"UAE","Abu Dhabi"))
-        locationList.add(Places(R.drawable.agra_india,"India","Agra"))
-        locationList.add(Places(R.drawable.alesund_norway,"Norway","Alesund"))
-        locationList.add(Places(R.drawable.athens_greece,"Greece","Athens"))
+        locationList.add(Places(R.drawable.abu_dhabi_uae,"Abu Dhabi","UAE"))
+        locationList.add(Places(R.drawable.agra_india,"Agra","India"))
+        locationList.add(Places(R.drawable.alesund_norway,"Alesund","Norway"))
+        locationList.add(Places(R.drawable.athens_greece,"Athens","Greece"))
         locationList.add(Places(R.drawable.ayyuthaya_thailand,"Ayyuthaya","Thailand"))
         locationList.add(Places(R.drawable.bali_indonesia,"Bali","Indonesia"))
         locationList.add(Places(R.drawable.burano_italy,"Burano","Italy"))

@@ -4,8 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data class="ItemFlightDetailBinding">
         <variable
-            name="flightDetailViewModel"
-            type="com.java.flightscheduler.ui.flight.flightdetail.FlightDetailsViewModel" />
+            name="repository"
+            type="com.java.flightscheduler.data.repository.FlightDetailsRepository" />
+        <variable
+            name="fareDetails"
+            type="com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment" />
+        <variable
+            name="flightDetailSegment"
+            type="com.java.flightscheduler.data.model.flight.itineraries.SearchSegment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -41,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@{flightDetailViewModel.origin}" />
+                    android:text="@{flightDetailSegment.departure.iataCode}" />
                 <ImageView
                     android:padding="@dimen/margin_small"
                     android:contentDescription="@null"
@@ -61,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@{flightDetailViewModel.destination}"/>
+                    android:text="@{flightDetailSegment.arrival.iataCode}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -82,7 +88,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:textColor="@color/grey_600"
-                android:text="@{flightDetailViewModel.formattedDate}"
+                android:text="@{repository.getFormattedFlightDate(flightDetailSegment)}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_city_info"
                 tools:text="16:00 - 19:30" />
@@ -92,7 +98,7 @@
                 tools:text="PT1H20M"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_medium"
-                android:text="@{flightDetailViewModel.duration}"
+                android:text="@{repository.getDuration(flightDetailSegment)}"
                 android:textSize="14sp"
                 android:textColor="@color/grey_black_1000"
                 android:id="@+id/txt_flight_detail_duration"
@@ -125,10 +131,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        tools:text="TK 1699"
                         android:id="@+id/txt_flight_detail_flight_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{flightDetailViewModel.flightCode}"
+                        android:text="@{flightDetailSegment.carrierCode + ` ` + flightDetailSegment.number}"
                         android:textColor="@color/red_google"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent" />
@@ -143,6 +150,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_flight_code"/>
                     <TextView
+                        tools:text="Boeing 737"
                         android:id="@+id/txt_flight_detail_aircraft_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -188,10 +196,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:text="@{repository.getClassCode(fareDetails)}"
                         android:layout_marginTop="@dimen/margin_x_small"
                         android:layout_marginStart="@dimen/margin_x_small"
                         android:textColor="@color/grey_900"
-                        android:text="@{flightDetailViewModel.classCode}"
                         app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_details_header"
                         app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_details_class_text"
                         android:id="@+id/txt_flight_detail_details_class"
@@ -209,10 +217,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:text="@{repository.getCabinCode(fareDetails)}"
                         android:layout_marginTop="@dimen/margin_x_small"
                         android:layout_marginStart="@dimen/margin_x_small"
                         android:textColor="@color/grey_900"
-                        android:text="@{flightDetailViewModel.cabinCode.toUpperCase().substring(0, 1).toUpperCase() + flightDetailViewModel.cabinCode.substring(1).toLowerCase()}"
                         app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_details_class"
                         app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_details_booking_code_text"
                         android:id="@+id/txt_flight_detail_details_booking_code"
@@ -230,10 +238,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:text="@{repository.getFareBasis(fareDetails)}"
                         android:layout_marginTop="@dimen/margin_x_small"
                         android:layout_marginStart="@dimen/margin_x_small"
                         android:textColor="@color/grey_900"
-                        android:text="@{flightDetailViewModel.fareBasis}"
                         app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_details_booking_code"
                         app:layout_constraintLeft_toRightOf="@+id/txt_flight_detail_details_booking_code_text"
                         android:id="@+id/txt_flight_detail_details_fare_basis"

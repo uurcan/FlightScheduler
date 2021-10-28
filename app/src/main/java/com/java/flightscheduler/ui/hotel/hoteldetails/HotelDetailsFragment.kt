@@ -2,13 +2,8 @@ package com.java.flightscheduler.ui.hotel.hoteldetails
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -20,6 +15,7 @@ import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.REQUEST_CODE_CALL_PERMISSION
 import com.java.flightscheduler.databinding.FragmentHotelDetailBinding
+import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.utils.PermissionUtility
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
@@ -27,38 +23,30 @@ import pub.devrel.easypermissions.EasyPermissions
 
 
 @AndroidEntryPoint
-class HotelDetailsFragment : Fragment(),OnMapReadyCallback,EasyPermissions.PermissionCallbacks,View.OnClickListener {
+class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDetailBinding>(R.layout.fragment_hotel_details),
+    OnMapReadyCallback,
+    EasyPermissions.PermissionCallbacks,
+    View.OnClickListener {
     private val args by navArgs<HotelDetailsFragmentArgs>()
-    private val hotelDetailsViewModel : HotelDetailsViewModel by viewModels()
-    private lateinit var binding : FragmentHotelDetailBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_hotel_details,
-            container,
-            false
-        )
-        return binding.root
-    }
+    override fun init() {}
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setViewModelFactory(): ViewModelProvider.Factory? = defaultViewModelProviderFactory
+
+    override fun setViewModelClass(): Class<HotelDetailsViewModel> = HotelDetailsViewModel::class.java
+
+    override fun onBind() {
         initializeViews()
         initializeVariables()
         initializeMap()
     }
 
     private fun initializeViews() {
-        binding.layoutHotelDetailContact.setOnClickListener(this)
+        binding?.layoutHotelDetailContact?.setOnClickListener(this)
     }
 
     private fun initializeVariables() {
-        binding.setVariable(BR.hotelDetail, args.hotel)
+        binding?.setVariable(BR.hotelDetail, args.hotel)
     }
 
     private fun initializeMap() {
@@ -68,7 +56,7 @@ class HotelDetailsFragment : Fragment(),OnMapReadyCallback,EasyPermissions.Permi
     }
 
     override fun onMapReady(map: GoogleMap) {
-        hotelDetailsViewModel.getCoordinatesLiveData(
+        viewModel?.getCoordinatesLiveData(
             args.hotel.hotel!!.latitude, args.hotel.hotel!!.longitude
         )?.observe(viewLifecycleOwner, { coordinates ->
             val location = LatLng(coordinates.first, coordinates.second)
@@ -116,7 +104,7 @@ class HotelDetailsFragment : Fragment(),OnMapReadyCallback,EasyPermissions.Permi
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-            binding.layoutHotelDetailContact.id -> requestPermissions()
+            binding?.layoutHotelDetailContact?.id -> requestPermissions()
         }
     }
 }
