@@ -8,6 +8,7 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Aircraft
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
@@ -16,21 +17,21 @@ import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class FlightDetailsAdapter(flightOffer: FlightOffer, private val context : Context)
-    : BaseAdapter<FlightOffer, ItemFlightDetailBinding>(R.layout.item_flight_detail){
+class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Context)
+    : BaseAdapter<Itinerary, ItemFlightDetailBinding>(R.layout.item_flight_detail){
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
     private val flightRoutesRepository = FlightRoutesRepository(context)
     private var airportList : List<Airport>
     private var connectionVariables : List<String>
-    private var segments : List<SearchSegment>
+    private var segments : List<SearchSegment>?
     private var fareDetails : List<FareDetailsBySegment>?
     private var legCount : Int?
     private var aircraftList : List<Aircraft>
 
     init {
         connectionVariables = flightDetailsRepository.getConnectionInfo(flightOffer)
-        segments = flightDetailsRepository.getSegmentDetails(flightOffer)!!
+        segments = flightDetailsRepository.getSegmentDetails(flightOffer)
         fareDetails = flightDetailsRepository.getFareDetails(flightOffer)
         legCount = flightDetailsRepository.getLegCount(flightOffer)
         airportList = flightRoutesRepository.getIataCodes()
@@ -40,16 +41,20 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context : Conte
     override fun onBind(holder: BaseViewHolder, position: Int) {
         binding?.fareDetails = fareDetails?.get(position)
         binding?.repository = flightDetailsRepository
-        binding?.setVariable(BR.flightDetailSegment,segments[position])
+        binding?.setVariable(BR.flightDetailSegment, segments?.get(position))
         binding?.executePendingBindings()
 
         bindCustomized(position)
     }
-    //todo: submitList
+
+    override fun getItemCount(): Int {
+        return segments?.size ?: 0
+    }
+
     private fun bindCustomized(position: Int) {
-        val aircraftCode : String = segments[position].aircraft?.code.toString()
-        val departureAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList,segments[position].departure?.iataCode.toString())
-        val arrivalAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList,segments[position].arrival?.iataCode.toString())
+        val aircraftCode : String = segments?.get(position)?.aircraft?.code.toString()
+        val departureAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.departure?.iataCode.toString())
+        val arrivalAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.arrival?.iataCode.toString())
         val aircraftName : String? = flightRoutesRepository.getMatchingAircraft(aircraftList,aircraftCode)
         val conStatusText : TextView? = binding?.txtFlightDetailDetailsConnectionTime
         val destination = "$departureAirportName - $arrivalAirportName"
