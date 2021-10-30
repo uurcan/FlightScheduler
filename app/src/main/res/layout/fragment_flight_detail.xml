@@ -141,7 +141,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingBottom="@dimen/flight_detail_header_dimen"
+            android:paddingBottom="@dimen/flight_detail_header_dimen_extended"
             android:id="@+id/rv_flight_detail"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

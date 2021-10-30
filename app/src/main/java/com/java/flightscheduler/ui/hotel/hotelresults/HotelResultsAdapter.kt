@@ -14,10 +14,6 @@ class HotelResultsAdapter(private val onClick: (HotelOffer) -> Unit, context: Co
 
     private val hotelImages : List<String> = HotelSearchRepository(context).getHotelImages()
 
-    override fun getItemViewType(position: Int): Int {
-        return position
-    }
-
     override fun onBind(holder: BaseViewHolder, position: Int) {
         getItem(position).hotel?.media?.get(0)?.uri = hotelImages[position]
 

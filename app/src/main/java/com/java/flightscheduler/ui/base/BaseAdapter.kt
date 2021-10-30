@@ -15,10 +15,9 @@ abstract class BaseAdapter<T : Any, DB : ViewDataBinding>(
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         onBind(holder,position)
     }
-
     abstract fun onBind(holder: BaseViewHolder, position: Int)
 
-    override fun getItemViewType(position: Int) = layoutId
+    override fun getItemViewType(position: Int) = position
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : BaseViewHolder {
         initBinding(parent)

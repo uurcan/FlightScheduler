@@ -15,7 +15,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel,FragmentFlight
     (R.layout.fragment_flight_detail){
     private val args by navArgs<FlightDetailsFragmentArgs>()
     private val flightDetailsAdapter : FlightDetailsAdapter by lazy {
-        FlightDetailsAdapter(args.offer,requireContext())
+        FlightDetailsAdapter(args.offer, requireContext())
     }
 
     override fun init() {
@@ -44,6 +44,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel,FragmentFlight
         binding?.rvFlightDetail?.setHasFixedSize(true)
         viewModel?.getSegments(flightOffer)?.observe(viewLifecycleOwner,{
             binding?.rvFlightDetail?.adapter = flightDetailsAdapter
+            flightDetailsAdapter.submitList(flightOffer.itineraries)
         })
     }
 }
