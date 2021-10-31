@@ -3,7 +3,7 @@ package com.java.flightscheduler.ui.hotel.hoteldetails
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,12 +28,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
     EasyPermissions.PermissionCallbacks,
     View.OnClickListener {
     private val args by navArgs<HotelDetailsFragmentArgs>()
-
-    override fun init() {}
-
-    override fun setViewModelFactory(): ViewModelProvider.Factory? = defaultViewModelProviderFactory
-
-    override fun setViewModelClass(): Class<HotelDetailsViewModel> = HotelDetailsViewModel::class.java
+    override val viewModel : HotelDetailsViewModel? by viewModels()
 
     override fun onBind() {
         initializeViews()

@@ -65,10 +65,7 @@ open class BaseViewModel @Inject constructor() : ViewModel(){
         }
         hideLoading()
     }
-
-    open fun showError(e : Throwable) {
-        errorMessage.value = e.message
-    }
+    
     fun showLoading(){
         isLoading.value = true
     }

@@ -1,7 +1,6 @@
 package com.java.flightscheduler.ui.hotel.hotelresults
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.hotel.HotelSearch
