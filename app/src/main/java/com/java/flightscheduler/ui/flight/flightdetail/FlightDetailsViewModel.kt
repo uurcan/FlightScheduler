@@ -5,12 +5,13 @@ import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
+import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FlightDetailsViewModel @Inject constructor(private val flightDetailsRepository: FlightDetailsRepository)
-    : ViewModel(){
+    : BaseViewModel(){
     private var flightSegmentLiveData : MutableLiveData<List<SearchSegment>> = MutableLiveData()
 
     fun getSegments(flightOffer: FlightOffer): MutableLiveData<List<SearchSegment>> {

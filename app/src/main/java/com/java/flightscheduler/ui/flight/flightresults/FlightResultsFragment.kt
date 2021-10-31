@@ -11,11 +11,10 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.observeOnce
-import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list){
+class FlightResultsFragment : BaseFragment<FlightResultsViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list){
     private lateinit var flightSearchAdapter : FlightResultsAdapter
     private val arguments by navArgs<FlightResultsFragmentArgs>()
 
@@ -26,7 +25,7 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
         return defaultViewModelProviderFactory
     }
 
-    override fun setViewModelClass(): Class<FlightSearchViewModel> =  FlightSearchViewModel::class.java
+    override fun setViewModelClass(): Class<FlightResultsViewModel> =  FlightResultsViewModel::class.java
 
     override fun onBind() {
         initializeFlightHeader()
@@ -47,24 +46,12 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
             viewModel?.getFlightData(it)?.observeOnce { flightData ->
                 if (flightData.isEmpty()) {
                     binding?.txtFlightSearchErrorMessage?.visibility = View.VISIBLE
-                    binding?.txtFlightSearchErrorMessage?.text =
-                        getString(R.string.text_no_flight_found)
+                    binding?.txtFlightSearchErrorMessage?.text = getString(R.string.text_no_flight_found)
                 }
-                flightSearchAdapter = FlightResultsAdapter ({
-                    switchToDetails(it)
-                }, requireContext())
+                flightSearchAdapter = FlightResultsAdapter ({ switchToDetails(it) }, requireContext())
                 flightSearchAdapter.submitList(flightData)
                 binding?.rvFlightList?.adapter = flightSearchAdapter
             }
-        }
-
-        viewModel?.loadingLiveData?.observe(viewLifecycleOwner) {
-            binding?.pbFlightSearch?.visibility = if (it) View.VISIBLE else View.GONE
-        }
-
-        viewModel?.errorLiveData?.observeOnce {
-            binding?.txtFlightSearchErrorMessage?.visibility = View.VISIBLE
-            binding?.txtFlightSearchErrorMessage?.text = it
         }
     }
 
@@ -72,6 +59,4 @@ class FlightResultsFragment : BaseFragment<FlightSearchViewModel,FragmentFlightR
         val action = FlightResultsFragmentDirections.actionNavFlightResultsToFlightDetailsFragment(it)
         findNavController().navigate(action)
     }
-
-
 }

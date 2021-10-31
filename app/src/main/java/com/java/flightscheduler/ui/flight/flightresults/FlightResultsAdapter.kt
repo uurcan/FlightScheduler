@@ -16,7 +16,6 @@ import com.java.flightscheduler.ui.base.BaseViewHolder
 
 class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit, context : Context)
     : BaseAdapter<FlightOffer,FlightListBinding>(R.layout.list_flight_search_item) {
-    //todo: scroll issue ?
     private var flightResultsRepository : FlightResultsRepository = FlightResultsRepository()
     private var airlineRepository : AirlineRepository = AirlineRepository(context)
     private var flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
