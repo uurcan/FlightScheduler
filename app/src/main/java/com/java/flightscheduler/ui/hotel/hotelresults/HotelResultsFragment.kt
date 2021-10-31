@@ -37,22 +37,11 @@ class HotelResultsFragment : BaseFragment<HotelResultsViewModel,FragmentHotelRes
         viewModel?.getHotelData(arguments.hotelSearch)?.observeOnce { hotelData ->
             if (hotelData.isEmpty()) {
                 binding?.txtHotelSearchErrorMessage?.visibility = View.VISIBLE
-                binding?.txtHotelSearchErrorMessage?.text =
-                    getString(R.string.text_no_flight_found)
+                binding?.txtHotelSearchErrorMessage?.text = getString(R.string.text_no_flight_found)
             }
-            hotelSearchAdapter = HotelResultsAdapter({
-                switchToDetails(it)
-            },requireContext())
+            hotelSearchAdapter = HotelResultsAdapter({ switchToDetails(it) },requireContext())
             hotelSearchAdapter.submitList(hotelData)
             binding?.rvFlightList?.adapter = hotelSearchAdapter
-        }
-        viewModel?.loadingLiveData?.observe(viewLifecycleOwner) {
-            binding?.pbHotelSearch?.visibility = if (it) View.VISIBLE else View.GONE
-        }
-
-        viewModel?.errorLiveData?.observeOnce {
-            binding?.txtHotelSearchErrorMessage?.visibility = View.VISIBLE
-            binding?.txtHotelSearchErrorMessage?.text = it
         }
     }
 

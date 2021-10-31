@@ -88,6 +88,12 @@
     <string name="no_aircraft_found">(Aircraft info not provided)</string>
     <string name="text_from_city_center">from city center..</string>
     <string name="text_details">Details</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="connect_timeout">Connection Timeout</string>
+    <string name="force_update_app">Update Required</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="server_maintain_message">Server Maintain</string>
+    <string name="text_loading">Please wait.. \n We\'re loading the best offers.</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

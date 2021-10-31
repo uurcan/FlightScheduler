@@ -47,11 +47,12 @@ class FlightRepository @Inject constructor(
         )
     }
     fun getQueryErrors(errorResults : List<BaseApiResult.Error.Issue>) : String? {
-        var errorMessages : String? = "Following errors found : \n \n"
+        var errorMessages = ""
         errorResults.forEach {
                 error ->
             errorMessages += "${error.code} - ${error.detail} \n"
         }
-        return errorMessages
+        return if (errorResults.isEmpty()) "Please check your internet connection."
+        else errorMessages
     }
 }

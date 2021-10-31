@@ -5,14 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.utils.SingleLiveEvent
 import com.java.flightscheduler.utils.toBaseException
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-open class BaseViewModel : ViewModel(){
+@HiltViewModel
+open class BaseViewModel @Inject constructor() : ViewModel(){
     //loadingFlag
     val isLoading by lazy { MutableLiveData(false)}
 

@@ -120,19 +120,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/pb_hotel_search"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_list_header"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/rotating_plane"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:textColor="@color/grey_black_1000"
             android:visibility="gone"

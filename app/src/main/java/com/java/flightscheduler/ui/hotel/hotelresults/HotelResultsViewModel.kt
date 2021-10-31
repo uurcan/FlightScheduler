@@ -7,19 +7,17 @@ import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.data.model.hotel.base.HotelOffer
 import com.java.flightscheduler.data.repository.HotelRepository
+import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HotelResultsViewModel @Inject constructor(private val hotelRepository: HotelRepository?): ViewModel() {
-
-    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
+class HotelResultsViewModel @Inject constructor(private val hotelRepository: HotelRepository?): BaseViewModel() {
     private var hotelLiveData : MutableLiveData<List<HotelOffer>>? = MutableLiveData()
-    var errorLiveData : MutableLiveData<String>? = MutableLiveData()
 
     init {
-        loadingLiveData.value = true
+        showLoading()
     }
 
     fun getHotelData(hotelSearch : HotelSearch) : MutableLiveData<List<HotelOffer>>?{
@@ -37,12 +35,12 @@ class HotelResultsViewModel @Inject constructor(private val hotelRepository: Hot
                 is BaseApiResult.Success -> {
                     hotelLiveData.apply {
                         hotelLiveData?.postValue(hotelOfferSearches.data)
-                        loadingLiveData.value = false
+                        hideLoading()
                     }
                 }
                 is BaseApiResult.Error -> {
-                    errorLiveData?.value = hotelRepository?.getQueryErrors(hotelOfferSearches.errors)
-                    loadingLiveData.value = false
+                    errorMessage.value = hotelRepository?.getQueryErrors(hotelOfferSearches.errors)
+                    hideLoading()
                 }
             }
         }
