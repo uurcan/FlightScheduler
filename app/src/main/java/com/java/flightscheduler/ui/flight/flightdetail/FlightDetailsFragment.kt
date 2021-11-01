@@ -1,6 +1,6 @@
 package com.java.flightscheduler.ui.flight.flightdetail
 
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.BR
@@ -14,19 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel,FragmentFlightDetailBinding>
     (R.layout.fragment_flight_detail){
     private val args by navArgs<FlightDetailsFragmentArgs>()
+    override val viewModel: FlightDetailsViewModel by viewModels()
+
     private val flightDetailsAdapter : FlightDetailsAdapter by lazy {
         FlightDetailsAdapter(args.offer, requireContext())
     }
-
-    override fun init() {
-
-    }
-
-    override fun setViewModelFactory(): ViewModelProvider.Factory? {
-        return defaultViewModelProviderFactory
-    }
-
-    override fun setViewModelClass(): Class<FlightDetailsViewModel> = FlightDetailsViewModel::class.java
 
     override fun onBind() {
         val flightOffer : FlightOffer = args.offer
@@ -42,7 +34,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel,FragmentFlight
         val layoutManager = LinearLayoutManager(context)
         binding?.rvFlightDetail?.layoutManager = layoutManager
         binding?.rvFlightDetail?.setHasFixedSize(true)
-        viewModel?.getSegments(flightOffer)?.observe(viewLifecycleOwner,{
+        viewModel.getSegments(flightOffer).observe(viewLifecycleOwner,{
             binding?.rvFlightDetail?.adapter = flightDetailsAdapter
             flightDetailsAdapter.submitList(flightOffer.itineraries)
         })

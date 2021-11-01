@@ -1,7 +1,7 @@
 package com.java.flightscheduler.ui.hotel.hotelresults
 
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,12 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HotelResultsFragment : BaseFragment<HotelResultsViewModel,FragmentHotelResultsBinding>(R.layout.fragment_hotel_list){
     private val arguments by navArgs<HotelResultsFragmentArgs>()
     private lateinit var hotelSearchAdapter : HotelResultsAdapter
-
-    override fun init() {}
-
-    override fun setViewModelFactory(): ViewModelProvider.Factory? = defaultViewModelProviderFactory
-
-    override fun setViewModelClass(): Class<HotelResultsViewModel> = HotelResultsViewModel::class.java
+    override val viewModel: HotelResultsViewModel? by viewModels()
 
     override fun onBind() {
         initializeHotelHeader()

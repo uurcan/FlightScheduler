@@ -1,24 +1,18 @@
 package com.java.flightscheduler.ui.home
 
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
-import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.databinding.FragmentHomeBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fragment_home), View.OnClickListener{
 
-    override fun init() {}
-
-    override fun setViewModelFactory(): ViewModelProvider.Factory? = defaultViewModelProviderFactory
-
-    override fun setViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
+    override val viewModel: HomeViewModel? by viewModels()
 
     override fun onBind() {
         initializeViews()

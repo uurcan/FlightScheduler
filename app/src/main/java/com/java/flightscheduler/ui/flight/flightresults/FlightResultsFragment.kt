@@ -1,7 +1,7 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,15 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FlightResultsFragment : BaseFragment<FlightResultsViewModel,FragmentFlightResultsBinding>(R.layout.fragment_flight_list){
     private lateinit var flightSearchAdapter : FlightResultsAdapter
     private val arguments by navArgs<FlightResultsFragmentArgs>()
-
-    override fun init() {
-    }
-
-    override fun setViewModelFactory(): ViewModelProvider.Factory? {
-        return defaultViewModelProviderFactory
-    }
-
-    override fun setViewModelClass(): Class<FlightResultsViewModel> =  FlightResultsViewModel::class.java
+    override val viewModel : FlightResultsViewModel by viewModels()
 
     override fun onBind() {
         initializeFlightHeader()
@@ -43,7 +35,7 @@ class FlightResultsFragment : BaseFragment<FlightResultsViewModel,FragmentFlight
         binding?.rvFlightList?.setHasFixedSize(true)
 
         arguments.flightSearch.let { it ->
-            viewModel?.getFlightData(it)?.observeOnce { flightData ->
+            viewModel.getFlightData(it)?.observeOnce { flightData ->
                 if (flightData.isEmpty()) {
                     binding?.txtFlightSearchErrorMessage?.visibility = View.VISIBLE
                     binding?.txtFlightSearchErrorMessage?.text = getString(R.string.text_no_flight_found)
