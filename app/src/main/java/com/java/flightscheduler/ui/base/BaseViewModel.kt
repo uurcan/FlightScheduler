@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.utils.SingleLiveEvent
-import com.java.flightscheduler.utils.toBaseException
+import com.java.flightscheduler.utils.extension.toBaseException
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -65,7 +65,7 @@ open class BaseViewModel @Inject constructor() : ViewModel(){
         }
         hideLoading()
     }
-    
+
     fun showLoading(){
         isLoading.value = true
     }

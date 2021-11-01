@@ -1,4 +1,4 @@
-package com.java.flightscheduler.utils
+package com.java.flightscheduler.utils.extension
 
 import com.java.flightscheduler.enableLogging
 import com.squareup.moshi.Moshi
