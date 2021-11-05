@@ -1,5 +1,7 @@
 package com.java.flightscheduler.data.repository
 
+import com.java.flightscheduler.data.constants.AppConstants.FLIGHT_SEARCH_BASE_URL
+import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.remote.services.SeatMapService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.java.flightscheduler.di.dispatcher.IoDispatcher
@@ -24,5 +26,16 @@ class SeatMapRepository @Inject constructor(
     @Throws(Exception::class)
     suspend fun post(body: String) = baseApiCall {
         seatMapService.getSeatMapFromFlightOffer(bodyAsMap(body))
+    }
+
+    fun getURLFromOffer(flightSearch : FlightSearch) : String{
+        return FLIGHT_SEARCH_BASE_URL +
+                "originLocationCode=" + flightSearch.originLocationCode + "&" +
+                "destinationLocationCode=" + flightSearch.destinationLocationCode + "&" +
+                "departureDate=" + flightSearch.departureDate + "&" +
+                "returnDate=" + "${flightSearch.returnDate?:""}&" +
+                "adults=" + "${flightSearch.adults}&" +
+                "children=" + "${flightSearch.children}&" +
+                "max=" + "${1}"
     }
 }
