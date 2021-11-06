@@ -1,4 +1,4 @@
-package com.java.flightscheduler.utils
+package com.java.flightscheduler.utils.extension
 
 import android.view.View
 import android.widget.ImageView
@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.java.flightscheduler.R
+import com.java.flightscheduler.utils.ParsingUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,12 +60,12 @@ fun setVisibility(view: View, data: String?) {
 fun TextView.setDateParserText(date : String){
     val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
     val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
-    this.text =  ParsingUtils.dateParser(parser,formatter,date)
+    this.text = ParsingUtils.dateParser(parser, formatter, date)
 }
 
 @BindingAdapter("app:setTimeStampParser")
 fun TextView.setTimeStampParser(date : String?){
     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     val formatter = SimpleDateFormat("dd MMM yyyy - HH:mm:ss", Locale.ENGLISH)
-    this.text =  ParsingUtils.dateParser(parser,formatter,date)
+    this.text = ParsingUtils.dateParser(parser, formatter, date)
 }

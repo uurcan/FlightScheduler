@@ -1,35 +1,29 @@
 package com.java.flightscheduler.ui.seatmap
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.java.flightscheduler.R
+import com.java.flightscheduler.databinding.FragmentSeatMapBinding
+import com.java.flightscheduler.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_seat_map.*
 
 @AndroidEntryPoint
-class SeatMapFragment : Fragment(){
-    private lateinit var seatMapViewModel: SeatMapViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_seat_map,container,false)
-    }
+class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R.layout.fragment_seat_map){
+    override val viewModel: SeatMapViewModel? by viewModels()
+    private val args : SeatMapFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        seatMapViewModel = ViewModelProvider(this).get(SeatMapViewModel::class.java)
-        seatMapViewModel.getSeatMap()?.observe(viewLifecycleOwner,{
-            metricsData ->
-                if (metricsData != null) {
-                    text_seat_map.text = metricsData[0].decks?.get(0)?.seats?.get(12)?.cabin.toString()
-                }
+        viewModel?.getSeatMap(args.flightSearch)?.observe(viewLifecycleOwner, {
+            if (it != null) {
+                binding?.textSeatMap?.text = it[0].decks?.get(0)?.seats?.get(12)?.cabin.toString()
+            }
         })
+    }
+
+    override fun onBind() {
+
     }
 }

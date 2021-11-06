@@ -9,9 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.java.flightscheduler.R
-import com.java.flightscheduler.utils.dismissLoadingDialog
-import com.java.flightscheduler.utils.showDialog
-import com.java.flightscheduler.utils.showLoadingDialog
+import com.java.flightscheduler.utils.extension.dismissLoadingDialog
+import com.java.flightscheduler.utils.extension.showDialog
+import com.java.flightscheduler.utils.extension.showLoadingDialog
 
 abstract class BaseFragment<VM: BaseViewModel?,
         DB: ViewDataBinding?>(@LayoutRes private val layoutId: Int) : Fragment() {

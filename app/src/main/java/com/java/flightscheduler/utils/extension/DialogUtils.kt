@@ -1,4 +1,4 @@
-package com.java.flightscheduler.utils
+package com.java.flightscheduler.utils.extension
 
 import android.app.Dialog
 import android.graphics.Color
