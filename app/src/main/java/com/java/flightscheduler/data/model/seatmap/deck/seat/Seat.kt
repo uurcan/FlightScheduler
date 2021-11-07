@@ -12,5 +12,5 @@ data class Seat internal constructor(
     val number : String? = null,
     val characteristicsCodes : List<String>? = null,
     val travelerPricing: List<TravelerPricing>? = null,
-    val coordinates: Coordinates
+    val coordinates: Coordinates? = null
 ) : Parcelable
