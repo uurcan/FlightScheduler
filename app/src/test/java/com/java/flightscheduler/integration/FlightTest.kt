@@ -1,6 +1,7 @@
 package com.java.flightscheduler.integration
 
-import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.data.model.seatmap.deck.seat.Coordinates
+import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*

@@ -17,6 +17,7 @@ data class SeatMap internal constructor(
     val number: String? = null,
     val aircraft: Aircraft? = null,
     val departure: Departure? = null,
+    val arrival: Arrival? = null,
     val decks: List<Decks>? = null,
     val aircraftCabinAmenities: AircraftCabinAmenities? = null,
     val availableSeatsCounters: List<AvailableSeatsCounters>? = null

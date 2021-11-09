@@ -28,7 +28,8 @@ class SeatMapRepository @Inject constructor(
         seatMapService.getSeatMapFromFlightOffer(bodyAsMap(body))
     }
 
-    fun getURLFromOffer(flightSearch : FlightSearch) : String{
+    fun getURLFromOffer() : String{
+        /*
         return FLIGHT_SEARCH_BASE_URL +
                 "originLocationCode=" + flightSearch.originLocationCode + "&" +
                 "destinationLocationCode=" + flightSearch.destinationLocationCode + "&" +
@@ -36,6 +37,7 @@ class SeatMapRepository @Inject constructor(
                 "returnDate=" + "${flightSearch.returnDate?:""}&" +
                 "adults=" + "${flightSearch.adults}&" +
                 "children=" + "${flightSearch.children}&" +
-                "max=" + "${1}"
+                "max=" + "${1}"*/
+        return "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=JFK&departureDate=2021-11-09&adults=1&max=1"
     }
 }

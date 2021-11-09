@@ -1,11 +1,12 @@
 package com.java.flightscheduler.ui.seatmap
 
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.databinding.FragmentSeatMapBinding
 import com.java.flightscheduler.ui.base.BaseFragment
+import com.java.flightscheduler.ui.base.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,14 +15,17 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
     private lateinit var seatMapAdapter: SeatMapAdapter
 
     override fun onBind() {
-        viewModel?.getSeatMap()?.observe(viewLifecycleOwner, {
-            if (it != null) {
-                val layoutManager = GridLayoutManager(context, it[0].decks?.get(0)?.deckConfiguration?.width ?: 5)
-                seatMapAdapter = SeatMapAdapter(it[0].decks?.get(0)?.seats!!)
-                seatMapAdapter.submitList(it[0].decks?.get(0)?.seats)
-                binding?.rvSeatMap?.layoutManager = layoutManager
-                binding?.rvSeatMap?.adapter = seatMapAdapter
-            }
-        })
+        initializeResults()
+    }
+
+    private fun initializeResults() {
+        viewModel?.getSeatMap()?.observeOnce { seatMap ->
+            val layoutManager = GridLayoutManager(context, seatMap[0].decks?.get(0)?.deckConfiguration?.width ?: 11)
+            binding?.rvSeatMap?.layoutManager = layoutManager
+
+            seatMapAdapter = SeatMapAdapter(seatMap[0].decks?.get(0)?.seats!!)
+            binding?.rvSeatMap?.adapter = seatMapAdapter
+            binding?.setVariable(BR.seatMapHeader,seatMap[0])
+        }
     }
 }
