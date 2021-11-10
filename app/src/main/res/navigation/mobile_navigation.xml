@@ -36,7 +36,7 @@
             app:destination="@id/nav_flight_status" />
         <action
             android:id="@+id/action_nav_home_to_nav_seat_map"
-            app:destination="@id/nav_flight_search" />
+            app:destination="@id/nav_seat_map" />
     </fragment>
 
     <fragment
@@ -46,13 +46,11 @@
         tools:layout="@layout/fragment_flight_search" >
         <action
             android:id="@+id/action_nav_flight_search_to_nav_flight_results"
-            app:destination="@id/nav_seat_map"
+            app:destination="@id/nav_flight_results"
             app:enterAnim="@anim/enter_from_right"
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right"/>
-
-
     </fragment>
 
     <fragment
@@ -141,9 +139,6 @@
         android:name="com.java.flightscheduler.ui.seatmap.SeatMapFragment"
         android:label="@string/text_seat_map"
         tools:layout="@layout/fragment_seat_map" >
-        <argument
-            android:name="flightSearch"
-            app:argType="com.java.flightscheduler.data.model.flight.FlightSearch" />
     </fragment>
 
     <fragment

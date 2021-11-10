@@ -14,6 +14,10 @@ object AppConstants {
     const val REQUEST_CODE_CALL_PERMISSION = 101
     const val PAGER_ITEM_SIZE = 4
 
+    const val SEAT_MAP_AVAILABLE = "AVAILABLE"
+    const val SEAT_MAP_OCCUPIED = "OCCUPIED"
+    const val SEAT_MAP_BLOCKED = "BLOCKED"
+
     const val FLIGHT_SEARCH_BASE_URL = "https://test.api.amadeus.com/v2/shopping/flight-offers?"
     enum class FilterOptions(val param : String) {
         Default("none"),
