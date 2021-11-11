@@ -1,55 +1,58 @@
 package com.java.flightscheduler.data.repository
 
+import com.java.flightscheduler.data.constants.AppConstants.DECK_LARGE
+import com.java.flightscheduler.data.constants.AppConstants.DECK_MEDIUM
+import com.java.flightscheduler.data.constants.AppConstants.DECK_SMALL
+import com.java.flightscheduler.data.model.seatmap.base.Decks
+import com.java.flightscheduler.data.model.seatmap.deck.pricing.TravelerPricing
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
-//todo, more efficiency !
+
 class SeatRepository {
-    fun getSeatLayout(seats : List<Seat>) : List<Seat>{
-        val alignedSeatList = seats.toMutableList()
-        val indexList = mutableListOf<Int>()
-        when {
-            seats.size == 249 -> { //medium deck - contains "(size / 9) * 2" aisle
-                seats.forEachIndexed { index, element ->
+    private var alignedSeatList = mutableListOf<Seat>()
+    private val indexList = mutableListOf<Int>()
+
+    fun getSeatLayout(decks : Decks) : List<Seat>{
+        alignedSeatList = decks.seats?.toMutableList()!!
+        when (decks.deckConfiguration?.width) {
+            DECK_SMALL -> { //medium deck - contains "(size / 4)" aisle
+                return alignSeatList(decks,"B")
+            }
+
+            DECK_MEDIUM -> { //medium deck - contains "(size / 6)" aisle
+                return alignSeatList(decks,"C")
+            }
+
+            DECK_LARGE -> { //medium deck - contains "(size / 9) * 2" aisle
+                decks.seats.forEachIndexed { index, element ->
                     if (element.number?.contains("C") != false.or((element.number?.contains("F") != false)))
                         indexList.add(index + 1)
                 }
                 indexList.sortedDescending().forEach { element ->
-                    alignedSeatList.add(element ,Seat())
-                }
-                return alignedSeatList
-            }
-            seats.size == 96 -> { //medium deck - contains "(size / 9) * 2" aisle
-                seats.forEachIndexed { index, element ->
-                    if (element.number?.contains("B") != false)
-                        indexList.add(index + 1)
-                }
-                indexList.sortedDescending().forEach { element ->
-                    alignedSeatList.add(element ,Seat())
+                    alignedSeatList.add(element , Seat(travelerPricing = listOf(
+                        TravelerPricing(
+                            seatAvailabilityStatus = "AISLE"
+                        )
+                    )))
                 }
                 return alignedSeatList
             }
 
-            seats.size % 6 == 0 -> { //medium deck - contains "size / 6" aisle
-                seats.forEachIndexed { index, element ->
-                    if (element.number?.contains("C") != false)
-                        indexList.add(index + 1)
-                }
-                indexList.sortedDescending().forEach { element ->
-                    alignedSeatList.add(element ,Seat())
-                }
-                return alignedSeatList
+        }
+        return alignedSeatList
+    }
 
-            }
-
-            seats.size % 4 == 0 -> { //small deck - contains "size / 4" aisle
-                seats.forEachIndexed { index, element ->
-                    if (element.number?.contains("B") != false)
-                        indexList.add(index + 1)
-                }
-                indexList.sortedDescending().forEach { element ->
-                    alignedSeatList.add(element ,Seat())
-                }
-            }
-         }
+    private fun alignSeatList(decks: Decks, character : String) : List<Seat>{
+        decks.seats?.forEachIndexed { index, element ->
+            if (element.number?.contains(character) != false)
+                indexList.add(index + 1)
+        }
+        indexList.sortedDescending().forEach { element ->
+            alignedSeatList.add(element , Seat(travelerPricing = listOf(
+                TravelerPricing(
+                    seatAvailabilityStatus = "AISLE"
+                )
+            )))
+        }
         return alignedSeatList
     }
 }

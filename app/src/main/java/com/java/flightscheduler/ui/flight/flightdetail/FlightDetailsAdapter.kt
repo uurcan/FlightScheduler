@@ -11,6 +11,7 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.java.flightscheduler.data.repository.AirlineRepository
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
 import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
@@ -22,6 +23,8 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
     private val flightRoutesRepository = FlightRoutesRepository(context)
+    private val airlineRepository = AirlineRepository(context)
+    private val airlineList = airlineRepository.getAirlines()
     private var airportList : List<Airport>
     private var connectionVariables : List<String>
     private var segments : List<SearchSegment>?
@@ -53,12 +56,14 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
 
     private fun bindCustomized(position: Int) {
         val aircraftCode : String = segments?.get(position)?.aircraft?.code.toString()
+        val airlineProvider = airlineRepository.getMatchingAirline(airlineList,segments?.get(position)?.carrierCode)
         val departureAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.departure?.iataCode.toString())
         val arrivalAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.arrival?.iataCode.toString())
         val aircraftName : String? = flightRoutesRepository.getMatchingAircraft(aircraftList,aircraftCode)
         val conStatusText : TextView? = binding?.txtFlightDetailDetailsConnectionTime
         val destination = "$departureAirportName - $arrivalAirportName"
 
+        binding?.textFlightDetailCarrier?.text = airlineProvider?.NAME
         binding?.txtFlightDetailAircraftCode?.text = aircraftName ?: context.getString(R.string.no_aircraft_found)
         binding?.txtFlightDetailDetailsConnectionTime?.text = connectionVariables[position]
         binding?.txtFlightDetailCityInfo?.text = destination

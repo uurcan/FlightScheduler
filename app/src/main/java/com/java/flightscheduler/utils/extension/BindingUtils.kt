@@ -10,6 +10,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
+import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
+import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
+import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_OCCUPIED
 import com.java.flightscheduler.utils.ParsingUtils
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,6 +53,22 @@ fun TextView.setDisplayList(input: List<Any>?) {
         output += item.toString().replace("_", " ") + "\n"
     }
     this.text = output
+}
+
+@BindingAdapter("app:setSeatMapDrawable")
+fun ImageView.setSeatMapDrawable(status : String?) {
+    var drawable = 0
+    when (status) {
+        SEAT_MAP_AVAILABLE -> drawable = R.drawable.ic_seats_available
+        SEAT_MAP_OCCUPIED -> drawable = R.drawable.ic_seats_occupied
+        SEAT_MAP_BLOCKED -> drawable = R.drawable.ic_seats_blocked
+        SEAT_MAP_AISLE -> drawable = R.drawable.ic_seat_aisle
+    }
+
+    Glide.with(this.context)
+        .load(drawable)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .into(this)
 }
 
 @BindingAdapter("app:setVisibility")

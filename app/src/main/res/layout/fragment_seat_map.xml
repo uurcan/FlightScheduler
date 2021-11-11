@@ -14,7 +14,7 @@
         tools:context=".ui.hotel.hotelsearch.HotelSearchFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_list_header"
+            android:id="@+id/layout_flight_seatmap_header"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -127,18 +127,166 @@
                     android:layout_height="wrap_content"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="@dimen/margin_medium"
+            app:layout_constraintTop_toBottomOf="@+id/layout_flight_seatmap_header"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/layout_seat_map_info"
+            app:layout_constraintBottom_toTopOf="@+id/rv_Seat_map"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_search_ticket_line">
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="18sp"
+                android:textColor="@color/grey_black_1000"
+                android:text="@string/text_seat_map_info"
+                android:padding="@dimen/margin_x_small"
+                android:src="@drawable/icon_flight_detail_info"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:contentDescription="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/img_seat_map_dropdown"
+                android:src="@drawable/icon_flight_arrow"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:text="@string/text_seat_map_info"
+                android:padding="@dimen/margin_x_small"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@null"
+                android:layout_width="35dp"
+                android:layout_height="35dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_seat_map_dropdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_seat_map_Available_seat"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/img_seat_map_hint_available"
+                        android:padding="@dimen/margin_x_small"
+                        android:src="@drawable/ic_seats_available"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <TextView
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:text="@string/text_available_seat"
+                        app:layout_constraintLeft_toRightOf="@+id/img_seat_map_hint_available"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintTop_toBottomOf="@+id/layout_seat_map_Available_seat"
+                    android:id="@+id/layout_seat_map_occupied_seat"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/img_seat_map_hint_occupied"
+                        android:padding="@dimen/margin_x_small"
+                        android:src="@drawable/ic_seats_occupied"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <TextView
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:text="@string/text_occupied_seat"
+                        app:layout_constraintLeft_toRightOf="@+id/img_seat_map_hint_occupied"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginStart="@dimen/margin_large"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/layout_seat_map_taken_seat"
+                    app:layout_constraintLeft_toRightOf="@id/layout_seat_map_occupied_seat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/img_seat_map_hint_taken"
+                        android:padding="@dimen/margin_x_small"
+                        android:src="@drawable/ic_seats_booked"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <TextView
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:text="@string/text_booked_seat"
+                        app:layout_constraintLeft_toRightOf="@+id/img_seat_map_hint_taken"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginStart="@dimen/margin_large"
+                    app:layout_constraintTop_toBottomOf="@+id/layout_seat_map_Available_seat"
+                    android:id="@+id/layout_seat_map_selected_seat"
+                    app:layout_constraintLeft_toRightOf="@id/layout_seat_map_occupied_seat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/img_seat_map_hint_selected"
+                        android:padding="@dimen/margin_x_small"
+                        android:src="@drawable/ic_seats_selected"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"/>
+                    <TextView
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:text="@string/text_selected_seat"
+                        app:layout_constraintLeft_toRightOf="@+id/img_seat_map_hint_selected"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingBottom="@dimen/hotel_search_card_dimen"
+            android:paddingBottom="260dp"
             android:layout_marginLeft="@dimen/margin_large"
             android:layout_marginRight="@dimen/margin_large"
-            android:layout_marginTop="@dimen/margin_small"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_list_header"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:layout_constraintTop_toBottomOf="@+id/layout_seat_map_info"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/rv_Seat_map"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            tools:listitem="@layout/list_seat_map_item_available"/>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_seat_map_item"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

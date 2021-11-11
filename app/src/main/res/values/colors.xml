@@ -230,6 +230,7 @@
     <color name="orange_A200">#ffab40</color>
     <color name="orange_A400">#ff9100</color>
     <color name="orange_A700">#ff6d00</color>
+    <color name="orange_google">#ff8300</color>
 
     <color name="deep_orange_50">#fbe9e7</color>
     <color name="deep_orange_100">#ffccbc</color>
