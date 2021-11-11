@@ -4,6 +4,7 @@ import com.java.flightscheduler.data.constants.AppConstants.DECK_LARGE
 import com.java.flightscheduler.data.constants.AppConstants.DECK_MEDIUM
 import com.java.flightscheduler.data.constants.AppConstants.DECK_SMALL
 import com.java.flightscheduler.data.model.seatmap.base.Decks
+import com.java.flightscheduler.data.model.seatmap.deck.pricing.TravelerPricing
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 
 class SeatRepository {
@@ -27,7 +28,11 @@ class SeatRepository {
                         indexList.add(index + 1)
                 }
                 indexList.sortedDescending().forEach { element ->
-                    alignedSeatList.add(element , Seat())
+                    alignedSeatList.add(element , Seat(travelerPricing = listOf(
+                        TravelerPricing(
+                            seatAvailabilityStatus = "AISLE"
+                        )
+                    )))
                 }
                 return alignedSeatList
             }
@@ -42,7 +47,11 @@ class SeatRepository {
                 indexList.add(index + 1)
         }
         indexList.sortedDescending().forEach { element ->
-            alignedSeatList.add(element ,Seat())
+            alignedSeatList.add(element , Seat(travelerPricing = listOf(
+                TravelerPricing(
+                    seatAvailabilityStatus = "AISLE"
+                )
+            )))
         }
         return alignedSeatList
     }

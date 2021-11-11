@@ -38,5 +38,6 @@
     <dimen name="detail_window_hotel_extended">300dp</dimen>
     <dimen name="calendar_height">320dp</dimen>
     <dimen name="hotel_search_ticket_dimen">200dp</dimen>
+    <dimen name="seat_map_footer_dimen">240dp</dimen>
 
 </resources>

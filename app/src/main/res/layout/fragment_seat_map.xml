@@ -135,7 +135,7 @@
             android:id="@+id/layout_seat_map_info"
             app:layout_constraintBottom_toTopOf="@+id/rv_Seat_map"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/flight_search_ticket_line">
             <TextView
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:textSize="18sp"
@@ -276,6 +276,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingBottom="260dp"
             android:layout_marginLeft="@dimen/margin_large"
             android:layout_marginRight="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_medium"
@@ -284,8 +285,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/rv_Seat_map"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            tools:listitem="@layout/list_seat_map_item_available"/>
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_seat_map_item"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
 

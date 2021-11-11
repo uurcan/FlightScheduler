@@ -1,6 +1,5 @@
 package com.java.flightscheduler.ui.flight.flightresults
 
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -11,6 +10,7 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.observeOnce
+import com.java.flightscheduler.utils.extension.showDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,10 +36,8 @@ class FlightResultsFragment : BaseFragment<FlightResultsViewModel,FragmentFlight
 
         arguments.flightSearch.let { it ->
             viewModel.getFlightData(it)?.observeOnce { flightData ->
-                if (flightData.isEmpty()) {
-                    binding?.txtFlightSearchErrorMessage?.visibility = View.VISIBLE
-                    binding?.txtFlightSearchErrorMessage?.text = getString(R.string.text_no_flight_found)
-                }
+                if (flightData.isEmpty()) showDialog(message = getString(R.string.text_no_flight_found))
+
                 flightSearchAdapter = FlightResultsAdapter ({ switchToDetails(it) }, requireContext())
                 flightSearchAdapter.submitList(flightData)
                 binding?.rvFlightList?.adapter = flightSearchAdapter

@@ -1,7 +1,5 @@
 package com.java.flightscheduler.data.constants
 
-import com.java.flightscheduler.data.model.base.Language
-
 object AppConstants {
     const val MIN_ADULT_COUNT = 1
     const val MAX_ADULT_COUNT = 3
@@ -17,6 +15,7 @@ object AppConstants {
     const val SEAT_MAP_AVAILABLE = "AVAILABLE"
     const val SEAT_MAP_OCCUPIED = "OCCUPIED"
     const val SEAT_MAP_BLOCKED = "BLOCKED"
+    const val SEAT_MAP_AISLE = "AISLE"
 
     const val DECK_LARGE = 11
     const val DECK_MEDIUM = 7
