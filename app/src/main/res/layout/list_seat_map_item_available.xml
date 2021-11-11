@@ -30,7 +30,7 @@
             <TextView
                 tools:text="1A"
                 android:layout_marginBottom="@dimen/margin_medium"
-                android:textColor="@color/grey_black_1000"
+                android:textColor="@color/grey_white_1000"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

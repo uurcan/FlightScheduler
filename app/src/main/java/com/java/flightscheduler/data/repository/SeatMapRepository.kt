@@ -38,6 +38,6 @@ class SeatMapRepository @Inject constructor(
                 "adults=" + "${flightSearch.adults}&" +
                 "children=" + "${flightSearch.children}&" +
                 "max=" + "${1}"*/
-        return "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=JFK&departureDate=2021-11-09&adults=1&max=1"
+        return "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=LHR&departureDate=2021-11-11&adults=1&max=1"
     }
 }

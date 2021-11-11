@@ -13,10 +13,10 @@ object MessageHelper {
             ).show()
         }
     }
-    fun displayWarningMessage(view : View?, text : String){
+    fun displayInfoMessage(view : View?, text : String){
         view?.let {
             Snackbar.make(it, text ,Snackbar.LENGTH_LONG).setBackgroundTint(
-                ContextCompat.getColor(view.context,R.color.yellow_A700)
+                ContextCompat.getColor(view.context,R.color.grey_800)
             ).show()
         }
     }

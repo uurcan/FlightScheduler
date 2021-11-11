@@ -94,6 +94,13 @@
     <string name="unknown_error">Unknown Error</string>
     <string name="server_maintain_message">Server Maintain</string>
     <string name="text_loading">Please wait.. \n We\'re loading the best offers.</string>
+    <string name="OK">OK</string>
+    <string name="text_seat_map_info">Seat Map Info</string>
+    <string name="text_available_seat">Available Seat</string>
+    <string name="text_occupied_seat">Occupied Seat</string>
+    <string name="text_selected_seat">Selected Seat</string>
+    <string name="text_booked_seat">Booked Seat</string>
+    <string name="text_carrier">"Carrier : "</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

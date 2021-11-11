@@ -9,13 +9,14 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_OCCUPIED
+import com.java.flightscheduler.data.model.seatmap.base.Decks
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import com.java.flightscheduler.data.repository.SeatRepository
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class SeatMapAdapter(seatList: List<Seat>) : BaseAdapter<Seat, ViewDataBinding>(R.layout.list_seat_map_item_available) {
-    private val seatMapList = SeatRepository().getSeatLayout(seatList)
+class SeatMapAdapter(deck: Decks, private val onClick: (Seat) -> Unit) : BaseAdapter<Seat, ViewDataBinding>(R.layout.list_seat_map_item_available) {
+    private val seatMapList = SeatRepository().getSeatLayout(deck)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : BaseViewHolder {
         when(viewType){
             -1 -> { binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.list_seat_map_item_aisle, parent, false) }
@@ -29,6 +30,13 @@ class SeatMapAdapter(seatList: List<Seat>) : BaseAdapter<Seat, ViewDataBinding>(
     override fun onBind(holder: BaseViewHolder, position: Int) {
         binding?.setVariable(BR.seat, seatMapList[position])
         binding?.executePendingBindings()
+        binding?.root?.setOnClickListener {
+            seatMapList[position].number.let {
+                if (it != null) {
+                    onClick(seatMapList[position])
+                }
+            }
+        }
         holder.setIsRecyclable(false)
     }
 
