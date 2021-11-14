@@ -6,6 +6,9 @@
         <variable
             name="hotelSearch"
             type="com.java.flightscheduler.data.model.hotel.HotelSearch" />
+        <variable
+            name="hotelSearchViewModel"
+            type="com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:gravity="center"
@@ -291,8 +294,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    android:text="@{Integer.toString(hotelSearchViewModel.passengerCount)}"
                     tools:text="1"
-                    android:text="@{String.valueOf(hotelSearch.auditCount)}"
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_hotel_audit_count"
                     android:layout_width="wrap_content"
@@ -319,6 +322,7 @@
                     android:layout_marginStart="@dimen/margin_small" />
 
                 <ImageView
+                    android:onClick="@{() -> hotelSearchViewModel.onIncreasePassengerClicked(hotelSearchViewModel.passengerCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_plus"
                     app:layout_constraintTop_toTopOf="parent"
@@ -331,6 +335,7 @@
                     android:layout_marginStart="@dimen/margin_medium"/>
 
                 <ImageView
+                    android:onClick="@{() -> hotelSearchViewModel.onDecreasePassengerClicked(hotelSearchViewModel.passengerCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_minus"
                     app:layout_constraintTop_toTopOf="parent"
@@ -363,7 +368,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="@{String.valueOf(hotelSearch.roomCount)}"
+                    android:text="@{Integer.toString(hotelSearchViewModel.roomCount)}"
                     tools:text="1"
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_hotel_rooms_count"
@@ -391,6 +396,7 @@
                     android:layout_marginStart="@dimen/margin_small" />
 
                 <ImageView
+                    android:onClick="@{() -> hotelSearchViewModel.onIncreaseRoomClicked(hotelSearchViewModel.roomCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_plus"
                     app:layout_constraintTop_toTopOf="parent"
@@ -403,6 +409,7 @@
                     android:layout_marginStart="@dimen/margin_medium"/>
 
                 <ImageView
+                    android:onClick="@{() -> hotelSearchViewModel.onDecreaseRoomClicked(hotelSearchViewModel.roomCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_minus"
                     app:layout_constraintTop_toTopOf="parent"
@@ -447,11 +454,10 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    tools:text="Sort Options"
+                    android:text="@string/sort_options"
                     android:textSize="16sp"
                     android:padding="@dimen/margin_small"
                     android:gravity="center"
-                    android:text='@{hotelSearch.sortOptions.toString().toUpperCase() ?? "Sort Options"}'
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_hotel_sort"
                     android:layout_width="wrap_content"
@@ -496,7 +502,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    tools:text="Language"
+                    android:text="@string/language"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:padding="@dimen/margin_small"
@@ -508,9 +514,7 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/img_hotel_language"
-                    app:layout_constraintTop_toTopOf="@+id/view"
-                    android:text='@{hotelSearch.language ?? "Language"}'
-                    />
+                    app:layout_constraintTop_toTopOf="@+id/view" />
 
                 <ImageView
                     android:contentDescription="@null"
