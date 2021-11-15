@@ -9,13 +9,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HotelDetailsViewModel @Inject constructor() : BaseViewModel() {
-    private val coordinatesLiveData : MutableLiveData<Pair<Double,Double>>? = MutableLiveData()
+    private val coordinatesLiveData : MutableLiveData<Pair<Double,Double>> = MutableLiveData()
 
     fun getCoordinatesLiveData(latitude : Double, longitude : Double) : MutableLiveData<Pair<Double,Double>>? {
         Observable.just(Pair(latitude,longitude))
             .subscribeOn(Schedulers.io())
             .subscribe({ coordinates ->
-                coordinatesLiveData?.value = coordinates
+                coordinatesLiveData.value = coordinates
             }, {
                 it.printStackTrace()
             })

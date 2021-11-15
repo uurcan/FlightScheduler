@@ -2,12 +2,10 @@ package com.java.flightscheduler.ui.hotel.hotelsearch
 
 import android.app.Activity
 import android.content.Intent
-import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants
 import com.java.flightscheduler.data.constants.AppConstants.LanguageOptions
@@ -16,47 +14,31 @@ import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.databinding.FragmentHotelSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.MessageHelper
-import com.java.flightscheduler.utils.ParsingUtils
 import com.java.flightscheduler.utils.extension.hideKeyboard
 import com.java.flightscheduler.utils.extension.showListDialog
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearchBinding>(R.layout.fragment_hotel_search),
-    View.OnClickListener {
-    private val hotelSearch : HotelSearch = HotelSearch()
+class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearchBinding>(R.layout.fragment_hotel_search){
     override val viewModel: HotelSearchViewModel by viewModels()
+    private var hotelSearch : HotelSearch = HotelSearch()
 
     override fun onBind() {
         initializeViews()
         initializeCityDropdown()
-        initializeHotelParams()
-    }
-
-    private fun initializeHotelParams() {
-        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
-        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
-
-        val parsedCurrentDate : String? = ParsingUtils.dateParser(parser,formatter,ParsingUtils.getCurrentDate(null))
-        if (hotelSearch.formattedCheckInDate.isNullOrBlank()){
-            hotelSearch.formattedCheckInDate = parsedCurrentDate
-            hotelSearch.formattedCheckOutDate = parsedCurrentDate
-        }
     }
 
     private fun initializeViews() {
-        binding?.layoutHotelCheckInPicker?.setOnClickListener(this)
-        binding?.btnFlightSearchHotels?.setOnClickListener(this)
+        binding?.lifecycleOwner = viewLifecycleOwner
+        binding?.hotelSearchViewModel = viewModel
+
+        binding?.layoutHotelCheckInPicker?.setOnClickListener { initializeDatePicker() }
+        binding?.btnFlightSearchHotels?.setOnClickListener { saveHotelResults() }
         binding?.layoutHotelLanguage?.setOnClickListener { languageDialog() }
         binding?.layoutHotelSort?.setOnClickListener{ sortDialog() }
-
-        binding?.lifecycleOwner = viewLifecycleOwner
-        binding?.setVariable(BR.hotelSearch,hotelSearch)
-        binding?.setVariable(BR.hotelSearchViewModel,viewModel)
     }
 
     private fun initializeCityDropdown() {
@@ -71,15 +53,8 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
                 hotelSearch.city = listItem.code
                 hotelSearch.name = listItem.name
                 hotelSearch.country = listItem.country
-                hideKeyboard(activity)
+                activity?.hideKeyboard()
             }
-        }
-    }
-
-    override fun onClick(p0: View?) {
-        when (p0?.id) {
-            binding?.layoutHotelCheckInPicker?.id -> initializeDatePicker()
-            binding?.btnFlightSearchHotels?.id -> saveHotelResults()
         }
     }
 
@@ -134,22 +109,12 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
         }
 
     private fun initializeDateParser(intent: Intent) {
-        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
-        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+        val startDate : String = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
+        val endDate : String = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
 
-        binding?.txtHotelSearchCheckInDate?.text = ParsingUtils.dateParser(
-            parser = parser,
-            formatter = formatter,
-            date = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE)
-        )
-        hotelSearch.checkInDate = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
-
-        binding?.txtHotelSearchCheckOutDate?.text = ParsingUtils.dateParser(
-            parser = parser,
-            formatter = formatter,
-            date = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE)
-        )
-        hotelSearch.checkOutDate =  intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+        hotelSearch.checkInDate = startDate
+        hotelSearch.checkOutDate = endDate
+        viewModel.apply { onCheckInSelected(startDate,endDate) }
     }
 
     private fun languageDialog() {

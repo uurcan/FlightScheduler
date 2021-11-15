@@ -4,9 +4,6 @@
         <import type="android.view.View"/>
         <import type="com.java.flightscheduler.utils.ParsingUtils"/>
         <variable
-            name="hotelSearch"
-            type="com.java.flightscheduler.data.model.hotel.HotelSearch" />
-        <variable
             name="hotelSearchViewModel"
             type="com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchViewModel" />
     </data>
@@ -160,7 +157,7 @@
 
                 <TextView
                     tools:text="20 Oct 2021"
-                    app:setDateParserText="@{ParsingUtils.getCurrentDate(hotelSearch.checkInDate).toString()}"
+                    app:setDateParserText="@{ParsingUtils.getCurrentDate(hotelSearchViewModel.checkInDate).toString()}"
                     app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_check_out_more"
                     android:id="@+id/txt_hotel_search_check_in_date"
                     android:layout_width="wrap_content"
@@ -222,7 +219,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    app:setDateParserText="@{ParsingUtils.getNextDate(hotelSearch.checkOutDate).toString()}"
+                    app:setDateParserText="@{ParsingUtils.getNextDate(hotelSearchViewModel.checkOutDate).toString()}"
                     app:layout_constraintRight_toLeftOf="@+id/img_hotel_search_check_in_more"
                     android:id="@+id/txt_hotel_search_check_out_date"
                     android:layout_width="wrap_content"

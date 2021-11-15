@@ -83,12 +83,8 @@ fun setVisibility(view: View, data: String?) {
 fun TextView.setDateParserText(date : String){
     val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
     val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
-    this.text = ParsingUtils.dateParser(parser, formatter, date)
-}
 
-fun increaseCount(value : Int){
-    value.plus(1).coerceAtMost(AppConstants.MAX_ROOM_COUNT)
-    Log.d("AMATEST",value.toString())
+    this.text = ParsingUtils.dateParser(parser, formatter, date)
 }
 
 @BindingAdapter("app:setTimeStampParser")

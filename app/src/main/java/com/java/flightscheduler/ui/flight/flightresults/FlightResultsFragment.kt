@@ -9,7 +9,7 @@ import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.databinding.FragmentFlightResultsBinding
 import com.java.flightscheduler.ui.base.BaseFragment
-import com.java.flightscheduler.ui.base.observeOnce
+import com.java.flightscheduler.utils.extension.observeOnce
 import com.java.flightscheduler.utils.extension.showDialog
 import dagger.hilt.android.AndroidEntryPoint
 

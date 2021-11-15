@@ -2,7 +2,6 @@ package com.java.flightscheduler.ui.hotel.hoteldetails
 
 import android.content.Intent
 import android.net.Uri
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -13,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.constants.AppConstants.MAP_ZOOM_SIZE
 import com.java.flightscheduler.data.constants.AppConstants.REQUEST_CODE_CALL_PERMISSION
 import com.java.flightscheduler.databinding.FragmentHotelDetailBinding
 import com.java.flightscheduler.ui.base.BaseFragment
@@ -21,12 +21,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
-
 @AndroidEntryPoint
 class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDetailBinding>(R.layout.fragment_hotel_details),
     OnMapReadyCallback,
-    EasyPermissions.PermissionCallbacks,
-    View.OnClickListener {
+    EasyPermissions.PermissionCallbacks {
     private val args by navArgs<HotelDetailsFragmentArgs>()
     override val viewModel : HotelDetailsViewModel? by viewModels()
 
@@ -37,7 +35,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
     }
 
     private fun initializeViews() {
-        binding?.layoutHotelDetailContact?.setOnClickListener(this)
+        binding?.layoutHotelDetailContact?.setOnClickListener{ requestPermissions() }
     }
 
     private fun initializeVariables() {
@@ -45,8 +43,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
     }
 
     private fun initializeMap() {
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.layout_hotel_detail_map) as SupportMapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.layout_hotel_detail_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -56,14 +53,14 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
         )?.observe(viewLifecycleOwner, { coordinates ->
             val location = LatLng(coordinates.first, coordinates.second)
             map.addMarker(MarkerOptions().position(location))
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15F))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, MAP_ZOOM_SIZE))
         })
     }
 
     private fun requestPermissions() {
-        if (PermissionUtility.hasPhoneDialPermission(requireContext())) {
+        if (PermissionUtility.hasPhoneDialPermission(requireContext()))
             startDialActivity()
-        }
+
         EasyPermissions.requestPermissions(
             this,
             getString(R.string.text_permission_required),
@@ -89,17 +86,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    override fun onClick(p0: View?) {
-        when (p0?.id) {
-            binding?.layoutHotelDetailContact?.id -> requestPermissions()
-        }
     }
 }
