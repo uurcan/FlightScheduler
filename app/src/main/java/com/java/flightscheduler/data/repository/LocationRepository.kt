@@ -59,6 +59,7 @@ class LocationRepository @Inject constructor(private val context: Context) {
         locationList.add(Places(R.drawable.gdansk_poland,"Gdansk","Poland"))
         locationList.add(Places(R.drawable.sighisoara_romania,"Sighisoara","Romania"))
         locationList.add(Places(R.drawable.stockholm_sweden,"Stockholm","Sweden"))
+        locationList.add(Places(R.drawable.istanbul_turkey,"Istanbul","Turkey"))
         locationList.shuffle()
         return locationList
     }
