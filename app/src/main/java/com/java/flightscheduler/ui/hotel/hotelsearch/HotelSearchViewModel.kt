@@ -1,24 +1,34 @@
 package com.java.flightscheduler.ui.hotel.hotelsearch
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.java.flightscheduler.data.model.hotel.City
 import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.data.repository.HotelSearchRepository
+import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository: HotelSearchRepository): ViewModel() {
+class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository: HotelSearchRepository): BaseViewModel() {
     private var cityLiveData : MutableLiveData<List<City>>? = MutableLiveData()
-    private var hotelCountLiveData : MutableLiveData<Int>? = MutableLiveData()
-    private var hotelSearchLiveData : MutableLiveData<HotelSearch>? = MutableLiveData()
-
+    var hotelSearchLiveData : MutableLiveData<HotelSearch>? = MutableLiveData()
     private val validationMessage = MutableLiveData("")
+
+    private val passengerCountLiveData = MutableLiveData(1)
+    val passengerCount: LiveData<Int> get() = passengerCountLiveData
+
+    private val roomCountLiveData = MutableLiveData(1)
+    val roomCount: LiveData<Int> get() = roomCountLiveData
+
+    private val checkInLiveData = MutableLiveData<String>()
+    val checkInDate: LiveData<String> get() = checkInLiveData
+
+    private val checkOutLiveData = MutableLiveData<String>()
+    val checkOutDate: LiveData<String> get() = checkOutLiveData
 
     fun performValidation(city : String) : MutableLiveData<String>{
         validationMessage.value = ""
-
         if (city.isBlank()) {
             validationMessage.value = "City is missing"
         }
@@ -29,29 +39,30 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
         hotelSearchLiveData?.value = hotelSearch
     }
 
+    fun onIncreasePassengerClicked(count: Int?){
+        passengerCountLiveData.value = hotelSearchRepository.increaseAuditCount(count)!!
+    }
+
+    fun onDecreasePassengerClicked(count: Int?){
+        passengerCountLiveData.value = hotelSearchRepository.decreaseAuditCount(count)!!
+    }
+
+    fun onIncreaseRoomClicked(count: Int?){
+        roomCountLiveData.value = hotelSearchRepository.increaseRoomCount(count)!!
+    }
+
+    fun onDecreaseRoomClicked(count: Int?){
+        roomCountLiveData.value = hotelSearchRepository.decreaseRoomCount(count)!!
+    }
+
+    fun onCheckInSelected(checkIn : String, checkOut : String){
+        checkInLiveData.value = checkIn
+        checkOutLiveData.value = checkOut
+    }
+
     fun getCities() : MutableLiveData<List<City>>?{
         val iataList = hotelSearchRepository.getCities()
         cityLiveData?.postValue(iataList)
         return cityLiveData
-    }
-
-    fun increaseAuditCount(currentPassengerCount : Int?) : Int?{
-        hotelCountLiveData?.value = hotelSearchRepository.increaseAuditCount(currentPassengerCount)
-        return hotelCountLiveData?.value
-    }
-
-    fun decreaseAuditCount(currentPassengerCount : Int?): Int?{
-        hotelCountLiveData?.value = hotelSearchRepository.decreaseAuditCount(currentPassengerCount)
-        return hotelCountLiveData?.value
-    }
-
-    fun increaseRoomCount(currentPassengerCount : Int?) : Int?{
-        hotelCountLiveData?.value = hotelSearchRepository.increaseRoomCount(currentPassengerCount)
-        return hotelCountLiveData?.value
-    }
-
-    fun decreaseRoomCount(currentPassengerCount : Int?): Int?{
-        hotelCountLiveData?.value = hotelSearchRepository.decreaseRoomCount(currentPassengerCount)
-        return hotelCountLiveData?.value
     }
 }

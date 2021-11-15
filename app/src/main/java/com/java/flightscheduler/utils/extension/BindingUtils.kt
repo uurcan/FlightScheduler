@@ -1,8 +1,10 @@
 package com.java.flightscheduler.utils.extension
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -10,6 +12,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.constants.AppConstants
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
@@ -80,6 +83,7 @@ fun setVisibility(view: View, data: String?) {
 fun TextView.setDateParserText(date : String){
     val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
     val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+
     this.text = ParsingUtils.dateParser(parser, formatter, date)
 }
 

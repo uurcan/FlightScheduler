@@ -3,6 +3,8 @@ package com.java.flightscheduler.utils.extension
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
@@ -38,6 +40,34 @@ fun dismissLoadingDialog() {
 }
 
 var showingDialog: Dialog? = null
+
+fun Fragment.showListDialog(
+    variable : Array<*>,
+    textView : TextView?,
+    cancelable: Boolean = false,
+    canceledOnTouchOutside: Boolean = false
+): AlertDialog? {
+    return AlertDialog.Builder(context ?: return null).apply {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, variable)
+
+        setCancelable(cancelable)
+        setAdapter(adapter) { dialog, which ->
+            textView?.text = variable[which].toString()
+            dialog.dismiss()
+        }
+    }.create().let { dialog ->
+        dialog.setCanceledOnTouchOutside(canceledOnTouchOutside)
+        if (showingDialog?.isShowing == true) {
+            showingDialog?.dismiss()
+        }
+        lifecycle.addObserver(object : LifecycleObserver {})
+        dialog.setOnDismissListener { showingDialog = null }
+        showingDialog = dialog
+        dialog.show()
+        dialog
+    }
+}
+
 
 fun Fragment.showDialog(
     title: String? = null,

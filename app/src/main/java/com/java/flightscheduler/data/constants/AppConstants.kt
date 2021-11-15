@@ -11,6 +11,7 @@ object AppConstants {
     const val MAX_AUDIT_COUNT = 9
     const val REQUEST_CODE_CALL_PERMISSION = 101
     const val PAGER_ITEM_SIZE = 4
+    const val MAP_ZOOM_SIZE = 15F
 
     const val SEAT_MAP_AVAILABLE = "AVAILABLE"
     const val SEAT_MAP_OCCUPIED = "OCCUPIED"
