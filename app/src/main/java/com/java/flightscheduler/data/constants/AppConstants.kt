@@ -9,6 +9,8 @@ object AppConstants {
     const val MAX_ROOM_COUNT = 9
     const val MIN_AUDIT_COUNT = 1
     const val MAX_AUDIT_COUNT = 9
+    const val MIN_LEG_COUNT = 1
+    const val MAX_LEG_COUNT = 3
     const val REQUEST_CODE_CALL_PERMISSION = 101
     const val PAGER_ITEM_SIZE = 4
     const val MAP_ZOOM_SIZE = 15F
@@ -18,7 +20,7 @@ object AppConstants {
     const val SEAT_MAP_BLOCKED = "BLOCKED"
     const val SEAT_MAP_AISLE = "AISLE"
 
-    const val DECK_LARGE = 11
+    const val DECK_LARGE = 10
     const val DECK_MEDIUM = 7
     const val DECK_SMALL = 5
 

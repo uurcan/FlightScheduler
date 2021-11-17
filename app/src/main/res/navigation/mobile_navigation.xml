@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
@@ -25,6 +26,14 @@
             app:exitAnim="@anim/exit_to_left"
             app:popEnterAnim="@anim/enter_from_left"
             app:popExitAnim="@anim/exit_to_right"/>
+
+        <action
+            android:id="@+id/action_nav_home_to_nav_seat_map_search"
+            app:destination="@id/nav_seat_map_search"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
         <action
             android:id="@+id/action_nav_home_to_nav_delay_prediction"
             app:destination="@id/nav_delay_prediction" />
@@ -34,9 +43,6 @@
         <action
             android:id="@+id/action_nav_home_to_nav_flight_status"
             app:destination="@id/nav_flight_status" />
-        <action
-            android:id="@+id/action_nav_home_to_nav_seat_map"
-            app:destination="@id/nav_seat_map" />
     </fragment>
 
     <fragment
@@ -95,6 +101,20 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_seat_map_search"
+        android:name="com.java.flightscheduler.ui.seatmap.seatmapsearch.SeatMapSearchFragment"
+        android:label="@string/text_seat_map"
+        tools:layout="@layout/fragment_seat_map_search" >
+        <action
+            android:id="@+id/action_nav_seat_map_search_to_seat_map_results"
+            app:destination="@id/nav_seat_map"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_hotel_results"
         android:name="com.java.flightscheduler.ui.hotel.hotelresults.HotelResultsFragment"
         android:label="@string/text_hotel_results"
@@ -139,6 +159,10 @@
         android:name="com.java.flightscheduler.ui.seatmap.SeatMapFragment"
         android:label="@string/text_seat_map"
         tools:layout="@layout/fragment_seat_map" >
+
+        <argument
+            android:name="seatMapSearch"
+            app:argType="com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch" />
     </fragment>
 
     <fragment

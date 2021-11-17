@@ -103,6 +103,8 @@
     <string name="text_carrier">"Carrier : "</string>
     <string name="language">En</string>
     <string name="sort_options">Default</string>
+    <string name="text_flight_leg">Flight Leg</string>
+    <string name="text_display_seat_map">Display Seat Map</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

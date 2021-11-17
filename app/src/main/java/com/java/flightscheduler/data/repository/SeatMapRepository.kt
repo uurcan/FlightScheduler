@@ -1,7 +1,10 @@
 package com.java.flightscheduler.data.repository
 
 import com.java.flightscheduler.data.constants.AppConstants.FLIGHT_SEARCH_BASE_URL
+import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
+import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
 import com.java.flightscheduler.data.model.flight.FlightSearch
+import com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch
 import com.java.flightscheduler.data.remote.services.SeatMapService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.java.flightscheduler.di.dispatcher.IoDispatcher
@@ -28,16 +31,14 @@ class SeatMapRepository @Inject constructor(
         seatMapService.getSeatMapFromFlightOffer(bodyAsMap(body))
     }
 
-    fun getURLFromOffer() : String{
-        /*
+    fun getURLFromOffer(seatMapSearch : SeatMapSearch) : String{
+
         return FLIGHT_SEARCH_BASE_URL +
-                "originLocationCode=" + flightSearch.originLocationCode + "&" +
-                "destinationLocationCode=" + flightSearch.destinationLocationCode + "&" +
-                "departureDate=" + flightSearch.departureDate + "&" +
-                "returnDate=" + "${flightSearch.returnDate?:""}&" +
-                "adults=" + "${flightSearch.adults}&" +
-                "children=" + "${flightSearch.children}&" +
-                "max=" + "${1}"*/
-        return "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=IST&destinationLocationCode=LHR&departureDate=2021-11-12&adults=1&max=1"
+                "originLocationCode=" + seatMapSearch.originLocationCode + "&" +
+                "destinationLocationCode=" + seatMapSearch.destinationLocationCode + "&" +
+                "departureDate=" + seatMapSearch.flightDate + "&" +
+                "adults=" + "${MIN_ADULT_COUNT}&" +
+                "children=" + "${MIN_CHILD_COUNT}&" +
+                "max=" + "${1}"
     }
 }

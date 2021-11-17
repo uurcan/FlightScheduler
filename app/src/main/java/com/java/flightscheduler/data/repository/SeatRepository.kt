@@ -1,13 +1,15 @@
 package com.java.flightscheduler.data.repository
 
+import com.java.flightscheduler.data.constants.AppConstants
 import com.java.flightscheduler.data.constants.AppConstants.DECK_LARGE
 import com.java.flightscheduler.data.constants.AppConstants.DECK_MEDIUM
 import com.java.flightscheduler.data.constants.AppConstants.DECK_SMALL
 import com.java.flightscheduler.data.model.seatmap.base.Decks
 import com.java.flightscheduler.data.model.seatmap.deck.pricing.TravelerPricing
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
+import javax.inject.Inject
 
-class SeatRepository {
+class SeatRepository @Inject constructor(){
     private var alignedSeatList = mutableListOf<Seat>()
     private val indexList = mutableListOf<Int>()
 
@@ -55,4 +57,8 @@ class SeatRepository {
         }
         return alignedSeatList
     }
+
+    fun decreaseLegCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
+
+    fun increaseLegCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
 }

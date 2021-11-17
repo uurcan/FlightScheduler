@@ -42,7 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>(){
             R.id.nav_hotel_search,
             R.id.nav_itinerary_metrics,
             R.id.nav_flight_status,
-            R.id.nav_seat_map,
+            R.id.nav_seat_map_search,
             R.id.nav_delay_prediction),
             drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)

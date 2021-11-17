@@ -29,7 +29,7 @@
             android:icon="@drawable/flight_status_main"
             android:title="@string/text_flight_status" />
         <item
-            android:id="@+id/nav_seat_map"
+            android:id="@+id/nav_seat_map_search"
             android:icon="@drawable/seat_map_main"
             android:title="@string/text_seat_map" />
         <item

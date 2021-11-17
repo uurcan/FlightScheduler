@@ -1,9 +1,6 @@
 package com.java.flightscheduler.data.model.seatmap.base
 
 import android.os.Parcelable
-import com.java.flightscheduler.data.model.seatmap.base.AircraftCabinAmenities
-import com.java.flightscheduler.data.model.seatmap.base.*
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
 

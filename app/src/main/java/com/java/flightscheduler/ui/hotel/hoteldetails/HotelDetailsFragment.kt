@@ -53,7 +53,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
         )?.observe(viewLifecycleOwner, { coordinates ->
             val location = LatLng(coordinates.first, coordinates.second)
             map.addMarker(MarkerOptions().position(location))
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, MAP_ZOOM_SIZE))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15F))
         })
     }
 
