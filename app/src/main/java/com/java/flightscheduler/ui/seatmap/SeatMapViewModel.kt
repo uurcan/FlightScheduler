@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.seatmap.base.SeatMap
+import com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch
 import com.java.flightscheduler.data.repository.SeatMapRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,9 +28,9 @@ class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMa
         return seatMapHeader
     }
 
-    fun getSeatMap(): MutableLiveData<List<SeatMap>>?{
+    fun getSeatMapFromFlightOffer(seatMapSearch: SeatMapSearch): MutableLiveData<List<SeatMap>>?{
         viewModelScope.launch {
-            val url = seatMapRepository.getURLFromOffer()
+            val url = seatMapRepository.getURLFromOffer(seatMapSearch)
             val seatMapRequest = seatMapRepository.get(url)
             when (val seatMapResults = seatMapRepository.post(seatMapRequest)) {
                 is BaseApiResult.Success -> {

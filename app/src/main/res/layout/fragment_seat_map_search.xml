@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data
+        class="SeatMapSearchBinding">
+        <import type="com.java.flightscheduler.utils.ParsingUtils"/>
+        <variable
+            name="seatMapSearchViewModel"
+            type="com.java.flightscheduler.ui.seatmap.seatmapsearch.SeatMapSearchViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/grey_white_1000"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:context=".ui.seat_map.seat_mapSearchFragment">
+        <TextView
+            android:id="@+id/txt_seat_map_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="26sp"
+            android:textColor="@color/grey_black_1000"
+            android:layout_marginTop="@dimen/margin_xlarge"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:textStyle="normal"
+            android:text="@string/text_seat_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_flight_search_route_main"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            app:layout_constraintTop_toBottomOf="@+id/txt_seat_map_search"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/layout_flight_search_route"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/flight_search_selector_dimen">
+
+                <View
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:id="@+id/tv_flight_search_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:text="@string/text_from"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey_700"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
+
+                <AutoCompleteTextView
+                    android:gravity="top"
+                    android:textColorHint="@color/grey_black_1000"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_width="0dp"
+                    android:id="@+id/edt_flight_search_origin"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_flight_search_from"
+                    android:hint="@string/text_origin"
+                    android:textColor="@color/grey_black_1000"
+                    android:textSize="18sp"
+                    android:inputType="text"
+                    android:layout_height="0dp"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_from"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    android:id="@+id/img_flight_search_origin"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:id="@+id/layout_flight_search_route_destination"
+                app:layout_constraintTop_toBottomOf="@+id/layout_flight_search_route"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/flight_search_selector_dimen">
+
+                <View
+                    android:background="@drawable/button_unselected_state_holder"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:id="@+id/tv_flight_search_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:text="@string/text_to"
+                    android:textSize="14sp"
+                    android:textColor="@color/grey_700"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"/>
+
+                <AutoCompleteTextView
+                    android:gravity="top"
+                    android:background="@android:color/transparent"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"
+                    android:layout_width="0dp"
+                    android:textColorHint="@color/grey_black_1000"
+                    android:id="@+id/edt_flight_search_destination"
+                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_flight_search_to"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:hint="@string/text_destination"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@color/grey_black_1000"
+                    android:textSize="18sp"
+                    android:inputType="text"
+                    android:layout_height="0dp"/>
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:src="@drawable/icon_flight_to"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="@dimen/margin_small"
+                    android:layout_width="@dimen/flight_search_small_icon_dimen"
+                    android:layout_height="@dimen/flight_search_small_icon_dimen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:id="@+id/img_flight_search_destination"
+                    android:layout_marginStart="@dimen/activity_horizontal_margin"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_flight_search_route_swap"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="@dimen/flight_search_toggle_dimen"
+                android:layout_marginEnd="@dimen/margin_xlarge"
+                android:layout_height="@dimen/flight_search_toggle_dimen">
+                <ImageView
+                    android:contentDescription="@null"
+                    android:padding="10dp"
+                    android:background="@drawable/round_button"
+                    android:src="@drawable/icon_flight_change"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_weight="1"
+            android:id="@+id/layout_seat_map_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_search_selector_dimen"
+            app:layout_constraintTop_toBottomOf="@+id/layout_flight_search_route_main"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_unselected_state_holder"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                app:setDateParserText="@{ParsingUtils.getCurrentDate(seatMapSearchViewModel.flightDate).toString()}"
+                app:layout_constraintRight_toLeftOf="@+id/img_seat_map_search_check_out_more"
+                android:id="@+id/txt_seat_map_search_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_small"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@android:color/transparent"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/grey_black_1000"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toRightOf="@+id/img_seat_map_search_check_out_date" />
+
+            <ImageView
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                android:layout_height="@dimen/flight_search_smaller_icon_dimen"
+                android:id="@+id/img_seat_map_search_check_out_date"
+                android:layout_marginStart="@dimen/activity_vertical_margin"/>
+
+            <ImageView
+                android:contentDescription="@null"
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:id="@+id/img_seat_map_search_check_out_more"
+                android:src="@drawable/icon_flight_arrow"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                android:layout_height="@dimen/flight_search_smaller_icon_dimen"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_weight="1"
+            android:id="@+id/layout_flight_adult_info"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_search_selector_dimen"
+            app:layout_constraintTop_toBottomOf="@+id/layout_seat_map_date_picker"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_unselected_state_holder"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:text="@{Integer.toString(seatMapSearchViewModel.legCount)}"
+                android:layout_marginTop="@dimen/margin_small"
+                android:id="@+id/txt_flight_leg_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:textSize="20sp"
+                android:textColor="@color/grey_black_1000"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/txt_flight_adult_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@android:color/transparent"
+                android:text="@string/text_flight_leg"
+                android:textColor="@color/grey_700"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_flight_leg_count"
+                android:layout_marginStart="@dimen/margin_small" />
+
+            <ImageView
+                android:onClick="@{() -> seatMapSearchViewModel.onIncreaseLegSelected(seatMapSearchViewModel.legCount)}"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_plus"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_small_icon_dimen"
+                android:layout_height="@dimen/flight_search_small_icon_dimen"
+                android:id="@+id/img_flight_adult_increase"
+                android:layout_marginEnd="@dimen/activity_vertical_margin"/>
+
+            <ImageView
+                android:onClick="@{() -> seatMapSearchViewModel.onDecreaseLegSelected(seatMapSearchViewModel.legCount)}"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_minus"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_small_icon_dimen"
+                android:layout_height="@dimen/flight_search_small_icon_dimen"
+                android:id="@+id/img_flight_adult_decrease"
+                android:layout_marginStart="@dimen/activity_vertical_margin"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_flight_search_seat_map"
+            android:background="@color/red_google"
+            android:textColor="@color/grey_white_1000"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:text="@string/text_display_seat_map"
+            android:layout_marginTop="@dimen/flight_search_small_icon_dimen"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            app:layout_constraintTop_toBottomOf="@+id/layout_flight_adult_info"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/flight_search_editor_dimen"/>
+
+        <TextView
+            app:layout_constraintTop_toBottomOf="@+id/btn_flight_search_seat_map"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:text="@string/text_disclaimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
