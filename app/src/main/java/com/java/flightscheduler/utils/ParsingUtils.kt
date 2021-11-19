@@ -27,30 +27,11 @@ object ParsingUtils {
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun dateParser(parser : SimpleDateFormat,formatter : SimpleDateFormat ,date : String?) : String? {
-        return if (date != null) {
-            formatter.format(
-                parser.parse(
-                    date
-                )
+        return formatter.format(
+            parser.parse(
+                date
             )
-        } else {
-            "No date found."
-        }
-    }
-
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-    fun datePickerParser(context : Context?, date: String?) : String? {
-        val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
-        val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
-        return if (date != null) {
-            formatter.format(
-                parser.parse(
-                    date
-                )
-            )
-        } else {
-            "No date found."
-        }
+        )
     }
 
     @JvmStatic

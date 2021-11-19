@@ -1,14 +1,18 @@
 package com.java.flightscheduler.utils.extension
 
 import android.app.Dialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import com.java.flightscheduler.R
+import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 
 
 var loadingDialog: Dialog? = null
@@ -100,4 +104,18 @@ fun Fragment.showDialog(
         dialog.show()
         dialog
     }
+}
+
+fun Fragment.displayTimePicker(
+    context: Context? = null,
+    startForResult: ActivityResultLauncher<Intent>,
+    isSingleSelect: Boolean = false) {
+
+    val intent = AirCalendarIntent(context)
+    intent.setSelectButtonText(getString(R.string.text_select))
+    intent.setResetBtnText(getString(R.string.text_reset))
+    intent.isSingleSelect(isSingleSelect)
+    intent.isMonthLabels(false)
+    intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
+    startForResult.launch(intent)
 }

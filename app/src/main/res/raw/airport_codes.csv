@@ -400,9 +400,6 @@ Alderney Airport,Alderney,Guernsey,ACI,EGJA,49.706104,-2.21472,0
 Guernsey Airport,Guernsey,Guernsey,GCI,EGJB,49.435001373291016,-2.6019699573516846,0
 Jersey Airport,Jersey,Jersey,JER,EGJJ,49.20790100097656,-2.195509910583496,0
 Shoreham Airport,Shoreham By Sea,United Kingdom,ESH,EGKA,50.835602,-0.297222,0
-London Biggin Hill Airport,Biggin Hill,United Kingdom,BQH,EGKB,51.33079910279999,0.0324999988079,0
-London Gatwick Airport,London,United Kingdom,LGW,EGKK,51.148102,-0.190278,0
-London City Airport,London,United Kingdom,LCY,EGLC,51.505299,0.055278,0
 Farnborough Airport,Farnborough,United Kingdom,FAB,EGLF,51.2757987976,-0.776332974434,0
 Blackbushe Airport,Blackbushe,United Kingdom,BBS,EGLK,51.32389831542969,-0.8475000262260437,0
 London Heathrow Airport,London,United Kingdom,LHR,EGLL,51.4706,-0.461941,0
@@ -438,7 +435,6 @@ RAF Leuchars,Leuchars,United Kingdom,ADX,EGQL,56.37289810180664,-2.8684399127960
 RAF Lossiemouth,Lossiemouth,United Kingdom,LMO,EGQS,57.7052001953125,-3.339169979095459,0
 Cambridge Airport,Cambridge,United Kingdom,CBG,EGSC,52.205002,0.175,0
 Norwich International Airport,Norwich,United Kingdom,NWI,EGSH,52.6758003235,1.28278005123,0
-London Stansted Airport,London,United Kingdom,STN,EGSS,51.8849983215,0.234999999404,0
 Exeter International Airport,Exeter,United Kingdom,EXT,EGTE,50.73440170288086,-3.4138898849487305,0
 Bristol Filton Airport,Bristol,United Kingdom,FZO,EGTG,51.5194015503,-2.59083008766,0
 Oxford (Kidlington) Airport,Oxford,United Kingdom,OXF,EGTK,51.8368988037,-1.32000005245,0
@@ -580,7 +576,6 @@ Bisho Airport,Bisho,South Africa,BIY,FABE,-32.8970985413,27.279100418099997,2
 Bram Fischer International Airport,Bloemfontein,South Africa,BFN,FABL,-29.092699050900002,26.302400589,2
 Cape Town International Airport,Cape Town,South Africa,CPT,FACT,-33.9648017883,18.6016998291,2
 King Shaka International Airport,Durban,South Africa,DUR,FALE,-29.6144444444,31.1197222222,2
-Ben Schoeman Airport,East London,South Africa,ELS,FAEL,-33.0355987549,27.825899124099998,2
 Ficksburg Sentraoes Airport,Ficksburg,South Africa,FCB,FAFB,-28.82309913635254,27.908899307250977,2
 Grand Central Airport,Johannesburg,South Africa,GCJ,FAGC,-25.986299514799995,28.1401004791,2
 George Airport,George,South Africa,GRJ,FAGG,-34.0056,22.378902,2
@@ -3263,7 +3258,6 @@ Lake Tahoe Airport,South Lake Tahoe,United States,TVL,KTVL,38.89390182495117,-11
 Joslin Field Magic Valley Regional Airport,Twin Falls,United States,TWF,KTWF,42.4818,-114.487999,-7
 Martha’s Vineyard Airport,Vineyard Haven MA,United States,MVY,KMVY,41.3931007385,-70.6143035889,-5
 Concord Municipal Airport,Concord NH,United States,CON,KCON,43.20270157,-71.50229645,-5
-Groton New London Airport,Groton CT,United States,GON,KGON,41.330101013183594,-72.04509735107422,-5
 St Cloud Regional Airport,Saint Cloud,United States,STC,KSTC,45.546600341796875,-94.05989837646484,-6
 Qinhuangdao Beidaihe Airport,Bagan,Burma,BPE,ZBDH,39.666389,119.058889,8
 Golden Triangle Regional Airport,Columbus Mississippi,United States,GTR,KGTR,33.450298309299995,-88.5914001465,-6

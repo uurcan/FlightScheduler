@@ -2,8 +2,8 @@
 <layout>
     <data class="FragmentSeatMapBinding">
         <variable
-            name="seatMapHeader"
-            type="com.java.flightscheduler.data.model.seatmap.base.SeatMap" />
+            name="seatMapViewModel"
+            type="com.java.flightscheduler.ui.seatmap.seatmapresults.SeatMapViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,7 +51,7 @@
                     android:id="@+id/txt_flight_detail_origin_iata"
                     android:textSize="30sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{seatMapHeader.departure.iataCode}"
+                    android:text="@{seatMapViewModel.mapHeader.departure.iataCode}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -73,7 +73,7 @@
                     android:id="@+id/txt_flight_detail_destination_iata"
                     android:textSize="30sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{seatMapHeader.arrival.iataCode}"
+                    android:text="@{seatMapViewModel.mapHeader.arrival.iataCode}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     tools:text = "TK-1234"
-                    android:text="@{seatMapHeader.carrierCode +  `-` + seatMapHeader.number}"
+                    android:text="@{seatMapViewModel.mapHeader.carrierCode +  `-` + seatMapViewModel.mapHeader.number}"
                     android:id="@+id/txt_flight_detail_one_way"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginStart="@dimen/activity_horizontal_margin_extended"
@@ -104,7 +104,7 @@
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{seatMapHeader.aircraft.code}"
+                    android:text="@{seatMapViewModel.mapHeader.aircraft.code}"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -114,7 +114,7 @@
 
                 <TextView
                     tools:text="23 May 2021 19:00"
-                    app:setTimeStampParser="@{seatMapHeader.departure.at}"
+                    app:setTimeStampParser="@{seatMapViewModel.mapHeader.departure.at}"
                     android:id="@+id/txt_flight_detail_departure_date"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:textColor="@color/grey_white_1000"

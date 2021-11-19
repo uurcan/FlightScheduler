@@ -3,6 +3,7 @@ package com.java.flightscheduler.data.repository
 import com.java.flightscheduler.data.constants.AppConstants.FLIGHT_SEARCH_BASE_URL
 import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
+import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch
 import com.java.flightscheduler.data.remote.services.SeatMapService
@@ -32,7 +33,6 @@ class SeatMapRepository @Inject constructor(
     }
 
     fun getURLFromOffer(seatMapSearch : SeatMapSearch) : String{
-
         return FLIGHT_SEARCH_BASE_URL +
                 "originLocationCode=" + seatMapSearch.originLocationCode + "&" +
                 "destinationLocationCode=" + seatMapSearch.destinationLocationCode + "&" +
@@ -40,5 +40,15 @@ class SeatMapRepository @Inject constructor(
                 "adults=" + "${MIN_ADULT_COUNT}&" +
                 "children=" + "${MIN_CHILD_COUNT}&" +
                 "max=" + "${1}"
+    }
+
+    fun getQueryErrors(errorResults : List<BaseApiResult.Error.Issue>) : String? {
+        var errorMessages = ""
+        errorResults.forEach {
+                error ->
+            errorMessages += "${error.code} - ${error.detail} \n"
+        }
+        return if (errorResults.isEmpty()) "Please check your internet connection."
+        else errorMessages
     }
 }
