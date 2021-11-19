@@ -1,10 +1,11 @@
-package com.java.flightscheduler.ui.seatmap
+package com.java.flightscheduler.ui.seatmap.seatmapresults
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.DECK_SMALL
+import com.java.flightscheduler.data.model.seatmap.base.SeatMap
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import com.java.flightscheduler.databinding.FragmentSeatMapBinding
 import com.java.flightscheduler.ui.base.BaseFragment
@@ -19,15 +20,30 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
     private var seatMapAdapter: SeatMapAdapter? = null
 
     override fun onBind() {
+        initSeatMapContent()
+    }
+
+    private fun initSeatMapContent() {
+        val seatMapIndex = args.seatMapSearch.legs
+
         viewModel?.getSeatMapFromFlightOffer(args.seatMapSearch)?.observeOnce { seatMap ->
-            val layoutManager = GridLayoutManager(context, seatMap[args.seatMapSearch.legs-1].decks?.get(0)?.deckConfiguration?.width ?: DECK_SMALL)
-            binding?.rvSeatMap?.layoutManager = layoutManager
-            seatMapAdapter = seatMap[args.seatMapSearch.legs-1].decks?.get(0)?.let { SeatMapAdapter(it) { seat -> showDetails(seat) } }
+            setLayoutManager(seatMap[seatMapIndex])
+            seatMapAdapter = seatMap[seatMapIndex].decks?.get(0)?.let {
+                SeatMapAdapter(it) { seat ->
+                    showDetails(seat)
+                }
+            }
             binding?.rvSeatMap?.adapter = seatMapAdapter
-            binding?.seatMapHeader = seatMap[args.seatMapSearch.legs-1]
+            viewModel?.seatMapHeader(seatMap[seatMapIndex])
         }
     }
+
     private fun showDetails(it: Seat) {
         MessageHelper.displayInfoMessage(view,it.number + " " + it.travelerPricing?.get(0)?.price?.totalPrice)
+    }
+
+    private fun setLayoutManager(seatMap : SeatMap) {
+        val layoutManager = GridLayoutManager(context, seatMap.decks?.get(0)?.deckConfiguration?.width ?: DECK_SMALL)
+        binding?.rvSeatMap?.layoutManager = layoutManager
     }
 }

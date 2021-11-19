@@ -79,7 +79,12 @@ abstract class BaseFragment<VM: BaseViewModel?,
         dismissLoadingDialog()
         showDialog(
             message = message,
-            textPositive = getString(R.string.ok)
+            textPositive = getString(R.string.ok),
+            positiveListener = { previousFragment() }
         )
+    }
+
+    fun previousFragment () {
+
     }
 }

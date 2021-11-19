@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.seatmap
+package com.java.flightscheduler.ui.seatmap.seatmapresults
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -15,17 +15,17 @@ import javax.inject.Inject
 class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMapRepository)
     : BaseViewModel() {
     private var seatMapLiveData : MutableLiveData<List<SeatMap>>? = MutableLiveData()
-    private var seatMapHeader : MutableLiveData<SeatMap>? = MutableLiveData()
+    var mapHeader : MutableLiveData<SeatMap>? = MutableLiveData()
 
     init {
         showLoading()
     }
 
-    fun getSeatMapHeader(seatMap: SeatMap) : MutableLiveData<SeatMap>? {
-        seatMapHeader.apply {
-            seatMapHeader?.value = seatMap
+    fun seatMapHeader(seatMap: SeatMap) : MutableLiveData<SeatMap>? {
+        mapHeader.apply {
+            mapHeader?.value = seatMap
         }
-        return seatMapHeader
+        return mapHeader
     }
 
     fun getSeatMapFromFlightOffer(seatMapSearch: SeatMapSearch): MutableLiveData<List<SeatMap>>?{
@@ -40,7 +40,7 @@ class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMa
                     hideLoading()
                 }
                 is BaseApiResult.Error -> {
-                    errorMessage.value = seatMapResults.errors.toString()
+                    errorMessage.value = seatMapRepository.getQueryErrors(seatMapResults.errors)
                     hideLoading()
                 }
             }
