@@ -1,13 +1,19 @@
 package com.java.flightscheduler.ui.base
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.utils.extension.dismissLoadingDialog
 import com.java.flightscheduler.utils.extension.showDialog
@@ -32,6 +38,7 @@ abstract class BaseFragment<VM: BaseViewModel?,
      */
     private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
         binding = DataBindingUtil.inflate<DB>(inflater, layoutId, container, false)
+        binding?.lifecycleOwner = viewLifecycleOwner
         onBind()
     }
 
@@ -77,14 +84,28 @@ abstract class BaseFragment<VM: BaseViewModel?,
     protected open fun handleErrorMessage(message: String?) {
         if (message.isNullOrBlank()) return
         dismissLoadingDialog()
+        displayErrorMessage(message)
+    }
+
+    protected fun displayErrorMessage(message : String?) {
         showDialog(
             message = message,
             textPositive = getString(R.string.ok),
             positiveListener = { previousFragment() }
         )
     }
-
-    fun previousFragment () {
-
+    private fun previousFragment () {
+        findNavController().popBackStack()
     }
+
+    protected open val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                result.data?.let {
+                    initializeDateParser(it)
+                }
+            }
+        }
+
+    protected open fun initializeDateParser(it: Intent) {}
 }

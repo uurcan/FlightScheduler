@@ -27,11 +27,15 @@ object ParsingUtils {
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun dateParser(parser : SimpleDateFormat,formatter : SimpleDateFormat ,date : String?) : String? {
-        return formatter.format(
-            parser.parse(
-                date
+        return if (date != null) {
+            formatter.format(
+                parser.parse(
+                    date
+                )
             )
-        )
+        } else {
+            ""
+        }
     }
 
     @JvmStatic

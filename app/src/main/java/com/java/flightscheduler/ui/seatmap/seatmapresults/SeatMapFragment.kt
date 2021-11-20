@@ -20,21 +20,17 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
     private var seatMapAdapter: SeatMapAdapter? = null
 
     override fun onBind() {
-        initSeatMapContent()
-    }
-
-    private fun initSeatMapContent() {
-        val seatMapIndex = args.seatMapSearch.legs
-
+        val seatMapIndex = args.seatMapSearch.legs - 1
         viewModel?.getSeatMapFromFlightOffer(args.seatMapSearch)?.observeOnce { seatMap ->
             setLayoutManager(seatMap[seatMapIndex])
+            viewModel?.seatMapHeader(seatMap[seatMapIndex])
             seatMapAdapter = seatMap[seatMapIndex].decks?.get(0)?.let {
                 SeatMapAdapter(it) { seat ->
                     showDetails(seat)
                 }
             }
             binding?.rvSeatMap?.adapter = seatMapAdapter
-            viewModel?.seatMapHeader(seatMap[seatMapIndex])
+            binding?.seatMapViewModel = viewModel
         }
     }
 
