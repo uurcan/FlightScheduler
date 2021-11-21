@@ -1,9 +1,6 @@
 package com.java.flightscheduler.ui.seatmap.seatmapsearch
 
-import android.app.Activity
 import android.content.Intent
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
@@ -30,27 +27,17 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchB
     }
 
     private fun initializeViews() {
-        binding?.lifecycleOwner = viewLifecycleOwner
         binding?.seatMapSearchViewModel = viewModel
-
         binding?.layoutSeatMapDatePicker?.setOnClickListener {
-            displayTimePicker(context = context, isSingleSelect = true, startForResult = startForResult)
+            displayTimePicker(context, startForResult, true)
         }
         binding?.btnFlightSearchSeatMap?.setOnClickListener {
             saveSeatMapResults()
         }
     }
 
-    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.let {
-                    initializeDateParser(it)
-                }
-            }
-        }
-
-    private fun initializeDateParser(intent: Intent) {
-        val flightDate : String = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
+    override fun initializeDateParser(it: Intent) {
+        val flightDate : String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
 
         seatMapSearch.flightDate = flightDate
         viewModel?.apply {
@@ -62,14 +49,13 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchB
         seatMapSearch.formattedFlightDate = binding?.txtSeatMapSearchDate?.text.toString()
         seatMapSearch.legs = binding?.txtFlightLegCount?.text.toString().toInt()
 
-        if (areParamsValid(origin = seatMapSearch.originLocationCode,
-                destination = seatMapSearch.destinationLocationCode)){
+        if (areParamsValid(origin = seatMapSearch.originLocationCode, destination = seatMapSearch.destinationLocationCode)){
             beginTransaction(seatMapSearch)
         }
     }
 
     private fun beginTransaction(seatMapSearch: SeatMapSearch) {
-        val action = SeatMapSearchFragmentDirections.actionNavSeatMapSearchToSeatMapResults(seatMapSearch)
+        val action = SeatMapSearchFragmentDirections.actionNavSeatMapSearchToSeatMapResults(seatMapSearch = seatMapSearch,seatMapRequest = null)
         findNavController().navigate(action)
     }
 
@@ -90,7 +76,15 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchB
             binding?.edtFlightSearchOrigin?.setAdapter(adapter)
             binding?.edtFlightSearchDestination?.setAdapter(adapter)}
         )
-        airportDropdownEvent(autoCompleteTextView = binding?.edtFlightSearchOrigin ,false)
-        airportDropdownEvent(autoCompleteTextView = binding?.edtFlightSearchDestination,true)
+        binding?.edtFlightSearchOrigin.let {
+            it?.setOnItemClickListener { adapterView, _, position, _ ->
+                seatMapSearch.originLocationCode = airportDropdownEvent(it,adapterView,position,false)
+            }
+        }
+        binding?.edtFlightSearchDestination.let {
+            it?.setOnItemClickListener { adapterView, _, position, _ ->
+                seatMapSearch.destinationLocationCode = airportDropdownEvent(it,adapterView,position,true)
+            }
+        }
     }
 }

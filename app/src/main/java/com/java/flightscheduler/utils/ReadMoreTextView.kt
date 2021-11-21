@@ -20,7 +20,6 @@ class ReadMoreTextView @JvmOverloads constructor(
     private var readMoreMaxLine = DEFAULT_MAX_LINE
     private var readMoreText = context.getString(R.string.read_more)
     private var readMoreColor = ContextCompat.getColor(context, android.R.color.holo_blue_bright)
-    private var readLessText = "Less"
 
     var state: State = State.COLLAPSED
         private set(value) {
@@ -38,7 +37,7 @@ class ReadMoreTextView @JvmOverloads constructor(
     private val isCollapsed
         get() = state == State.COLLAPSED
 
-    var changeListener: ChangeListener? = null
+    private var changeListener: ChangeListener? = null
 
     private var originalText: CharSequence = ""
     private var collapseText: CharSequence = ""
@@ -65,21 +64,21 @@ class ReadMoreTextView @JvmOverloads constructor(
         super.setOnClickListener { toggle() }
     }
 
-    fun toggle() {
+    private fun toggle() {
         when (state) {
             State.EXPANDED -> collapse()
             State.COLLAPSED -> expand()
         }
     }
 
-    fun collapse() {
+    private fun collapse() {
         if (isCollapsed || collapseText.isEmpty()) {
             return
         }
         state = State.COLLAPSED
     }
 
-    fun expand() {
+    private fun expand() {
         if (isExpanded || originalText.isEmpty()) {
             return
         }

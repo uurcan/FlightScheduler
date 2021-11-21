@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <item android:id="@+id/action_seat_map"
+        android:icon="@drawable/icon_seat_map"
+        app:showAsAction="always"
+        android:title="@string/text_display_Seat_map" />
+    <item android:id="@+id/action_save_offer"
+        android:icon="@drawable/icon_flight_plane_white"
+        app:showAsAction="ifRoom"
+        android:title="@string/text_display_Seat_map" />
 </menu>

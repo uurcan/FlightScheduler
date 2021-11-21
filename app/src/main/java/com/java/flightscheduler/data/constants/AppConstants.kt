@@ -20,7 +20,7 @@ object AppConstants {
     const val SEAT_MAP_BLOCKED = "BLOCKED"
     const val SEAT_MAP_AISLE = "AISLE"
 
-    const val DECK_LARGE = 10
+    const val DECK_LARGE = 11
     const val DECK_MEDIUM = 7
     const val DECK_SMALL = 5
 

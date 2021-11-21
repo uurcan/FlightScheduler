@@ -1,9 +1,6 @@
 package com.java.flightscheduler.ui.hotel.hotelsearch
 
-import android.app.Activity
 import android.content.Intent
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
@@ -14,10 +11,10 @@ import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.databinding.FragmentHotelSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.extension.displayTimePicker
 import com.java.flightscheduler.utils.extension.hideKeyboard
 import com.java.flightscheduler.utils.extension.showListDialog
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
-import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -32,10 +29,11 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
     }
 
     private fun initializeViews() {
-        binding?.lifecycleOwner = viewLifecycleOwner
         binding?.hotelSearchViewModel = viewModel
 
-        binding?.layoutHotelCheckInPicker?.setOnClickListener { initializeDatePicker() }
+        binding?.layoutHotelCheckInPicker?.setOnClickListener {
+            displayTimePicker(context, startForResult, true)
+        }
         binding?.btnFlightSearchHotels?.setOnClickListener { saveHotelResults() }
         binding?.layoutHotelLanguage?.setOnClickListener { languageDialog() }
         binding?.layoutHotelSort?.setOnClickListener{ sortDialog() }
@@ -79,8 +77,7 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
 
     private fun paramValidation(city : String): Boolean {
         var isValid = true
-        viewModel.performValidation(city).observe(viewLifecycleOwner)
-        { errorMessage ->
+        viewModel.performValidation(city).observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage.isNotBlank()) {
                 MessageHelper.displayErrorMessage(view,errorMessage)
                 isValid = false
@@ -89,28 +86,9 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
         return isValid
     }
 
-    private fun initializeDatePicker() {
-        val intent = AirCalendarIntent(context)
-        intent.setSelectButtonText(getString(R.string.text_select))
-        intent.setResetBtnText(getString(R.string.text_reset))
-        intent.isSingleSelect(false)
-        intent.isMonthLabels(false)
-        intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
-        startForResult.launch(intent)
-    }
-
-    private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                result.data?.let {
-                    initializeDateParser(it)
-                }
-            }
-        }
-
-    private fun initializeDateParser(intent: Intent) {
-        val startDate : String = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
-        val endDate : String = intent.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+    override fun initializeDateParser(it: Intent) {
+        val startDate : String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
+        val endDate : String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
 
         hotelSearch.checkInDate = startDate
         hotelSearch.checkOutDate = endDate

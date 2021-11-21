@@ -36,7 +36,7 @@ class FlightResultsFragment : BaseFragment<FlightResultsViewModel,FragmentFlight
 
         arguments.flightSearch.let { it ->
             viewModel.getFlightData(it)?.observeOnce { flightData ->
-                if (flightData.isEmpty()) showDialog(message = getString(R.string.text_no_flight_found))
+                if (flightData.isEmpty()) displayErrorMessage(getString(R.string.text_no_flight_found))
 
                 flightSearchAdapter = FlightResultsAdapter ({ switchToDetails(it) }, requireContext())
                 flightSearchAdapter.submitList(flightData)

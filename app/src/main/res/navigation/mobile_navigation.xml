@@ -81,6 +81,13 @@
         android:id="@+id/nav_flight_details"
         android:name="com.java.flightscheduler.ui.flight.flightdetail.FlightDetailsFragment"
         android:label="@string/text_flight_details" >
+        <action
+            android:id="@+id/action_nav_flight_results_to_seatMapFragment"
+            app:destination="@id/nav_seat_map"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
         <argument
             android:name="offer"
             app:argType="com.java.flightscheduler.data.model.flight.FlightOffer" />
@@ -159,10 +166,18 @@
         android:name="com.java.flightscheduler.ui.seatmap.seatmapresults.SeatMapFragment"
         android:label="@string/text_seat_map"
         tools:layout="@layout/fragment_seat_map" >
-
         <argument
             android:name="seatMapSearch"
+            app:nullable="true"
             app:argType="com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch" />
+        <argument
+            android:name="seatMapRequest"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="seatSegmentNumber"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
     <fragment
