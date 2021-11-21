@@ -47,4 +47,22 @@ class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMa
         }
         return seatMapLiveData
     }
+
+    fun getSeatMapFromJson(seatMapRequest: String): MutableLiveData<List<SeatMap>>?{
+        viewModelScope.launch {
+            when (val seatMapResults = seatMapRepository.post(seatMapRequest)) {
+                is BaseApiResult.Success -> {
+                    seatMapLiveData.apply {
+                        seatMapLiveData?.postValue(seatMapResults.data)
+                    }
+                    hideLoading()
+                }
+                is BaseApiResult.Error -> {
+                    errorMessage.value = seatMapRepository.getQueryErrors(seatMapResults.errors)
+                    hideLoading()
+                }
+            }
+        }
+        return seatMapLiveData
+    }
 }

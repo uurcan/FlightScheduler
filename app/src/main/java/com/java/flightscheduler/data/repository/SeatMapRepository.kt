@@ -48,7 +48,7 @@ class SeatMapRepository @Inject constructor(
                 error ->
             errorMessages += "${error.code} - ${error.detail} \n"
         }
-        return if (errorResults.isEmpty()) "Please check your internet connection."
+        return if (errorResults.isEmpty()) "No Seat Map available for this flight."
         else errorMessages
     }
 }

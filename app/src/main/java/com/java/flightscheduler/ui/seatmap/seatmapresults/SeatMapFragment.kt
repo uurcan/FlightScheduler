@@ -18,20 +18,34 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
     override val viewModel: SeatMapViewModel? by viewModels()
     private val args by navArgs<SeatMapFragmentArgs>()
     private var seatMapAdapter: SeatMapAdapter? = null
+    private val isComingFromSearchOffer : Boolean by lazy {
+        args.seatMapSearch != null
+    }
 
     override fun onBind() {
-        val seatMapIndex = args.seatMapSearch.legs - 1
-        viewModel?.getSeatMapFromFlightOffer(args.seatMapSearch)?.observeOnce { seatMap ->
-            setLayoutManager(seatMap[seatMapIndex])
-            viewModel?.seatMapHeader(seatMap[seatMapIndex])
-            seatMapAdapter = seatMap[seatMapIndex].decks?.get(0)?.let {
-                SeatMapAdapter(it) { seat ->
-                    showDetails(seat)
-                }
+        if (isComingFromSearchOffer) {
+            viewModel?.getSeatMapFromFlightOffer(args.seatMapSearch!!)?.observeOnce { seatMap ->
+                val seatMapIndex : Int = args.seatMapSearch?.legs?.minus(1) ?: 0
+                setViewForSeatMap(seatMap,seatMapIndex)
             }
-            binding?.rvSeatMap?.adapter = seatMapAdapter
-            binding?.seatMapViewModel = viewModel
+        } else {
+            viewModel?.getSeatMapFromJson(args.seatMapRequest!!)?.observeOnce { seatMap ->
+                val seatMapIndex = args.seatSegmentNumber
+                setViewForSeatMap(seatMap,seatMapIndex)
+            }
         }
+    }
+
+    private fun setViewForSeatMap(seatMap: List<SeatMap>,position : Int) {
+        setLayoutManager(seatMap[position])
+        viewModel?.seatMapHeader(seatMap[position])
+        seatMapAdapter = seatMap[position].decks?.get(0)?.let {
+            SeatMapAdapter(it) { seat ->
+                showDetails(seat)
+            }
+        }
+        binding?.rvSeatMap?.adapter = seatMapAdapter
+        binding?.seatMapViewModel = viewModel
     }
 
     private fun showDetails(it: Seat) {

@@ -55,7 +55,7 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchB
     }
 
     private fun beginTransaction(seatMapSearch: SeatMapSearch) {
-        val action = SeatMapSearchFragmentDirections.actionNavSeatMapSearchToSeatMapResults(seatMapSearch)
+        val action = SeatMapSearchFragmentDirections.actionNavSeatMapSearchToSeatMapResults(seatMapSearch = seatMapSearch,seatMapRequest = null)
         findNavController().navigate(action)
     }
 

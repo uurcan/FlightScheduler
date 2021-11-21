@@ -11,6 +11,7 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import com.java.flightscheduler.data.repository.AirlineRepository
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
 import com.java.flightscheduler.data.repository.FlightRoutesRepository
@@ -18,7 +19,7 @@ import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Context)
+class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Context,private val onClick: (Int) -> Unit)
     : BaseAdapter<Itinerary, ItemFlightDetailBinding>(R.layout.item_flight_detail){
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
@@ -46,7 +47,9 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
         binding?.repository = flightDetailsRepository
         binding?.setVariable(BR.flightDetailSegment, segments?.get(position))
         binding?.executePendingBindings()
-
+        binding?.root?.setOnClickListener {
+            onClick(position)
+        }
         bindCustomized(position)
     }
 
