@@ -27,10 +27,10 @@ class HotelSearchAdapter(private val ctx: Context, private val cities: Array<Cit
         return view
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults) {
-                @Suppress("UNCHECKED_CAST")
                 filteredCities = filterResults.values as List<City>
                 notifyDataSetChanged()
             }
@@ -42,9 +42,9 @@ class HotelSearchAdapter(private val ctx: Context, private val cities: Array<Cit
                     cities.asList()
                 else
                     cities.filter {
-                        it.name.toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.country.toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.code.toLowerCase(Locale.ENGLISH).contains(queryString)
+                        it.name?.toLowerCase(Locale.ENGLISH)?.contains(queryString) == true ||
+                                it.country?.toLowerCase(Locale.ENGLISH)?.contains(queryString) == true ||
+                                it.code?.toLowerCase(Locale.ENGLISH)?.contains(queryString) == true
                     }
                 return filterResults
             }

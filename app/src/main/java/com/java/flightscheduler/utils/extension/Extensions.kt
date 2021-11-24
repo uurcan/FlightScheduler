@@ -36,22 +36,21 @@ fun <T> LiveData<T>.observeOnce(observer: Observer<T>) {
 fun Fragment.airportDropdownEvent(autoCompleteTextView : AutoCompleteTextView,
                                    adapterView : AdapterView<*>,
                                    position : Int,
-                                   keyboardHideAfter : Boolean) : String {
-    var iata = ""
-    when (val iataCode = adapterView.getItemAtPosition(position)) {
-        is Airport -> {
-            val code = "${iataCode.CITY} (${iataCode.IATA})"
-            autoCompleteTextView.setText(code)
-            iata = iataCode.IATA.toString()
-        }
-        is City -> {
-            autoCompleteTextView.setText(iataCode.name)
-            iata = iataCode.name
-        }
-    }
-
+                                   keyboardHideAfter : Boolean) : Any {
     if (keyboardHideAfter)
         activity?.hideKeyboard()
 
-    return iata
+    when (val data = adapterView.getItemAtPosition(position)) {
+        is Airport -> {
+            val code = "${data.CITY} (${data.IATA})"
+            autoCompleteTextView.setText(code)
+            return data
+        }
+        is City -> {
+            autoCompleteTextView.setText(data.name)
+            return data
+        }
+    }
+
+    return Any()
 }

@@ -27,10 +27,10 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
     private val checkOutLiveData = MutableLiveData<String>()
     val checkOutDate: LiveData<String> get() = checkOutLiveData
 
-    fun performValidation(city : String) : MutableLiveData<String>{
+    fun performValidation(city : String?) : MutableLiveData<String>{
         validationMessage.value = ""
-        if (city.isBlank()) {
-            validationMessage.value = "City is missing"
+        if (city.isNullOrBlank()) {
+            validationMessage.value = "City cannot be blank"
         }
         return validationMessage
     }

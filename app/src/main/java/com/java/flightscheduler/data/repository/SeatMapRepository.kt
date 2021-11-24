@@ -4,7 +4,6 @@ import com.java.flightscheduler.data.constants.AppConstants.FLIGHT_SEARCH_BASE_U
 import com.java.flightscheduler.data.constants.AppConstants.MIN_ADULT_COUNT
 import com.java.flightscheduler.data.constants.AppConstants.MIN_CHILD_COUNT
 import com.java.flightscheduler.data.model.base.BaseApiResult
-import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch
 import com.java.flightscheduler.data.remote.services.SeatMapService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
@@ -34,8 +33,8 @@ class SeatMapRepository @Inject constructor(
 
     fun getURLFromOffer(seatMapSearch : SeatMapSearch) : String{
         return FLIGHT_SEARCH_BASE_URL +
-                "originLocationCode=" + seatMapSearch.originLocationCode + "&" +
-                "destinationLocationCode=" + seatMapSearch.destinationLocationCode + "&" +
+                "originLocationCode=" + seatMapSearch.origin.IATA + "&" +
+                "destinationLocationCode=" + seatMapSearch.destination.IATA + "&" +
                 "departureDate=" + seatMapSearch.flightDate + "&" +
                 "adults=" + "${MIN_ADULT_COUNT}&" +
                 "children=" + "${MIN_CHILD_COUNT}&" +

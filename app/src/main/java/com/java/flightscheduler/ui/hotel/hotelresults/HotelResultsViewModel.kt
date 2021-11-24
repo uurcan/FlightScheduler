@@ -22,7 +22,7 @@ class HotelResultsViewModel @Inject constructor(private val hotelRepository: Hot
     fun getHotelData(hotelSearch : HotelSearch) : MutableLiveData<List<HotelOffer>>?{
         viewModelScope.launch {
             val hotelOfferSearches = hotelRepository?.get(
-                cityCode = hotelSearch.city,
+                cityCode = hotelSearch.city.code,
                 checkInDate = hotelSearch.checkInDate,
                 checkOutDate = hotelSearch.checkOutDate,
                 roomQuantity = hotelSearch.roomCount,
