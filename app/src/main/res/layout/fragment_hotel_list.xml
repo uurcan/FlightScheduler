@@ -48,7 +48,7 @@
                     android:id="@+id/txt_flight_detail_destination_iata"
                     android:textSize="26sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{hotelSearch.name}"
+                    android:text="@{hotelSearch.city.name}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -56,7 +56,7 @@
                     android:id="@+id/txt_flight_detail_destination_city"
                     android:textSize="20sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{hotelSearch.country}"
+                    android:text="@{hotelSearch.city.country}"
                     android:layout_marginStart="@dimen/margin_xlarge"
                     app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_destination_iata"
                     android:layout_width="wrap_content"

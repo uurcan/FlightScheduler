@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch
 import com.java.flightscheduler.databinding.SeatMapSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchBinding>(R.layout.fragment_seat_map_search) {
     override val viewModel: SeatMapSearchViewModel? by viewModels()
-    private val seatMapSearch : SeatMapSearch = SeatMapSearch()
+    private val seatMapSearch : SeatMapSearch by lazy { SeatMapSearch() }
     private val flightRoutesViewModel : FlightRoutesViewModel by viewModels()
 
     override fun onBind() {
@@ -49,7 +50,7 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchB
         seatMapSearch.formattedFlightDate = binding?.txtSeatMapSearchDate?.text.toString()
         seatMapSearch.legs = binding?.txtFlightLegCount?.text.toString().toInt()
 
-        if (areParamsValid(origin = seatMapSearch.originLocationCode, destination = seatMapSearch.destinationLocationCode)){
+        if (areParamsValid(origin = seatMapSearch.origin.IATA, destination = seatMapSearch.destination.IATA)){
             beginTransaction(seatMapSearch)
         }
     }
@@ -78,12 +79,12 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel,SeatMapSearchB
         )
         binding?.edtFlightSearchOrigin.let {
             it?.setOnItemClickListener { adapterView, _, position, _ ->
-                seatMapSearch.originLocationCode = airportDropdownEvent(it,adapterView,position,false)
+                seatMapSearch.origin = airportDropdownEvent(it,adapterView,position,false) as Airport
             }
         }
         binding?.edtFlightSearchDestination.let {
             it?.setOnItemClickListener { adapterView, _, position, _ ->
-                seatMapSearch.destinationLocationCode = airportDropdownEvent(it,adapterView,position,true)
+                seatMapSearch.destination = airportDropdownEvent(it,adapterView,position,true) as Airport
             }
         }
     }

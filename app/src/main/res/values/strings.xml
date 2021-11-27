@@ -107,6 +107,7 @@
     <string name="text_display_seat_map">Display Seat Map</string>
     <string name="text_display_Seat_map">Display Seat Map</string>
     <string name="text_seat_map_button">You can display the Seat Map info by selecting the flight segments.</string>
+    <string name="text_departure_date">Departure Date</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

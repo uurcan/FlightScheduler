@@ -30,8 +30,9 @@
             android:layout_height="wrap_content"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_flight_search_route_main"
+            android:id="@+id/layout_seat_map_route_main"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            app:layout_constraintBottom_toTopOf="@+id/txt_seat_map_departure_date"
             app:layout_constraintTop_toBottomOf="@+id/txt_seat_map_search"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -180,15 +181,26 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+        <TextView
+            android:textColor="@color/grey_black_1000"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:id="@+id/txt_seat_map_departure_date"
+            app:layout_constraintTop_toBottomOf="@+id/layout_seat_map_route_main"
+            app:layout_constraintBottom_toTopOf="@+id/layout_seat_map_date_picker"
+            android:text="@string/text_departure_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:layout_marginEnd="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
             android:layout_weight="1"
             android:id="@+id/layout_seat_map_date_picker"
             android:layout_width="match_parent"
             android:layout_height="@dimen/flight_search_selector_dimen"
-            app:layout_constraintTop_toBottomOf="@+id/layout_flight_search_route_main"
+            app:layout_constraintTop_toBottomOf="@+id/txt_seat_map_departure_date"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent">
 

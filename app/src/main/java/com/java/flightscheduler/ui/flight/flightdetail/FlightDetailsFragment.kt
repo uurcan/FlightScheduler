@@ -72,7 +72,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
     private fun convertToJson(position: Int){
         val moshi = Moshi.Builder().build()
         val adapter = moshi.adapter(Any::class.java)
-
+        //todo, show by index is not a valid option..
         val jsonStructure = adapter.toJson(args.offer)
         var before = "{\"meta\":{},\"data\":["
         val after = "],\"dictionaries\":{\"locations\":{}}}"

@@ -11,8 +11,8 @@ import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.databinding.FragmentHotelSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.extension.airportDropdownEvent
 import com.java.flightscheduler.utils.extension.displayTimePicker
-import com.java.flightscheduler.utils.extension.hideKeyboard
 import com.java.flightscheduler.utils.extension.showListDialog
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +21,7 @@ import java.util.*
 @AndroidEntryPoint
 class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearchBinding>(R.layout.fragment_hotel_search){
     override val viewModel: HotelSearchViewModel by viewModels()
-    private var hotelSearch : HotelSearch = HotelSearch()
+    private val hotelSearch : HotelSearch by lazy { HotelSearch() }
 
     override fun onBind() {
         initializeViews()
@@ -32,7 +32,7 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
         binding?.hotelSearchViewModel = viewModel
 
         binding?.layoutHotelCheckInPicker?.setOnClickListener {
-            displayTimePicker(context, startForResult, true)
+            displayTimePicker(context, startForResult, false)
         }
         binding?.btnFlightSearchHotels?.setOnClickListener { saveHotelResults() }
         binding?.layoutHotelLanguage?.setOnClickListener { languageDialog() }
@@ -44,14 +44,9 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
             val adapter = HotelSearchAdapter(requireContext(), it.toTypedArray())
             binding?.edtHotelSearch?.setAdapter(adapter)
         })
-        binding?.edtHotelSearch?.setOnItemClickListener{ adapterView, _, i, _ ->
-            val listItem = adapterView.getItemAtPosition(i)
-            if (listItem is City) {
-                binding?.edtHotelSearch?.setText(listItem.name)
-                hotelSearch.city = listItem.code
-                hotelSearch.name = listItem.name
-                hotelSearch.country = listItem.country
-                activity?.hideKeyboard()
+        binding?.edtHotelSearch.let {
+            it?.setOnItemClickListener { adapterView, _, position, _ ->
+                hotelSearch.city = airportDropdownEvent(it,adapterView,position,true) as City
             }
         }
     }
@@ -64,7 +59,7 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
         hotelSearch.sortOptions = binding?.txtHotelSort?.text.toString().toUpperCase(Locale.ENGLISH)
         hotelSearch.language = binding?.txtHotelLanguageText?.text.toString().toUpperCase(Locale.ENGLISH)
 
-        if (paramValidation(city = hotelSearch.city)){
+        if (paramValidation(city = hotelSearch.city.code)){
             viewModel.setHotelSearchLiveData(hotelSearch)
             beginTransaction(hotelSearch)
         }
@@ -75,7 +70,7 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel,FragmentHotelSearc
         findNavController().navigate(action)
     }
 
-    private fun paramValidation(city : String): Boolean {
+    private fun paramValidation(city : String?): Boolean {
         var isValid = true
         viewModel.performValidation(city).observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage.isNotBlank()) {
