@@ -174,10 +174,6 @@
             android:name="seatMapRequest"
             app:argType="string"
             app:nullable="true" />
-        <argument
-            android:name="seatSegmentNumber"
-            app:argType="integer"
-            android:defaultValue="0" />
     </fragment>
 
     <fragment

@@ -8,5 +8,5 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 class Itinerary internal constructor(
     val duration: String? = null,
-    val segments: List<SearchSegment>? = null
+    var segments: List<SearchSegment>? = null
 ): Parcelable

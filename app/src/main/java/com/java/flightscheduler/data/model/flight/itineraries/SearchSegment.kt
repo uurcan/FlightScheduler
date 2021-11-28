@@ -13,7 +13,7 @@ data class SearchSegment internal constructor(
     val number: String? = null,
     val aircraft: Aircraft? = null,
     val duration: String? = null,
-    val id: String? = null,
+    var id: String? = null,
     val numberOfStops: Int? = 0,
     val blacklistedInEU: Boolean? = false,
     val co2Emissions: List<Co2Emissions>? = null
