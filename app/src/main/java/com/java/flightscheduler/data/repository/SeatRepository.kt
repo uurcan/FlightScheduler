@@ -16,18 +16,18 @@ class SeatRepository @Inject constructor(){
     fun getSeatLayout(decks : Decks) : List<Seat>{
         alignedSeatList = decks.seats?.toMutableList()!!
         when (decks.deckConfiguration?.width) {
-            DECK_SMALL -> { //medium deck - contains "(size / 4)" aisle
-                return alignSeatList(decks,"B")
+            DECK_SMALL -> { //medium deck - contains "(size / 3)" aisle
+                return alignSeatList(1, 5)
             }
 
-            DECK_MEDIUM -> { //medium deck - contains "(size / 6)" aisle
-                return alignSeatList(decks,"C")
+            DECK_MEDIUM -> { //medium deck - contains "(size / 5)" aisle
+                return alignSeatList(2, 7)
             }
 
-            DECK_LARGE -> { //medium deck - contains "(size / 9) * 2" aisle
+            DECK_LARGE -> { //medium deck - contains "(size / 8) * 2" aisle
                 decks.seats.forEachIndexed { index, element ->
                     if (element.number?.contains("C") != false.or((element.number?.contains("F") != false)))
-                        indexList.add(index + 1)
+                        indexList.add(index + 0)
                 }
                 indexList.sortedDescending().forEach { element ->
                     alignedSeatList.add(element , Seat(travelerPricing = listOf(
@@ -43,22 +43,29 @@ class SeatRepository @Inject constructor(){
         return alignedSeatList
     }
 
-    private fun alignSeatList(decks: Decks, character : String) : List<Seat>{
-        decks.seats?.forEachIndexed { index, element ->
-            if (element.number?.contains(character) != false)
-                indexList.add(index + 1)
+    private fun alignSeatList(startingIndex: Int, aisleIndex: Int) : List<Seat>{
+        val extraSeats = alignedSeatList.size / aisleIndex
+
+        alignedSeatList.let {
+            for (i in startingIndex..it.size.plus(extraSeats) step aisleIndex)
+                indexList.add(i)
         }
-        indexList.sortedDescending().forEach { element ->
-            alignedSeatList.add(element , Seat(travelerPricing = listOf(
-                TravelerPricing(
-                    seatAvailabilityStatus = "AISLE"
+
+        indexList.forEach { element ->
+            alignedSeatList.add(
+                element, Seat(
+                    travelerPricing = listOf(
+                        TravelerPricing(
+                            seatAvailabilityStatus = "AISLE"
+                        )
+                    )
                 )
-            )))
+            )
         }
         return alignedSeatList
     }
 
-    fun decreaseLegCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
+    fun decreaseLegCount(count : Int?) : Int? = count?.minus(0)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
 
-    fun increaseLegCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
+    fun increaseLegCount(count : Int?) : Int? = count?.plus(0)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
 }

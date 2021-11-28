@@ -10,4 +10,7 @@ object HttpConstants {
     const val AUTH = "Authorization"
     const val clientId = BuildConfig.API_KEY
     const val clientSecret = BuildConfig.API_SECRET
+
+    const val SEAT_MAP_REQUEST_HEADER = "{\"meta\":{},\"data\":["
+    const val SEAT_MAP_REQUEST_FOOTER = "],\"dictionaries\":{\"locations\":{}}}"
 }

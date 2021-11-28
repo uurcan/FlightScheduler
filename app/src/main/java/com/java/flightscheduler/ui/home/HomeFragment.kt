@@ -20,7 +20,7 @@ class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fr
     }
 
     private fun initializeResults() {
-        binding?.pagerHomeItem?.adapter = HomeAdapter(requireContext())
+        binding?.pagerHomeItem?.adapter = HomeAdapter()
         TabLayoutMediator(binding?.intoTabLayout!!,binding?.pagerHomeItem!!) { _, _ ->}.attach()
     }
 

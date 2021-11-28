@@ -16,6 +16,12 @@ class FlightDetailsViewModel @Inject constructor(private val flightDetailsReposi
     : BaseViewModel(){
     private var flightSegmentLiveData : MutableLiveData<List<SearchSegment>> = MutableLiveData()
     private var flightOfferTemplateLiveData : MutableLiveData<FlightOffer> = MutableLiveData()
+    private var flightRequestLiveData : MutableLiveData<String> = MutableLiveData()
+
+    fun getSeatMapRequestFromFlightOffer(flightOffer: FlightOffer?) : MutableLiveData<String> {
+        flightRequestLiveData.value = flightDetailsRepository.getSeatMapRequestFromFlightOffer(flightOffer)
+        return flightRequestLiveData
+    }
 
     fun getFlightOfferTemplate(segment: SearchSegment) : MutableLiveData<FlightOffer> {
         flightOfferTemplateLiveData.value.apply {

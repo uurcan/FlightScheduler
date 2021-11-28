@@ -1,36 +1,11 @@
 package com.java.flightscheduler.data.repository
 
-import android.content.Context
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.constants.AppConstants.PAGER_ITEM_SIZE
 import com.java.flightscheduler.data.model.home.Places
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
-class LocationRepository @Inject constructor(private val context: Context) {
-    fun getPlaces() : Places {
-        val placesList : ArrayList<Places> = ArrayList()
-        try {
-            val inputStream : InputStream = context.resources.openRawResource(R.raw.locations)
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-            bufferedReader.readLines().forEach {
-                val tokens = it.split(",")
-                placesList.add(
-                    Places(
-                        tokens[0].toInt(),
-                        tokens[1],
-                        tokens[2]
-                    )
-                )
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return placesList.random()
-    }
+class LocationRepository @Inject constructor() {
 
     fun initializeMockPlaces() : List<Places> {
         val locationList = arrayListOf<Places>()
@@ -61,6 +36,6 @@ class LocationRepository @Inject constructor(private val context: Context) {
         locationList.add(Places(R.drawable.stockholm_sweden,"Stockholm","Sweden"))
         locationList.add(Places(R.drawable.istanbul_turkey,"Istanbul","Turkey"))
         locationList.shuffle()
-        return locationList
+        return locationList.take(PAGER_ITEM_SIZE)
     }
 }
