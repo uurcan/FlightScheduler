@@ -1,10 +1,8 @@
 package com.java.flightscheduler.utils.extension
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -12,7 +10,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.constants.AppConstants
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
@@ -32,12 +29,13 @@ fun ImageView.setImageUrl(url: String?) {
             RequestOptions()
                 .fitCenter()
                 .format(DecodeFormat.PREFER_ARGB_8888)
-                .override(SIZE_ORIGINAL))
+                .override(SIZE_ORIGINAL)
+        )
         .into(this)
 }
 
 @BindingAdapter("app:setImageDrawable")
-fun ImageView.setImageDrawable(drawable : Int) {
+fun ImageView.setImageDrawable(drawable: Int) {
     Glide.with(this.context)
         .load(drawable)
         .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -45,7 +43,8 @@ fun ImageView.setImageDrawable(drawable : Int) {
             RequestOptions()
                 .fitCenter()
                 .format(DecodeFormat.PREFER_ARGB_8888)
-                .override(SIZE_ORIGINAL))
+                .override(SIZE_ORIGINAL)
+        )
         .into(this)
 }
 
@@ -59,7 +58,7 @@ fun TextView.setDisplayList(input: List<Any>?) {
 }
 
 @BindingAdapter("app:setSeatMapDrawable")
-fun ImageView.setSeatMapDrawable(status : String?) {
+fun ImageView.setSeatMapDrawable(status: String?) {
     var drawable = 0
     when (status) {
         SEAT_MAP_AVAILABLE -> drawable = R.drawable.ic_seats_available
@@ -67,9 +66,11 @@ fun ImageView.setSeatMapDrawable(status : String?) {
         SEAT_MAP_BLOCKED -> drawable = R.drawable.ic_seats_blocked
         SEAT_MAP_AISLE -> drawable = R.drawable.ic_seat_aisle
     }
+    val options = RequestOptions().fitCenter()
 
     Glide.with(this.context)
         .load(drawable)
+        .apply(options)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(this)
 }
@@ -80,15 +81,21 @@ fun setVisibility(view: View, data: String?) {
 }
 
 @BindingAdapter("app:setDateParserText")
-fun TextView.setDateParserText(date : String){
-    val parser = SimpleDateFormat(context?.getString(R.string.text_date_parser_format), Locale.ENGLISH)
-    val formatter = SimpleDateFormat(context?.getString(R.string.text_date_formatter), Locale.ENGLISH)
+fun TextView.setDateParserText(date: String){
+    val parser = SimpleDateFormat(
+        context?.getString(R.string.text_date_parser_format),
+        Locale.ENGLISH
+    )
+    val formatter = SimpleDateFormat(
+        context?.getString(R.string.text_date_formatter),
+        Locale.ENGLISH
+    )
 
     this.text = ParsingUtils.dateParser(parser, formatter, date)
 }
 
 @BindingAdapter("app:setTimeStampParser")
-fun TextView.setTimeStampParser(date : String?){
+fun TextView.setTimeStampParser(date: String?){
     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     val formatter = SimpleDateFormat("dd MMM yyyy - HH:mm:ss", Locale.ENGLISH)
     this.text = ParsingUtils.dateParser(parser, formatter, date)

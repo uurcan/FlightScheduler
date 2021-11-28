@@ -38,7 +38,7 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
         binding?.setVariable(BR.flightDetailSegment, segments?.get(position))
         binding?.executePendingBindings()
         binding?.root?.setOnClickListener {
-            onClick(getItem(position).segments?.get(position))
+            onClick(segments?.get(position))
         }
         bindCustomized(position)
     }
