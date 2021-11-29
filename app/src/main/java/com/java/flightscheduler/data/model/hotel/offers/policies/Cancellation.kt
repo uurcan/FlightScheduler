@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class Cancellation (
-    val deadline : String? = null
+data class Cancellation(
+    val deadline: String? = null
 ) : Parcelable

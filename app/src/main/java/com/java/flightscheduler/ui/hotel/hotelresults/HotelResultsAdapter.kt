@@ -10,9 +10,9 @@ import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
 class HotelResultsAdapter(private val onClick: (HotelOffer) -> Unit, context: Context)
-    : BaseAdapter<HotelOffer,HotelListBinding>(R.layout.list_hotel_search_item) {
+    : BaseAdapter<HotelOffer, HotelListBinding>(R.layout.list_hotel_search_item) {
 
-    private val hotelImages : List<String> = HotelSearchRepository(context).getHotelImages()
+    private val hotelImages: List<String> = HotelSearchRepository(context).getHotelImages()
 
     override fun onBind(holder: BaseViewHolder, position: Int) {
         getItem(position).hotel?.media?.get(0)?.uri = hotelImages[position]
@@ -24,4 +24,3 @@ class HotelResultsAdapter(private val onClick: (HotelOffer) -> Unit, context: Co
         }
     }
 }
-

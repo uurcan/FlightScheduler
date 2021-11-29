@@ -9,7 +9,7 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import java.net.HttpURLConnection
 import kotlin.jvm.Throws
 
-class MockInterceptor (private val assets : AssetManager): Interceptor{
+class MockInterceptor(private val assets: AssetManager) : Interceptor {
     companion object {
         private const val MOCK_FLIGHT_DATA = "mock_flight_data.json"
     }
@@ -32,7 +32,7 @@ class MockInterceptor (private val assets : AssetManager): Interceptor{
                     responseString.toByteArray()
                         .toResponseBody("application/json".toMediaTypeOrNull())
                 )
-                .addHeader("content-type","application/json")
+                .addHeader("content-type", "application/json")
                 .build()
         }
     }

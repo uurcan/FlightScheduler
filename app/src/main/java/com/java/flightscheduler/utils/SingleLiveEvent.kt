@@ -15,13 +15,13 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         super.observe(owner, {
-            if (pending.compareAndSet(true,false)){
+            if (pending.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
         })
     }
 
-    fun call(){
+    fun call() {
         value = null
     }
 }

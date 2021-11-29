@@ -11,9 +11,8 @@ import androidx.lifecycle.Observer
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.hotel.City
 
-
-fun FragmentActivity.hideKeyboard(){
-    val inputMethodManager : InputMethodManager = getSystemService(
+fun FragmentActivity.hideKeyboard() {
+    val inputMethodManager: InputMethodManager = getSystemService(
         Activity.INPUT_METHOD_SERVICE
     ) as InputMethodManager
     if (inputMethodManager.isAcceptingText) {
@@ -33,10 +32,12 @@ fun <T> LiveData<T>.observeOnce(observer: Observer<T>) {
     })
 }
 
-fun Fragment.airportDropdownEvent(autoCompleteTextView : AutoCompleteTextView,
-                                   adapterView : AdapterView<*>,
-                                   position : Int,
-                                   keyboardHideAfter : Boolean) : Any {
+fun Fragment.airportDropdownEvent(
+    autoCompleteTextView: AutoCompleteTextView,
+    adapterView: AdapterView<*>,
+    position: Int,
+    keyboardHideAfter: Boolean
+): Any {
     if (keyboardHideAfter)
         activity?.hideKeyboard()
 

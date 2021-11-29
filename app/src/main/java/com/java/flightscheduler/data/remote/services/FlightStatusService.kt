@@ -9,9 +9,9 @@ import retrofit2.http.Query
 interface FlightStatusService {
     @GET("v2/schedule/flights")
     suspend fun getFlightStatus(
-        @Query("carrierCode") carrierCode : String,
-        @Query("flightNumber") flightNumber : Int,
-        @Query("scheduledDepartureDate") scheduledDepartureDate : String,
-        @Query("operationalSuffix") operationalSuffix : String?
-    ) : BaseApiResponse<List<FlightStatus>>
+        @Query("carrierCode") carrierCode: String,
+        @Query("flightNumber") flightNumber: Int,
+        @Query("scheduledDepartureDate") scheduledDepartureDate: String,
+        @Query("operationalSuffix") operationalSuffix: String?
+    ): BaseApiResponse<List<FlightStatus>>
 }

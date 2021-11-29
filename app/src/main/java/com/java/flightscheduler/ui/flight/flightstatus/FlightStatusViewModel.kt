@@ -14,15 +14,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FlightStatusViewModel @Inject constructor(private val flightStatusRepository: FlightStatusRepository): ViewModel() {
+class FlightStatusViewModel @Inject constructor(private val flightStatusRepository: FlightStatusRepository) : ViewModel() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
-    private var flightStatusLiveData : MutableLiveData<List<FlightStatus>>? = MutableLiveData()
+    var loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var flightStatusLiveData: MutableLiveData<List<FlightStatus>>? = MutableLiveData()
     private lateinit var tokenRepository: TokenRepository
 
-    fun getFlightStatusLiveData() : MutableLiveData<List<FlightStatus>>?{
+    fun getFlightStatusLiveData(): MutableLiveData<List<FlightStatus>>? {
         tokenRepository = TokenRepository()
 
         scope.launch {

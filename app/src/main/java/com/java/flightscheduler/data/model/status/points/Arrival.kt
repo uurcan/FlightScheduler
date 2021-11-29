@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Arrival internal constructor(
-    val timings : List<Timings>? = null
+    val timings: List<Timings>? = null
 ) : Parcelable

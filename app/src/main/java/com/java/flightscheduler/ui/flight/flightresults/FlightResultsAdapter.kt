@@ -14,13 +14,13 @@ import com.java.flightscheduler.databinding.FlightListBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit, context : Context)
-    : BaseAdapter<FlightOffer,FlightListBinding>(R.layout.list_flight_search_item) {
-    private var flightResultsRepository : FlightResultsRepository = FlightResultsRepository()
-    private var airlineRepository : AirlineRepository = AirlineRepository(context)
-    private var flightRoutesRepository : FlightRoutesRepository = FlightRoutesRepository(context)
-    private var airlines : List<Airline>
-    private var flightRoutes : List<Airport>
+class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit, context: Context)
+    : BaseAdapter<FlightOffer, FlightListBinding>(R.layout.list_flight_search_item) {
+    private var flightResultsRepository: FlightResultsRepository = FlightResultsRepository()
+    private var airlineRepository: AirlineRepository = AirlineRepository(context)
+    private var flightRoutesRepository: FlightRoutesRepository = FlightRoutesRepository(context)
+    private var airlines: List<Airline>
+    private var flightRoutes: List<Airport>
 
     init {
         airlines = airlineRepository.getAirlines()
@@ -28,11 +28,11 @@ class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit, context :
     }
 
     override fun onBind(holder: BaseViewHolder, position: Int) {
-        val segment : SearchSegment? = getItem(position).itineraries?.get(0)?.segments?.get(0)
+        val segment: SearchSegment? = getItem(position).itineraries?.get(0)?.segments?.get(0)
         val carrier = airlineRepository.getMatchingAirline(airlines, segment?.carrierCode)
         val origin = flightRoutesRepository.getMatchingFlightRoute(flightRoutes, segment?.departure?.iataCode)
         val destination = flightRoutesRepository.getMatchingFlightRoute(flightRoutes, segment?.arrival?.iataCode)
-        val flightInfo = flightRoutesRepository.getFlightInfo(carrier,origin,destination)
+        val flightInfo = flightRoutesRepository.getFlightInfo(carrier, origin, destination)
 
         binding?.flightInfo = flightInfo
         binding?.flightListRepository = flightResultsRepository
@@ -43,4 +43,3 @@ class FlightResultsAdapter(private val onClick: (FlightOffer) -> Unit, context :
         }
     }
 }
-

@@ -10,7 +10,7 @@ import com.java.flightscheduler.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fragment_home), View.OnClickListener{
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>(R.layout.fragment_home), View.OnClickListener {
 
     override val viewModel: HomeViewModel? by viewModels()
 
@@ -21,7 +21,7 @@ class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fr
 
     private fun initializeResults() {
         binding?.pagerHomeItem?.adapter = HomeAdapter()
-        TabLayoutMediator(binding?.intoTabLayout!!,binding?.pagerHomeItem!!) { _, _ ->}.attach()
+        TabLayoutMediator(binding?.intoTabLayout!!, binding?.pagerHomeItem!!) { _, _ -> }.attach()
     }
 
     private fun initializeViews() {
@@ -30,10 +30,9 @@ class HomeFragment : BaseFragment<HomeViewModel,FragmentHomeBinding>(R.layout.fr
     }
 
     override fun onClick(p0: View?) {
-        when(p0!!.id) {
+        when (p0!!.id) {
             binding?.buttonFlightOffersMain?.id -> findNavController().navigate(R.id.action_nav_home_to_nav_flight_search)
             binding?.buttonHotelOffersMain?.id -> findNavController().navigate(R.id.action_nav_home_to_nav_hotel_search)
         }
     }
 }
-

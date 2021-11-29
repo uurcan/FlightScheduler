@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Variations internal constructor(
-    val average : Average? = null,
-    val changes : List<Changes>? = null
+    val average: Average? = null,
+    val changes: List<Changes>? = null
 ) : Parcelable

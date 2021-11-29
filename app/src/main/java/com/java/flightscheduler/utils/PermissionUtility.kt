@@ -5,5 +5,5 @@ import android.content.Context
 import pub.devrel.easypermissions.EasyPermissions
 
 object PermissionUtility {
-    fun hasPhoneDialPermission(context: Context) = EasyPermissions.hasPermissions(context,Manifest.permission.CALL_PHONE)
+    fun hasPhoneDialPermission(context: Context) = EasyPermissions.hasPermissions(context, Manifest.permission.CALL_PHONE)
 }

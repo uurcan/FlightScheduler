@@ -11,7 +11,7 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 data class Decks internal constructor(
     val deckType: String? = null,
-    val deckConfiguration : DeckConfiguration? = null,
-    val facilities : List<Facilities>? = null,
-    val seats : List<Seat>? = null
+    val deckConfiguration: DeckConfiguration? = null,
+    val facilities: List<Facilities>? = null,
+    val seats: List<Seat>? = null
 ) : Parcelable

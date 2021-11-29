@@ -9,5 +9,5 @@ import kotlinx.android.parcel.Parcelize
 data class Departure internal constructor(
     val iataCode: String? = null,
     val terminal: Int? = 0,
-    val at : String? = null
+    val at: String? = null
 ) : Parcelable

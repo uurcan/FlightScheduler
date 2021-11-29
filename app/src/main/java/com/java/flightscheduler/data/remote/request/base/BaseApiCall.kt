@@ -5,17 +5,16 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import java.io.IOException
 
 @Suppress("BlockingMethodInNonBlockingContext")
-open class BaseApiCall(private val moshi : Moshi, private val dispatcher: CoroutineDispatcher) {
+open class BaseApiCall(private val moshi: Moshi, private val dispatcher: CoroutineDispatcher) {
 
-    suspend fun <T: Any> baseApiCall(call : suspend () -> BaseApiResponse<T>): BaseApiResult<T> {
-        return withContext(dispatcher){
+    suspend fun <T : Any> baseApiCall(call: suspend () -> BaseApiResponse<T>): BaseApiResult<T> {
+        return withContext(dispatcher) {
             try {
                 val response = call()
                 val body = response.body()
-                if(response.isSuccessful && body != null){
+                if (response.isSuccessful && body != null) {
                     body.apply {
                         method = response.raw().request.method
                         code = response.code()
@@ -26,7 +25,7 @@ open class BaseApiCall(private val moshi : Moshi, private val dispatcher: Corout
                         .fromJson(response.errorBody()?.string() ?: "")
                         ?: BaseApiResult.Error()
                 }
-            } catch (ex : Exception){
+            } catch (ex: Exception) {
                 BaseApiResult.Error()
             }
         }
@@ -41,4 +40,3 @@ open class BaseApiCall(private val moshi : Moshi, private val dispatcher: Corout
         return moshi.adapter<Map<String, Any>>(type).fromJson(body) ?: emptyMap()
     }
 }
-

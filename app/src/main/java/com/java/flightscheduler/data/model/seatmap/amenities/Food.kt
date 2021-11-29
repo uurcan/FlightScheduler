@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Food internal constructor(
-    val isChargeable : Boolean? = false,
-    val foodType : String? = null
+    val isChargeable: Boolean? = false,
+    val foodType: String? = null
 ) : Parcelable

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_flight_status.*
 
 @AndroidEntryPoint
 class FlightStatusFragment : Fragment() {
-    private lateinit var flightStatusViewModel : FlightStatusViewModel
+    private lateinit var flightStatusViewModel: FlightStatusViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,

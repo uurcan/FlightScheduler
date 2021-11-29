@@ -9,10 +9,10 @@ import android.widget.Filter
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Airport
 import kotlinx.android.synthetic.main.iata_list_item_view.view.*
-import java.util.*
+import java.util.Locale
 
 class FlightRoutesAdapter(private val ctx: Context, private val iataCodes: Array<Airport>) :
-    ArrayAdapter<Airport>(ctx,0,iataCodes) {
+    ArrayAdapter<Airport>(ctx, 0, iataCodes) {
 
     var filteredIataCodes: List<Airport> = listOf()
 

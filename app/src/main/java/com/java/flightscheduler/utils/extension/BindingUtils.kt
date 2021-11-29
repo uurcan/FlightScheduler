@@ -16,7 +16,7 @@ import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_OCCUPIED
 import com.java.flightscheduler.utils.ParsingUtils
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 @BindingAdapter("app:setImageUrl")
 fun ImageView.setImageUrl(url: String?) {
@@ -51,7 +51,7 @@ fun ImageView.setImageDrawable(drawable: Int) {
 @BindingAdapter("app:setDisplayList")
 fun TextView.setDisplayList(input: List<Any>?) {
     var output = ""
-    input?.forEach{ item ->
+    input?.forEach { item ->
         output += item.toString().replace("_", " ") + "\n"
     }
     this.text = output
@@ -81,7 +81,7 @@ fun setVisibility(view: View, data: String?) {
 }
 
 @BindingAdapter("app:setDateParserText")
-fun TextView.setDateParserText(date: String){
+fun TextView.setDateParserText(date: String) {
     val parser = SimpleDateFormat(
         context?.getString(R.string.text_date_parser_format),
         Locale.ENGLISH
@@ -95,7 +95,7 @@ fun TextView.setDateParserText(date: String){
 }
 
 @BindingAdapter("app:setTimeStampParser")
-fun TextView.setTimeStampParser(date: String?){
+fun TextView.setTimeStampParser(date: String?) {
     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     val formatter = SimpleDateFormat("dd MMM yyyy - HH:mm:ss", Locale.ENGLISH)
     this.text = ParsingUtils.dateParser(parser, formatter, date)

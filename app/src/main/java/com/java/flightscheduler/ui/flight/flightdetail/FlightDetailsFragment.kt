@@ -19,12 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFlightDetailBinding>
-    (R.layout.fragment_flight_detail){
+    (R.layout.fragment_flight_detail) {
     private val args by navArgs<FlightDetailsFragmentArgs>()
     override val viewModel: FlightDetailsViewModel by viewModels()
 
-    private val flightDetailsAdapter : FlightDetailsAdapter by lazy {
-        FlightDetailsAdapter(args.offer,requireContext()) {
+    private val flightDetailsAdapter: FlightDetailsAdapter by lazy {
+        FlightDetailsAdapter(args.offer, requireContext()) {
             onFlightSegmentSelected(it!!)
         }
     }
@@ -37,7 +37,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
     }
 
     override fun onBind() {
-        val flightOffer : FlightOffer = args.offer
+        val flightOffer: FlightOffer = args.offer
         initializeFlightHeader(flightOffer)
         initializeFlightResults(flightOffer)
         setHasOptionsMenu(true)
@@ -72,7 +72,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
         return super.onOptionsItemSelected(item)
     }
 
-    private fun directToSeatMap(request: String){
+    private fun directToSeatMap(request: String) {
         val action = FlightDetailsFragmentDirections
             .actionNavFlightResultsToSeatMapFragment(seatMapSearch = null, seatMapRequest = request)
         findNavController().navigate(action)

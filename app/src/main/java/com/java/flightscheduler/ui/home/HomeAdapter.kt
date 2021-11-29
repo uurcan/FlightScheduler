@@ -9,7 +9,7 @@ import com.java.flightscheduler.databinding.LocationListItemBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class HomeAdapter : BaseAdapter<Places,LocationListItemBinding>(R.layout.home_background_item) {
+class HomeAdapter : BaseAdapter<Places, LocationListItemBinding>(R.layout.home_background_item) {
     private var locations = LocationRepository().initializeMockPlaces()
 
     override fun onBind(holder: BaseViewHolder, position: Int) {

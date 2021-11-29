@@ -21,11 +21,11 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 @AndroidEntryPoint
-class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDetailBinding>(R.layout.fragment_hotel_details),
+class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel, FragmentHotelDetailBinding>(R.layout.fragment_hotel_details),
     OnMapReadyCallback,
     EasyPermissions.PermissionCallbacks {
     private val args by navArgs<HotelDetailsFragmentArgs>()
-    override val viewModel : HotelDetailsViewModel? by viewModels()
+    override val viewModel: HotelDetailsViewModel? by viewModels()
 
     override fun onBind() {
         initializeViews()
@@ -34,7 +34,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
     }
 
     private fun initializeViews() {
-        binding?.layoutHotelDetailContact?.setOnClickListener{ requestPermissions() }
+        binding?.layoutHotelDetailContact?.setOnClickListener { requestPermissions() }
     }
 
     private fun initializeVariables() {

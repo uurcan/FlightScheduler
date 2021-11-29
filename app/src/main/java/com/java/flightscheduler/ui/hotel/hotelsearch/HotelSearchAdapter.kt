@@ -9,10 +9,10 @@ import android.widget.Filter
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.hotel.City
 import kotlinx.android.synthetic.main.hotel_list_item_view.view.*
-import java.util.*
+import java.util.Locale
 
 class HotelSearchAdapter(private val ctx: Context, private val cities: Array<City>) :
-    ArrayAdapter<City>(ctx,0,cities) {
+    ArrayAdapter<City>(ctx, 0, cities) {
 
     var filteredCities: List<City> = listOf()
 

@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
-    private var flightSearchLiveData : MutableLiveData<FlightSearch>? = MutableLiveData()
+    private var flightSearchLiveData: MutableLiveData<FlightSearch>? = MutableLiveData()
     private val validationMessage = MutableLiveData("")
 
-    fun performValidation(origin : String, destination : String, departureDate : String) : MutableLiveData<String>{
+    fun performValidation(origin: String, destination: String, departureDate: String): MutableLiveData<String> {
         validationMessage.value = ""
 
         if (origin.isBlank()) {
@@ -29,8 +29,8 @@ class FlightSearchViewModel @Inject constructor() : BaseViewModel() {
         return validationMessage
     }
 
-    fun setFlightSearchLiveData(flightSearch: FlightSearch){
+    fun setFlightSearchLiveData(flightSearch: FlightSearch) {
         flightSearchLiveData?.value = flightSearch
     }
-    fun getFlightSearchLiveData() : LiveData<FlightSearch>? = flightSearchLiveData
+    fun getFlightSearchLiveData(): LiveData<FlightSearch>? = flightSearchLiveData
 }

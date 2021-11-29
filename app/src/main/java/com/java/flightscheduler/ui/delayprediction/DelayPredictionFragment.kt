@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_delay_prediction.*
 
 @AndroidEntryPoint
-class DelayPredictionFragment : Fragment(){
+class DelayPredictionFragment : Fragment() {
     private lateinit var predictionViewModel: DelayPredictionViewModel
 
     override fun onCreateView(
@@ -19,15 +19,15 @@ class DelayPredictionFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_delay_prediction,container,false)
+        return inflater.inflate(R.layout.fragment_delay_prediction, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         predictionViewModel = ViewModelProvider(this).get(DelayPredictionViewModel::class.java)
-        predictionViewModel.getPredictionData()?.observe(viewLifecycleOwner,{
+        predictionViewModel.getPredictionData()?.observe(viewLifecycleOwner, {
             predictionData ->
-                if (predictionData != null){
+                if (predictionData != null) {
                     text_delay_prediction.text = predictionData[1].probability.toString()
                 }
         })

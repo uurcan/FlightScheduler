@@ -11,36 +11,37 @@ import javax.inject.Inject
 class HotelRepository @Inject constructor(
     moshi: Moshi,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
-    private val hotelService : HotelService
-) : BaseApiCall(moshi,dispatcher){
+    private val hotelService: HotelService
+) : BaseApiCall(moshi, dispatcher) {
 
-    suspend fun get ( cityCode: String? = null,
-                      latitude: Double? = null,
-                      longitude: Double? = null,
-                      hotelIds: List<String>? = null,
-                      checkInDate: String? = null,
-                      checkOutDate: String? = null,
-                      roomQuantity: Int? = null,
-                      adults: Int? = null,
-                      childAges: List<Int>? = null,
-                      radius: Int? = null,
-                      radiusUnit: String? = null,
-                      hotelName: String? = null,
-                      chains: List<String>? = null,
-                      rateCodes: List<String>? = null,
-                      amenities: List<String>? = null,
-                      ratings: List<Int>? = null,
-                      priceRange: String? = null,
-                      currency: String? = null,
-                      paymentPolicy: String? = null,
-                      boardType: String? = null,
-                      includeClosed: Boolean? = null,
-                      bestRateOnly: Boolean? = null,
-                      view: String? = null,
-                      sort: String? = null,
-                      pageLimit: Int? = null,
-                      pageOffset: String? = null,
-                      lang: String? = null
+    suspend fun get(
+        cityCode: String? = null,
+        latitude: Double? = null,
+        longitude: Double? = null,
+        hotelIds: List<String>? = null,
+        checkInDate: String? = null,
+        checkOutDate: String? = null,
+        roomQuantity: Int? = null,
+        adults: Int? = null,
+        childAges: List<Int>? = null,
+        radius: Int? = null,
+        radiusUnit: String? = null,
+        hotelName: String? = null,
+        chains: List<String>? = null,
+        rateCodes: List<String>? = null,
+        amenities: List<String>? = null,
+        ratings: List<Int>? = null,
+        priceRange: String? = null,
+        currency: String? = null,
+        paymentPolicy: String? = null,
+        boardType: String? = null,
+        includeClosed: Boolean? = null,
+        bestRateOnly: Boolean? = null,
+        view: String? = null,
+        sort: String? = null,
+        pageLimit: Int? = null,
+        pageOffset: String? = null,
+        lang: String? = null
     ) = baseApiCall {
         hotelService.getHotelOffers(
             cityCode = cityCode,
@@ -73,7 +74,7 @@ class HotelRepository @Inject constructor(
         )
     }
 
-    fun getQueryErrors(errorResults : List<BaseApiResult.Error.Issue>) : String? {
+    fun getQueryErrors(errorResults: List<BaseApiResult.Error.Issue>): String? {
         var errorMessages = ""
         errorResults.forEach {
                 error ->

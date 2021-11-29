@@ -16,14 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class FlightResultsViewModel @Inject constructor(
     private val flightRepository: FlightRepository
-): BaseViewModel() {
-    private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
+) : BaseViewModel() {
+    private var flightLiveData: MutableLiveData<List<FlightOffer>>? = MutableLiveData()
 
     init {
         showLoading()
     }
 
-    fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
+    fun getFlightData(flightSearch: FlightSearch): MutableLiveData<List<FlightOffer>>? {
         viewModelScope.launch {
             val flightOffersSearches = flightRepository.get(
                 originLocationCode = flightSearch.originLocationCode,
@@ -34,7 +34,7 @@ class FlightResultsViewModel @Inject constructor(
                 children = flightSearch.children
             )
 
-            when (flightOffersSearches){
+            when (flightOffersSearches) {
                 is BaseApiResult.Success -> {
                     flightLiveData.apply {
                         flightLiveData?.postValue(flightOffersSearches.data.toObservable()

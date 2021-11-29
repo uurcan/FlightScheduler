@@ -20,16 +20,16 @@ import com.java.flightscheduler.data.constants.TimeConstants.TOKEN_VALIDITY_MILL
 
 class TokenRepository : TokenProvider {
 
-    private val tokenService : TokenService
-    private var accessToken : AccessToken? = null
+    private val tokenService: TokenService
+    private var accessToken: AccessToken? = null
     private var tokenValidUntil = HTTP_VALID_UNTIL
 
     val moshi: Moshi = Moshi.Builder().build()
 
     val tokenClient = OkHttpClient.Builder()
-        .connectTimeout(HTTP_TIMEOUT,TimeUnit.SECONDS)
-        .writeTimeout(HTTP_TIMEOUT,TimeUnit.SECONDS)
-        .readTimeout(HTTP_TIMEOUT,TimeUnit.SECONDS)
+        .connectTimeout(HTTP_TIMEOUT, TimeUnit.SECONDS)
+        .writeTimeout(HTTP_TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(HTTP_TIMEOUT, TimeUnit.SECONDS)
         .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
         .addInterceptor(TokenInterceptor(this))
         .authenticator(TokenAuthenticator(this))
@@ -55,11 +55,11 @@ class TokenRepository : TokenProvider {
 
     override fun refreshToken(): String? {
         if (isTokenNullOrExpired()) {
-            tokenService.getAccessToken(clientId,clientSecret)
+            tokenService.getAccessToken(clientId, clientSecret)
                 .execute()
                 .takeIf { it.isSuccessful && it.body() != null }?.let { response ->
                     response.body()?.let {
-                        tokenValidUntil= System.currentTimeMillis() + (it.expiresIn * TOKEN_VALIDITY_MILLISECONDS)
+                        tokenValidUntil = System.currentTimeMillis() + (it.expiresIn * TOKEN_VALIDITY_MILLISECONDS)
                         accessToken = it
                     }
                 }

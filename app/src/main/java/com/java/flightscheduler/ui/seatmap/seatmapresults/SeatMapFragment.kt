@@ -14,29 +14,29 @@ import com.java.flightscheduler.utils.extension.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R.layout.fragment_seat_map){
+class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R.layout.fragment_seat_map) {
     override val viewModel: SeatMapViewModel? by viewModels()
     private val args by navArgs<SeatMapFragmentArgs>()
     private var seatMapAdapter: SeatMapAdapter? = null
-    private val isComingFromSearchOffer : Boolean by lazy {
+    private val isComingFromSearchOffer: Boolean by lazy {
         args.seatMapSearch != null
     }
 
     override fun onBind() {
         if (isComingFromSearchOffer) {
             viewModel?.getSeatMapFromFlightOffer(args.seatMapSearch!!)?.observeOnce { seatMap ->
-                val seatMapIndex : Int = args.seatMapSearch?.legs?.minus(1) ?: 0
-                setViewForSeatMap(seatMap,seatMapIndex)
+                val seatMapIndex: Int = args.seatMapSearch?.legs?.minus(1) ?: 0
+                setViewForSeatMap(seatMap, seatMapIndex)
             }
         } else {
             viewModel?.getSeatMapFromJson(args.seatMapRequest!!)?.observeOnce { seatMap ->
                 val seatMapIndex = 0
-                setViewForSeatMap(seatMap,seatMapIndex)
+                setViewForSeatMap(seatMap, seatMapIndex)
             }
         }
     }
 
-    private fun setViewForSeatMap(seatMap: List<SeatMap>,position : Int) {
+    private fun setViewForSeatMap(seatMap: List<SeatMap>, position: Int) {
         setLayoutManager(seatMap[position])
         viewModel?.seatMapHeader(seatMap[position])
         seatMapAdapter = seatMap[position].decks?.get(0)?.let {
@@ -49,10 +49,10 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
     }
 
     private fun showDetails(it: Seat) {
-        MessageHelper.displayInfoMessage(view,it.number + " " + it.travelerPricing?.get(0)?.price?.totalPrice)
+        MessageHelper.displayInfoMessage(view, it.number + " " + it.travelerPricing?.get(0)?.price?.totalPrice)
     }
 
-    private fun setLayoutManager(seatMap : SeatMap) {
+    private fun setLayoutManager(seatMap: SeatMap) {
         val layoutManager = GridLayoutManager(context, seatMap.decks?.get(0)?.deckConfiguration?.width ?: DECK_SMALL)
         binding?.rvSeatMap?.layoutManager = layoutManager
     }

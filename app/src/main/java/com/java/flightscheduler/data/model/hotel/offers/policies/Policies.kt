@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Policies internal constructor(
-    val paymentType : String? = null,
-    val cancellation : Cancellation? = null
+    val paymentType: String? = null,
+    val cancellation: Cancellation? = null
 ) : Parcelable

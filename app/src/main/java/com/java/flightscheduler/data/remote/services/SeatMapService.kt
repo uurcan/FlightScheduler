@@ -12,11 +12,11 @@ import retrofit2.http.Url
 interface SeatMapService {
     @POST("v1/shopping/seatmaps")
     suspend fun getSeatMapFromFlightOffer(
-        @Body body : Map<String,Any>
-    ) : BaseApiResponse<List<SeatMap>>
+        @Body body: Map<String, Any>
+    ): BaseApiResponse<List<SeatMap>>
 
     @GET
     suspend fun getSeatMapFromFlightURL(
-        @Url url : String
-    ) : ResponseBody
+        @Url url: String
+    ): ResponseBody
 }

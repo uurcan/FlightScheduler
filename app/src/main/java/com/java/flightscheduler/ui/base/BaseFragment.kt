@@ -3,7 +3,6 @@ package com.java.flightscheduler.ui.base
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,15 +18,17 @@ import com.java.flightscheduler.utils.extension.dismissLoadingDialog
 import com.java.flightscheduler.utils.extension.showDialog
 import com.java.flightscheduler.utils.extension.showLoadingDialog
 
-abstract class BaseFragment<VM: BaseViewModel?,
-        DB: ViewDataBinding?>(@LayoutRes private val layoutId: Int) : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel?,
+        DB : ViewDataBinding?>(@LayoutRes private val layoutId: Int) : Fragment() {
 
     protected abstract val viewModel: VM?
     protected var binding: DB? = null
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         observeEvents()
         initBinding(inflater, container)
         return binding?.root
@@ -87,14 +88,14 @@ abstract class BaseFragment<VM: BaseViewModel?,
         displayErrorMessage(message)
     }
 
-    protected fun displayErrorMessage(message : String?) {
+    protected fun displayErrorMessage(message: String?) {
         showDialog(
             message = message,
             textPositive = getString(R.string.ok),
             positiveListener = { previousFragment() }
         )
     }
-    private fun previousFragment () {
+    private fun previousFragment() {
         findNavController().popBackStack()
     }
 

@@ -14,7 +14,6 @@ import androidx.lifecycle.LifecycleObserver
 import com.java.flightscheduler.R
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 
-
 var loadingDialog: Dialog? = null
 
 fun Fragment.showLoadingDialog(
@@ -46,8 +45,8 @@ fun dismissLoadingDialog() {
 var showingDialog: Dialog? = null
 
 fun Fragment.showListDialog(
-    variable : Array<*>,
-    textView : TextView?,
+    variable: Array<*>,
+    textView: TextView?,
     cancelable: Boolean = false,
     canceledOnTouchOutside: Boolean = false
 ): AlertDialog? {
@@ -71,7 +70,6 @@ fun Fragment.showListDialog(
         dialog
     }
 }
-
 
 fun Fragment.showDialog(
     title: String? = null,
@@ -109,7 +107,8 @@ fun Fragment.showDialog(
 fun Fragment.displayTimePicker(
     context: Context? = null,
     startForResult: ActivityResultLauncher<Intent>,
-    isSingleSelect: Boolean = false) {
+    isSingleSelect: Boolean = false
+) {
 
     val intent = AirCalendarIntent(context)
     intent.setSelectButtonText(getString(R.string.text_select))
