@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
+import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.databinding.FragmentFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.MessageHelper
@@ -25,13 +27,15 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
     override val viewModel: FlightDetailsViewModel by viewModels()
 
     private val flightDetailsAdapter : FlightDetailsAdapter by lazy {
-        FlightDetailsAdapter(args.offer,requireContext()) {  position ->
-            onFlightSegmentSelected(position)
+        FlightDetailsAdapter(args.offer,requireContext()) {
+            onFlightSegmentSelected(it!!)
         }
     }
 
-    private fun onFlightSegmentSelected(position: Int) {
-        convertToJson(position)
+    private fun onFlightSegmentSelected(segment: SearchSegment) {
+        viewModel.getFlightOfferTemplate(segment).observe(viewLifecycleOwner, {
+            convertToJson(it)
+        })
     }
 
     override fun onBind() {
@@ -69,17 +73,17 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun convertToJson(position: Int){
+
+    private fun convertToJson(flightOffer: FlightOffer){
         val moshi = Moshi.Builder().build()
         val adapter = moshi.adapter(Any::class.java)
-        //todo, show by index is not a valid option..
-        val jsonStructure = adapter.toJson(args.offer)
-        var before = "{\"meta\":{},\"data\":["
+        val before = "{\"meta\":{},\"data\":["
         val after = "],\"dictionaries\":{\"locations\":{}}}"
-        before += jsonStructure + after
-        print(before)
+        val jsonStructure = adapter.toJson(flightOffer)
+        val finalized = before + jsonStructure + after
+        print(jsonStructure)
         val action = FlightDetailsFragmentDirections
-            .actionNavFlightResultsToSeatMapFragment(seatMapSearch = null, seatMapRequest = before, seatSegmentNumber = position )
+            .actionNavFlightResultsToSeatMapFragment(seatMapSearch = null, seatMapRequest = finalized)
         findNavController().navigate(action)
     }
 }

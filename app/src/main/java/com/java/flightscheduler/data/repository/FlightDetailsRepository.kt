@@ -3,8 +3,10 @@ package com.java.flightscheduler.data.repository
 import android.content.Context
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
+import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.squareup.moshi.Moshi
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -13,6 +15,17 @@ class FlightDetailsRepository @Inject constructor(private val context: Context){
     fun getDuration(segment: SearchSegment) = segment.duration?.substring(2)
     fun getClassCode(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.segmentClass
     fun getCabinCode(fareDetailsBySegment: FareDetailsBySegment) = fareDetailsBySegment.cabin
+
+    fun getOfferTemplate(segment: SearchSegment) : FlightOffer? {
+        val moshi = Moshi.Builder().build()
+        val offerTemplate: String = context.assets.open("mock_flight_data.json").bufferedReader().use { it.readText() }
+        val offer = moshi.adapter(FlightOffer::class.java).fromJson(offerTemplate)
+        segment.id = "1"
+        offer?.apply {
+            offer.itineraries?.get(0)?.segments = listOf(segment)
+        }
+        return offer
+    }
 
     fun getFareBasis(fareDetailsBySegment: FareDetailsBySegment) : String{
         return if (fareDetailsBySegment.fareBasis.equals(fareDetailsBySegment.cabin)){

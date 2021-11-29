@@ -45,7 +45,7 @@ class SeatMapRepository @Inject constructor(
         var errorMessages = ""
         errorResults.forEach {
                 error ->
-            errorMessages += "${error.code} - ${error.detail} \n"
+            errorMessages += "${error.code} - ${error.title} \n"
         }
         return if (errorResults.isEmpty()) "No Seat Map available for this flight."
         else errorMessages

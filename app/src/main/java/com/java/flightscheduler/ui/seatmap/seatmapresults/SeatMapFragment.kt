@@ -30,7 +30,7 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
             }
         } else {
             viewModel?.getSeatMapFromJson(args.seatMapRequest!!)?.observeOnce { seatMap ->
-                val seatMapIndex = args.seatSegmentNumber
+                val seatMapIndex = 0
                 setViewForSeatMap(seatMap,seatMapIndex)
             }
         }
