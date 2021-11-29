@@ -16,7 +16,7 @@
 
 # Package Structure
     
-    dev.shreyaspatil.foodium    # Root Package
+    com.java.flightscheduler    # Root Package
     .
     ├── data                # For data handling.
     │   ├── local           # Local Persistence Database. Room (SQLite) database
