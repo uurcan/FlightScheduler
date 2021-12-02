@@ -9,10 +9,10 @@ import retrofit2.http.Query
 interface MetricsService {
     @GET("v1/analytics/itinerary-price-metrics")
     suspend fun getItineraryPriceMetrics(
-        @Query("originIataCode") originIataCode : String?,
-        @Query("destinationIataCode") destinationIataCode : String?,
-        @Query("departureDate") departureDate : String?,
+        @Query("originIataCode") originIataCode: String?,
+        @Query("destinationIataCode") destinationIataCode: String?,
+        @Query("departureDate") departureDate: String?,
         @Query("currencyCode") currencyCode: String?,
         @Query("oneWay") oneWay: Boolean?
-    ) : BaseApiResponse<List<ItineraryPriceMetrics>>
+    ): BaseApiResponse<List<ItineraryPriceMetrics>>
 }

@@ -13,7 +13,6 @@ object AppConstants {
     const val MAX_LEG_COUNT = 3
     const val REQUEST_CODE_CALL_PERMISSION = 101
     const val PAGER_ITEM_SIZE = 4
-    const val MAP_ZOOM_SIZE = 15F
 
     const val SEAT_MAP_AVAILABLE = "AVAILABLE"
     const val SEAT_MAP_OCCUPIED = "OCCUPIED"
@@ -25,14 +24,14 @@ object AppConstants {
     const val DECK_SMALL = 5
 
     const val FLIGHT_SEARCH_BASE_URL = "https://test.api.amadeus.com/v2/shopping/flight-offers?"
-    enum class FilterOptions(val param : String) {
+    enum class FilterOptions(val param: String) {
         Default("none"),
         Name("name"),
         Price("price"),
         Distance("distance"),
         Rating("rating")
     }
-    enum class LanguageOptions(val code : String) {
+    enum class LanguageOptions(val code: String) {
         Chinese("ZH"),
         Spanish("ES"),
         English("FR"),

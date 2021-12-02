@@ -9,21 +9,21 @@ import javax.inject.Inject
 
 class PredictionRepository @Inject constructor(
     moshi: Moshi,
-    @IoDispatcher private val dispatcher : CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val predictionService: PredictionService
-) : BaseApiCall(moshi,dispatcher){
+) : BaseApiCall(moshi, dispatcher) {
 
-    suspend fun get (
-        originLocationCode : String,
-        destinationLocationCode : String,
-        departureDate : String,
-        departureTime : String,
-        arrivalDate : String,
-        arrivalTime : String,
-        aircraftCode : String,
-        carrierCode : String,
-        flightNumber : String,
-        duration : String
+    suspend fun get(
+        originLocationCode: String,
+        destinationLocationCode: String,
+        departureDate: String,
+        departureTime: String,
+        arrivalDate: String,
+        arrivalTime: String,
+        aircraftCode: String,
+        carrierCode: String,
+        flightNumber: String,
+        duration: String
     ) = baseApiCall {
         predictionService.getFlightPrediction(
             originLocationCode = originLocationCode,

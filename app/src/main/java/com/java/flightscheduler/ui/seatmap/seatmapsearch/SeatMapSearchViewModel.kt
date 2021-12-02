@@ -17,7 +17,7 @@ class SeatMapSearchViewModel @Inject constructor(private val seatMapRepository: 
     private val flightDateLiveData = MutableLiveData<String>()
     val flightDate: LiveData<String> get() = flightDateLiveData
 
-    fun performValidation(origin : String, destination : String) : MutableLiveData<String> {
+    fun performValidation(origin: String, destination: String): MutableLiveData<String> {
         validationMessage.value = ""
         if (origin.isBlank()) {
             validationMessage.value = "Origin cannot be blank"
@@ -27,15 +27,15 @@ class SeatMapSearchViewModel @Inject constructor(private val seatMapRepository: 
         return validationMessage
     }
 
-    fun onIncreaseLegSelected(count: Int?){
+    fun onIncreaseLegSelected(count: Int?) {
         legCountLiveData.value = seatMapRepository.increaseLegCount(count)!!
     }
 
-    fun onDecreaseLegSelected(count: Int?){
+    fun onDecreaseLegSelected(count: Int?) {
         legCountLiveData.value = seatMapRepository.decreaseLegCount(count)!!
     }
 
-    fun onDateSelected(flightDate : String){
+    fun onDateSelected(flightDate: String) {
         flightDateLiveData.value = flightDate
     }
 }

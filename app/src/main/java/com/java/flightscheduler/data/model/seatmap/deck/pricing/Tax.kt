@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Tax internal constructor(
-    val amount : Double? = 0.0,
-    val code : String? = null
+    val amount: Double? = 0.0,
+    val code: String? = null
 ) : Parcelable

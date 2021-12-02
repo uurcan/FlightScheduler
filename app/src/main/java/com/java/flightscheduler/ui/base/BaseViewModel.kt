@@ -15,22 +15,22 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
-open class BaseViewModel @Inject constructor() : ViewModel(){
-    //loadingFlag
-    val isLoading by lazy { MutableLiveData(false)}
+open class BaseViewModel @Inject constructor() : ViewModel() {
+    // loadingFlag
+    val isLoading by lazy { MutableLiveData(false) }
 
-    //errorMessage
+    // errorMessage
     val errorMessage by lazy { SingleLiveEvent<String>() }
 
-    //optionalFlags
-    val noInternetConnectionEvent by lazy {SingleLiveEvent<Unit>()}
-    val connectTimeOutEvent by lazy {SingleLiveEvent<Unit>()}
-    val forceUpdateAppEvent by lazy {SingleLiveEvent<Unit>()}
-    val serverMaintainErrorEvent by lazy {SingleLiveEvent<Unit>()}
-    val unknownErrorEvent by lazy {SingleLiveEvent<Unit>()}
+    // optionalFlags
+    val noInternetConnectionEvent by lazy { SingleLiveEvent<Unit>() }
+    val connectTimeOutEvent by lazy { SingleLiveEvent<Unit>() }
+    val forceUpdateAppEvent by lazy { SingleLiveEvent<Unit>() }
+    val serverMaintainErrorEvent by lazy { SingleLiveEvent<Unit>() }
+    val unknownErrorEvent by lazy { SingleLiveEvent<Unit>() }
 
     private val exceptionHandler by lazy {
-        CoroutineExceptionHandler {_,throwable ->
+        CoroutineExceptionHandler { _, throwable ->
             viewModelScope.launch {
                 onError(throwable)
             }
@@ -66,10 +66,10 @@ open class BaseViewModel @Inject constructor() : ViewModel(){
         hideLoading()
     }
 
-    fun showLoading(){
+    fun showLoading() {
         isLoading.value = true
     }
-    fun hideLoading(){
+    fun hideLoading() {
         isLoading.value = false
     }
 }

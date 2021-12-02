@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class FlightDesignator internal constructor(
-    val carrierCode : String? = null,
+    val carrierCode: String? = null,
     val flightNumber: Int? = 0
 ) : Parcelable

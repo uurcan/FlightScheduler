@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Media internal constructor(
-    val title : String? = null,
-    val href : String? = null,
-    val description : Description? = null,
-    val mediaType : String? = null
+    val title: String? = null,
+    val href: String? = null,
+    val description: Description? = null,
+    val mediaType: String? = null
 ) : Parcelable

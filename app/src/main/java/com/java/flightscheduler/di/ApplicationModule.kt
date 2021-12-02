@@ -16,17 +16,17 @@ import javax.inject.Singleton
 object ApplicationModule {
     @Singleton
     @Provides
-    fun provideAppContext(@ApplicationContext context: Context):Context = context
+    fun provideAppContext(@ApplicationContext context: Context): Context = context
 
     @Singleton
     @Provides
-    fun provideResources(context: Context):Resources = context.resources
+    fun provideResources(context: Context): Resources = context.resources
 
     @Singleton
     @Provides
-    fun provideAssetManager(context: Context):AssetManager = context.assets
+    fun provideAssetManager(context: Context): AssetManager = context.assets
 
     @Singleton
     @Provides
-    fun provideSharedPreferences(context: Context):SharedPreferences = context.getSharedPreferences(context.packageName,Context.MODE_PRIVATE)
+    fun provideSharedPreferences(context: Context): SharedPreferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
 }

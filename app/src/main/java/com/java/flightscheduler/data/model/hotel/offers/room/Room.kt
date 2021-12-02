@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class Room (
-    val type : String? = null,
-    val typeEstimated : TypeEstimated? = null,
-    val description : OfferDescription? = null
+data class Room(
+    val type: String? = null,
+    val typeEstimated: TypeEstimated? = null,
+    val description: OfferDescription? = null
 ) : Parcelable

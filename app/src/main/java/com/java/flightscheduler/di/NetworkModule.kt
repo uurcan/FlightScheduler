@@ -22,11 +22,11 @@ import javax.inject.Singleton
 object NetworkModule {
     @Singleton
     @Provides
-    fun provideBaseUrl() : String = "https://test.api.amadeus.com/"
+    fun provideBaseUrl(): String = "https://test.api.amadeus.com/"
 
     @Singleton
     @Provides
-    fun provideRetrofit() : Retrofit = Retrofit.Builder()
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
         .baseUrl(provideBaseUrl())
         .client(provideToken())
@@ -34,7 +34,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpCache(context: Context) : Cache = Cache(context.cacheDir,(10 * 1024 * 1024).toLong())
+    fun provideOkHttpCache(context: Context): Cache = Cache(context.cacheDir, (10 * 1024 * 1024).toLong())
 
     @Singleton
     @Provides
@@ -44,12 +44,12 @@ object NetworkModule {
                 chain ->
             val request = chain.request()
             val newUrl = request.url.newBuilder()
-                .addQueryParameter("api_key","")
+                .addQueryParameter("api_key", "")
                 .build()
             val newRequest = request.newBuilder()
                 .url(newUrl)
-                .addHeader("Authorization","Bearer " + "token")
-                .method(request.method,request.body)
+                .addHeader("Authorization", "Bearer " + "token")
+                .method(request.method, request.body)
                 .build()
             chain.proceed(newRequest)
         }

@@ -18,19 +18,18 @@ import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Context,private val onClick: (SearchSegment?) -> Unit)
-    : BaseAdapter<Itinerary, ItemFlightDetailBinding>(R.layout.item_flight_detail){
+class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Context, private val onClick: (SearchSegment?) -> Unit)
+    : BaseAdapter<Itinerary, ItemFlightDetailBinding>(R.layout.item_flight_detail) {
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
     private val flightRoutesRepository = FlightRoutesRepository(context)
     private val airlineRepository = AirlineRepository(context)
     private val airlineList = airlineRepository.getAirlines()
-    private var airportList : List<Airport> = flightRoutesRepository.getIataCodes()
-    private var connectionVariables : List<String> = flightDetailsRepository.getConnectionInfo(flightOffer)
-    private var segments : List<SearchSegment>? = flightDetailsRepository.getSegmentDetails(flightOffer)
-    private var fareDetails : List<FareDetailsBySegment>? = flightDetailsRepository.getFareDetails(flightOffer)
-    private var aircraftList : List<Aircraft> = flightRoutesRepository.getAircraft()
-
+    private var airportList: List<Airport> = flightRoutesRepository.getIataCodes()
+    private var connectionVariables: List<String> = flightDetailsRepository.getConnectionInfo(flightOffer)
+    private var segments: List<SearchSegment>? = flightDetailsRepository.getSegmentDetails(flightOffer)
+    private var fareDetails: List<FareDetailsBySegment>? = flightDetailsRepository.getFareDetails(flightOffer)
+    private var aircraftList: List<Aircraft> = flightRoutesRepository.getAircraft()
 
     override fun onBind(holder: BaseViewHolder, position: Int) {
         binding?.fareDetails = fareDetails?.get(position)
@@ -48,12 +47,12 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
     }
 
     private fun bindCustomized(position: Int) {
-        val aircraftCode : String = segments?.get(position)?.aircraft?.code.toString()
-        val airlineProvider = airlineRepository.getMatchingAirline(airlineList,segments?.get(position)?.carrierCode)
-        val departureAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.departure?.iataCode.toString())
-        val arrivalAirportName : String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.arrival?.iataCode.toString())
-        val aircraftName : String? = flightRoutesRepository.getMatchingAircraft(aircraftList,aircraftCode)
-        val conStatusText : TextView? = binding?.txtFlightDetailDetailsConnectionTime
+        val aircraftCode: String = segments?.get(position)?.aircraft?.code.toString()
+        val airlineProvider = airlineRepository.getMatchingAirline(airlineList, segments?.get(position)?.carrierCode)
+        val departureAirportName: String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.departure?.iataCode.toString())
+        val arrivalAirportName: String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.arrival?.iataCode.toString())
+        val aircraftName: String? = flightRoutesRepository.getMatchingAircraft(aircraftList, aircraftCode)
+        val conStatusText: TextView? = binding?.txtFlightDetailDetailsConnectionTime
         val destination = "$departureAirportName - $arrivalAirportName"
 
         binding?.textFlightDetailCarrier?.text = airlineProvider?.NAME
@@ -61,10 +60,10 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
         binding?.txtFlightDetailDetailsConnectionTime?.text = connectionVariables[position]
         binding?.txtFlightDetailCityInfo?.text = destination
         when (connectionVariables[position]) {
-            context.getString(R.string.text_end_flight) -> conStatusText?.setTextColor(ContextCompat.getColor(context,R.color.green_google))
-            context.getString(R.string.text_return_segments) -> conStatusText?.setTextColor(ContextCompat.getColor(context,R.color.yellow_900))
+            context.getString(R.string.text_end_flight) -> conStatusText?.setTextColor(ContextCompat.getColor(context, R.color.green_google))
+            context.getString(R.string.text_return_segments) -> conStatusText?.setTextColor(ContextCompat.getColor(context, R.color.yellow_900))
             else -> {
-                conStatusText?.setTextColor(ContextCompat.getColor(context,R.color.grey_500))
+                conStatusText?.setTextColor(ContextCompat.getColor(context, R.color.grey_500))
             }
         }
     }

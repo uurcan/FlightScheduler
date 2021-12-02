@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Power internal constructor(
-    val isChargeable : Boolean? = false,
-    val powerType : String? = null
+    val isChargeable: Boolean? = false,
+    val powerType: String? = null
 ) : Parcelable

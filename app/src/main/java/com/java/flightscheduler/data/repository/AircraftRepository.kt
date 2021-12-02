@@ -11,13 +11,13 @@ import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 class AircraftRepository @Inject constructor(
-    context : Context
+    context: Context
 ) {
-    private var inputStream : InputStream = context.resources.openRawResource(R.raw.aircraft_codes)
+    private var inputStream: InputStream = context.resources.openRawResource(R.raw.aircraft_codes)
     private var bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
 
-    fun getAircraft() : List<Aircraft>{
-        val aircraftList : ArrayList<Aircraft> = ArrayList()
+    fun getAircraft(): List<Aircraft> {
+        val aircraftList: ArrayList<Aircraft> = ArrayList()
         try {
             bufferedReader.readLines().forEach {
                 val tokens = it.split(",")

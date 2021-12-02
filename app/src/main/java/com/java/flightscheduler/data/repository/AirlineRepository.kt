@@ -11,13 +11,13 @@ import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
 class AirlineRepository @Inject constructor(
-    context : Context
+    context: Context
 ) {
-    private var inputStream : InputStream = context.resources.openRawResource(R.raw.airline_codes)
+    private var inputStream: InputStream = context.resources.openRawResource(R.raw.airline_codes)
     private var bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
 
-    fun getAirlines() : List<Airline>{
-        val airportList : ArrayList<Airline> = ArrayList()
+    fun getAirlines(): List<Airline> {
+        val airportList: ArrayList<Airline> = ArrayList()
         try {
             bufferedReader.readLines().forEach {
                 val tokens = it.split(",")
@@ -35,7 +35,7 @@ class AirlineRepository @Inject constructor(
         }
         return airportList
     }
-    fun getMatchingAirline(airlines : List<Airline>,carrier : String?) : Airline? {
+    fun getMatchingAirline(airlines: List<Airline>, carrier: String?): Airline? {
         return airlines.find { data -> carrier == data.ID }
     }
 }

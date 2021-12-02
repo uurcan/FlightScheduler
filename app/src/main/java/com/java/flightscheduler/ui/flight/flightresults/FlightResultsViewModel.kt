@@ -14,27 +14,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FlightResultsViewModel @Inject constructor(
-    private val flightRepository: FlightRepository
-): BaseViewModel() {
-    private var flightLiveData : MutableLiveData<List<FlightOffer>>? = MutableLiveData()
+class FlightResultsViewModel @Inject constructor(private val flightRepository: FlightRepository) : BaseViewModel() {
+    private var flightLiveData: MutableLiveData<List<FlightOffer>>? = MutableLiveData()
 
     init {
         showLoading()
     }
 
-    fun getFlightData(flightSearch: FlightSearch) : MutableLiveData<List<FlightOffer>>?{
+    fun getFlightData(flightSearch: FlightSearch): MutableLiveData<List<FlightOffer>>? {
         viewModelScope.launch {
             val flightOffersSearches = flightRepository.get(
-                originLocationCode = flightSearch.originLocationCode,
-                destinationLocationCode = flightSearch.destinationLocationCode,
+                originLocationCode = flightSearch.origin.IATA,
+                destinationLocationCode = flightSearch.destination.IATA,
                 departureDate = flightSearch.departureDate,
                 returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,
                 children = flightSearch.children
             )
 
-            when (flightOffersSearches){
+            when (flightOffersSearches) {
                 is BaseApiResult.Success -> {
                     flightLiveData.apply {
                         flightLiveData?.postValue(flightOffersSearches.data.toObservable()

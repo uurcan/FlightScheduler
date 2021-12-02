@@ -6,7 +6,10 @@ import com.java.flightscheduler.data.model.prediction.DelayPrediction
 import com.java.flightscheduler.data.repository.PredictionRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,10 +19,10 @@ class DelayPredictionViewModel @Inject constructor(
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
-    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
-    private var delayPredictionLiveData : MutableLiveData<List<DelayPrediction>>? = MutableLiveData()
+    var loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private var delayPredictionLiveData: MutableLiveData<List<DelayPrediction>>? = MutableLiveData()
 
-    fun getPredictionData() : MutableLiveData<List<DelayPrediction>>?{
+    fun getPredictionData(): MutableLiveData<List<DelayPrediction>>? {
         scope.launch {
             val flightPredictionSearch = predictionRepository.get(
                 originLocationCode = "NCE",

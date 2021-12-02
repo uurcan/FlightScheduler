@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 class Guests internal constructor(
-    val adults : Int? = null,
+    val adults: Int? = null,
     val childAges: List<Int>? = null
 ) : Parcelable

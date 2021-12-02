@@ -6,7 +6,6 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
 
-
 fun Throwable.toBaseException(): BaseException {
     return when (val throwable = this) {
         is BaseException -> throwable

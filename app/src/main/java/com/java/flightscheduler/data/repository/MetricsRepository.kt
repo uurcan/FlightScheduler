@@ -10,19 +10,19 @@ import javax.inject.Inject
 class MetricsRepository @Inject constructor(
     moshi: Moshi,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
-    private val metricsService : MetricsService
-) : BaseApiCall(moshi,dispatcher) {
+    private val metricsService: MetricsService
+) : BaseApiCall(moshi, dispatcher) {
 
     suspend fun get(
-        originIataCode : String? = null,
-        destinationIataCode : String? = null,
-        departureDate : String? = null,
-        currencyCode : String? = null,
-        oneWay : Boolean? = false
+        originIataCode: String? = null,
+        destinationIataCode: String? = null,
+        departureDate: String? = null,
+        currencyCode: String? = null,
+        oneWay: Boolean? = false
     ) = baseApiCall {
         metricsService.getItineraryPriceMetrics(
             originIataCode = originIataCode,
-            destinationIataCode =  destinationIataCode,
+            destinationIataCode = destinationIataCode,
             departureDate = departureDate,
             currencyCode = currencyCode,
             oneWay = oneWay

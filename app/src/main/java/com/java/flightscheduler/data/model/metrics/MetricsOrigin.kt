@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class MetricsOrigin internal constructor(
-    val iataCode : String? = null
+    val iataCode: String? = null
 ) : Parcelable

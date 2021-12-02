@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 data class TypeEstimated internal constructor(
     val category: String? = null,
-    val beds : Int = 0,
-    val bedType : String? = null
+    val beds: Int = 0,
+    val bedType: String? = null
 ) : Parcelable

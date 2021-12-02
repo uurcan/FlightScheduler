@@ -11,7 +11,8 @@ import javax.inject.Inject
 class FlightRepository @Inject constructor(
     moshi: Moshi,
     private val flightService: FlightService,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher) : BaseApiCall(moshi,dispatcher){
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
+) : BaseApiCall(moshi, dispatcher) {
 
     suspend fun get(
         originLocationCode: String,
@@ -46,7 +47,7 @@ class FlightRepository @Inject constructor(
             max
         )
     }
-    fun getQueryErrors(errorResults : List<BaseApiResult.Error.Issue>) : String? {
+    fun getQueryErrors(errorResults: List<BaseApiResult.Error.Issue>): String? {
         var errorMessages = ""
         errorResults.forEach {
                 error ->

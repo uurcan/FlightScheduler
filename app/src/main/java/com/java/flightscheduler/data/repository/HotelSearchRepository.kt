@@ -11,16 +11,15 @@ import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
-
 class HotelSearchRepository @Inject constructor(
-    private val context : Context
+    private val context: Context
 ) {
     private lateinit var bufferedReader: BufferedReader
 
-    fun getCities() : List<City>{
-        val inputStream : InputStream = context.resources.openRawResource(R.raw.city_codes)
+    fun getCities(): List<City> {
+        val inputStream: InputStream = context.resources.openRawResource(R.raw.city_codes)
         bufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-        val airportList : ArrayList<City> = ArrayList()
+        val airportList: ArrayList<City> = ArrayList()
         try {
             bufferedReader.readLines().forEach {
                 val tokens = it.split(",")
@@ -38,19 +37,18 @@ class HotelSearchRepository @Inject constructor(
         return airportList
     }
 
-    fun decreaseRoomCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_ROOM_COUNT)
+    fun decreaseRoomCount(count: Int?): Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_ROOM_COUNT)
 
-    fun increaseRoomCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_ROOM_COUNT)
+    fun increaseRoomCount(count: Int?): Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_ROOM_COUNT)
 
-    fun decreaseAuditCount(count : Int?) : Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_AUDIT_COUNT)
+    fun decreaseAuditCount(count: Int?): Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_AUDIT_COUNT)
 
-    fun increaseAuditCount(count : Int?) : Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_AUDIT_COUNT)
+    fun increaseAuditCount(count: Int?): Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_AUDIT_COUNT)
 
-
-    fun getHotelImages() : List<String>{
-        val iataDataList : ArrayList<String> = ArrayList()
+    fun getHotelImages(): List<String> {
+        val iataDataList: ArrayList<String> = ArrayList()
         try {
-            val inputStream : InputStream = context.resources.openRawResource(R.raw.hotel_images)
+            val inputStream: InputStream = context.resources.openRawResource(R.raw.hotel_images)
             bufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
 
             bufferedReader.readLines().forEach {

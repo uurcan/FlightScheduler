@@ -9,8 +9,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class FlightStatus internal constructor(
-    val type : String? = null,
-    val scheduledDepartureDate : String? = null,
+    val type: String? = null,
+    val scheduledDepartureDate: String? = null,
     val flightDesignator: FlightDesignator? = null,
     val flightPoints: List<Points>? = null,
     val segments: List<Segments>? = null,

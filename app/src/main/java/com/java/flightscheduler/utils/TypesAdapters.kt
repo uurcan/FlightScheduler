@@ -50,7 +50,6 @@ internal class BigDecimalJsonAdapter : XNullableJsonAdapter<BigDecimal>() {
     }
 }
 
-
 internal class NumbersAdapter(
     private val delegate: JsonAdapter<Any>
 ) : JsonAdapter<Any?>() {

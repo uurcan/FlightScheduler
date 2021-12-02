@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Changes internal constructor(
-    val startDate : String? = null,
+    val startDate: String? = null,
     val endDate: String? = null,
-    val total : Double = 0.0
+    val total: Double = 0.0
 ) : Parcelable

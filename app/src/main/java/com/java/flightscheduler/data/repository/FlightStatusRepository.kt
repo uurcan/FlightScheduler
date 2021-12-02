@@ -11,13 +11,13 @@ class FlightStatusRepository @Inject constructor(
     moshi: Moshi,
     private val flightStatusService: FlightStatusService,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
-) : BaseApiCall(moshi,dispatcher) {
+) : BaseApiCall(moshi, dispatcher) {
 
     suspend fun get(
-        carrierCode : String,
-        flightNumber : Int,
-        scheduledDepartureDate : String,
-        operationalSuffix : String? = null
+        carrierCode: String,
+        flightNumber: Int,
+        scheduledDepartureDate: String,
+        operationalSuffix: String? = null
     ) = baseApiCall {
         flightStatusService.getFlightStatus(
             carrierCode = carrierCode,

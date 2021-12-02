@@ -14,21 +14,21 @@ import javax.inject.Inject
 @HiltViewModel
 class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMapRepository)
     : BaseViewModel() {
-    private var seatMapLiveData : MutableLiveData<List<SeatMap>>? = MutableLiveData()
-    var mapHeader : MutableLiveData<SeatMap>? = MutableLiveData()
+    private var seatMapLiveData: MutableLiveData<List<SeatMap>>? = MutableLiveData()
+    var mapHeader: MutableLiveData<SeatMap>? = MutableLiveData()
 
     init {
         showLoading()
     }
 
-    fun seatMapHeader(seatMap: SeatMap) : MutableLiveData<SeatMap>? {
+    fun seatMapHeader(seatMap: SeatMap): MutableLiveData<SeatMap>? {
         mapHeader.apply {
             mapHeader?.value = seatMap
         }
         return mapHeader
     }
 
-    fun getSeatMapFromFlightOffer(seatMapSearch: SeatMapSearch): MutableLiveData<List<SeatMap>>?{
+    fun getSeatMapFromFlightOffer(seatMapSearch: SeatMapSearch): MutableLiveData<List<SeatMap>>? {
         viewModelScope.launch {
             val url = seatMapRepository.getURLFromOffer(seatMapSearch)
             val seatMapRequest = seatMapRepository.get(url)
@@ -48,7 +48,7 @@ class SeatMapViewModel @Inject constructor(private val seatMapRepository: SeatMa
         return seatMapLiveData
     }
 
-    fun getSeatMapFromJson(seatMapRequest: String): MutableLiveData<List<SeatMap>>?{
+    fun getSeatMapFromJson(seatMapRequest: String): MutableLiveData<List<SeatMap>>? {
         viewModelScope.launch {
             when (val seatMapResults = seatMapRepository.post(seatMapRequest)) {
                 is BaseApiResult.Success -> {

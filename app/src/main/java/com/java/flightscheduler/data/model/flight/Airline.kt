@@ -4,5 +4,5 @@ data class Airline constructor(
     val ID: String,
     val ICC: String,
     val NAME: String?,
-    val LOGO:  String?
+    val LOGO: String?
 )

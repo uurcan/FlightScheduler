@@ -10,5 +10,5 @@ class SeatMapSearch(
     var destination: Airport = Airport(),
     var flightDate: String = "",
     var formattedFlightDate: String = "",
-    var legs : Int = 1
+    var legs: Int = 1
 ) : Parcelable

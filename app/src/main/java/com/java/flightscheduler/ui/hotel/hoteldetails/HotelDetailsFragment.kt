@@ -12,7 +12,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.constants.AppConstants.MAP_ZOOM_SIZE
 import com.java.flightscheduler.data.constants.AppConstants.REQUEST_CODE_CALL_PERMISSION
 import com.java.flightscheduler.databinding.FragmentHotelDetailBinding
 import com.java.flightscheduler.ui.base.BaseFragment
@@ -22,11 +21,11 @@ import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
 @AndroidEntryPoint
-class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDetailBinding>(R.layout.fragment_hotel_details),
+class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel, FragmentHotelDetailBinding>(R.layout.fragment_hotel_details),
     OnMapReadyCallback,
     EasyPermissions.PermissionCallbacks {
     private val args by navArgs<HotelDetailsFragmentArgs>()
-    override val viewModel : HotelDetailsViewModel? by viewModels()
+    override val viewModel: HotelDetailsViewModel? by viewModels()
 
     override fun onBind() {
         initializeViews()
@@ -35,7 +34,7 @@ class HotelDetailsFragment : BaseFragment<HotelDetailsViewModel,FragmentHotelDet
     }
 
     private fun initializeViews() {
-        binding?.layoutHotelDetailContact?.setOnClickListener{ requestPermissions() }
+        binding?.layoutHotelDetailContact?.setOnClickListener { requestPermissions() }
     }
 
     private fun initializeVariables() {

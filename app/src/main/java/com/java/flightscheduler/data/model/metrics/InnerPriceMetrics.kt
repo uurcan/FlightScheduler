@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class InnerPriceMetrics internal constructor(
-    val amount : Double? = 0.0,
-    val quartileRanking : String? = null
+    val amount: Double? = 0.0,
+    val quartileRanking: String? = null
 ) : Parcelable

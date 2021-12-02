@@ -17,7 +17,7 @@ import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>(){
+class MainActivity : BaseActivity<ActivityMainBinding, BaseViewModel>() {
     override val viewModel: BaseViewModel by viewModels()
     override val layoutId: Int = R.layout.activity_main
     private lateinit var appBarConfiguration: AppBarConfiguration

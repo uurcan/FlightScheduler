@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class RateFamily internal constructor(
-    val code : String? = null,
-    val type : String? = null
+    val code: String? = null,
+    val type: String? = null
 ) : Parcelable

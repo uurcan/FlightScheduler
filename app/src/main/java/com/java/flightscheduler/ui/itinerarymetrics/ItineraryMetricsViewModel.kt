@@ -17,10 +17,10 @@ class ItineraryMetricsViewModel @Inject constructor(private val metricsRepositor
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
-    var loadingLiveData : MutableLiveData<Boolean> = MutableLiveData()
-    var metricsLiveData : MutableLiveData<List<ItineraryPriceMetrics>>? = MutableLiveData()
+    var loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    var metricsLiveData: MutableLiveData<List<ItineraryPriceMetrics>>? = MutableLiveData()
 
-    fun getMetricsData() : MutableLiveData<List<ItineraryPriceMetrics>>? {
+    fun getMetricsData(): MutableLiveData<List<ItineraryPriceMetrics>>? {
         scope.launch {
 
             val itineraryMetricsResults = metricsRepository.get(

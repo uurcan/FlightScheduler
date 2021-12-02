@@ -8,5 +8,5 @@ import kotlinx.android.parcel.Parcelize
 @JsonClass(generateAdapter = true)
 data class AvailableSeatsCounters internal constructor(
     val travelerId: Int? = 0,
-    val value : Int? = 0
+    val value: Int? = 0
 ) : Parcelable

@@ -17,7 +17,7 @@ class SeatMapRepository @Inject constructor(
     moshi: Moshi,
     @IoDispatcher val dispatcher: CoroutineDispatcher,
     private val seatMapService: SeatMapService
-) : BaseApiCall(moshi,dispatcher) {
+) : BaseApiCall(moshi, dispatcher) {
 
     @Throws(Exception::class)
     suspend fun get(url: String): String {
@@ -31,17 +31,17 @@ class SeatMapRepository @Inject constructor(
         seatMapService.getSeatMapFromFlightOffer(bodyAsMap(body))
     }
 
-    fun getURLFromOffer(seatMapSearch : SeatMapSearch) : String{
+    fun getURLFromOffer(seatMapSearch: SeatMapSearch): String {
         return FLIGHT_SEARCH_BASE_URL +
                 "originLocationCode=" + seatMapSearch.origin.IATA + "&" +
                 "destinationLocationCode=" + seatMapSearch.destination.IATA + "&" +
                 "departureDate=" + seatMapSearch.flightDate + "&" +
-                "adults=" + "${MIN_ADULT_COUNT}&" +
-                "children=" + "${MIN_CHILD_COUNT}&" +
-                "max=" + "${1}"
+                "adults=" + "$MIN_ADULT_COUNT&" +
+                "children=" + "$MIN_CHILD_COUNT&" +
+                "max=" + "$1"
     }
 
-    fun getQueryErrors(errorResults : List<BaseApiResult.Error.Issue>) : String? {
+    fun getQueryErrors(errorResults: List<BaseApiResult.Error.Issue>): String? {
         var errorMessages = ""
         errorResults.forEach {
                 error ->

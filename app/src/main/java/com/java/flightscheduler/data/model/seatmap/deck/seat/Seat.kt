@@ -8,9 +8,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class Seat internal constructor(
-    val cabin : String? = null,
-    val number : String? = null,
-    val characteristicsCodes : List<String>? = null,
+    val cabin: String? = null,
+    val number: String? = null,
+    val characteristicsCodes: List<String>? = null,
     val travelerPricing: List<TravelerPricing>? = null,
     val coordinates: Coordinates? = null
 ) : Parcelable

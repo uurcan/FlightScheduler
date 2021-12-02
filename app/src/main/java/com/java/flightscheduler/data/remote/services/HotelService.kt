@@ -12,7 +12,7 @@ interface HotelService {
         @Query("cityCode") cityCode: String?,
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?,
-        @Query("hotelIds")  hotelIds: List<String>?,
+        @Query("hotelIds") hotelIds: List<String>?,
         @Query("checkInDate") checkInDate: String?,
         @Query("checkOutDate") checkOutDate: String?,
         @Query("roomQuantity") roomQuantity: Int?,
@@ -36,5 +36,5 @@ interface HotelService {
         @Query("page[limit]") pageLimit: Int?,
         @Query("page[offset]") pageOffset: String?,
         @Query("lang") lang: String?
-    ) : BaseApiResponse<List<HotelOffer>>
+    ): BaseApiResponse<List<HotelOffer>>
 }

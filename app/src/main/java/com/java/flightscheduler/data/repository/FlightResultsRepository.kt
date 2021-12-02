@@ -1,6 +1,5 @@
 package com.java.flightscheduler.data.repository
 
-
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import javax.inject.Inject
 

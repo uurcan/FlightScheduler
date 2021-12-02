@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class WiFi internal constructor(
-    val isChargeable : Boolean? = false,
-    val wifiCoverage : String? = null
+    val isChargeable: Boolean? = false,
+    val wifiCoverage: String? = null
 ) : Parcelable

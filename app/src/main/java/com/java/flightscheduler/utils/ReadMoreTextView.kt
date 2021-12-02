@@ -112,7 +112,6 @@ class ReadMoreTextView @JvmOverloads constructor(
         }
 
         text = collapseText
-
     }
 
     private fun needSkipSetupReadMore(): Boolean =
@@ -150,5 +149,4 @@ class ReadMoreTextView @JvmOverloads constructor(
     companion object {
         private const val DEFAULT_MAX_LINE = 4
     }
-
 }

@@ -9,4 +9,4 @@ import kotlinx.android.parcel.Parcelize
 class Itinerary internal constructor(
     val duration: String? = null,
     var segments: List<SearchSegment>? = null
-): Parcelable
+) : Parcelable

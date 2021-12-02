@@ -12,12 +12,12 @@ interface PredictionService {
         @Query("originLocationCode") originLocationCode: String,
         @Query("destinationLocationCode") destinationLocationCode: String,
         @Query("departureDate") departureDate: String,
-        @Query("departureTime") departureTime : String,
-        @Query("arrivalDate") arrivalDate : String,
-        @Query("arrivalTime") arrivalTime : String,
-        @Query("aircraftCode") aircraftCode : String,
-        @Query("carrierCode") carrierCode : String,
-        @Query("flightNumber") flightNumber : String,
+        @Query("departureTime") departureTime: String,
+        @Query("arrivalDate") arrivalDate: String,
+        @Query("arrivalTime") arrivalTime: String,
+        @Query("aircraftCode") aircraftCode: String,
+        @Query("carrierCode") carrierCode: String,
+        @Query("flightNumber") flightNumber: String,
         @Query("duration") duration: String
-    ) : BaseApiResponse<List<DelayPrediction>>
+    ): BaseApiResponse<List<DelayPrediction>>
 }

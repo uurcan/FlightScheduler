@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class TravelerPricing internal constructor(
-    val travelerId : Int? = 0,
-    val seatAvailabilityStatus : String? = null,
-    val price : Price? = null
+    val travelerId: Int? = 0,
+    val seatAvailabilityStatus: String? = null,
+    val price: Price? = null
 ) : Parcelable
