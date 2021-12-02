@@ -14,9 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FlightResultsViewModel @Inject constructor(
-    private val flightRepository: FlightRepository
-) : BaseViewModel() {
+class FlightResultsViewModel @Inject constructor(private val flightRepository: FlightRepository) : BaseViewModel() {
     private var flightLiveData: MutableLiveData<List<FlightOffer>>? = MutableLiveData()
 
     init {
@@ -26,8 +24,8 @@ class FlightResultsViewModel @Inject constructor(
     fun getFlightData(flightSearch: FlightSearch): MutableLiveData<List<FlightOffer>>? {
         viewModelScope.launch {
             val flightOffersSearches = flightRepository.get(
-                originLocationCode = flightSearch.originLocationCode,
-                destinationLocationCode = flightSearch.destinationLocationCode,
+                originLocationCode = flightSearch.origin.IATA,
+                destinationLocationCode = flightSearch.destination.IATA,
                 departureDate = flightSearch.departureDate,
                 returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,

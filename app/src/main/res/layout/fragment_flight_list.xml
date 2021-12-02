@@ -50,7 +50,7 @@
                     android:id="@+id/txt_flight_detail_origin_iata"
                     android:textSize="26sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{flightSearch.originLocationCode}"
+                    android:text="@{flightSearch.origin.IATA}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -58,7 +58,7 @@
                     android:id="@+id/txt_flight_detail_origin_city"
                     android:textSize="20sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{flightSearch.originLocationCity}"
+                    android:text="@{flightSearch.origin.CITY}"
                     android:layout_marginStart="@dimen/margin_xlarge"
                     app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_origin_iata"
                     android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:id="@+id/txt_flight_detail_destination_iata"
                     android:textSize="26sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{flightSearch.destinationLocationCode}"
+                    android:text="@{flightSearch.destination.IATA}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -89,7 +89,7 @@
                     android:id="@+id/txt_flight_detail_destination_city"
                     android:textSize="20sp"
                     android:textColor="@color/grey_white_1000"
-                    android:text="@{flightSearch.destinationLocationCity}"
+                    android:text="@{flightSearch.destination.CITY}"
                     android:layout_marginStart="@dimen/margin_xlarge"
                     app:layout_constraintTop_toBottomOf="@+id/txt_flight_detail_destination_iata"
                     android:layout_width="wrap_content"

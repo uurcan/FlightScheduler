@@ -1,6 +1,7 @@
 package com.java.flightscheduler.utils.extension
 
 import android.app.Activity
+import android.text.Editable
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
@@ -54,4 +55,11 @@ fun Fragment.airportDropdownEvent(
     }
 
     return Any()
+}
+
+fun swapRoutes(first: AutoCompleteTextView?, second: AutoCompleteTextView?) {
+    val tempOrigin: Editable? = first?.text
+    first?.text = second?.text
+    second?.text = tempOrigin
+    second?.clearFocus()
 }

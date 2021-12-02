@@ -1,9 +1,10 @@
 <layout>
     <data>
         <import type="android.view.View"/>
+        <import type="com.java.flightscheduler.utils.ParsingUtils"/>
         <variable
-            name="search"
-            type="com.java.flightscheduler.data.model.flight.FlightSearch" />
+            name="flightSearchViewModel"
+            type="com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -40,7 +41,7 @@
             android:layout_marginTop="@dimen/flight_search_small_icon_dimen">
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:checked="@{!search.roundTrip}"
+                android:checked="@{flightSearchViewModel.isOneWay}"
                 android:textSize="16sp"
                 android:button="@android:color/transparent"
                 android:background="@drawable/button_selector"
@@ -59,7 +60,7 @@
                 android:layout_height="@dimen/flight_search_switch_dimen"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:checked="@{search.roundTrip}"
+                android:checked="@{!flightSearchViewModel.isOneWay}"
                 android:textSize="16sp"
                 android:button="@android:color/transparent"
                 android:background="@drawable/button_selector"
@@ -118,7 +119,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
 
                 <AutoCompleteTextView
-                    android:text="@{search.originLocationCity}"
+                    android:text="@{flightSearchViewModel.origin.CITY}"
                     android:gravity="top"
                     android:textColorHint="@color/grey_black_1000"
                     android:background="@android:color/transparent"
@@ -181,7 +182,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"/>
 
                 <AutoCompleteTextView
-                    android:text="@{search.destinationLocationCity}"
+                    android:text="@{flightSearchViewModel.destination.CITY}"
                     android:gravity="top"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="@dimen/margin_small"
@@ -273,7 +274,7 @@
                     android:background="@android:color/transparent"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:text="@{search.formattedDepartureDate}"
+                    app:setDateParserText="@{ParsingUtils.getCurrentDate(flightSearchViewModel.flightDate).toString()}"
                     android:textColor="@color/grey_black_1000"
                     android:textSize="16sp"
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
@@ -305,7 +306,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:visibility="@{search.roundTrip ? View.VISIBLE : View.GONE}"
+                android:visibility="@{flightSearchViewModel.isOneWay ? View.GONE : View.VISIBLE}"
                 android:animateLayoutChanges="true"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
@@ -337,7 +338,7 @@
                     android:background="@android:color/transparent"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:text="@{search.formattedReturnDate}"
+                    app:setDateParserText="@{ParsingUtils.getNextDate(flightSearchViewModel.returnDate).toString()}"
                     android:textColor="@color/grey_black_1000"
                     android:textSize="16sp"
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"
@@ -401,7 +402,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="@{String.valueOf(search.adults)}"
+                    android:text="@{Integer.toString(flightSearchViewModel.adultCount)}"
                     android:layout_marginTop="@dimen/margin_small"
                     android:id="@+id/txt_flight_adult_count"
                     android:layout_width="wrap_content"
@@ -428,10 +429,11 @@
                     android:layout_marginStart="@dimen/margin_small" />
 
                 <ImageView
+                    android:onClick="@{() -> flightSearchViewModel.onIncreaseAdultSelected(flightSearchViewModel.adultCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_plus"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:padding="@dimen/margin_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_small_icon_dimen"
@@ -440,10 +442,11 @@
                     android:layout_marginStart="@dimen/margin_medium"/>
 
                 <ImageView
+                    android:onClick="@{() -> flightSearchViewModel.onDecreaseAdultSelected(flightSearchViewModel.adultCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_minus"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     android:padding="@dimen/margin_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_small_icon_dimen"
@@ -477,7 +480,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
-                    android:text="@{String.valueOf(search.children)}"
+                    android:text="@{Integer.toString(flightSearchViewModel.childCount)}"
                     android:textSize="20sp"
                     android:textColor="@color/grey_black_1000"
                     app:layout_constraintTop_toTopOf="parent"
@@ -499,10 +502,11 @@
                     android:layout_marginStart="@dimen/margin_small" />
 
                 <ImageView
+                    android:onClick="@{() -> flightSearchViewModel.onIncreaseChildSelected(flightSearchViewModel.childCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_plus"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     android:padding="@dimen/margin_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_small_icon_dimen"
@@ -511,10 +515,11 @@
                     android:layout_marginStart="@dimen/margin_medium"/>
 
                 <ImageView
+                    android:onClick="@{() -> flightSearchViewModel.onDecreaseChildSelected(flightSearchViewModel.childCount)}"
                     android:contentDescription="@null"
                     android:src="@drawable/icon_flight_minus"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     android:padding="@dimen/margin_small"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_small_icon_dimen"

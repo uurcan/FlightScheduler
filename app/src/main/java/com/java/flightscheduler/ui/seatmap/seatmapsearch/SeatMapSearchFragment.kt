@@ -9,8 +9,8 @@ import com.java.flightscheduler.data.model.seatmap.base.SeatMapSearch
 import com.java.flightscheduler.databinding.SeatMapSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.MessageHelper
-import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesAdapter
-import com.java.flightscheduler.ui.flight.flightroutes.FlightRoutesViewModel
+import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchAdapter
+import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import com.java.flightscheduler.utils.extension.airportDropdownEvent
 import com.java.flightscheduler.utils.extension.displayTimePicker
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel, SeatMapSearchBinding>(R.layout.fragment_seat_map_search) {
     override val viewModel: SeatMapSearchViewModel? by viewModels()
     private val seatMapSearch: SeatMapSearch by lazy { SeatMapSearch() }
-    private val flightRoutesViewModel: FlightRoutesViewModel by viewModels()
+    private val flightSearchViewModel : FlightSearchViewModel by viewModels()
 
     override fun onBind() {
         initializeViews()
@@ -72,8 +72,8 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel, SeatMapSearch
     }
 
     private fun initializeAirportDropdown() {
-        flightRoutesViewModel.getIATACodes()?.observe(viewLifecycleOwner, {
-            val adapter = FlightRoutesAdapter(requireContext(), it.toTypedArray())
+        flightSearchViewModel.getIATACodes()?.observe(viewLifecycleOwner, {
+            val adapter = FlightSearchAdapter(requireContext(), it.toTypedArray())
             binding?.edtFlightSearchOrigin?.setAdapter(adapter)
             binding?.edtFlightSearchDestination?.setAdapter(adapter) }
         )

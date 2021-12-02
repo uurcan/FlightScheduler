@@ -109,7 +109,6 @@ fun Fragment.displayTimePicker(
     startForResult: ActivityResultLauncher<Intent>,
     isSingleSelect: Boolean = false
 ) {
-
     val intent = AirCalendarIntent(context)
     intent.setSelectButtonText(getString(R.string.text_select))
     intent.setResetBtnText(getString(R.string.text_reset))

@@ -17,11 +17,11 @@ class SeatRepository @Inject constructor() {
         alignedSeatList = decks.seats?.toMutableList()!!
         when (decks.deckConfiguration?.width) {
             DECK_SMALL -> { // medium deck - contains "(size / 3)" aisle
-                return alignSeatList(1, 5)
+                return alignSeatList(2, 5)
             }
 
             DECK_MEDIUM -> { // medium deck - contains "(size / 5)" aisle
-                return alignSeatList(2, 7)
+                return alignSeatList(3, 7)
             }
 
             DECK_LARGE -> { // medium deck - contains "(size / 8) * 2" aisle
@@ -66,5 +66,5 @@ class SeatRepository @Inject constructor() {
 
     fun decreaseLegCount(count: Int?): Int? = count?.minus(0)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
 
-    fun increaseLegCount(count: Int?): Int? = count?.plus(0)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
+    fun  increaseLegCount(count: Int?): Int? = count?.plus(0)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
 }
