@@ -12,13 +12,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
-import com.java.flightscheduler.data.constants.HttpConstants.clientId
-import com.java.flightscheduler.data.constants.HttpConstants.clientSecret
 import com.java.flightscheduler.data.constants.TimeConstants.HTTP_TIMEOUT
 import com.java.flightscheduler.data.constants.TimeConstants.HTTP_VALID_UNTIL
 import com.java.flightscheduler.data.constants.TimeConstants.TOKEN_VALIDITY_MILLISECONDS
 
-class TokenRepository : TokenProvider {
+class TokenRepository(private val clientId: String,
+                      private val clientSecret: String) : TokenProvider {
 
     private val tokenService: TokenService
     private var accessToken: AccessToken? = null
@@ -65,5 +64,18 @@ class TokenRepository : TokenProvider {
                 }
         }
         return token()
+    }
+    class Builder internal constructor() {
+        private lateinit var clientId: String
+        private lateinit var clientSecret: String
+
+        fun setClientId(clientId: String) = apply { this.clientId = clientId }
+
+        fun setClientSecret(clientSecret: String)  = apply { this.clientSecret = clientSecret }
+
+        fun build() = TokenRepository(
+            clientId,
+            clientSecret
+        )
     }
 }

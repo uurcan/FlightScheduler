@@ -1,5 +1,7 @@
 package com.java.flightscheduler.di.flight
 
+import com.java.flightscheduler.BuildConfig.API_KEY
+import com.java.flightscheduler.BuildConfig.API_SECRET
 import com.java.flightscheduler.data.remote.services.FlightService
 import com.java.flightscheduler.data.remote.services.FlightStatusService
 import com.java.flightscheduler.data.remote.services.HotelService
@@ -20,7 +22,11 @@ import javax.inject.Singleton
 object FlightModule {
     @Singleton
     @Provides
-    fun provideToken(): OkHttpClient = TokenRepository().tokenClient
+    fun provideToken(): OkHttpClient = TokenRepository.Builder()
+        .setClientId(API_KEY)
+        .setClientSecret(API_SECRET)
+        .build()
+        .tokenClient
 
     @Singleton
     @Provides
