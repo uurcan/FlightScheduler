@@ -20,10 +20,8 @@ class FlightStatusViewModel @Inject constructor(private val flightStatusReposito
 
     var loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private var flightStatusLiveData: MutableLiveData<List<FlightStatus>>? = MutableLiveData()
-    private lateinit var tokenRepository: TokenRepository
 
     fun getFlightStatusLiveData(): MutableLiveData<List<FlightStatus>>? {
-        tokenRepository = TokenRepository()
 
         scope.launch {
             val flightStatusResults = flightStatusRepository.get(
