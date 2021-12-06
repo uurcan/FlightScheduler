@@ -20,11 +20,9 @@ import javax.inject.Named
     replaces = [NetworkModule::class])
 object TestNetworkModule {
     @Provides
-    @Named("test_base_url")
     fun provideBaseUrl(): String = "https://test.api.amadeus.com/"
 
     @Provides
-    @Named("test_token")
     fun provideToken(): OkHttpClient = TokenRepository.Builder()
         .setClientId(BuildConfig.API_KEY)
         .setClientSecret(BuildConfig.API_SECRET)
@@ -32,7 +30,6 @@ object TestNetworkModule {
         .tokenClient
 
     @Provides
-    @Named("test_network")
     fun provideRetrofit(): Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
         .baseUrl(provideBaseUrl())
@@ -40,7 +37,6 @@ object TestNetworkModule {
         .build()
 
     @Provides
-    @Named("test_moshi")
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(NumbersAdapter.FACTORY)
         .add(TypesAdapterFactory())
