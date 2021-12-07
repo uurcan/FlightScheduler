@@ -8,7 +8,6 @@ import com.java.flightscheduler.data.repository.FlightRoutesRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.math.round
 
 @HiltViewModel
 class FlightSearchViewModel @Inject constructor(private val flightRoutesRepository: FlightRoutesRepository) : BaseViewModel() {
@@ -18,11 +17,11 @@ class FlightSearchViewModel @Inject constructor(private val flightRoutesReposito
     private val oneWayLiveData = MutableLiveData(false)
     val isOneWay: LiveData<Boolean?> get() = oneWayLiveData
 
-    private val originLiveData = MutableLiveData<Airport>()
-    val origin: LiveData<Airport> get() = originLiveData
+    private val originLiveData = MutableLiveData<Airport?>()
+    val origin: LiveData<Airport?> get() = originLiveData
 
-    private val destinationLiveData = MutableLiveData<Airport>()
-    val destination: LiveData<Airport> get() = destinationLiveData
+    private val destinationLiveData = MutableLiveData<Airport?>()
+    val destination: LiveData<Airport?> get() = destinationLiveData
 
     private val flightDateLiveData = MutableLiveData<String>()
     val flightDate: LiveData<String> get() = flightDateLiveData
@@ -57,7 +56,7 @@ class FlightSearchViewModel @Inject constructor(private val flightRoutesReposito
         return iataCodeLiveData
     }
 
-    fun onOneWaySelected(result : Boolean) {
+    fun onOneWaySelected(result: Boolean) {
         oneWayLiveData.value = result
     }
 

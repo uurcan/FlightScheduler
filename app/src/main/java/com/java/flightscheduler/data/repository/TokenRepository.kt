@@ -16,9 +16,7 @@ import com.java.flightscheduler.data.constants.TimeConstants.HTTP_TIMEOUT
 import com.java.flightscheduler.data.constants.TimeConstants.HTTP_VALID_UNTIL
 import com.java.flightscheduler.data.constants.TimeConstants.TOKEN_VALIDITY_MILLISECONDS
 
-class TokenRepository(private val clientId: String,
-                      private val clientSecret: String) : TokenProvider {
-
+class TokenRepository(private val clientId: String, private val clientSecret: String) : TokenProvider {
     private val tokenService: TokenService
     private var accessToken: AccessToken? = null
     private var tokenValidUntil = HTTP_VALID_UNTIL
@@ -71,7 +69,7 @@ class TokenRepository(private val clientId: String,
 
         fun setClientId(clientId: String) = apply { this.clientId = clientId }
 
-        fun setClientSecret(clientSecret: String)  = apply { this.clientSecret = clientSecret }
+        fun setClientSecret(clientSecret: String) = apply { this.clientSecret = clientSecret }
 
         fun build() = TokenRepository(
             clientId,

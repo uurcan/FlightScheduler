@@ -66,5 +66,5 @@ class SeatRepository @Inject constructor() {
 
     fun decreaseLegCount(count: Int?): Int? = count?.minus(0)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
 
-    fun  increaseLegCount(count: Int?): Int? = count?.plus(0)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
+    fun increaseLegCount(count: Int?): Int? = count?.plus(0)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
 }

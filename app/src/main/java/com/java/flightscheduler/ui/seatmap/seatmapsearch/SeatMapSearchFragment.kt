@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel, SeatMapSearchBinding>(R.layout.fragment_seat_map_search) {
     override val viewModel: SeatMapSearchViewModel? by viewModels()
     private val seatMapSearch: SeatMapSearch by lazy { SeatMapSearch() }
-    private val flightSearchViewModel : FlightSearchViewModel by viewModels()
+    private val flightSearchViewModel: FlightSearchViewModel by viewModels()
 
     override fun onBind() {
         initializeViews()
