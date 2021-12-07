@@ -13,7 +13,6 @@ import dagger.hilt.testing.TestInstallIn
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Named
 
 @Module
 @TestInstallIn(components = [SingletonComponent::class],
