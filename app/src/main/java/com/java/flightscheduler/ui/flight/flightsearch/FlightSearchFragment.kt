@@ -1,8 +1,6 @@
 package com.java.flightscheduler.ui.flight.flightsearch
 
 import android.content.Intent
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
@@ -20,44 +18,76 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightSearchBinding>(R.layout.fragment_flight_search) {
     override val viewModel: FlightSearchViewModel by viewModels()
-    private val flightSearch: FlightSearch by lazy { FlightSearch() }
 
     override fun onBind() {
         initializeViews()
         initializeAirportDropdown()
+        initializeAirportSelectedListener()
+    }
+
+    private fun initializeViews() {
+        binding?.btnFlightSearchFlights?.setOnClickListener {
+            saveFlightResults()
+        }
+        binding?.layoutFlightSearchRouteSwap?.setOnClickListener {
+            swapRoutes(binding?.edtFlightSearchOrigin, binding?.edtFlightSearchDestination)
+        }
+        binding?.layoutFlightDeparturePicker?.setOnClickListener {
+            displayTimePicker(context, startForResult, viewModel.isOneWay.value ?: false)
+        }
+        binding?.flightSearchViewModel = viewModel
     }
 
     private fun initializeAirportDropdown() {
-        context?.let {
-            viewModel.getIATACodes()?.observe(viewLifecycleOwner,
-                {
-                    val adapter = FlightSearchAdapter(requireContext(), it.toTypedArray())
-                    binding?.edtFlightSearchOrigin?.setAdapter(adapter)
-                    binding?.edtFlightSearchDestination?.setAdapter(adapter)
-                }
-            )
+        viewModel.getIATACodes()?.observe(viewLifecycleOwner,
+            {
+                val adapter = FlightSearchAdapter(requireContext(), it.toTypedArray())
+                binding?.edtFlightSearchOrigin?.setAdapter(adapter)
+                binding?.edtFlightSearchDestination?.setAdapter(adapter)
+            }
+        )
+    }
+
+    override fun initializeDateParser(it: Intent) {
+        val departureDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
+        val returnDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
+
+        viewModel.apply {
+            onDateSelected(departureDate, returnDate)
         }
+    }
+
+    private fun initializeAirportSelectedListener() {
         binding?.edtFlightSearchOrigin.let {
             it?.setOnItemClickListener { adapterView, _, position, _ ->
-                flightSearch.origin = airportDropdownEvent(it, adapterView, position, false) as Airport
+                viewModel.setOriginAirport(
+                    airportDropdownEvent(it, adapterView, position, false) as Airport
+                )
             }
         }
         binding?.edtFlightSearchDestination.let {
             it?.setOnItemClickListener { adapterView, _, position, _ ->
-                flightSearch.destination = airportDropdownEvent(it, adapterView, position, true) as Airport
+                viewModel.setDestinationAirport(
+                    airportDropdownEvent(it, adapterView, position, true) as Airport
+                )
             }
         }
     }
 
     private fun saveFlightResults() {
-        flightSearch.formattedDepartureDate = binding?.txtFlightSearchDepartureDate?.text.toString()
-        flightSearch.formattedReturnDate = binding?.txtFlightSearchArrivalDate?.text.toString()
-        flightSearch.adults = binding?.txtFlightAdultCount?.text.toString().toInt()
-        flightSearch.children = binding?.txtFlightChildCount?.text.toString().toInt()
-        flightSearch.audits = flightSearch.adults.plus(flightSearch.children)
+        val flightSearch = FlightSearch(
+            origin = viewModel.origin.value!!,
+            destination = viewModel.destination.value!!,
+            departureDate = viewModel.flightDate.value!!,
+            returnDate = viewModel.returnDate.value,
+            formattedDepartureDate = binding?.txtFlightSearchDepartureDate?.text.toString(),
+            adults = viewModel.adultCount.value!!,
+            children = viewModel.childCount.value!!,
+            audits = viewModel.adultCount.value!!.plus(viewModel.childCount.value!!)
+        )
 
-        if (areFlightParamsValid(origin = flightSearch.origin.IATA,
-                                destination = flightSearch.destination.IATA)) {
+        if (areFlightParamsValid(origin = viewModel.origin.value?.IATA!!,
+                                destination = viewModel.destination.value?.IATA!!)) {
             viewModel.setFlightSearchLiveData(flightSearch)
             beginTransaction(flightSearch)
         }
@@ -77,48 +107,5 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
     private fun beginTransaction(flightSearch: FlightSearch) {
         val action = FlightSearchFragmentDirections.actionNavFlightSearchToNavFlightResults(flightSearch)
         findNavController().navigate(action)
-    }
-
-    override fun initializeDateParser(it: Intent) {
-        val departureDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
-        val returnDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
-
-        flightSearch.departureDate = departureDate
-        flightSearch.returnDate = returnDate
-        viewModel.apply {
-            onDateSelected(departureDate, returnDate)
-        }
-    }
-
-    private fun initializeViews() {
-        binding?.flightSearchViewModel = viewModel
-        binding?.btnFlightOneWay?.setOnClickListener {
-            oneWaySelection()
-        }
-        binding?.btnFlightRoundTrip?.setOnClickListener {
-            roundTripSelection()
-        }
-        binding?.btnFlightSearchFlights?.setOnClickListener {
-            saveFlightResults()
-        }
-        binding?.layoutFlightSearchRouteSwap?.setOnClickListener {
-            swapRoutes(binding?.edtFlightSearchOrigin, binding?.edtFlightSearchDestination)
-        }
-        binding?.layoutFlightDeparturePicker?.setOnClickListener {
-            displayTimePicker(context, startForResult, viewModel.isOneWay.value ?: false)
-        }
-    }
-
-    private fun roundTripSelection() {
-        flightSearch.isRoundTrip = true
-        viewModel.onOneWaySelected(false)
-        binding?.layoutFlightArrivalPicker?.visibility = VISIBLE
-    }
-
-    private fun oneWaySelection() {
-        flightSearch.isRoundTrip = false
-        flightSearch.returnDate = null
-        viewModel.onOneWaySelected(true)
-        binding?.layoutFlightArrivalPicker?.visibility = GONE
     }
 }

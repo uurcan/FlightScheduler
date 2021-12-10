@@ -24,8 +24,8 @@ class FlightResultsViewModel @Inject constructor(private val flightRepository: F
     fun getFlightData(flightSearch: FlightSearch): MutableLiveData<List<FlightOffer>>? {
         viewModelScope.launch {
             val flightOffersSearches = flightRepository.get(
-                originLocationCode = flightSearch.origin.IATA,
-                destinationLocationCode = flightSearch.destination.IATA,
+                originLocationCode = flightSearch.origin.IATA!!,
+                destinationLocationCode = flightSearch.destination.IATA!!,
                 departureDate = flightSearch.departureDate,
                 returnDate = flightSearch.returnDate,
                 adults = flightSearch.adults,

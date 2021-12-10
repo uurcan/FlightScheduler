@@ -15,7 +15,7 @@ class FlightSearchViewModel @Inject constructor(private val flightRoutesReposito
     private val validationMessage = MutableLiveData("")
 
     private val oneWayLiveData = MutableLiveData(false)
-    val isOneWay: LiveData<Boolean?> get() = oneWayLiveData
+    val isOneWay: LiveData<Boolean> get() = oneWayLiveData
 
     private val originLiveData = MutableLiveData<Airport?>()
     val origin: LiveData<Airport?> get() = originLiveData
@@ -67,6 +67,14 @@ class FlightSearchViewModel @Inject constructor(private val flightRoutesReposito
     fun onDateSelected(departureDate: String, returnDate: String) {
         flightDateLiveData.value = departureDate
         returnDateLiveData.value = returnDate
+    }
+
+    fun setOriginAirport(airport: Airport) {
+        originLiveData.value = airport
+    }
+
+    fun setDestinationAirport(airport: Airport) {
+        destinationLiveData.value = airport
     }
 
     fun onIncreaseAdultSelected(count: Int?) {

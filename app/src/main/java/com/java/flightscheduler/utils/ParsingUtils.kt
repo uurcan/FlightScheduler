@@ -24,7 +24,7 @@ object ParsingUtils {
 
     @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     fun dateParser(parser: SimpleDateFormat, formatter: SimpleDateFormat, date: String?): String? {
-        return if (date != null) {
+        return if (date.isNullOrEmpty().not()) {
             formatter.format(
                 parser.parse(
                     date

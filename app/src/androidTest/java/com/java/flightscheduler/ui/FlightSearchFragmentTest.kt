@@ -86,7 +86,6 @@ class FlightSearchFragmentTest {
             destination = Airport(
                 NAME = "Izmir Adnan Menderes", IATA = "ADB", CITY = "Izmir"
             ),
-            isRoundTrip = false,
             departureDate = "2021-12-12",
             returnDate = "2021-12-20",
             adults = 1,
