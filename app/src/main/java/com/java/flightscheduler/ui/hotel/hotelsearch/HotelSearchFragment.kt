@@ -44,10 +44,8 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSear
             val adapter = HotelSearchAdapter(requireContext(), it.toTypedArray())
             binding?.edtHotelSearch?.setAdapter(adapter)
         })
-        binding?.edtHotelSearch.let {
-            it?.setOnItemClickListener { adapterView, _, position, _ ->
-                hotelSearch.city = airportDropdownEvent(it, adapterView, position, true) as City
-            }
+        binding?.edtHotelSearch?.setOnItemClickListener { adapterView, _, position, _ ->
+            hotelSearch.city = airportDropdownEvent(binding?.edtHotelSearch!!, adapterView, position, true) as City
         }
     }
 

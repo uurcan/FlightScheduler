@@ -50,7 +50,7 @@ class SeatMapSearchFragment : BaseFragment<SeatMapSearchViewModel, SeatMapSearch
         seatMapSearch.formattedFlightDate = binding?.txtSeatMapSearchDate?.text.toString()
         seatMapSearch.legs = binding?.txtFlightLegCount?.text.toString().toInt()
 
-        if (areParamsValid(origin = seatMapSearch.origin.IATA, destination = seatMapSearch.destination.IATA)) {
+        if (areParamsValid(origin = seatMapSearch.origin.IATA!!, destination = seatMapSearch.destination.IATA!!)) {
             beginTransaction(seatMapSearch)
         }
     }

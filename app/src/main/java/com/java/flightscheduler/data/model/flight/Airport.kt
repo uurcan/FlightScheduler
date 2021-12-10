@@ -8,7 +8,7 @@ data class Airport constructor(
     val NAME: String? = null,
     val CITY: String? = null,
     val COUNTRY: String? = null,
-    val IATA: String = "",
+    val IATA: String? = null,
     val ICAO: String? = null,
     val LAT: String? = null,
     val LON: String? = null,

@@ -119,7 +119,6 @@
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
 
                 <AutoCompleteTextView
-                    android:text="@{flightSearchViewModel.origin.CITY}"
                     android:gravity="top"
                     android:textColorHint="@color/grey_black_1000"
                     android:background="@android:color/transparent"
@@ -182,7 +181,6 @@
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"/>
 
                 <AutoCompleteTextView
-                    android:text="@{flightSearchViewModel.destination.CITY}"
                     android:gravity="top"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="@dimen/margin_small"
