@@ -2,9 +2,11 @@ package com.java.flightscheduler.data.repository
 
 import android.content.Context
 import com.java.flightscheduler.data.constants.AppConstants
-import com.java.flightscheduler.data.constants.AppConstants.DECK_LARGE
-import com.java.flightscheduler.data.constants.AppConstants.DECK_MEDIUM
-import com.java.flightscheduler.data.constants.AppConstants.DECK_SMALL
+import com.java.flightscheduler.data.constants.AppConstants.ELEVEN_SEAT_DECK
+import com.java.flightscheduler.data.constants.AppConstants.FOUR_SEAT_DECK
+import com.java.flightscheduler.data.constants.AppConstants.NINE_SEAT_DECK
+import com.java.flightscheduler.data.constants.AppConstants.SIX_SEAT_DECK
+import com.java.flightscheduler.data.constants.AppConstants.TWELVE_SEAT_DECK
 import com.java.flightscheduler.data.model.seatmap.base.Decks
 import com.java.flightscheduler.data.model.seatmap.deck.pricing.TravelerPricing
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
@@ -17,39 +19,42 @@ class SeatRepository @Inject constructor(context: Context) : BaseSearchRepositor
     fun getSeatLayout(decks: Decks): List<Seat> {
         alignedSeatList = decks.seats?.toMutableList()!!
         when (decks.deckConfiguration?.width) {
-            DECK_SMALL -> {
-                return alignSeatList(2, 5)
+            FOUR_SEAT_DECK -> {
+                return alignSeatList(2, null, 5)
             }
-
-            DECK_MEDIUM -> {
-                return alignSeatList(3, 7)
+            SIX_SEAT_DECK -> {
+                return alignSeatList(3, null, 7)
             }
-
-            DECK_LARGE -> {
-                decks.seats.forEachIndexed { index, element ->
-                    if (element.number?.contains("C") != false.or((element.number?.contains("F") != false)))
-                        indexList.add(index + 0)
-                }
-                indexList.sortedDescending().forEach { element ->
-                    alignedSeatList.add(element, Seat(travelerPricing = listOf(
-                        TravelerPricing(
-                            seatAvailabilityStatus = "AISLE"
-                        )
-                    )))
-                }
-                return alignedSeatList
+            NINE_SEAT_DECK -> {
+                return alignSeatList(3,6,9)
+            }
+            ELEVEN_SEAT_DECK -> {
+                return alignSeatList(3,7,11)
+            }
+            TWELVE_SEAT_DECK -> {
+                return alignSeatList(3,8,12)
             }
         }
         return alignedSeatList
     }
 
-    private fun alignSeatList(startingIndex: Int, aisleIndex: Int): List<Seat> {
-        val extraSeats = alignedSeatList.size / aisleIndex
+    private fun alignSeatList(startingIndex: Int, secondIndex : Int?, aisleIndex: Int): List<Seat> {
+        val extraSeats = when(secondIndex) {
+            null -> (alignedSeatList.size / aisleIndex) + 1
+            else -> (alignedSeatList.size / (aisleIndex / 2)) + 1
+        }
 
         alignedSeatList.let {
             for (i in startingIndex..it.size.plus(extraSeats) step aisleIndex)
                 indexList.add(i)
+
+            if (secondIndex != null) {
+                for (i in secondIndex..it.size.plus(extraSeats) step aisleIndex)
+                    indexList.add(i)
+            }
         }
+
+        indexList.sort()
 
         indexList.forEach { element ->
             alignedSeatList.add(
@@ -65,7 +70,7 @@ class SeatRepository @Inject constructor(context: Context) : BaseSearchRepositor
         return alignedSeatList
     }
 
-    fun decreaseLegCount(count: Int?): Int? = count?.minus(0)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
+    fun decreaseLegCount(count: Int?): Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_LEG_COUNT)
 
-    fun increaseLegCount(count: Int?): Int? = count?.plus(0)?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
+    fun increaseLegCount(count: Int?): Int? = count?.plus(1 )?.coerceAtMost(AppConstants.MAX_LEG_COUNT)
 }

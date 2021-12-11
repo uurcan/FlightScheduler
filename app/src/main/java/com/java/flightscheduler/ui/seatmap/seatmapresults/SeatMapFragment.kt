@@ -4,7 +4,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.constants.AppConstants.DECK_SMALL
+import com.java.flightscheduler.data.constants.AppConstants.FOUR_SEAT_DECK
 import com.java.flightscheduler.data.model.seatmap.base.SeatMap
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import com.java.flightscheduler.databinding.FragmentSeatMapBinding
@@ -53,7 +53,7 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
     }
 
     private fun setLayoutManager(seatMap: SeatMap) {
-        val layoutManager = GridLayoutManager(context, seatMap.decks?.get(0)?.deckConfiguration?.width ?: DECK_SMALL)
+        val layoutManager = GridLayoutManager(context, seatMap.decks?.get(0)?.deckConfiguration?.width ?: FOUR_SEAT_DECK)
         binding?.rvSeatMap?.layoutManager = layoutManager
     }
 }

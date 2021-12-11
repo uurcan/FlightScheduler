@@ -19,9 +19,11 @@ object AppConstants {
     const val SEAT_MAP_BLOCKED = "BLOCKED"
     const val SEAT_MAP_AISLE = "AISLE"
 
-    const val DECK_LARGE = 11
-    const val DECK_MEDIUM = 7
-    const val DECK_SMALL = 5
+    const val TWELVE_SEAT_DECK = 12
+    const val ELEVEN_SEAT_DECK = 11
+    const val NINE_SEAT_DECK = 9
+    const val SIX_SEAT_DECK = 7
+    const val FOUR_SEAT_DECK = 5
 
     const val FLIGHT_SEARCH_BASE_URL = "https://test.api.amadeus.com/v2/shopping/flight-offers?"
     enum class FilterOptions(val param: String) {

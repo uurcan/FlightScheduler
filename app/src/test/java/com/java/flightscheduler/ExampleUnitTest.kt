@@ -1,5 +1,7 @@
 package com.java.flightscheduler
 
+import com.java.flightscheduler.data.model.seatmap.deck.pricing.TravelerPricing
+import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import org.junit.Test
 
 /**
@@ -33,4 +35,36 @@ class ExampleUnitTest {
         }
         assert(seats.isNotEmpty())
     }
+
+    @Test
+    fun seatMapLayoutTest2() {
+        val seats = arrayListOf<String>()
+        val secondAisle = 8
+        val aisleIndex = 12
+        val startingIndex = 3
+        val indexList = mutableListOf<Int>()
+        val extraSeats = seats.size / 6
+
+        seats.let {
+            for (i in startingIndex..it.size.plus(extraSeats) step aisleIndex){
+                indexList.add(i)
+            }
+            for (i in secondAisle..it.size.plus(extraSeats) step aisleIndex){
+                indexList.add(i)
+            }
+        }
+        indexList.sort()
+        indexList.forEach { element ->
+            seats.add(
+                element, "**"
+            )
+        }
+        for (i in 0..seats.size) {
+            if (i % 13 == 0) {
+                seats.add(i,"\n")
+            }
+        }
+        print(seats)
+    }
+
 }
