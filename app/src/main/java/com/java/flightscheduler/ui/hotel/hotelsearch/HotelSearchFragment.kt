@@ -21,7 +21,6 @@ import java.util.Locale
 @AndroidEntryPoint
 class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSearchBinding>(R.layout.fragment_hotel_search) {
     override val viewModel: HotelSearchViewModel by viewModels()
-    private val hotelSearch: HotelSearch by lazy { HotelSearch() }
 
     override fun onBind() {
         initializeViews()
@@ -29,33 +28,43 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSear
     }
 
     private fun initializeViews() {
-        binding?.hotelSearchViewModel = viewModel
-
         binding?.layoutHotelCheckInPicker?.setOnClickListener {
             displayTimePicker(context, startForResult, false)
         }
-        binding?.btnFlightSearchHotels?.setOnClickListener { saveHotelResults() }
-        binding?.layoutHotelLanguage?.setOnClickListener { languageDialog() }
-        binding?.layoutHotelSort?.setOnClickListener { sortDialog() }
+        binding?.btnFlightSearchHotels?.setOnClickListener {
+            saveHotelResults()
+        }
+        binding?.layoutHotelLanguage?.setOnClickListener {
+            showListDialog(variable = LanguageOptions.values(), cancelable = true, textView = binding?.txtHotelLanguageText)
+        }
+        binding?.layoutHotelSort?.setOnClickListener {
+            showListDialog(variable = AppConstants.FilterOptions.values(), cancelable = true, textView = binding?.txtHotelSort)
+        }
+        binding?.hotelSearchViewModel = viewModel
     }
 
     private fun initializeCityDropdown() {
-        viewModel.getCities()?.observe(viewLifecycleOwner, {
-            val adapter = HotelSearchAdapter(requireContext(), it.toTypedArray())
-            binding?.edtHotelSearch?.setAdapter(adapter)
-        })
-        binding?.edtHotelSearch?.setOnItemClickListener { adapterView, _, position, _ ->
-            hotelSearch.city = airportDropdownEvent(binding?.edtHotelSearch!!, adapterView, position, true) as City
+        binding?.edtHotelSearch?.let {
+            it.setOnItemClickListener { adapterView, _, position, _ ->
+                viewModel.setCityLiveData(
+                    airportDropdownEvent(it, adapterView, position, true) as City
+                )
+            }
         }
     }
 
     private fun saveHotelResults() {
-        hotelSearch.formattedCheckInDate = binding?.txtHotelSearchCheckInDate?.text.toString()
-        hotelSearch.formattedCheckOutDate = binding?.txtHotelSearchCheckOutDate?.text.toString()
-        hotelSearch.roomCount = binding?.txtHotelRoomsCount?.text.toString().toInt()
-        hotelSearch.auditCount = binding?.txtHotelAuditCount?.text.toString().toInt()
-        hotelSearch.sortOptions = binding?.txtHotelSort?.text.toString().toUpperCase(Locale.ENGLISH)
-        hotelSearch.language = binding?.txtHotelLanguageText?.text.toString().toUpperCase(Locale.ENGLISH)
+        val hotelSearch = HotelSearch(
+            city = viewModel.city.value!!,
+            checkInDate = viewModel.checkInDate.value,
+            checkOutDate = viewModel.checkOutDate.value,
+            formattedCheckInDate = binding?.txtHotelSearchCheckInDate?.text.toString(),
+            formattedCheckOutDate =  binding?.txtHotelSearchCheckOutDate?.text.toString(),
+            roomCount = viewModel.roomCount.value!!,
+            auditCount = binding?.txtHotelAuditCount?.text.toString().toInt(),
+            sortOptions = binding?.txtHotelSort?.text.toString().toUpperCase(Locale.ENGLISH),
+            language = binding?.txtHotelLanguageText?.text.toString().toUpperCase(Locale.ENGLISH)
+        )
 
         if (paramValidation(city = hotelSearch.city.code)) {
             viewModel.setHotelSearchLiveData(hotelSearch)
@@ -83,16 +92,8 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSear
         val startDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
         val endDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_END_DATE).toString()
 
-        hotelSearch.checkInDate = startDate
-        hotelSearch.checkOutDate = endDate
-        viewModel.apply { onCheckInSelected(startDate, endDate) }
-    }
-
-    private fun languageDialog() {
-        showListDialog(variable = LanguageOptions.values(), cancelable = true, textView = binding?.txtHotelLanguageText)
-    }
-
-    private fun sortDialog() {
-        showListDialog(variable = AppConstants.FilterOptions.values(), cancelable = true, textView = binding?.txtHotelSort)
+        viewModel.apply {
+            onCheckInSelected(startDate, endDate)
+        }
     }
 }

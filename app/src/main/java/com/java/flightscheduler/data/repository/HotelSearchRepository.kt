@@ -10,10 +10,11 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class HotelSearchRepository @Inject constructor(
     private val context: Context
-) {
+) : BaseSearchRepository(context) {
     private lateinit var bufferedReader: BufferedReader
 
     fun getCities(): List<City> {

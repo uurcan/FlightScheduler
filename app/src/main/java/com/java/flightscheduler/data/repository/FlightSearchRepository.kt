@@ -19,9 +19,9 @@ import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class FlightRoutesRepository @Inject constructor(
+class FlightSearchRepository @Inject constructor(
     private val context: Context
-) {
+) : BaseSearchRepository(context) {
     fun getMatchingFlightRoute(iata: List<Airport>, segment: String?): String {
         return iata.find { value -> segment == value.IATA }?.CITY.toString()
     }
@@ -45,33 +45,6 @@ class FlightRoutesRepository @Inject constructor(
     fun decreaseChildCount(count: Int?): Int? = count?.minus(1)?.coerceAtLeast(MIN_CHILD_COUNT)
 
     fun increaseChildCount(count: Int?): Int? = count?.plus(1)?.coerceAtMost(MAX_CHILD_COUNT)
-
-    fun getIataCodes(): List<Airport> {
-        val iataDataList: ArrayList<Airport> = ArrayList()
-        try {
-            val inputStream: InputStream = context.resources.openRawResource(R.raw.airport_codes)
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
-
-            bufferedReader.readLines().forEach {
-                val tokens = it.split(",")
-                iataDataList.add(
-                    Airport(
-                        tokens[0],
-                        tokens[1],
-                        tokens[2],
-                        tokens[3],
-                        tokens[4],
-                        tokens[5],
-                        tokens[6],
-                        tokens[7]
-                    )
-                )
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return iataDataList
-    }
 
     fun getAircraft(): List<Aircraft> {
         val aircraftList: ArrayList<Aircraft> = ArrayList()

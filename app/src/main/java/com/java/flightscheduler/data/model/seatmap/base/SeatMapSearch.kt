@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class SeatMapSearch(
-    var origin: Airport = Airport(),
-    var destination: Airport = Airport(),
+    var origin: Airport? = null,
+    var destination: Airport? = null,
     var flightDate: String = "",
     var formattedFlightDate: String = "",
     var legs: Int = 1
