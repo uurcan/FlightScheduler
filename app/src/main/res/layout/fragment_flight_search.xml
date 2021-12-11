@@ -41,6 +41,7 @@
             android:layout_marginTop="@dimen/flight_search_small_icon_dimen">
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:onClick="@{() -> flightSearchViewModel.onOneWaySelected(true)}"
                 android:checked="@{flightSearchViewModel.isOneWay}"
                 android:textSize="16sp"
                 android:button="@android:color/transparent"
@@ -60,6 +61,7 @@
                 android:layout_height="@dimen/flight_search_switch_dimen"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
+                android:onClick="@{() -> flightSearchViewModel.onOneWaySelected(false)}"
                 android:checked="@{!flightSearchViewModel.isOneWay}"
                 android:textSize="16sp"
                 android:button="@android:color/transparent"
@@ -119,6 +121,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_origin"/>
 
                 <AutoCompleteTextView
+                    app:setAutoCompleteAdapter="@{flightSearchViewModel.getIATACodes}"
                     android:gravity="top"
                     android:textColorHint="@color/grey_black_1000"
                     android:background="@android:color/transparent"
@@ -181,6 +184,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/img_flight_search_destination"/>
 
                 <AutoCompleteTextView
+                    app:setAutoCompleteAdapter="@{flightSearchViewModel.getIATACodes}"
                     android:gravity="top"
                     android:background="@android:color/transparent"
                     android:layout_marginTop="@dimen/margin_small"
@@ -259,7 +263,7 @@
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     app:layout_constraintRight_toLeftOf="@+id/img_flight_search_arrival_more"
@@ -275,8 +279,7 @@
                     app:setDateParserText="@{ParsingUtils.getCurrentDate(flightSearchViewModel.flightDate).toString()}"
                     android:textColor="@color/grey_black_1000"
                     android:textSize="16sp"
-                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
-                    tools:layout_editor_absoluteY="34dp" />
+                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date" />
 
                 <ImageView
                     android:contentDescription="@null"

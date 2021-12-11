@@ -4,12 +4,12 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 @Parcelize
 class FlightSearch(
-    var origin: Airport = Airport(),
-    var destination: Airport = Airport(),
-    var departureDate: String = "",
+    var origin: Airport? = null,
+    var destination: Airport? = null,
+    var departureDate: String? = null,
     var returnDate: String? = null,
-    var adults: Int = 1,
-    var children: Int = 0,
+    var adults: Int? = 1,
+    var children: Int? = 0,
     var formattedDepartureDate: String = "",
     var audits: Int = 1
 ) : Parcelable

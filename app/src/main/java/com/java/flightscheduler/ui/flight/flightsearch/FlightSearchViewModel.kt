@@ -4,29 +4,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.flight.FlightSearch
-import com.java.flightscheduler.data.repository.FlightRoutesRepository
+import com.java.flightscheduler.data.repository.FlightSearchRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class FlightSearchViewModel @Inject constructor(private val flightRoutesRepository: FlightRoutesRepository) : BaseViewModel() {
+class FlightSearchViewModel @Inject constructor(private val flightSearchRepository: FlightSearchRepository) : BaseViewModel() {
     private var flightSearchLiveData: MutableLiveData<FlightSearch>? = MutableLiveData()
     private val validationMessage = MutableLiveData("")
 
     private val oneWayLiveData = MutableLiveData(false)
     val isOneWay: LiveData<Boolean> get() = oneWayLiveData
 
-    private val originLiveData = MutableLiveData<Airport?>()
-    val origin: LiveData<Airport?> get() = originLiveData
+    private val originLiveData = MutableLiveData<Airport>()
+    val origin: LiveData<Airport> get() = originLiveData
 
-    private val destinationLiveData = MutableLiveData<Airport?>()
-    val destination: LiveData<Airport?> get() = destinationLiveData
+    private val destinationLiveData = MutableLiveData<Airport>()
+    val destination: LiveData<Airport> get() = destinationLiveData
 
-    private val flightDateLiveData = MutableLiveData<String>()
+    private val flightDateLiveData = MutableLiveData<String>(flightSearchRepository.getToday())
     val flightDate: LiveData<String> get() = flightDateLiveData
 
-    private val returnDateLiveData = MutableLiveData<String>()
+    private val returnDateLiveData = MutableLiveData<String>(flightSearchRepository.getNextDay())
     val returnDate: LiveData<String> get() = returnDateLiveData
 
     private val adultCountLiveData = MutableLiveData(1)
@@ -35,29 +35,25 @@ class FlightSearchViewModel @Inject constructor(private val flightRoutesReposito
     private val childCountLiveData = MutableLiveData(0)
     val childCount: LiveData<Int> get() = childCountLiveData
 
-    private var iataCodeLiveData: MutableLiveData<List<Airport>>? = MutableLiveData()
-
-    fun performValidation(origin: String, destination: String): MutableLiveData<String> {
+    fun performValidation(origin: LiveData<Airport>, destination: LiveData<Airport>): MutableLiveData<String> {
         validationMessage.value = ""
 
-        if (origin.isBlank()) {
+        if (origin.value == null) {
             validationMessage.value = "Origin can not be blank"
         }
 
-        if (destination.isBlank()) {
+        if (destination.value == null) {
             validationMessage.value = "Destination can not be blank"
         }
         return validationMessage
     }
 
-    fun getIATACodes(): MutableLiveData<List<Airport>>? {
-        val iataList = flightRoutesRepository.getIataCodes()
-        iataCodeLiveData?.postValue(iataList)
-        return iataCodeLiveData
+    fun onOneWaySelected(isOneWay : Boolean) {
+        oneWayLiveData.value = isOneWay
     }
 
-    fun onOneWaySelected(result: Boolean) {
-        oneWayLiveData.value = result
+    fun getIATACodes(): Array<Airport>? {
+        return flightSearchRepository.getIataCodes().toTypedArray()
     }
 
     fun setFlightSearchLiveData(flightSearch: FlightSearch) {
@@ -78,18 +74,18 @@ class FlightSearchViewModel @Inject constructor(private val flightRoutesReposito
     }
 
     fun onIncreaseAdultSelected(count: Int?) {
-        adultCountLiveData.value = flightRoutesRepository.increaseAdultCount(count)
+        adultCountLiveData.value = flightSearchRepository.increaseAdultCount(count)
     }
 
     fun onDecreaseAdultSelected(count: Int?) {
-        adultCountLiveData.value = flightRoutesRepository.decreaseAdultCount(count)
+        adultCountLiveData.value = flightSearchRepository.decreaseAdultCount(count)
     }
 
     fun onIncreaseChildSelected(count: Int?) {
-        childCountLiveData.value = flightRoutesRepository.increaseChildCount(count)
+        childCountLiveData.value = flightSearchRepository.increaseChildCount(count)
     }
 
     fun onDecreaseChildSelected(count: Int?) {
-        childCountLiveData.value = flightRoutesRepository.decreaseChildCount(count)
+        childCountLiveData.value = flightSearchRepository.decreaseChildCount(count)
     }
 }

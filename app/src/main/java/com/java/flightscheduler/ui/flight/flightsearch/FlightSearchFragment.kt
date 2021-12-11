@@ -2,6 +2,7 @@ package com.java.flightscheduler.ui.flight.flightsearch
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightSearch
@@ -21,7 +22,6 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
 
     override fun onBind() {
         initializeViews()
-        initializeAirportDropdown()
         initializeAirportSelectedListener()
     }
 
@@ -36,16 +36,6 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
             displayTimePicker(context, startForResult, viewModel.isOneWay.value ?: false)
         }
         binding?.flightSearchViewModel = viewModel
-    }
-
-    private fun initializeAirportDropdown() {
-        viewModel.getIATACodes()?.observe(viewLifecycleOwner,
-            {
-                val adapter = FlightSearchAdapter(requireContext(), it.toTypedArray())
-                binding?.edtFlightSearchOrigin?.setAdapter(adapter)
-                binding?.edtFlightSearchDestination?.setAdapter(adapter)
-            }
-        )
     }
 
     override fun initializeDateParser(it: Intent) {
@@ -76,24 +66,23 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
 
     private fun saveFlightResults() {
         val flightSearch = FlightSearch(
-            origin = viewModel.origin.value!!,
-            destination = viewModel.destination.value!!,
-            departureDate = viewModel.flightDate.value!!,
+            origin = viewModel.origin.value,
+            destination = viewModel.destination.value,
+            departureDate = viewModel.flightDate.value,
             returnDate = viewModel.returnDate.value,
             formattedDepartureDate = binding?.txtFlightSearchDepartureDate?.text.toString(),
-            adults = viewModel.adultCount.value!!,
-            children = viewModel.childCount.value!!,
+            adults = viewModel.adultCount.value,
+            children = viewModel.childCount.value,
             audits = viewModel.adultCount.value!!.plus(viewModel.childCount.value!!)
         )
 
-        if (areFlightParamsValid(origin = viewModel.origin.value?.IATA!!,
-                                destination = viewModel.destination.value?.IATA!!)) {
+        if (areFlightParamsValid(origin = viewModel.origin, destination = viewModel.destination)) {
             viewModel.setFlightSearchLiveData(flightSearch)
             beginTransaction(flightSearch)
         }
     }
 
-    private fun areFlightParamsValid(origin: String, destination: String): Boolean {
+    private fun areFlightParamsValid(origin: LiveData<Airport>, destination: LiveData<Airport>): Boolean {
         var isValid = true
         viewModel.performValidation(origin, destination).observe(viewLifecycleOwner) { errorMessage ->
             if (errorMessage.isNotBlank()) {

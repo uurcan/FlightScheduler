@@ -40,7 +40,7 @@ class SeatMapFragment : BaseFragment<SeatMapViewModel, FragmentSeatMapBinding>(R
         setLayoutManager(seatMap[position])
         viewModel?.seatMapHeader(seatMap[position])
         seatMapAdapter = seatMap[position].decks?.get(0)?.let {
-            SeatMapAdapter(it) { seat ->
+            SeatMapAdapter(requireContext(), it) { seat ->
                 showDetails(seat)
             }
         }

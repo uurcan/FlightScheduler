@@ -11,9 +11,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository: HotelSearchRepository) : BaseViewModel() {
-    private var cityLiveData: MutableLiveData<List<City>>? = MutableLiveData()
     var hotelSearchLiveData: MutableLiveData<HotelSearch>? = MutableLiveData()
     private val validationMessage = MutableLiveData("")
+
+    private val cityLiveData : MutableLiveData<City> = MutableLiveData()
+    val city : LiveData<City>  get() = cityLiveData
 
     private val passengerCountLiveData = MutableLiveData(1)
     val passengerCount: LiveData<Int> get() = passengerCountLiveData
@@ -21,19 +23,11 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
     private val roomCountLiveData = MutableLiveData(1)
     val roomCount: LiveData<Int> get() = roomCountLiveData
 
-    private val checkInLiveData = MutableLiveData<String>()
+    private val checkInLiveData = MutableLiveData<String>(hotelSearchRepository.getToday())
     val checkInDate: LiveData<String> get() = checkInLiveData
 
-    private val checkOutLiveData = MutableLiveData<String>()
+    private val checkOutLiveData = MutableLiveData<String>(hotelSearchRepository.getNextDay())
     val checkOutDate: LiveData<String> get() = checkOutLiveData
-
-    fun performValidation(city: String?): MutableLiveData<String> {
-        validationMessage.value = ""
-        if (city.isNullOrBlank()) {
-            validationMessage.value = "City cannot be blank"
-        }
-        return validationMessage
-    }
 
     fun setHotelSearchLiveData(hotelSearch: HotelSearch) {
         hotelSearchLiveData?.value = hotelSearch
@@ -60,9 +54,19 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
         checkOutLiveData.value = checkOut
     }
 
-    fun getCities(): MutableLiveData<List<City>>? {
-        val iataList = hotelSearchRepository.getCities()
-        cityLiveData?.postValue(iataList)
-        return cityLiveData
+    fun setCityLiveData(city: City) {
+        cityLiveData.value = city
+    }
+
+    fun getCities(): Array<City>? {
+        return hotelSearchRepository.getCities().toTypedArray()
+    }
+
+    fun performValidation(city: String?): MutableLiveData<String> {
+        validationMessage.value = ""
+        if (city.isNullOrBlank()) {
+            validationMessage.value = "City cannot be blank"
+        }
+        return validationMessage
     }
 }

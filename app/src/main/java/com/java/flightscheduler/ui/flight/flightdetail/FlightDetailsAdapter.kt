@@ -13,7 +13,7 @@ import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
 import com.java.flightscheduler.data.repository.AirlineRepository
 import com.java.flightscheduler.data.repository.FlightDetailsRepository
-import com.java.flightscheduler.data.repository.FlightRoutesRepository
+import com.java.flightscheduler.data.repository.FlightSearchRepository
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
@@ -22,7 +22,7 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
     : BaseAdapter<Itinerary, ItemFlightDetailBinding>(R.layout.item_flight_detail) {
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
-    private val flightRoutesRepository = FlightRoutesRepository(context)
+    private val flightRoutesRepository = FlightSearchRepository(context)
     private val airlineRepository = AirlineRepository(context)
     private val airlineList = airlineRepository.getAirlines()
     private var airportList: List<Airport> = flightRoutesRepository.getIataCodes()

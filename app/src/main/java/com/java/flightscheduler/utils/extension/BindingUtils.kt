@@ -1,8 +1,7 @@
 package com.java.flightscheduler.utils.extension
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -14,6 +13,10 @@ import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_OCCUPIED
+import com.java.flightscheduler.data.model.flight.Airport
+import com.java.flightscheduler.data.model.hotel.City
+import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchAdapter
+import com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchAdapter
 import com.java.flightscheduler.utils.ParsingUtils
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -99,4 +102,16 @@ fun TextView.setTimeStampParser(date: String?) {
     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
     val formatter = SimpleDateFormat("dd MMM yyyy - HH:mm:ss", Locale.ENGLISH)
     this.text = ParsingUtils.dateParser(parser, formatter, date)
+}
+
+@BindingAdapter("app:setAutoCompleteAdapter")
+fun AutoCompleteTextView.setAutoCompleteAdapter(entries: Array<Airport>) {
+    val adapter = FlightSearchAdapter(context, entries)
+    setAdapter(adapter)
+}
+
+@BindingAdapter("app:setAutoCompleteAdapterHotel")
+fun AutoCompleteTextView.setAutoCompleteAdapterHotel(entries: Array<City>) {
+    val adapter = HotelSearchAdapter(context, entries)
+    setAdapter(adapter)
 }

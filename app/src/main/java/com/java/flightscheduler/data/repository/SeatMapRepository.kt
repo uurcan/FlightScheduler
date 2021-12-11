@@ -33,12 +33,12 @@ class SeatMapRepository @Inject constructor(
 
     fun getURLFromOffer(seatMapSearch: SeatMapSearch): String {
         return FLIGHT_SEARCH_BASE_URL +
-                "originLocationCode=" + seatMapSearch.origin.IATA + "&" +
-                "destinationLocationCode=" + seatMapSearch.destination.IATA + "&" +
+                "originLocationCode=" + seatMapSearch.origin?.IATA + "&" +
+                "destinationLocationCode=" + seatMapSearch.destination?.IATA + "&" +
                 "departureDate=" + seatMapSearch.flightDate + "&" +
                 "adults=" + "$MIN_ADULT_COUNT&" +
                 "children=" + "$MIN_CHILD_COUNT&" +
-                "max=" + "$1"
+                "max=" + 1
     }
 
     fun getQueryErrors(errorResults: List<BaseApiResult.Error.Issue>): String? {
