@@ -6,6 +6,7 @@ import com.java.flightscheduler.data.constants.AppConstants.ELEVEN_SEAT_DECK
 import com.java.flightscheduler.data.constants.AppConstants.FOUR_SEAT_DECK
 import com.java.flightscheduler.data.constants.AppConstants.NINE_SEAT_DECK
 import com.java.flightscheduler.data.constants.AppConstants.SIX_SEAT_DECK
+import com.java.flightscheduler.data.constants.AppConstants.TEN_SEAT_DECK
 import com.java.flightscheduler.data.constants.AppConstants.TWELVE_SEAT_DECK
 import com.java.flightscheduler.data.model.seatmap.base.Decks
 import com.java.flightscheduler.data.model.seatmap.deck.pricing.TravelerPricing
@@ -28,6 +29,9 @@ class SeatRepository @Inject constructor(context: Context) : BaseSearchRepositor
             NINE_SEAT_DECK -> {
                 return alignSeatList(3,6,9)
             }
+            TEN_SEAT_DECK -> {
+                return alignSeatList(2,7,10)
+            }
             ELEVEN_SEAT_DECK -> {
                 return alignSeatList(3,7,11)
             }
@@ -41,7 +45,7 @@ class SeatRepository @Inject constructor(context: Context) : BaseSearchRepositor
     private fun alignSeatList(startingIndex: Int, secondIndex : Int?, aisleIndex: Int): List<Seat> {
         val extraSeats = when(secondIndex) {
             null -> (alignedSeatList.size / aisleIndex) + 1
-            else -> (alignedSeatList.size / (aisleIndex / 2)) + 1
+            else -> (alignedSeatList.size / (aisleIndex / 2)) + 3
         }
 
         alignedSeatList.let {

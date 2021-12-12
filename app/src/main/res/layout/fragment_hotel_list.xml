@@ -110,6 +110,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
         <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:paddingBottom="@dimen/hotel_search_card_dimen"
             android:layout_marginTop="@dimen/margin_small"
             android:id="@+id/rv_flight_list"

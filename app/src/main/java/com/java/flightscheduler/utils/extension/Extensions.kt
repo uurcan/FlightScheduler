@@ -63,3 +63,7 @@ fun swapRoutes(first: AutoCompleteTextView?, second: AutoCompleteTextView?) {
     second?.text = tempOrigin
     second?.clearFocus()
 }
+
+fun <T> merge(first: List<T>?, second: List<T>?): List<T> {
+    return first!!.plus(second!!)
+}

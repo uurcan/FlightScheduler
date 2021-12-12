@@ -1,7 +1,9 @@
 package com.java.flightscheduler.utils.extension
 
 import android.view.View
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
@@ -19,7 +21,8 @@ import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchAdapter
 import com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchAdapter
 import com.java.flightscheduler.utils.ParsingUtils
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
+
 
 @BindingAdapter("app:setImageUrl")
 fun ImageView.setImageUrl(url: String?) {
@@ -114,4 +117,18 @@ fun AutoCompleteTextView.setAutoCompleteAdapter(entries: Array<Airport>) {
 fun AutoCompleteTextView.setAutoCompleteAdapterHotel(entries: Array<City>) {
     val adapter = HotelSearchAdapter(context, entries)
     setAdapter(adapter)
+}
+
+@BindingAdapter("android:layout_width")
+fun setLayoutWidth(view: View, width: Float) {
+    val layoutParams = view.layoutParams
+    layoutParams.width = width.toInt()
+    view.layoutParams = layoutParams
+}
+
+@BindingAdapter("android:layout_height")
+fun setLayoutHeight(view: View, height: Float) {
+    val layoutParams = view.layoutParams
+    layoutParams.height = height.toInt()
+    view.layoutParams = layoutParams
 }
