@@ -11,9 +11,7 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.Itinerary
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
-import com.java.flightscheduler.data.repository.AirlineRepository
-import com.java.flightscheduler.data.repository.FlightDetailsRepository
-import com.java.flightscheduler.data.repository.FlightSearchRepository
+import com.java.flightscheduler.data.repository.*
 import com.java.flightscheduler.databinding.ItemFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
@@ -23,8 +21,8 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
 
     private val flightDetailsRepository = FlightDetailsRepository(context)
     private val flightRoutesRepository = FlightSearchRepository(context)
-    private val airlineRepository = AirlineRepository(context)
-    private val airlineList = airlineRepository.getAirlines()
+    private val predictionRepository = PredictionSearchRepository(context)
+    private val airlineList = predictionRepository.getAirlines()
     private var airportList: List<Airport> = flightRoutesRepository.getIataCodes()
     private var connectionVariables: List<String> = flightDetailsRepository.getConnectionInfo(flightOffer)
     private var segments: List<SearchSegment>? = flightDetailsRepository.getSegmentDetails(flightOffer)
@@ -48,7 +46,7 @@ class FlightDetailsAdapter(flightOffer: FlightOffer, private val context: Contex
 
     private fun bindCustomized(position: Int) {
         val aircraftCode: String = segments?.get(position)?.aircraft?.code.toString()
-        val airlineProvider = airlineRepository.getMatchingAirline(airlineList, segments?.get(position)?.carrierCode)
+        val airlineProvider = predictionRepository.getMatchingAirline(airlineList, segments?.get(position)?.carrierCode)
         val departureAirportName: String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.departure?.iataCode.toString())
         val arrivalAirportName: String? = flightRoutesRepository.getMatchingAirport(airportList, segments?.get(position)?.arrival?.iataCode.toString())
         val aircraftName: String? = flightRoutesRepository.getMatchingAircraft(aircraftList, aircraftCode)

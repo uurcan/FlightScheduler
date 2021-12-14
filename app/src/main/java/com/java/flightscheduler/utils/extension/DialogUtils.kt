@@ -1,10 +1,13 @@
 package com.java.flightscheduler.utils.extension
 
+import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
@@ -13,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import com.java.flightscheduler.R
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
+import java.util.*
 
 var loadingDialog: Dialog? = null
 
@@ -116,4 +120,33 @@ fun Fragment.displayTimePicker(
     intent.isMonthLabels(false)
     intent.setWeekDaysLanguage(AirCalendarIntent.Language.EN)
     startForResult.launch(intent)
+}
+
+fun Fragment.initializeTimePicker(
+    textView: TextView?
+) {
+    val calendar : Calendar = Calendar.getInstance()
+    val hourLocal: Int = calendar.get(Calendar.HOUR_OF_DAY)
+    val minutes: Int = calendar.get(Calendar.MINUTE)
+    val timePicker = TimePickerDialog(context, { _, hour, minute ->
+        var HH = hour
+        var am_pm = ""
+        when { hour == 0 -> { HH += 12
+            am_pm = "AM"
+        }
+            hour == 12 -> am_pm = "PM"
+            hour > 12 -> { HH -= 12
+                am_pm = "PM"
+            }
+            else -> am_pm = "AM"
+        }
+        if (textView != null) {
+            val hour1 = if (hour < 10) "0$hour" else hour
+            val min = if (minute < 10) "0$minute" else minute
+            val msg = "$hour1 : $min $am_pm"
+            textView.text = msg
+            textView.visibility = ViewGroup.VISIBLE
+        }
+    }, hourLocal, minutes, false)
+    timePicker.show()
 }

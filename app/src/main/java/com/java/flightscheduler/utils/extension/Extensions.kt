@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.hotel.City
 
@@ -50,6 +51,10 @@ fun Fragment.airportDropdownEvent(
         }
         is City -> {
             autoCompleteTextView.setText(data.name)
+            return data
+        }
+        is Airline -> {
+            autoCompleteTextView.setText(data.ID)
             return data
         }
     }

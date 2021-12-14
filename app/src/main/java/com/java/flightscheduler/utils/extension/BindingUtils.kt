@@ -13,8 +13,10 @@ import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_BLOCKED
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_OCCUPIED
+import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.hotel.City
+import com.java.flightscheduler.ui.delayprediction.predictionsearch.DelayPredictionSearchAdapter
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchAdapter
 import com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchAdapter
 import com.java.flightscheduler.utils.ParsingUtils
@@ -107,6 +109,12 @@ fun TextView.setTimeStampParser(date: String?) {
 @BindingAdapter("app:setAutoCompleteAdapter")
 fun AutoCompleteTextView.setAutoCompleteAdapter(entries: Array<Airport>) {
     val adapter = FlightSearchAdapter(context, entries)
+    setAdapter(adapter)
+}
+
+@BindingAdapter("app:setAutoCompleteAdapterAirline")
+fun AutoCompleteTextView.setAutoCompleteAdapterAirline(entries: Array<Airline>) {
+    val adapter = DelayPredictionSearchAdapter(context, entries)
     setAdapter(adapter)
 }
 
