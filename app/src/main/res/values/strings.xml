@@ -108,6 +108,12 @@
     <string name="text_display_Seat_map">Display Seat Map</string>
     <string name="text_seat_map_button">You can display the Seat Map info by selecting the flight segments.</string>
     <string name="text_departure_date">Departure Date</string>
+    <string name="text_departure_time">Departure Time</string>
+    <string name="text_arrival_time">Arrival Time</string>
+    <string name="text_carrier_single">Carrier Airline</string>
+    <string name="text_flight_number">Flight Number</string>
+    <string name="text_display_prediction_results">Display Results</string>
+    <string name="text_prediction_search">Delay Prediction</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

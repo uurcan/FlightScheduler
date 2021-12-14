@@ -10,9 +10,9 @@ import java.io.InputStreamReader
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 
-class AirlineRepository @Inject constructor(
+class PredictionSearchRepository @Inject constructor(
     context: Context
-) {
+) : BaseSearchRepository(context) {
     private var inputStream: InputStream = context.resources.openRawResource(R.raw.airline_codes)
     private var bufferedReader: BufferedReader = BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8))
 
@@ -35,6 +35,7 @@ class AirlineRepository @Inject constructor(
         }
         return airportList
     }
+
     fun getMatchingAirline(airlines: List<Airline>, carrier: String?): Airline? {
         return airlines.find { data -> carrier == data.ID }
     }
