@@ -14,8 +14,6 @@ import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.launchFragmentInHiltContainer
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragment
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchFragmentDirections
-import com.java.flightscheduler.ui.home.HomeFragment
-import com.java.flightscheduler.ui.home.HomeFragmentDirections
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +24,6 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
-
 @MediumTest
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
@@ -34,7 +31,7 @@ class FlightSearchFragmentTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    private lateinit var  navController : NavController
+    private lateinit var navController : NavController
 
     private lateinit var fragmentActivity : FragmentActivity
 
@@ -42,27 +39,15 @@ class FlightSearchFragmentTest {
     fun setup() {
         hiltRule.inject()
         navController = mock(NavController::class.java)
-    }
 
-    @Test
-    fun clickHomeFragmentOffersButton_navigateToFlightSearchFragment() {
-        launchFragmentInHiltContainer<HomeFragment> {
-            Navigation.setViewNavController(requireView(), navController)
-        }
-        onView(withId(R.id.buttonFlightOffersMain)).perform(click())
-
-        verify(navController).navigate(
-            HomeFragmentDirections.actionNavHomeToNavFlightSearch().actionId
-        )
-    }
-
-    @Test
-    fun flightSearchOriginDestinationAutoComplete_fillAirportResultsBySelectingTheListItem() {
         launchFragmentInHiltContainer<FlightSearchFragment> {
             Navigation.setViewNavController(requireView(), navController)
             fragmentActivity = activity!!
         }
+    }
 
+    @Test
+    fun flightSearchOriginDestinationAutoComplete_fillAirportResultsBySelectingTheListItem() {
         onView(withId(R.id.edt_flight_search_origin))
             .perform(clearText(), typeText("Istanbul"), closeSoftKeyboard())
 
@@ -77,24 +62,17 @@ class FlightSearchFragmentTest {
             .inRoot(withDecorView(not(fragmentActivity.window.decorView)))
             .perform(click())
     }
+
     @Test
     fun clickFlightSearchFragmentSubmitButton_navigateToFlightResultsFragment() {
         val flightSearch = FlightSearch(
-            origin = Airport(
-                NAME = "Sabiha Gokcen", IATA = "SAW", CITY = "ISTANBUL"
-            ),
-            destination = Airport(
-                NAME = "Izmir Adnan Menderes", IATA = "ADB", CITY = "Izmir"
-            ),
+            origin = Airport(NAME = "Sabiha Gokcen", IATA = "SAW", CITY = "ISTANBUL"),
+            destination = Airport(NAME = "Izmir Adnan Menderes", IATA = "ADB", CITY = "Izmir"),
             departureDate = "2021-12-12",
             returnDate = "2021-12-20",
             adults = 1,
             children = 0
         )
-
-        launchFragmentInHiltContainer<FlightSearchFragment> {
-            Navigation.setViewNavController(requireView(), navController)
-        }
 
         onView(withId(R.id.btn_flight_search_flights)).perform(click())
         verify(navController).navigate(

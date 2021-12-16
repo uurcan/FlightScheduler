@@ -42,7 +42,7 @@ class DelayPredictionSearchAdapter(private val ctx: Context, private val iataCod
                     iataCodes.asList()
                 else
                     iataCodes.filter {
-                        it.ID.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
+                        it.ID.toLowerCase(Locale.ENGLISH).contains(queryString) ||
                                 it.NAME.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
                     }
                 return filterResults

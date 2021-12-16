@@ -1,4 +1,4 @@
-package com.java.flightscheduler
+package com.java.flightscheduler.network
 
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.base.succeeded

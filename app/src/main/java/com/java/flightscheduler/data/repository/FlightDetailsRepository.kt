@@ -7,6 +7,7 @@ import com.java.flightscheduler.data.constants.HttpConstants.SEAT_MAP_REQUEST_HE
 import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.data.model.flight.pricing.FareDetailsBySegment
+import com.java.flightscheduler.utils.extension.merge
 import com.squareup.moshi.Moshi
 import java.text.SimpleDateFormat
 import javax.inject.Inject
@@ -140,10 +141,6 @@ class FlightDetailsRepository @Inject constructor(private val context: Context) 
         }
     }
 
-    fun getFareDetails(flightOffer: FlightOffer): List<FareDetailsBySegment>? =
-            flightOffer.travelerPricings?.get(0)?.fareDetailsBySegment
+    fun getFareDetails(flightOffer: FlightOffer): List<FareDetailsBySegment>? = flightOffer.travelerPricings?.get(0)?.fareDetailsBySegment
 
-    private fun <T> merge(first: List<T>?, second: List<T>?): List<T> {
-        return first!!.plus(second!!)
-    }
 }

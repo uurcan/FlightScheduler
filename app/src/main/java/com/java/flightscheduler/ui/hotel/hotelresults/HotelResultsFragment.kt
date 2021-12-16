@@ -4,7 +4,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.hotel.base.HotelOffer
@@ -25,10 +24,7 @@ class HotelResultsFragment : BaseFragment<HotelResultsViewModel, FragmentHotelRe
     }
 
     private fun initializeHotelResults() {
-        val layoutManager = LinearLayoutManager(context)
-        binding?.rvFlightList?.layoutManager = layoutManager
         binding?.rvFlightList?.setHasFixedSize(true)
-
         viewModel?.getHotelData(arguments.hotelSearch)?.observeOnce { hotelData ->
             if (hotelData.isEmpty()) {
                 binding?.txtHotelSearchErrorMessage?.visibility = View.VISIBLE

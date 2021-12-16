@@ -1,5 +1,6 @@
 package com.java.flightscheduler.data.repository
 
+import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.remote.services.PredictionService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.java.flightscheduler.di.dispatcher.IoDispatcher
@@ -37,5 +38,15 @@ class PredictionRepository @Inject constructor(
             flightNumber = flightNumber,
             duration = duration
         )
+    }
+
+    fun getQueryErrors(errors: List<BaseApiResult.Error.Issue>): String? {
+        var errorMessages = ""
+        errors.forEach {
+                error ->
+            errorMessages += "${error.code} - ${error.title} \n"
+        }
+        return if (errors.isEmpty()) "No prediction result available for this flight."
+        else errorMessages
     }
 }

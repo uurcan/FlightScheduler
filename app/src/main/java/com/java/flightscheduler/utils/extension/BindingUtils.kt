@@ -99,6 +99,13 @@ fun TextView.setDateParserText(date: String) {
     this.text = ParsingUtils.dateParser(parser, formatter, date)
 }
 
+@BindingAdapter("app:setTimeParserText")
+fun TextView.setTimeParserText(time: String) {
+    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    val formatter = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+    this.text = ParsingUtils.dateParser(parser, formatter, time)
+}
+
 @BindingAdapter("app:setTimeStampParser")
 fun TextView.setTimeStampParser(date: String?) {
     val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
@@ -122,4 +129,18 @@ fun AutoCompleteTextView.setAutoCompleteAdapterAirline(entries: Array<Airline>) 
 fun AutoCompleteTextView.setAutoCompleteAdapterHotel(entries: Array<City>) {
     val adapter = HotelSearchAdapter(context, entries)
     setAdapter(adapter)
+}
+
+@BindingAdapter("android:layout_width")
+fun setLayoutWidth(view: View, width: Float) {
+    val layoutParams = view.layoutParams
+    layoutParams.width = width.toInt()
+    view.layoutParams = layoutParams
+}
+
+@BindingAdapter("android:layout_height")
+fun setLayoutHeight(view: View, height: Float) {
+    val layoutParams = view.layoutParams
+    layoutParams.height = height.toInt()
+    view.layoutParams = layoutParams
 }
