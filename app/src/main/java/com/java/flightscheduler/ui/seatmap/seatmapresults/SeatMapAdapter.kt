@@ -10,13 +10,14 @@ import com.java.flightscheduler.data.repository.SeatRepository
 import com.java.flightscheduler.ui.base.BaseAdapter
 import com.java.flightscheduler.ui.base.BaseViewHolder
 
-class SeatMapAdapter(context: Context, deck: Decks, private val onClick: (Seat) -> Unit)
+class SeatMapAdapter(context: Context,private val deck: Decks, private val onClick: (Seat) -> Unit)
     : BaseAdapter<Seat, ViewDataBinding>(R.layout.list_seat_map_item) {
 
     private val seatMapList = SeatRepository(context).getSeatLayout(deck)
 
     override fun onBind(holder: BaseViewHolder, position: Int) {
         binding?.setVariable(BR.seat, seatMapList[position])
+        binding?.setVariable(BR.seatMapDeckSize, deck.deckConfiguration?.width)
         binding?.executePendingBindings()
         binding?.root?.setOnClickListener {
             if (seatMapList[position].cabin != null) {

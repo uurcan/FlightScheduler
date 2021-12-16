@@ -21,6 +21,7 @@ object AppConstants {
 
     const val TWELVE_SEAT_DECK = 12
     const val ELEVEN_SEAT_DECK = 11
+    const val TEN_SEAT_DECK = 10
     const val NINE_SEAT_DECK = 9
     const val SIX_SEAT_DECK = 7
     const val FOUR_SEAT_DECK = 5

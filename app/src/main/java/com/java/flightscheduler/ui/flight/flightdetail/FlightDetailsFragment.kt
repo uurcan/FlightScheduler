@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
@@ -48,8 +47,6 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
     }
 
     private fun initializeFlightResults(flightOffer: FlightOffer) {
-        val layoutManager = LinearLayoutManager(context)
-        binding?.rvFlightDetail?.layoutManager = layoutManager
         binding?.rvFlightDetail?.setHasFixedSize(true)
         viewModel.getSegments(flightOffer).observe(viewLifecycleOwner, {
             binding?.rvFlightDetail?.adapter = flightDetailsAdapter

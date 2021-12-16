@@ -24,16 +24,16 @@ class DelayPredictionSearchViewModel @Inject constructor(private val predictionR
     private val flightDateLiveData = MutableLiveData<String>(predictionRepository.getToday())
     val flightDate: LiveData<String> get() = flightDateLiveData
 
-    private val departureTimeLiveData = MutableLiveData<String>(predictionRepository.getToday())
+    private val departureTimeLiveData = MutableLiveData<String>()
     val departureTime: LiveData<String> get() = departureTimeLiveData
 
-    private val arrivalTimeLiveData = MutableLiveData<String>(predictionRepository.getToday())
+    private val arrivalTimeLiveData = MutableLiveData<String>()
     val arrivalTime: LiveData<String> get() = arrivalTimeLiveData
 
     private val carrierAirlineLiveData = MutableLiveData<Airline>()
     val carrier: LiveData<Airline> get() = carrierAirlineLiveData
 
-    private val flightNumberLiveData = MutableLiveData<Int?>()
+    private val flightNumberLiveData = MutableLiveData<Int>()
     val flightNumber: LiveData<Int?> get() = flightNumberLiveData
 
     fun performValidation(predictionSearch: PredictionSearch): MutableLiveData<String> {
@@ -45,7 +45,7 @@ class DelayPredictionSearchViewModel @Inject constructor(private val predictionR
         if (predictionSearch.destination == null) {
             validationMessage.value = "Destination can not be blank"
         }
-        if (predictionSearch.arrivalDate == null) {
+        if (predictionSearch.departureDate == null) {
             validationMessage.value = "Flight Date can not be blank"
         }
         if (predictionSearch.arrivalTime == null) {
@@ -77,6 +77,10 @@ class DelayPredictionSearchViewModel @Inject constructor(private val predictionR
 
     fun setCarrier(airline: Airline) {
         carrierAirlineLiveData.value = airline
+    }
+
+    fun setFlightNumber(flightNumber : Int) {
+        flightNumberLiveData.value = flightNumber
     }
 
     fun getAirlines(): Array<Airline>? {

@@ -180,6 +180,23 @@
         android:id="@+id/nav_delay_prediction"
         android:name="com.java.flightscheduler.ui.delayprediction.predictionsearch.DelayPredictionSearchFragment"
         android:label="@string/text_delay_prediction"
-        tools:layout="@layout/fragment_delay_prediction_search" />
+        tools:layout="@layout/fragment_delay_prediction_search">
+        <action
+            android:id="@+id/action_nav_prediction_search_to_prediction_results_fragment"
+            app:destination="@+id/nav_prediction_results"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/nav_prediction_results"
+        android:name="com.java.flightscheduler.ui.delayprediction.predictionresults.DelayPredictionFragment"
+        android:label="@string/text_delay_prediction"
+        tools:layout="@layout/fragment_delay_prediction" >
+        <argument
+            android:name="predictionSearch"
+            app:argType="com.java.flightscheduler.data.model.prediction.PredictionSearch" />
+    </fragment>
 </navigation>

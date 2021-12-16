@@ -3,7 +3,6 @@ package com.java.flightscheduler.ui.flight.flightresults
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.java.flightscheduler.BR
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.FlightOffer
@@ -29,10 +28,7 @@ class FlightResultsFragment : BaseFragment<FlightResultsViewModel, FragmentFligh
     }
 
     private fun initializeFlightResults() {
-        val layoutManager = LinearLayoutManager(context)
-        binding?.rvFlightList?.layoutManager = layoutManager
         binding?.rvFlightList?.setHasFixedSize(true)
-
         arguments.flightSearch.let { it ->
             viewModel.getFlightData(it)?.observeOnce { flightData ->
                 if (flightData.isEmpty()) displayErrorMessage(getString(R.string.text_no_flight_found))

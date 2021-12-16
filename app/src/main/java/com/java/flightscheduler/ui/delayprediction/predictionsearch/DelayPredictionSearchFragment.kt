@@ -2,6 +2,7 @@ package com.java.flightscheduler.ui.delayprediction.predictionsearch
 
 import android.content.Intent
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
@@ -27,6 +28,7 @@ class DelayPredictionSearchFragment : BaseFragment<DelayPredictionSearchViewMode
 
     private fun initializeViews() {
         binding?.btnPredictionSearchResults?.setOnClickListener {
+            viewModel.setFlightNumber(Integer.parseInt(binding?.txtPredictionFlightNumber?.text.toString()))
             setPredictionInput()
         }
         binding?.layoutFlightSearchRouteSwap?.setOnClickListener {
@@ -54,7 +56,6 @@ class DelayPredictionSearchFragment : BaseFragment<DelayPredictionSearchViewMode
             carrierCode = viewModel.carrier.value,
             flightNumber = viewModel.flightNumber.value
         )
-
         if (areFlightParamsValid(predictionSearch)) {
             beginTransaction(predictionSearch)
         }
@@ -102,7 +103,7 @@ class DelayPredictionSearchFragment : BaseFragment<DelayPredictionSearchViewMode
     }
 
     private fun beginTransaction(predictionSearch: PredictionSearch) {
-        //val action = FlightSearchFragmentDirections.actionNavFlightSearchToNavFlightResults(predictionSearch)
-        //findNavController().navigate(action)
+        val action = DelayPredictionSearchFragmentDirections.actionNavPredictionSearchToPredictionResultsFragment(predictionSearch)
+        findNavController().navigate(action)
     }
 }

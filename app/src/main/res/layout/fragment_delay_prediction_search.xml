@@ -253,6 +253,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
+                    android:text="@{Integer.toString(predictionSearchViewModel.flightNumber)}"
                     android:layout_marginStart="@dimen/margin_small"
                     android:inputType="number"
                     android:id="@+id/txt_prediction_flight_number"
@@ -410,7 +411,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:text="6:00 A.M."
+                    app:setTimeParserText="@{ParsingUtils.getCurrentDate(predictionSearchViewModel.departureTime).toString()}"
                     app:layout_constraintRight_toLeftOf="@+id/img_prediction_arrival_time_more"
                     android:id="@+id/txt_prediction_departure_time"
                     android:layout_width="wrap_content"
@@ -472,7 +473,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="8:00 A.M."
+                    app:setTimeParserText="@{ParsingUtils.getCurrentDate(predictionSearchViewModel.arrivalTime).toString()}"
                     app:layout_constraintRight_toLeftOf="@+id/img_flight_search_departure_more"
                     android:id="@+id/txt_prediction_arrival_time"
                     android:layout_width="wrap_content"
