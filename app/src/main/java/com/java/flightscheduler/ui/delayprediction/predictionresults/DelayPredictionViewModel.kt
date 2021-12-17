@@ -1,5 +1,6 @@
 package com.java.flightscheduler.ui.delayprediction.predictionresults
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.data.model.base.BaseApiResult
@@ -16,9 +17,14 @@ class DelayPredictionViewModel @Inject constructor(
     private val predictionRepository: PredictionRepository
 ) : BaseViewModel() {
     private var delayPredictionLiveData: MutableLiveData<List<DelayPrediction>>? = MutableLiveData()
+    val delayPrediction : LiveData<List<DelayPrediction>>? get() = delayPredictionLiveData
 
     init {
         showLoading()
+    }
+
+    fun setDelayPrediction(prediction : List<DelayPrediction>) {
+        delayPredictionLiveData?.value = prediction
     }
 
     fun getPredictionData(predictionSearch: PredictionSearch): MutableLiveData<List<DelayPrediction>>? {

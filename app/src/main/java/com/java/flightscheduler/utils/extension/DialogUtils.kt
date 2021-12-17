@@ -1,6 +1,5 @@
 package com.java.flightscheduler.utils.extension
 
-import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -122,31 +121,33 @@ fun Fragment.displayTimePicker(
     startForResult.launch(intent)
 }
 
-fun Fragment.initializeTimePicker(
+fun Fragment.timePickerResult(
     textView: TextView?
-) {
+) : String {
     val calendar : Calendar = Calendar.getInstance()
     val hourLocal: Int = calendar.get(Calendar.HOUR_OF_DAY)
     val minutes: Int = calendar.get(Calendar.MINUTE)
-    val timePicker = TimePickerDialog(context, { _, hour, minute ->
-        var HH = hour
-        var am_pm = ""
-        when { hour == 0 -> { HH += 12
-            am_pm = "AM"
-        }
-            hour == 12 -> am_pm = "PM"
-            hour > 12 -> { HH -= 12
-                am_pm = "PM"
+    val timePicker = TimePickerDialog(context,
+        { _, hour, minute ->
+            var HH = hour
+            val am_pm: String
+            when { hour == 0 -> { HH += 12
+                am_pm = "AM"
             }
-            else -> am_pm = "AM"
-        }
-        if (textView != null) {
-            val hour1 = if (hour < 10) "0$hour" else hour
-            val min = if (minute < 10) "0$minute" else minute
-            val msg = "$hour1 : $min $am_pm"
-            textView.text = msg
-            textView.visibility = ViewGroup.VISIBLE
-        }
-    }, hourLocal, minutes, false)
+                hour == 12 -> am_pm = "PM"
+                hour > 12 -> { HH -= 12
+                    am_pm = "PM"
+                }
+                else -> am_pm = "AM"
+            }
+            if (textView != null) {
+                val hour1 = if (hour < 10) "0$hour" else hour
+                val min = if (minute < 10) "0$minute" else minute
+                val msg = "$hour1 : $min $am_pm"
+                textView.text = msg
+                textView.visibility = ViewGroup.VISIBLE
+            }
+        }, hourLocal, minutes, false)
     timePicker.show()
+    return "$hourLocal:$minutes:00"
 }

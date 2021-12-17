@@ -8,6 +8,11 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
@@ -16,6 +21,7 @@ import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_OCCUPIED
 import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.hotel.City
+import com.java.flightscheduler.data.model.prediction.DelayPrediction
 import com.java.flightscheduler.ui.delayprediction.predictionsearch.DelayPredictionSearchAdapter
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchAdapter
 import com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchAdapter
@@ -101,8 +107,12 @@ fun TextView.setDateParserText(date: String) {
 
 @BindingAdapter("app:setTimeParserText")
 fun TextView.setTimeParserText(time: String) {
-    val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-    val formatter = SimpleDateFormat("HH:mm", Locale.ENGLISH)
+    val parser : SimpleDateFormat = if (time.length > 10) {
+        SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+    } else {
+        SimpleDateFormat("HH:mm:ss", Locale.ENGLISH)
+    }
+    val formatter = SimpleDateFormat("HH:mm aa", Locale.ENGLISH)
     this.text = ParsingUtils.dateParser(parser, formatter, time)
 }
 
@@ -143,4 +153,23 @@ fun setLayoutHeight(view: View, height: Float) {
     val layoutParams = view.layoutParams
     layoutParams.height = height.toInt()
     view.layoutParams = layoutParams
+}
+
+@BindingAdapter("app:setChartVariables")
+fun PieChart.setChartVariables(list : List<DelayPrediction>?) {
+    val entries = ArrayList<PieEntry>()
+    for (i in list?.indices ?: ArrayList()) {
+        val probability: Float = list?.get(i)?.probability?.toFloat()!!
+        val case : String = list[i].result ?: ""
+        entries.add(PieEntry(probability, case))
+    }
+
+    val pieDataSet = PieDataSet(entries, "Delay Predictions")
+    pieDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+    pieDataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+    pieDataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+    pieDataSet.valueTextSize = 16f
+
+    val pieData = PieData(pieDataSet)
+    this.data = pieData
 }

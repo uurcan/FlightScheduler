@@ -90,4 +90,10 @@ class DelayPredictionSearchViewModel @Inject constructor(private val predictionR
     fun getIATACodes(): Array<Airport>? {
         return predictionRepository.getIataCodes().toTypedArray()
     }
+    fun setDepartureTime(timePickerResult: String) {
+        departureTimeLiveData.value = timePickerResult
+    }
+    fun setArrivalTime(timePickerResult: String) {
+        arrivalTimeLiveData.value = timePickerResult
+    }
 }

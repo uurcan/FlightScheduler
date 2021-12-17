@@ -10,10 +10,7 @@ import com.java.flightscheduler.data.model.prediction.PredictionSearch
 import com.java.flightscheduler.databinding.FragmentDelayPredictionSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
 import com.java.flightscheduler.ui.base.MessageHelper
-import com.java.flightscheduler.utils.extension.airportDropdownEvent
-import com.java.flightscheduler.utils.extension.displayTimePicker
-import com.java.flightscheduler.utils.extension.initializeTimePicker
-import com.java.flightscheduler.utils.extension.swapRoutes
+import com.java.flightscheduler.utils.extension.*
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +24,7 @@ class DelayPredictionSearchFragment : BaseFragment<DelayPredictionSearchViewMode
     }
 
     private fun initializeViews() {
+        //todo, call onclick methods with xml
         binding?.btnPredictionSearchResults?.setOnClickListener {
             viewModel.setFlightNumber(Integer.parseInt(binding?.txtPredictionFlightNumber?.text.toString()))
             setPredictionInput()
@@ -38,10 +36,14 @@ class DelayPredictionSearchFragment : BaseFragment<DelayPredictionSearchViewMode
             displayTimePicker(context, startForResult, true)
         }
         binding?.layoutFlightDeparturePicker?.setOnClickListener {
-            initializeTimePicker(binding?.txtPredictionDepartureTime)
+            viewModel.setDepartureTime(
+                timePickerResult(binding?.txtPredictionDepartureTime)
+            )
         }
         binding?.layoutFlightArrivalPicker?.setOnClickListener {
-            initializeTimePicker(binding?.txtPredictionArrivalTime)
+            viewModel.setArrivalTime(
+                timePickerResult(binding?.txtPredictionArrivalTime)
+            )
         }
         binding?.predictionSearchViewModel = viewModel
     }
