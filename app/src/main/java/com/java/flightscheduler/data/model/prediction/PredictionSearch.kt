@@ -13,8 +13,8 @@ class PredictionSearch(
     var departureTime: String? = null,
     var arrivalDate: String? = null,
     var arrivalTime: String? = null,
-    var aircraftCode: Int? = 1,
+    var aircraftCode: Int? = 321,
     var carrierCode: Airline? = null,
-    var duration: String = "",
+    var duration: String = "1",
     var flightNumber: Int? = null
 ) : Parcelable

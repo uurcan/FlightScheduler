@@ -18,8 +18,7 @@ import com.java.flightscheduler.utils.extension.dismissLoadingDialog
 import com.java.flightscheduler.utils.extension.showDialog
 import com.java.flightscheduler.utils.extension.showLoadingDialog
 
-abstract class BaseFragment<VM : BaseViewModel?,
-        DB : ViewDataBinding?>(@LayoutRes private val layoutId: Int) : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel?, DB : ViewDataBinding?>(@LayoutRes private val layoutId: Int) : Fragment() {
 
     protected abstract val viewModel: VM?
     protected var binding: DB? = null

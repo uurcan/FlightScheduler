@@ -132,6 +132,7 @@ dependencies {
 
     //loading screen animations
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     //unittest dependencies
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0-RC")
