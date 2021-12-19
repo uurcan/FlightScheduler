@@ -1,18 +1,22 @@
 package com.java.flightscheduler.utils.extension
 
+import android.graphics.Color
 import android.view.View
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
@@ -27,7 +31,7 @@ import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchAdapter
 import com.java.flightscheduler.ui.hotel.hotelsearch.HotelSearchAdapter
 import com.java.flightscheduler.utils.ParsingUtils
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 @BindingAdapter("app:setImageUrl")
 fun ImageView.setImageUrl(url: String?) {
@@ -67,6 +71,11 @@ fun TextView.setDisplayList(input: List<Any>?) {
     }
     this.text = output
 }
+@BindingAdapter("app:setDisplayUnderscore")
+fun TextView.setDisplayUnderscore(input: String) {
+    val output = input.replace("_", " ") + "\n"
+    this.text = output
+}
 
 @BindingAdapter("app:setSeatMapDrawable")
 fun ImageView.setSeatMapDrawable(status: String?) {
@@ -92,7 +101,8 @@ fun setVisibility(view: View, data: String?) {
 }
 
 @BindingAdapter("app:setDateParserText")
-fun TextView.setDateParserText(date: String) {
+fun TextView.setDateParserText(date: String?) {
+    if (date.isNullOrBlank()) return
     val parser = SimpleDateFormat(
         context?.getString(R.string.text_date_parser_format),
         Locale.ENGLISH
@@ -155,21 +165,50 @@ fun setLayoutHeight(view: View, height: Float) {
     view.layoutParams = layoutParams
 }
 
-@BindingAdapter("app:setChartVariables")
-fun PieChart.setChartVariables(list : List<DelayPrediction>?) {
-    val entries = ArrayList<PieEntry>()
-    for (i in list?.indices ?: ArrayList()) {
-        val probability: Float = list?.get(i)?.probability?.toFloat()!!
-        val case : String = list[i].result ?: ""
+@BindingAdapter("app:setPredictionResults")
+fun setPredictionResults(view: PieChart?, data: List<DelayPrediction>?){
+    if (data == null) return
+    val entries = mutableListOf<PieEntry>()
+
+    data.forEach { prediction ->
+        val probability : Float = prediction.probability?.toFloat()!!
+        val case : String? = prediction.result
         entries.add(PieEntry(probability, case))
     }
+    if (view != null) {
+        preparePie(entries, view)
+    }
+    view?.animateY(400, Easing.EaseInQuad)
+}
 
-    val pieDataSet = PieDataSet(entries, "Delay Predictions")
-    pieDataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
-    pieDataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-    pieDataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-    pieDataSet.valueTextSize = 16f
+private fun preparePie(entries: MutableList<PieEntry>, view: PieChart) {
+    val colors = getColors()
 
-    val pieData = PieData(pieDataSet)
-    this.data = pieData
+    val data = if (entries.isNotEmpty()) entries else null
+
+    val dataSet = PieDataSet(data, "Delay Predictions")
+    dataSet.sliceSpace = 3f
+    dataSet.selectionShift = 5f
+    dataSet.colors = colors
+    dataSet.valueTextSize = 16f
+    dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+    dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+
+    val pieData = PieData(dataSet)
+    pieData.setValueFormatter(PercentFormatter())
+    pieData.setValueTextSize(11f)
+
+    view.centerTextRadiusPercent = 0f
+    view.transparentCircleRadius = 0f
+    view.holeRadius = 0f
+    view.data = pieData
+}
+
+private fun getColors() : List<Int>{
+    return listOf(
+        Color.rgb(180, 21, 28), //google red
+        Color.rgb(15, 157, 88), //google green
+        Color.rgb(255, 131, 0), //google orange
+        Color.rgb(0, 0, 0) //solid black
+    )
 }
