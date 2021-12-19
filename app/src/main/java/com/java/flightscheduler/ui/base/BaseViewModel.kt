@@ -72,5 +72,4 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
     fun hideLoading() {
         isLoading.value = false
     }
-
 }

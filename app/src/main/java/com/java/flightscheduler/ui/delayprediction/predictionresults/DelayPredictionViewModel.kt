@@ -19,12 +19,15 @@ class DelayPredictionViewModel @Inject constructor(
     private var delayPredictionLiveData: MutableLiveData<List<DelayPrediction>>? = MutableLiveData()
     val delayPrediction : LiveData<List<DelayPrediction>>? get() = delayPredictionLiveData
 
+    private var predictionSearchLiveData: MutableLiveData<PredictionSearch>? = MutableLiveData()
+    val predictionSearch : LiveData<PredictionSearch>? get() = predictionSearchLiveData
+
     init {
         showLoading()
     }
 
-    fun setDelayPrediction(prediction : List<DelayPrediction>) {
-        delayPredictionLiveData?.value = prediction
+    fun setPredictionSearch(predictionSearch: PredictionSearch) {
+        predictionSearchLiveData?.value = predictionSearch
     }
 
     fun getPredictionData(predictionSearch: PredictionSearch): MutableLiveData<List<DelayPrediction>>? {
