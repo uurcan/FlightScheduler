@@ -5,8 +5,11 @@
       <map>
         <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/fragment_delay_prediction.xml" value="0.1" />
+        <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/fragment_flight_search.xml" value="0.1" />
+        <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/fragment_seat_map.xml" value="0.1" />
         <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/layout_air_calendar.xml" value="0.1" />
         <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/layout_message_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/ucelebi/Documents/FlightScheduler/app/src/main/res/layout/list_seat_map_item.xml" value="0.1" />
       </map>
     </option>
   </component>
