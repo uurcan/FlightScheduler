@@ -71,7 +71,7 @@ class FlightDetailsFragment : BaseFragment<FlightDetailsViewModel, FragmentFligh
 
     private fun directToSeatMap(request: String) {
         val action = FlightDetailsFragmentDirections
-            .actionNavFlightResultsToSeatMapFragment(seatMapSearch = null, seatMapRequest = request)
+            .actionNavFlightResultsToSeatMapFragment(null, request)
         findNavController().navigate(action)
     }
 }

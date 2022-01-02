@@ -11,12 +11,12 @@ import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
-/*import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter*/
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AISLE
 import com.java.flightscheduler.data.constants.AppConstants.SEAT_MAP_AVAILABLE
@@ -165,7 +165,7 @@ fun setLayoutHeight(view: View, height: Float) {
     view.layoutParams = layoutParams
 }
 
-/*@BindingAdapter("app:setPredictionResults")
+@BindingAdapter("app:setPredictionResults")
 fun setPredictionResults(view: PieChart?, data: List<DelayPrediction>?){
     if (data == null) return
     val entries = mutableListOf<PieEntry>()
@@ -202,7 +202,7 @@ private fun preparePie(entries: MutableList<PieEntry>, view: PieChart) {
     view.transparentCircleRadius = 0f
     view.holeRadius = 0f
     view.data = pieData
-}*/
+}
 
 private fun getColors() : List<Int>{
     return listOf(

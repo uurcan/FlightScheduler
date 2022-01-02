@@ -24,9 +24,9 @@ class FlightStatusViewModel @Inject constructor(private val flightStatusReposito
 
         scope.launch {
             val flightStatusResults = flightStatusRepository.get(
-                carrierCode = "PR",
-                flightNumber = 212,
-                scheduledDepartureDate = "2021-06-26"
+                carrierCode = "TK",
+                flightNumber = 5,
+                scheduledDepartureDate = "2022-01-11"
             )
 
             if (flightStatusResults is BaseApiResult.Success) {
