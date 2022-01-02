@@ -35,15 +35,15 @@ class DelayPredictionSearchAdapter(private val ctx: Context, private val iataCod
                 notifyDataSetChanged()
             }
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
-                val queryString = charSequence?.toString()?.toLowerCase(Locale.ENGLISH)
+                val queryString = charSequence?.toString()?.lowercase(Locale.ENGLISH)
 
                 val filterResults = FilterResults()
                 filterResults.values = if (queryString == null || queryString.isEmpty())
                     iataCodes.asList()
                 else
                     iataCodes.filter {
-                        it.ID.toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.NAME.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
+                        it.ID.lowercase(Locale.ENGLISH).contains(queryString) ||
+                                it.NAME.toString().lowercase(Locale.ENGLISH).contains(queryString)
                     }
                 return filterResults
             }

@@ -62,8 +62,8 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSear
             formattedCheckOutDate =  binding?.txtHotelSearchCheckOutDate?.text.toString(),
             roomCount = viewModel.roomCount.value!!,
             auditCount = binding?.txtHotelAuditCount?.text.toString().toInt(),
-            sortOptions = binding?.txtHotelSort?.text.toString().toUpperCase(Locale.ENGLISH),
-            language = binding?.txtHotelLanguageText?.text.toString().toUpperCase(Locale.ENGLISH)
+            sortOptions = binding?.txtHotelSort?.text.toString().uppercase(Locale.ENGLISH),
+            language = binding?.txtHotelLanguageText?.text.toString().uppercase(Locale.ENGLISH)
         )
 
         if (paramValidation(city = hotelSearch.city.code)) {

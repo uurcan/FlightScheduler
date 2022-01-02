@@ -35,16 +35,16 @@ class HotelSearchAdapter(private val ctx: Context, private val cities: Array<Cit
                 notifyDataSetChanged()
             }
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
-                val queryString = charSequence?.toString()?.toLowerCase(Locale.ENGLISH)
+                val queryString = charSequence?.toString()?.lowercase(Locale.ENGLISH)
 
                 val filterResults = FilterResults()
                 filterResults.values = if (queryString == null || queryString.isEmpty())
                     cities.asList()
                 else
                     cities.filter {
-                        it.name?.toLowerCase(Locale.ENGLISH)?.contains(queryString) == true ||
-                                it.country?.toLowerCase(Locale.ENGLISH)?.contains(queryString) == true ||
-                                it.code?.toLowerCase(Locale.ENGLISH)?.contains(queryString) == true
+                        it.name?.lowercase(Locale.ENGLISH)?.contains(queryString) == true ||
+                                it.country?.lowercase(Locale.ENGLISH)?.contains(queryString) == true ||
+                                it.code?.lowercase(Locale.ENGLISH)?.contains(queryString) == true
                     }
                 return filterResults
             }

@@ -35,16 +35,16 @@ class FlightSearchAdapter(private val ctx: Context, private val iataCodes: Array
                 notifyDataSetChanged()
             }
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
-                val queryString = charSequence?.toString()?.toLowerCase(Locale.ENGLISH)
+                val queryString = charSequence?.toString()?.lowercase(Locale.ENGLISH)
 
                 val filterResults = FilterResults()
                 filterResults.values = if (queryString == null || queryString.isEmpty())
                     iataCodes.asList()
                 else
                     iataCodes.filter {
-                        it.CITY.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.NAME.toString().toLowerCase(Locale.ENGLISH).contains(queryString) ||
-                                it.IATA.toString().toLowerCase(Locale.ENGLISH).contains(queryString)
+                        it.CITY.toString().lowercase(Locale.ENGLISH).contains(queryString) ||
+                                it.NAME.toString().lowercase(Locale.ENGLISH).contains(queryString) ||
+                                it.IATA.toString().lowercase(Locale.ENGLISH).contains(queryString)
                     }
                 return filterResults
             }

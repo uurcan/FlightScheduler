@@ -36,7 +36,7 @@ class FlightResultsViewModel @Inject constructor(private val flightRepository: F
                 is BaseApiResult.Success -> {
                     flightLiveData.apply {
                         flightLiveData?.postValue(flightOffersSearches.data.toObservable()
-                            .distinct { code -> code.itineraries?.get(0)?.segments?.get(0)?.number }
+                            .distinct { code -> code.itineraries?.get(0)?.segments?.get(0)?.number ?: "" }
                             .subscribeOn(Schedulers.io())
                             .toList()
                             .blockingGet())
