@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.flight.flightstatus
+package com.java.flightscheduler.ui.flightstatus.statusresults
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.base
+package com.java.flightscheduler.utils
 
 import android.view.View
 import androidx.core.content.ContextCompat

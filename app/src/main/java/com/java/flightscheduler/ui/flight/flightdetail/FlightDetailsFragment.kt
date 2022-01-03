@@ -12,7 +12,7 @@ import com.java.flightscheduler.data.model.flight.FlightOffer
 import com.java.flightscheduler.data.model.flight.itineraries.SearchSegment
 import com.java.flightscheduler.databinding.FragmentFlightDetailBinding
 import com.java.flightscheduler.ui.base.BaseFragment
-import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.showDialog
 import dagger.hilt.android.AndroidEntryPoint
 

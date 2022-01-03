@@ -1,7 +1,9 @@
 package com.java.flightscheduler.data.model.flight
 
 import android.os.Parcelable
+import com.java.flightscheduler.ui.base.autocomplete.AutoCompleteEntity
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 @Parcelize
 data class Airport constructor(
@@ -13,4 +15,10 @@ data class Airport constructor(
     val LAT: String? = null,
     val LON: String? = null,
     val TIMEZONE: String? = null
-) : Parcelable
+) : Parcelable, AutoCompleteEntity {
+    override fun filter(query: String): Boolean {
+        return CITY.toString().lowercase(Locale.ENGLISH).contains(query) ||
+                NAME.toString().lowercase(Locale.ENGLISH).contains(query) ||
+                IATA.lowercase(Locale.ENGLISH).contains(query)
+    }
+}

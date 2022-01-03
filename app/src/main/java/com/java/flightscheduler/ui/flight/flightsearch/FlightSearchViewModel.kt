@@ -55,7 +55,9 @@ class FlightSearchViewModel @Inject constructor(private val flightSearchReposito
     fun getIATACodes(): Array<Airport>? {
         return flightSearchRepository.getIataCodes().toTypedArray()
     }
-
+    fun getIATA(): List<Airport> {
+        return flightSearchRepository.getIataCodes()
+    }
     fun setFlightSearchLiveData(flightSearch: FlightSearch) {
         flightSearchLiveData?.value = flightSearch
     }
