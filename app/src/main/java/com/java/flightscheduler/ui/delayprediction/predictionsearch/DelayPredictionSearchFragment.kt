@@ -9,7 +9,7 @@ import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.prediction.PredictionSearch
 import com.java.flightscheduler.databinding.FragmentDelayPredictionSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
-import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.*
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarDatePickerActivity
 import dagger.hilt.android.AndroidEntryPoint

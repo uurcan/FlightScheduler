@@ -9,7 +9,7 @@ import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.databinding.FragmentFlightSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
-import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.airportDropdownEvent
 import com.java.flightscheduler.utils.extension.displayTimePicker
 import com.java.flightscheduler.utils.extension.swapRoutes

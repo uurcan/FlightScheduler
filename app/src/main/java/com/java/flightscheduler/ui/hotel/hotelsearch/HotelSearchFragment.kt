@@ -10,7 +10,7 @@ import com.java.flightscheduler.data.model.hotel.City
 import com.java.flightscheduler.data.model.hotel.HotelSearch
 import com.java.flightscheduler.databinding.FragmentHotelSearchBinding
 import com.java.flightscheduler.ui.base.BaseFragment
-import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.airportDropdownEvent
 import com.java.flightscheduler.utils.extension.displayTimePicker
 import com.java.flightscheduler.utils.extension.showListDialog

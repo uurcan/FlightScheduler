@@ -9,7 +9,7 @@ import com.java.flightscheduler.data.model.seatmap.base.SeatMap
 import com.java.flightscheduler.data.model.seatmap.deck.seat.Seat
 import com.java.flightscheduler.databinding.FragmentSeatMapBinding
 import com.java.flightscheduler.ui.base.BaseFragment
-import com.java.flightscheduler.ui.base.MessageHelper
+import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.observeOnce
 import dagger.hilt.android.AndroidEntryPoint
 
