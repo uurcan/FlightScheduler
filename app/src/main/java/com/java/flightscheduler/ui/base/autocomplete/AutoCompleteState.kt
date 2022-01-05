@@ -43,7 +43,7 @@ class AutoCompleteState<T : AutoCompleteEntity>(private val startItems : List<T>
     override var boxWidthPercentage by mutableStateOf(.9f)
     override var shouldWrapContentHeight by mutableStateOf(false)
     override var boxMaxHeight: Dp by mutableStateOf(TextFieldDefaults.MinHeight * 3)
-    override var boxBorderStroke by mutableStateOf(BorderStroke(2.dp, Color.Black))
+    override var boxBorderStroke by mutableStateOf(BorderStroke(5.dp, Color.Black))
     override var boxShape : Shape by mutableStateOf(RoundedCornerShape(8.dp))
 
     override fun filter(query: String) {

@@ -5,9 +5,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.java.flightscheduler.data.model.flight.Airport
+import com.java.flightscheduler.ui.flightstatus.statussearch.AutoCompleteAirport
 
 @Composable
 fun FlightStatusScreen(

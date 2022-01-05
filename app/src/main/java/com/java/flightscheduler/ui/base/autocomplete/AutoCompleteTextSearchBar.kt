@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 
@@ -41,10 +42,16 @@ fun AutoCompleteTextSearchBar(
                 Icon(imageVector = Icons.Filled.Clear, contentDescription = "Clear")
             }
         },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Color.Red,
+            unfocusedBorderColor = Color.Black),
         keyboardActions = KeyboardActions(onDone = { onDoneActionClick() }),
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
             keyboardType = KeyboardType.Text
-        )
+        ),
+        placeholder = {
+            Text(text = "Origin", color = Color.Gray)
+        }
     )
 }

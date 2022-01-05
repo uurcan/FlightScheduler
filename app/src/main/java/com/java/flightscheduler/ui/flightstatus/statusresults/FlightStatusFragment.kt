@@ -15,7 +15,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
 import com.java.flightscheduler.ui.flightstatus.statussearch.AutoCompleteAirport
 import com.java.flightscheduler.ui.theme.FlightSchedulerTheme
@@ -42,6 +41,7 @@ class FlightStatusFragment : Fragment() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(24.dp)
                     ) {
+                        AutoCompleteAirport(airports = airports)
                         AutoCompleteAirport(airports = airports)
                     }
                 }

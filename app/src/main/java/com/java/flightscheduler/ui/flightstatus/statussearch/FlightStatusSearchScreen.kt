@@ -1,15 +1,11 @@
 package com.java.flightscheduler.ui.flightstatus.statussearch
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import com.java.flightscheduler.data.model.flight.Airport
@@ -29,7 +25,7 @@ fun AutoCompleteAirport(airports: List<Airport>) {
         val view = LocalView.current
 
         onItemSelected { airport ->
-            value = "${airport.CITY} (${airport.CITY})"
+            value = "${airport.CITY} (${airport.IATA})"
             filter(value)
             view.clearFocus()
         }
@@ -64,7 +60,7 @@ fun AirportAutoCompleteItem(airport: Airport) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(text = airport.CITY.toString(), style = MaterialTheme.typography.subtitle2)
+        Text(text ="${airport.NAME} (${airport.IATA})", style = MaterialTheme.typography.subtitle2)
     }
 }
 

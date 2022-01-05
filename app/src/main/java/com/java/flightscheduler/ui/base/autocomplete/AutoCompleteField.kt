@@ -1,5 +1,6 @@
 package com.java.flightscheduler.ui.base.autocomplete
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
