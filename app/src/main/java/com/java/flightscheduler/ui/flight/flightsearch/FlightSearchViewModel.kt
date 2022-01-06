@@ -2,6 +2,7 @@ package com.java.flightscheduler.ui.flight.flightsearch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.data.model.flight.Airport
 import com.java.flightscheduler.data.model.flight.FlightSearch
 import com.java.flightscheduler.data.repository.FlightSearchRepository
@@ -58,6 +59,11 @@ class FlightSearchViewModel @Inject constructor(private val flightSearchReposito
     fun getIATA(): List<Airport> {
         return flightSearchRepository.getIataCodes()
     }
+
+    fun getAirlines() : List<Airline> {
+        return flightSearchRepository.getAirlines()
+    }
+
     fun setFlightSearchLiveData(flightSearch: FlightSearch) {
         flightSearchLiveData?.value = flightSearch
     }

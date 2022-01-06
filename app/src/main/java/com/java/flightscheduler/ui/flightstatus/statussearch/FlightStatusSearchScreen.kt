@@ -2,46 +2,65 @@ package com.java.flightscheduler.ui.flightstatus.statussearch
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.java.flightscheduler.R
-import com.java.flightscheduler.data.model.flight.Airport
+import com.java.flightscheduler.data.model.flight.Airline
 import com.java.flightscheduler.ui.base.autocomplete.AutoCompleteField
 import com.java.flightscheduler.ui.base.autocomplete.AutoCompleteTextSearchBar
+import com.java.flightscheduler.ui.theme.Black
+import com.java.flightscheduler.ui.theme.GrayGoogle
+import com.java.flightscheduler.ui.theme.RedGoogle
+import com.java.flightscheduler.ui.theme.regularFontFamily
+
+@Composable
+fun HeaderText(
+    headerText : String
+) {
+    Spacer(modifier = Modifier.width(20.dp))
+    Text(
+        text = headerText,
+        fontFamily = regularFontFamily,
+        color = Black,
+        style = MaterialTheme.typography.h4,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 22.dp, end = 22.dp),
+    )
+}
 
 @ExperimentalComposeUiApi
 @Composable
-fun AutoCompleteAirport(airports: List<Airport>) {
+fun AutoCompleteAirport(airlines: List<Airline>) {
     AutoCompleteField (
-        items = airports,
-        itemContent = { airport ->
-            AirportAutoCompleteItem(airport)
+        items = airlines,
+        itemContent = { airline ->
+            AirportAutoCompleteItem(airline)
         }
     ) {
         var value by remember { mutableStateOf("") }
         val view = LocalView.current
 
-        onItemSelected { airport ->
-            value = "${airport.CITY} (${airport.IATA})"
+        onItemSelected { airline ->
+            value = "${airline.NAME} (${airline.ID})"
             filter(value)
             view.clearFocus()
         }
 
         AutoCompleteTextSearchBar(
             value = value,
-            label = "Origin",
+            label = "Carrier",
             onDoneActionClick = {
                 view.clearFocus()
             },
@@ -62,51 +81,150 @@ fun AutoCompleteAirport(airports: List<Airport>) {
 }
 
 @Composable
-fun AirportAutoCompleteItem(airport: Airport) {
+fun AirportAutoCompleteItem(airline: Airline) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(text ="${airport.NAME} (${airport.IATA})", style = MaterialTheme.typography.subtitle2)
+        Text(
+            text ="${airline.NAME} (${airline.ID})",
+            style = MaterialTheme.typography.subtitle2,
+            fontFamily = regularFontFamily
+        )
     }
 }
 
 @Composable
 fun FlightCalendarButton(
+    calendarHeaderText : String,
     onDateBarClick: () -> Unit = {},
 ){
-    OutlinedButton(
-        onClick = { onDateBarClick() },
-        border = BorderStroke(1.dp, Color.Black),
-        modifier = Modifier.fillMaxWidth().padding(16.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Icon(
-            painter = painterResource(id = R.drawable.icon_flight_calendar) ,
-            contentDescription = null,
-            modifier = Modifier
-                .padding(end = 8.dp)
-                .align(alignment = Alignment.CenterVertically)
+        Text(
+            text = calendarHeaderText,
+            color = Black,
+            fontSize = 12.sp,
+            textAlign = TextAlign.Start,
+            fontFamily = regularFontFamily
         )
-
-        Column(
-            modifier = Modifier.padding(8.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+        OutlinedButton(
+            onClick = { onDateBarClick() },
+            border = BorderStroke(1.dp, Black),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = "28 May 2021",
-                style = MaterialTheme.typography.subtitle1,
+            Icon(
+                painter = painterResource(id = R.drawable.icon_flight_calendar) ,
+                contentDescription = null,
                 modifier = Modifier
-                    .padding(end = 8.dp, start = 8.dp)
+                    .padding(end = 8.dp)
+                    .align(alignment = Alignment.CenterVertically)
+            )
+
+            Column(
+                modifier = Modifier.padding(8.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = "28 May 2021",
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier
+                        .padding(end = 8.dp, start = 8.dp),
+                    fontFamily = regularFontFamily
+                )
+            }
+
+            Icon(
+                painter = painterResource(id = R.drawable.icon_flight_arrow) ,
+                contentDescription = null,
+                modifier = Modifier.padding(start = 8.dp)
             )
         }
-
-        Icon(
-            painter = painterResource(id = R.drawable.icon_flight_arrow) ,
-            contentDescription = null,
-            modifier = Modifier.padding(start = 8.dp)
-        )
     }
 }
+
+@Composable
+fun FlightNumberField(
+    text : String,
+    onFlightNumberChanged: (String) -> Unit = {},
+) {
+    OutlinedTextField(
+        singleLine = true,
+        value = text,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp),
+        label = {
+            Text(
+                text = "Flight Number",
+                fontFamily = regularFontFamily
+            )
+        },
+        placeholder = {
+            Text(
+                text = "Ex : 321",
+                fontFamily = regularFontFamily
+            )
+        },
+        onValueChange = {
+            onFlightNumberChanged(it)
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = RedGoogle,
+            unfocusedBorderColor = Black
+        )
+    )
+}
+
+@Composable
+fun SearchFlightStatusButton(
+    buttonText : String,
+    onButtonClick: () -> Unit = {},
+){
+    val mainButtonColor = ButtonDefaults.buttonColors(
+        backgroundColor = RedGoogle,
+        contentColor = White
+    )
+    Row {
+        Button(
+            colors = mainButtonColor,
+            onClick = {
+                onButtonClick()
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp)) {
+            Text(
+                text = buttonText,
+                style = MaterialTheme.typography.subtitle1,
+                fontFamily = regularFontFamily
+            )
+        }
+    }
+}
+
+@Composable
+fun DisclaimerText(
+    disclaimerText : String
+){
+    Text(
+        text = disclaimerText,
+        fontFamily = regularFontFamily,
+        color = GrayGoogle,
+        fontSize = 14.sp,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 22.dp, end = 22.dp),
+    )
+}
+
