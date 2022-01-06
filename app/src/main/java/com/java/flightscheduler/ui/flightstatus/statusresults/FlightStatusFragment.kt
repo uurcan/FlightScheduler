@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.java.flightscheduler.R
 import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
-import com.java.flightscheduler.ui.flightstatus.statussearch.AutoCompleteAirport
-import com.java.flightscheduler.ui.flightstatus.statussearch.FlightCalendarButton
+import com.java.flightscheduler.ui.flightstatus.statussearch.*
 import com.java.flightscheduler.ui.theme.FlightSchedulerTheme
 import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.displayTimePicker
@@ -39,27 +39,35 @@ class FlightStatusFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 FlightSchedulerTheme {
-                    val airports = flightSearchViewModel.getIATA()
+                    val airlines = flightSearchViewModel.getAirlines()
+                    var text by remember { mutableStateOf("") }
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
+                            .fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(24.dp)
+                        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically)
                     ) {
+                        HeaderText(headerText = "Flight Status")
                         AutoCompleteAirport(
-                            airports = airports
+                            airlines = airlines
                         )
-                        AutoCompleteAirport(
-                            airports = airports
-                        )
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            FlightCalendarButton {
-                                displayTimePicker(context, startForResult, true)
+                        FlightNumberField(
+                            text = text,
+                            onFlightNumberChanged = { flightNumber ->
+                                text = flightNumber
                             }
+                        )
+                        FlightCalendarButton(
+                            calendarHeaderText = context.getString(R.string.text_flight_date)
+                        ) {
+                            displayTimePicker(context, startForResult, true)
                         }
+                        SearchFlightStatusButton(
+                            buttonText = context.getString(R.string.text_flight_search)
+                        ) {
+                            //todo : fragment navigation with compose..
+                        }
+                        DisclaimerText(disclaimerText = getString(R.string.text_disclaimer))
                     }
                 }
             }
@@ -85,13 +93,20 @@ class FlightStatusFragment : Fragment() {
 fun Preview(){
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        AutoCompleteAirport(airports = listOf())
-        AutoCompleteAirport(airports = listOf())
-        FlightCalendarButton()
+        HeaderText(headerText = "Flight Status")
+        AutoCompleteAirport(
+            airlines = listOf()
+        )
+        FlightNumberField(
+            text="TEST"
+        )
+        FlightCalendarButton("TEST")
+        SearchFlightStatusButton("View Results"){
+        }
+        DisclaimerText(disclaimerText = "Disclaimer")
     }
 }

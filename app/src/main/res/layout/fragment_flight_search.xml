@@ -266,6 +266,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
+                    tools:text="28 May 2021"
                     app:layout_constraintRight_toLeftOf="@+id/img_flight_search_arrival_more"
                     android:id="@+id/txt_flight_search_departure_date"
                     android:layout_width="wrap_content"
