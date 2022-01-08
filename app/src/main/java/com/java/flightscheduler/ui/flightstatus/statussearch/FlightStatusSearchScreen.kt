@@ -1,5 +1,6 @@
 package com.java.flightscheduler.ui.flightstatus.statussearch
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,6 +24,7 @@ import com.java.flightscheduler.ui.theme.Black
 import com.java.flightscheduler.ui.theme.GrayGoogle
 import com.java.flightscheduler.ui.theme.RedGoogle
 import com.java.flightscheduler.ui.theme.regularFontFamily
+import com.java.flightscheduler.utils.ParsingUtils
 
 @Composable
 fun HeaderText(
@@ -42,7 +44,10 @@ fun HeaderText(
 
 @ExperimentalComposeUiApi
 @Composable
-fun AutoCompleteAirport(airlines: List<Airline>) {
+fun AutoCompleteAirport(
+    airlines: List<Airline>,
+    onAirlineSelected: (Airline) -> Unit = {},
+) {
     AutoCompleteField (
         items = airlines,
         itemContent = { airline ->
@@ -56,6 +61,7 @@ fun AutoCompleteAirport(airlines: List<Airline>) {
             value = "${airline.NAME} (${airline.ID})"
             filter(value)
             view.clearFocus()
+            onAirlineSelected(airline)
         }
 
         AutoCompleteTextSearchBar(
@@ -98,8 +104,10 @@ fun AirportAutoCompleteItem(airline: Airline) {
 
 @Composable
 fun FlightCalendarButton(
+    date: String?,
+    context : Context,
     calendarHeaderText : String,
-    onDateBarClick: () -> Unit = {},
+    onDateBarClick: (String) -> Unit = {},
 ){
     Column(
         modifier = Modifier
@@ -116,7 +124,7 @@ fun FlightCalendarButton(
             fontFamily = regularFontFamily
         )
         OutlinedButton(
-            onClick = { onDateBarClick() },
+            onClick = { onDateBarClick("") },
             border = BorderStroke(1.dp, Black),
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -134,16 +142,16 @@ fun FlightCalendarButton(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "28 May 2021",
                     style = MaterialTheme.typography.subtitle1,
                     modifier = Modifier
                         .padding(end = 8.dp, start = 8.dp),
-                    fontFamily = regularFontFamily
+                    fontFamily = regularFontFamily,
+                    text = ParsingUtils.parseDate(context = context, date = date)
                 )
             }
 
             Icon(
-                painter = painterResource(id = R.drawable.icon_flight_arrow) ,
+                painter = painterResource(id = R.drawable.icon_flight_arrow),
                 contentDescription = null,
                 modifier = Modifier.padding(start = 8.dp)
             )

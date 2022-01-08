@@ -1,4 +1,4 @@
-package com.java.flightscheduler.ui.flightstatus.statusresults
+package com.java.flightscheduler.ui.flightstatus.statussearch
 
 import android.app.Activity
 import android.content.Intent
@@ -19,8 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.java.flightscheduler.R
-import com.java.flightscheduler.ui.flight.flightsearch.FlightSearchViewModel
-import com.java.flightscheduler.ui.flightstatus.statussearch.*
 import com.java.flightscheduler.ui.theme.FlightSchedulerTheme
 import com.java.flightscheduler.utils.MessageHelper
 import com.java.flightscheduler.utils.extension.displayTimePicker
@@ -29,8 +27,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 @ExperimentalComposeUiApi
-class FlightStatusFragment : Fragment() {
-    private val flightSearchViewModel : FlightSearchViewModel by viewModels()
+class FlightStatusSearchFragment : Fragment() {
+
+    private val viewModel : FlightStatusSearchViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +39,14 @@ class FlightStatusFragment : Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 FlightSchedulerTheme {
-                    val airlines = flightSearchViewModel.getAirlines()
-                    var text by remember { mutableStateOf("") }
+                    val airlines = viewModel.getAirlines()
+                    var flightNum by remember {
+                        mutableStateOf(viewModel.flightNumber.value)
+                    }
+                    var carrier by remember {
+                        mutableStateOf(viewModel.carrier.value)
+                        //todo: needs adjustment
+                    }
                     Column(
                         modifier = Modifier
                             .fillMaxSize(),
@@ -49,23 +55,32 @@ class FlightStatusFragment : Fragment() {
                     ) {
                         HeaderText(headerText = "Flight Status")
                         AutoCompleteAirport(
-                            airlines = airlines
+                            airlines = airlines,
+                            onAirlineSelected = { airline ->
+                                carrier = airline
+                                viewModel.setAirline(airline = airline)
+                            }
                         )
                         FlightNumberField(
-                            text = text,
+                            text = flightNum ?: "",
                             onFlightNumberChanged = { flightNumber ->
-                                text = flightNumber
+                                flightNum = flightNumber
+                                viewModel.setFlightNumber(flightNumber)
                             }
                         )
                         FlightCalendarButton(
-                            calendarHeaderText = context.getString(R.string.text_flight_date)
-                        ) {
-                            displayTimePicker(context, startForResult, true)
-                        }
+                            date = viewModel.flightDate.value,
+                            context = requireContext(),
+                            calendarHeaderText = context.getString(R.string.text_flight_date),
+                            onDateBarClick = { flightDate ->
+                                displayTimePicker(context, startForResult, true)
+                                viewModel.setFlightDate(flightDate)
+                            }
+                        )
                         SearchFlightStatusButton(
                             buttonText = context.getString(R.string.text_flight_search)
                         ) {
-                            //todo : fragment navigation with compose..
+                            performValidation()
                         }
                         DisclaimerText(disclaimerText = getString(R.string.text_disclaimer))
                     }
@@ -73,6 +88,15 @@ class FlightStatusFragment : Fragment() {
             }
         }
     }
+
+    private fun performValidation() {
+        viewModel.flightDate.observe(
+            viewLifecycleOwner, {
+                MessageHelper.displaySuccessMessage(view, it.toString())
+            }
+        )
+    }
+
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.let {
@@ -83,7 +107,7 @@ class FlightStatusFragment : Fragment() {
 
     private fun initializeDateParser(it: Intent) {
         val departureDate: String = it.getStringExtra(AirCalendarDatePickerActivity.RESULT_SELECT_START_DATE).toString()
-        MessageHelper.displaySuccessMessage(view, departureDate)
+        viewModel.setFlightDate(departureDate)
     }
 }
 
@@ -104,7 +128,7 @@ fun Preview(){
         FlightNumberField(
             text="TEST"
         )
-        FlightCalendarButton("TEST")
+        //FlightCalendarButton("TEST")
         SearchFlightStatusButton("View Results"){
         }
         DisclaimerText(disclaimerText = "Disclaimer")
