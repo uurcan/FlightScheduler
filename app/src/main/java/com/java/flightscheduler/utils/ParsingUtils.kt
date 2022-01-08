@@ -1,9 +1,14 @@
 package com.java.flightscheduler.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
+import com.java.flightscheduler.R
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.temporal.ChronoUnit
+import java.util.*
 
 object ParsingUtils {
 
@@ -33,6 +38,21 @@ object ParsingUtils {
         } else {
             ""
         }
+    }
+
+    fun parseDate(context : Context?, date: String?) : String{
+        if (date.isNullOrBlank()) return ""
+
+        val parser = SimpleDateFormat(
+            context?.getString(R.string.text_date_parser_format),
+            Locale.ENGLISH
+        )
+        val formatter = SimpleDateFormat(
+            context?.getString(R.string.text_date_formatter),
+            Locale.ENGLISH
+        )
+
+        return dateParser(parser, formatter, date) ?: ""
     }
 
     @JvmStatic
