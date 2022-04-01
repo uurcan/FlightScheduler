@@ -69,7 +69,7 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
             origin = viewModel.origin.value,
             destination = viewModel.destination.value,
             departureDate = viewModel.flightDate.value,
-            returnDate = viewModel.returnDate.value,
+            returnDate = if (viewModel.isOneWay.value == true) { null } else { viewModel.returnDate.value },
             formattedDepartureDate = binding?.txtFlightSearchDepartureDate?.text.toString(),
             adults = viewModel.adultCount.value,
             children = viewModel.childCount.value,

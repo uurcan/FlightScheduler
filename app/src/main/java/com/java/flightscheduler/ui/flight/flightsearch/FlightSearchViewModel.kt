@@ -27,8 +27,8 @@ class FlightSearchViewModel @Inject constructor(private val flightSearchReposito
     private val flightDateLiveData = MutableLiveData<String>(flightSearchRepository.getToday())
     val flightDate: LiveData<String> get() = flightDateLiveData
 
-    private val returnDateLiveData = MutableLiveData<String>(flightSearchRepository.getNextDay())
-    val returnDate: LiveData<String> get() = returnDateLiveData
+    private val returnDateLiveData = MutableLiveData<String?>(flightSearchRepository.getNextDay())
+    val returnDate: LiveData<String?> get() = returnDateLiveData
 
     private val adultCountLiveData = MutableLiveData(1)
     val adultCount: LiveData<Int> get() = adultCountLiveData

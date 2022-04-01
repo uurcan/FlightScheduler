@@ -452,7 +452,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="@string/sort_options"
+                    android:text="@{hotelSearchViewModel.sortByOption == null ? `Sort By` : hotelSearchViewModel.sortByOption.sort}"
                     android:textSize="16sp"
                     android:padding="@dimen/margin_small"
                     android:gravity="center"
@@ -500,7 +500,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="@string/language"
+                    android:text="@{hotelSearchViewModel.languageOption == null ? `Sort By` : hotelSearchViewModel.languageOption.lang}"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:padding="@dimen/margin_small"

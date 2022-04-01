@@ -101,8 +101,8 @@
     <string name="text_selected_seat">Selected Seat</string>
     <string name="text_booked_seat">Booked Seat</string>
     <string name="text_carrier">"Carrier : "</string>
-    <string name="language">En</string>
-    <string name="sort_options">Default</string>
+    <string name="language">Language</string>
+    <string name="sort_options">Sort By</string>
     <string name="text_flight_leg">Flight Leg</string>
     <string name="text_display_seat_map">Display Seat Map</string>
     <string name="text_display_Seat_map">Display Seat Map</string>

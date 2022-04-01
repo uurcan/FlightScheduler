@@ -14,6 +14,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import com.java.flightscheduler.R
+import com.java.flightscheduler.data.model.hotel.base.Language
+import com.java.flightscheduler.data.model.hotel.base.SortOption
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import java.util.*
 
@@ -22,7 +24,7 @@ var loadingDialog: Dialog? = null
 fun Fragment.showLoadingDialog(
     cancelable: Boolean = false,
     canceledOnTouchOutside: Boolean = false
-): AlertDialog? {
+): AlertDialog {
     return AlertDialog.Builder(requireContext()).apply {
         setView(R.layout.layout_loading_dialog)
     }.create().let { dialog ->
@@ -48,17 +50,33 @@ fun dismissLoadingDialog() {
 var showingDialog: Dialog? = null
 
 fun Fragment.showListDialog(
-    variable: Array<*>,
-    textView: TextView?,
+    variable: List<*>,
     cancelable: Boolean = false,
-    canceledOnTouchOutside: Boolean = false
+    canceledOnTouchOutside: Boolean = false,
+    onItemSelected: (Any?) -> Unit
 ): AlertDialog? {
     return AlertDialog.Builder(context ?: return null).apply {
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, variable)
+        val results = variable.map {
+            when(it) {
+                is Language -> it.lang
+                is SortOption -> it.sort
+                else -> ""
+            }
+        }
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, results)
 
         setCancelable(cancelable)
         setAdapter(adapter) { dialog, which ->
-            textView?.text = variable[which].toString()
+            when (variable[which]) {
+                is Language -> {
+                    val option = variable[which] as Language
+                    onItemSelected(option)
+                }
+                is SortOption -> {
+                    val option = variable[which] as SortOption
+                    onItemSelected(option)
+                }
+            }
             dialog.dismiss()
         }
     }.create().let { dialog ->

@@ -52,4 +52,12 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 
 ![](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 
-
+## TODO
+Flight calendar issue for one way trips +++
+Hotel search screen needs to be tested
+Itinerary metrics needs to be implemented 
+Update readme
+Calendar initialize option needs to be working on double click +++
+Add preferences ?
+Audit ?
+ten seat deck ?
