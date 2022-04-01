@@ -67,7 +67,7 @@ public class AirMonthAdapter extends RecyclerView.Adapter<AirMonthAdapter.ViewHo
             isSelected = mSelectModel.isSelected();
         }
 
-        init();
+        //init();
     }
 
     @NonNull

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.hotel.City
 import com.java.flightscheduler.data.model.hotel.HotelSearch
+import com.java.flightscheduler.data.model.hotel.base.Language
+import com.java.flightscheduler.data.model.hotel.base.SortOption
 import com.java.flightscheduler.data.repository.HotelSearchRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +31,13 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
     private val checkOutLiveData = MutableLiveData<String>(hotelSearchRepository.getNextDay())
     val checkOutDate: LiveData<String> get() = checkOutLiveData
 
+    private val sortByOptionLiveData = MutableLiveData<SortOption?>()
+    val sortByOption : LiveData<SortOption?> get() = sortByOptionLiveData
+
+    private val languageOptionLiveData = MutableLiveData<Language?>()
+    val languageOption : LiveData<Language?> get() = languageOptionLiveData
+
+
     fun setHotelSearchLiveData(hotelSearch: HotelSearch) {
         hotelSearchLiveData?.value = hotelSearch
     }
@@ -49,6 +58,14 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
         roomCountLiveData.value = hotelSearchRepository.decreaseRoomCount(count)!!
     }
 
+    fun setSortBySelected(sorted: SortOption?) {
+        sortByOptionLiveData.value = sorted
+    }
+
+    fun setLanguageClicked(language: Language?) {
+        languageOptionLiveData.value = language
+    }
+
     fun onCheckInSelected(checkIn: String, checkOut: String) {
         checkInLiveData.value = checkIn
         checkOutLiveData.value = checkOut
@@ -58,13 +75,13 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
         cityLiveData.value = city
     }
 
-    fun getCities(): Array<City>? {
+    fun getCities(): Array<City> {
         return hotelSearchRepository.getCities().toTypedArray()
     }
 
-    fun performValidation(city: String?): MutableLiveData<String> {
+    fun performValidation(city: LiveData<City>): MutableLiveData<String> {
         validationMessage.value = ""
-        if (city.isNullOrBlank()) {
+        if (city.value == null) {
             validationMessage.value = "City cannot be blank"
         }
         return validationMessage

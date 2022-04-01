@@ -1,5 +1,8 @@
 package com.java.flightscheduler.data.constants
 
+import com.java.flightscheduler.data.model.hotel.base.Language
+import com.java.flightscheduler.data.model.hotel.base.SortOption
+
 object AppConstants {
     const val MIN_ADULT_COUNT = 1
     const val MAX_ADULT_COUNT = 3
@@ -27,22 +30,25 @@ object AppConstants {
     const val FOUR_SEAT_DECK = 5
 
     const val FLIGHT_SEARCH_BASE_URL = "https://test.api.amadeus.com/v2/shopping/flight-offers?"
-    enum class FilterOptions(val param: String) {
-        Default("none"),
-        Name("name"),
-        Price("price"),
-        Distance("distance"),
-        Rating("rating")
-    }
-    enum class LanguageOptions(val code: String) {
-        Chinese("ZH"),
-        Spanish("ES"),
-        English("FR"),
-        Arabian("AR"),
-        German("DE"),
-        Hindi("HI"),
-        Russian("RU"),
-        Japanese("JA"),
-        Turkish("TR")
-    }
+
+    val FilterOptions = listOf(
+        SortOption("Default", "none"),
+        SortOption("Name", "name"),
+        SortOption("Price", "price"),
+        SortOption("Distance", "distance"),
+        SortOption("Rating", "rating")
+    )
+
+    val LanguageOptions = listOf(
+        Language("ZH", "Chinese"),
+        Language("Spanish", "ES"),
+        Language("English", "EN"),
+        Language("French", "FR"),
+        Language("Arabian", "AR"),
+        Language("German", "DE"),
+        Language("Hindi", "HI"),
+        Language("Russian", "RU"),
+        Language("Japanese", "JA"),
+        Language("Turkish", "TR"),
+    )
 }
