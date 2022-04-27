@@ -1,10 +1,17 @@
 *.iml
 .gradle
-/local.properties
-/.idea
+local.properties
 .DS_Store
-/build
-/captures
+captures
 .externalNativeBuild
 .cxx
 gradle.properties
+
+#vscode folders
+.vscode
+
+#idea folders
+.idea
+
+#compiled files
+build
