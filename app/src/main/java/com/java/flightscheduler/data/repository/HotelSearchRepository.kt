@@ -42,9 +42,9 @@ class HotelSearchRepository @Inject constructor(
 
     fun increaseRoomCount(count: Int?): Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_ROOM_COUNT)
 
-    fun decreaseAuditCount(count: Int?): Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_AUDIT_COUNT)
+    fun decreasePassengerCount(count: Int?): Int? = count?.minus(1)?.coerceAtLeast(AppConstants.MIN_PASSENGER_COUNT)
 
-    fun increaseAuditCount(count: Int?): Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_AUDIT_COUNT)
+    fun increasePassengerCount(count: Int?): Int? = count?.plus(1)?.coerceAtMost(AppConstants.MAX_PASSENGER_COUNT)
 
     fun getHotelImages(): List<String> {
         val iataDataList: ArrayList<String> = ArrayList()

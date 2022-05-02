@@ -26,7 +26,7 @@ class HotelResultsViewModel @Inject constructor(private val hotelRepository: Hot
                 checkInDate = hotelSearch.checkInDate,
                 checkOutDate = hotelSearch.checkOutDate,
                 roomQuantity = hotelSearch.roomCount,
-                adults = hotelSearch.auditCount,
+                adults = hotelSearch.passengerCount,
                 sort = hotelSearch.sortOptions?.code,
                 lang = hotelSearch.language?.code
             )

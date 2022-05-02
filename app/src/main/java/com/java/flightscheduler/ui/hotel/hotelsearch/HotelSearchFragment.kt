@@ -69,7 +69,7 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSear
             formattedCheckInDate = binding?.txtHotelSearchCheckInDate?.text.toString(),
             formattedCheckOutDate =  binding?.txtHotelSearchCheckOutDate?.text.toString(),
             roomCount = viewModel.roomCount.value!!,
-            auditCount = binding?.txtHotelAuditCount?.text.toString().toInt(),
+            passengerCount = binding?.txtHotelPassengerCount?.text.toString().toInt(),
             sortOptions = viewModel.sortByOption.value,
             language = viewModel.languageOption.value
         )

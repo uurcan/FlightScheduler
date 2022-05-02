@@ -43,11 +43,11 @@ class HotelSearchViewModel @Inject constructor(private val hotelSearchRepository
     }
 
     fun onIncreasePassengerClicked(count: Int?) {
-        passengerCountLiveData.value = hotelSearchRepository.increaseAuditCount(count)!!
+        passengerCountLiveData.value = hotelSearchRepository.increasePassengerCount(count)!!
     }
 
     fun onDecreasePassengerClicked(count: Int?) {
-        passengerCountLiveData.value = hotelSearchRepository.decreaseAuditCount(count)!!
+        passengerCountLiveData.value = hotelSearchRepository.decreasePassengerCount(count)!!
     }
 
     fun onIncreaseRoomClicked(count: Int?) {

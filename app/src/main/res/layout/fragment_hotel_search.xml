@@ -262,7 +262,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/layout_hotel_passenger_info"
+            android:id="@+id/linear_layout_hotel_passenger_info"
             android:weightSum="2"
             android:orientation="horizontal"
             android:layout_margin="@dimen/activity_vertical_margin"
@@ -273,7 +273,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_weight="1"
-                android:id="@+id/layout_hotel_audit_info"
+                android:id="@+id/layout_hotel_passenger_info"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/flight_search_selector_dimen"
                 app:layout_constraintTop_toTopOf="parent"
@@ -295,7 +295,7 @@
                     android:text="@{Integer.toString(hotelSearchViewModel.passengerCount)}"
                     tools:text="1"
                     android:layout_marginTop="@dimen/margin_small"
-                    android:id="@+id/txt_hotel_audit_count"
+                    android:id="@+id/txt_hotel_passenger_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
@@ -308,15 +308,15 @@
                 <TextView
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:id="@+id/txt_hotel_audit_text"
+                    android:id="@+id/txt_hotel_passenger_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
                     android:background="@android:color/transparent"
-                    android:text="@string/text_audits"
+                    android:text="@string/text_passengers"
                     android:textColor="@color/grey_700"
                     android:textSize="14sp"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_hotel_audit_count"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_hotel_passenger_count"
                     android:layout_marginStart="@dimen/margin_small" />
 
                 <ImageView
@@ -329,7 +329,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_small_icon_dimen"
                     android:layout_height="@dimen/flight_search_small_icon_dimen"
-                    android:id="@+id/img_hotel_audit_increase"
+                    android:id="@+id/img_hotel_passenger_increase"
                     android:layout_marginStart="@dimen/margin_medium"/>
 
                 <ImageView
@@ -342,7 +342,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="@dimen/flight_search_small_icon_dimen"
                     android:layout_height="@dimen/flight_search_small_icon_dimen"
-                    android:id="@+id/img_hotel_audit_decrease"
+                    android:id="@+id/img_hotel_passenger_decrease"
                     android:layout_marginEnd="@dimen/margin_medium"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -428,7 +428,7 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/flight_Search_edit_text_dimen"
-            app:layout_constraintTop_toBottomOf="@+id/layout_hotel_passenger_info"
+            app:layout_constraintTop_toBottomOf="@+id/linear_layout_hotel_passenger_info"
             android:baselineAligned="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -500,7 +500,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:text="@{hotelSearchViewModel.languageOption == null ? `Sort By` : hotelSearchViewModel.languageOption.lang}"
+                    android:text="@{hotelSearchViewModel.languageOption == null ? `Language` : hotelSearchViewModel.languageOption.lang}"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:padding="@dimen/margin_small"

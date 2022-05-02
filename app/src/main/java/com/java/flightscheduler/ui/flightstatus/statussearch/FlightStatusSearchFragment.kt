@@ -91,10 +91,11 @@ class FlightStatusSearchFragment : Fragment() {
 
     private fun performValidation() {
         viewModel.flightDate.observe(
-            viewLifecycleOwner, {
-                MessageHelper.displaySuccessMessage(view, it.toString())
-            }
-        )
+            viewLifecycleOwner
+        ) {
+            //todo, will work on this
+            MessageHelper.displayInfoMessage(view, "This page is still on development process..")
+        }
     }
 
     private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
