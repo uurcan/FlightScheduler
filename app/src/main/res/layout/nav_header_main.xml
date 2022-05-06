@@ -14,11 +14,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/flight_search_view_dimen"
+        android:layout_height="@dimen/flight_search_view_dimen"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:srcCompat="@drawable/app_logo" />
 
     <TextView
         android:layout_width="match_parent"

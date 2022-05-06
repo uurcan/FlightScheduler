@@ -11,7 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MetricSearchViewModel @Inject constructor(metricSearchRepository: MetricSearchRepository) : BaseViewModel() {
+class MetricSearchViewModel @Inject constructor(private val metricSearchRepository: MetricSearchRepository) : BaseViewModel() {
     var metricSearchLiveData: MutableLiveData<MetricSearch>? = MutableLiveData()
     private val validationMessage = MutableLiveData("")
 
@@ -26,6 +26,9 @@ class MetricSearchViewModel @Inject constructor(metricSearchRepository: MetricSe
 
     private val flightDateLiveData = MutableLiveData<String>(metricSearchRepository.getToday())
     val flightDate: LiveData<String> get() = flightDateLiveData
+
+    private val returnDateLiveData = MutableLiveData<String>(metricSearchRepository.getNextDay())
+    val returnDate: LiveData<String> get() = returnDateLiveData
 
     private val currencyLiveData = MutableLiveData<Currency?>()
     val currency : LiveData<Currency?> get() = currencyLiveData
@@ -49,6 +52,10 @@ class MetricSearchViewModel @Inject constructor(metricSearchRepository: MetricSe
 
     fun onOneWaySelected(isOneWay : Boolean) {
         oneWayLiveData.value = isOneWay
+    }
+
+    fun getIATACodes() : Array<Airport>{
+        return metricSearchRepository.getIataCodes().toTypedArray()
     }
 
     fun performValidation(city: LiveData<MetricSearch>): MutableLiveData<String> {

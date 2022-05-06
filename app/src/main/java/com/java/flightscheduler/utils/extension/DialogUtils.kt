@@ -60,6 +60,7 @@ fun Fragment.showListDialog(
             when(it) {
                 is Language -> it.lang
                 is SortOption -> it.sort
+                is Currency -> it.currencyCode
                 else -> ""
             }
         }
@@ -74,6 +75,10 @@ fun Fragment.showListDialog(
                 }
                 is SortOption -> {
                     val option = variable[which] as SortOption
+                    onItemSelected(option)
+                }
+                is Currency -> {
+                    val option = variable[which] as Currency
                     onItemSelected(option)
                 }
             }
