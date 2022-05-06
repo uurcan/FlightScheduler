@@ -24,12 +24,11 @@ class ItineraryMetricsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        metricsViewModel = ViewModelProvider(this).get(ItineraryMetricsViewModel::class.java)
-        metricsViewModel.getMetricsData()?.observe(viewLifecycleOwner, {
-            metricsData ->
-                if (metricsData != null) {
-                    text_itinerary.text = metricsData[0].priceMetrics?.get(2)?.amount.toString()
-                }
-        })
+        metricsViewModel = ViewModelProvider(this)[ItineraryMetricsViewModel::class.java]
+        metricsViewModel.getMetricsData()?.observe(viewLifecycleOwner) { metricsData ->
+            if (metricsData != null) {
+                text_itinerary.text = metricsData[0].priceMetrics?.get(2)?.amount.toString()
+            }
+        }
     }
 }

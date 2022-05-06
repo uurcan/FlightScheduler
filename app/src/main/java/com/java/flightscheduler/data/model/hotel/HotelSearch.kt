@@ -12,7 +12,7 @@ data class HotelSearch internal constructor(
     var checkOutDate: String? = null,
     var formattedCheckInDate: String? = null,
     var formattedCheckOutDate: String? = null,
-    var auditCount: Int = 1,
+    var passengerCount: Int = 1,
     var roomCount: Int = 1,
     var sortOptions: SortOption? = null,
     var language: Language? = null

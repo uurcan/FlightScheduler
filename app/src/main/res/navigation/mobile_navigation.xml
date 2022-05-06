@@ -151,7 +151,7 @@
 
     <fragment
         android:id="@+id/nav_itinerary_metrics"
-        android:name="com.java.flightscheduler.ui.itinerarymetrics.ItineraryMetricsFragment"
+        android:name="com.java.flightscheduler.ui.itinerarymetrics.metricsearch.MetricSearchFragment"
         android:label="@string/text_itinerary_metrics"
         tools:layout="@layout/fragment_itinerary_metrics" />
 

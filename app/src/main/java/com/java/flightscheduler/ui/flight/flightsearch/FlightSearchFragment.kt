@@ -73,7 +73,7 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
             formattedDepartureDate = binding?.txtFlightSearchDepartureDate?.text.toString(),
             adults = viewModel.adultCount.value,
             children = viewModel.childCount.value,
-            audits = viewModel.adultCount.value!!.plus(viewModel.childCount.value!!)
+            passengers = viewModel.adultCount.value!!.plus(viewModel.childCount.value!!)
         )
 
         if (areFlightParamsValid(origin = viewModel.origin, destination = viewModel.destination)) {

@@ -2,6 +2,7 @@ package com.java.flightscheduler.data.constants
 
 import com.java.flightscheduler.data.model.hotel.base.Language
 import com.java.flightscheduler.data.model.hotel.base.SortOption
+import com.java.flightscheduler.data.model.metrics.Currency
 
 object AppConstants {
     const val MIN_ADULT_COUNT = 1
@@ -10,8 +11,8 @@ object AppConstants {
     const val MAX_CHILD_COUNT = 6
     const val MIN_ROOM_COUNT = 1
     const val MAX_ROOM_COUNT = 9
-    const val MIN_AUDIT_COUNT = 1
-    const val MAX_AUDIT_COUNT = 9
+    const val MIN_PASSENGER_COUNT = 1
+    const val MAX_PASSENGER_COUNT = 9
     const val MIN_LEG_COUNT = 1
     const val MAX_LEG_COUNT = 3
     const val REQUEST_CODE_CALL_PERMISSION = 101
@@ -40,7 +41,7 @@ object AppConstants {
     )
 
     val LanguageOptions = listOf(
-        Language("ZH", "Chinese"),
+        Language("Chinese", "ZH"),
         Language("Spanish", "ES"),
         Language("English", "EN"),
         Language("French", "FR"),
@@ -50,5 +51,13 @@ object AppConstants {
         Language("Russian", "RU"),
         Language("Japanese", "JA"),
         Language("Turkish", "TR"),
+    )
+
+    val CurrencyOptions = listOf(
+        Currency("USD","US Dollar", "$"),
+        Currency("EUR","EURO", "?"),
+        Currency("JPY","Japanese YEN", "¥"),
+        Currency("GBP","Pound Sterling", "£"),
+        Currency("TRY","Turkish Lira", "?")
     )
 }

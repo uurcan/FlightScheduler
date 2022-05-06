@@ -101,7 +101,7 @@
 
                 <TextView
                     tools:text="E95"
-                    android:id="@+id/txt_flight_detail_audits"
+                    android:id="@+id/txt_flight_detail_passengers"
                     android:layout_marginBottom="@dimen/margin_small"
                     android:layout_marginEnd="@dimen/activity_horizontal_margin_extended"
                     android:textColor="@color/grey_white_1000"

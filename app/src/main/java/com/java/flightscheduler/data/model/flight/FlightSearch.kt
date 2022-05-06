@@ -11,5 +11,5 @@ class FlightSearch(
     var adults: Int? = 1,
     var children: Int? = 0,
     var formattedDepartureDate: String = "",
-    var audits: Int = 1
+    var passengers: Int = 1
 ) : Parcelable
