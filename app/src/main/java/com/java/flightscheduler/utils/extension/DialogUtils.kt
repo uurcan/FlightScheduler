@@ -16,6 +16,7 @@ import androidx.lifecycle.LifecycleObserver
 import com.java.flightscheduler.R
 import com.java.flightscheduler.data.model.hotel.base.Language
 import com.java.flightscheduler.data.model.hotel.base.SortOption
+import com.java.flightscheduler.data.model.metrics.Currency
 import com.java.flightscheduler.utils.flightcalendar.AirCalendarIntent
 import java.util.*
 

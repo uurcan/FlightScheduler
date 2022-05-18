@@ -153,7 +153,16 @@
         android:id="@+id/nav_itinerary_metrics"
         android:name="com.java.flightscheduler.ui.itinerarymetrics.metricsearch.MetricSearchFragment"
         android:label="@string/text_itinerary_metrics"
-        tools:layout="@layout/fragment_itinerary_metrics" />
+        tools:layout="@layout/fragment_itinerary_metrics" >
+
+        <action
+            android:id="@+id/action_nav_metric_search_to_metric_results"
+            app:destination="@+id/nav_metric_results"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_flight_status"
@@ -198,5 +207,15 @@
         <argument
             android:name="predictionSearch"
             app:argType="com.java.flightscheduler.data.model.prediction.PredictionSearch" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_metric_results"
+        android:name="com.java.flightscheduler.ui.itinerarymetrics.metricsresult.ItineraryMetricsFragment"
+        android:label="@string/text_itinerary_metrics"
+        tools:layout="@layout/fragment_itinerary_metrics" >
+        <argument
+            android:name="metricSearch"
+            app:argType="com.java.flightscheduler.data.model.metrics.MetricSearch" />
     </fragment>
 </navigation>
