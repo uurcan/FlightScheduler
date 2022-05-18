@@ -58,11 +58,25 @@ class MetricSearchViewModel @Inject constructor(private val metricSearchReposito
         return metricSearchRepository.getIataCodes().toTypedArray()
     }
 
-    fun performValidation(city: LiveData<MetricSearch>): MutableLiveData<String> {
+    fun performValidation(origin: LiveData<Airport>, destination: LiveData<Airport>, currency: LiveData<Currency?>): MutableLiveData<String> {
         validationMessage.value = ""
-        if (city.value == null) {
-            validationMessage.value = "City cannot be blank"
+
+        if (origin.value == null) {
+            validationMessage.value = "Origin can not be blank"
+        }
+
+        if (destination.value == null) {
+            validationMessage.value = "Destination can not be blank"
+        }
+
+        if (currency.value == null) {
+            validationMessage.value = "Please select the currency"
         }
         return validationMessage
+    }
+
+    fun onDateSelected(departureDate: String, returnDate: String) {
+        flightDateLiveData.value = departureDate
+        returnDateLiveData.value = returnDate
     }
 }

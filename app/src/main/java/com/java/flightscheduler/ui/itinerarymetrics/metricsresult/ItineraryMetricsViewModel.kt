@@ -1,8 +1,9 @@
-package com.java.flightscheduler.ui.itinerarymetrics
+package com.java.flightscheduler.ui.itinerarymetrics.metricsresult
 
 import androidx.lifecycle.MutableLiveData
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.metrics.ItineraryPriceMetrics
+import com.java.flightscheduler.data.model.metrics.MetricSearch
 import com.java.flightscheduler.data.repository.MetricsRepository
 import com.java.flightscheduler.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,17 +19,17 @@ class ItineraryMetricsViewModel @Inject constructor(private val metricsRepositor
     private val scope = CoroutineScope(Dispatchers.Main + job)
 
     var loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
-    var metricsLiveData: MutableLiveData<List<ItineraryPriceMetrics>>? = MutableLiveData()
+    var metricsLiveData: MutableLiveData<List<ItineraryPriceMetrics>?>? = MutableLiveData()
 
-    fun getMetricsData(): MutableLiveData<List<ItineraryPriceMetrics>>? {
+    fun getMetricsData(metricSearch : MetricSearch): MutableLiveData<List<ItineraryPriceMetrics>?>? {
         scope.launch {
 
             val itineraryMetricsResults = metricsRepository.get(
-                originIataCode = "MAD",
-                destinationIataCode = "CDG",
-                departureDate = "2021-03-21",
-                currencyCode = "USD",
-                oneWay = false
+                originIataCode = metricSearch.origin?.IATA,
+                destinationIataCode = metricSearch.destination?.IATA,
+                departureDate = metricSearch.departureDate,
+                currencyCode = metricSearch.currency?.currencyCode,
+                oneWay = metricSearch.returnDate != null
             )
             if (itineraryMetricsResults is BaseApiResult.Success) {
                 metricsLiveData.apply {

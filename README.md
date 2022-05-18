@@ -56,3 +56,4 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 Itinerary metrics needs to be implemented 
 Update readme
 Add preferences ?
+click event for flight date should be by layout
