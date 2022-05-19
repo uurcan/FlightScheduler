@@ -42,10 +42,18 @@
     │   ├── main            # Main Screen Activity & ViewModel
     |   │   ├── adapter     # Adapter for RecyclerView
     |   │   └── viewmodel   # ViewHolder for RecyclerView   
-    │   └── details         # Detail Screen Activity and ViewModel
+    │   └── prediction      # Delay Prediction of Flights
+    │   └── flight          # Flight offers and it's details
+    │   └── hotel           # Hotel offers and it's details
+    │   └── metrics         # Itinerary price metrics for past flights
+    │   └── seatmap         # Seatmap
     |
     └── utils               # Utility Classes / Kotlin extensions
 
+
+## Setup
+All test cases are located in androidTest package, during the test implementation, dependency injection is being handled by Hilt
+In order to run test cases, Virtual device (Emulator) or Physical device needs to be connected.
 
 ## Architecture
 This app uses [***MVVM (Model View View-Model)***](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) architecture.
@@ -53,5 +61,5 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 ![](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
 
 ## TODO
-Preferences option
-Itinerary metrics visualisation
+* Preferences option
+* Itinerary metrics visualisation
