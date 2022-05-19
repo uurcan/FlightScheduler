@@ -26,7 +26,7 @@ class HotelResultsFragment : BaseFragment<HotelResultsViewModel, FragmentHotelRe
     private fun initializeHotelResults() {
         binding?.rvFlightList?.setHasFixedSize(true)
         viewModel?.getHotelData(arguments.hotelSearch)?.observeOnce { hotelData ->
-            if (hotelData.isEmpty()) {
+            if (hotelData.isNullOrEmpty()) {
                 binding?.txtHotelSearchErrorMessage?.visibility = View.VISIBLE
                 binding?.txtHotelSearchErrorMessage?.text = getString(R.string.text_no_flight_found)
             }

@@ -40,9 +40,6 @@ class MetricSearchFragment : BaseFragment<MetricSearchViewModel,FragmentMetricsS
         binding?.layoutMetricsSearchRouteSwap?.setOnClickListener {
             swapRoutes(binding?.edtMetricsSearchOrigin, binding?.edtMetricsSearchDestination)
         }
-        binding?.layoutMetricsDatePicker?.setOnClickListener {
-            displayTimePicker(context, startForResult, viewModel.isOneWay.value ?: true)
-        }
         binding?.layoutMetricsSort?.setOnClickListener {
             showListDialog(variable = AppConstants.CurrencyOptions, cancelable = true) { selected ->
                 if (selected is Currency)
@@ -82,7 +79,7 @@ class MetricSearchFragment : BaseFragment<MetricSearchViewModel,FragmentMetricsS
         val metricSearch = MetricSearch(
             origin = viewModel.origin.value,
             destination = viewModel.destination.value,
-            departureDate = viewModel.flightDate.value,
+            departureDate = binding?.txtFlightSearchDepartureNumber?.text.toString(),
             returnDate = if (viewModel.isOneWay.value == true) { null } else { viewModel.returnDate.value },
             currency = viewModel.currency.value
         )

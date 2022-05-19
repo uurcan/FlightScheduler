@@ -116,6 +116,9 @@
     <string name="text_prediction_search">Delay Prediction</string>
     <string name="text_prediction_info">Prediction Info</string>
     <string name="text_search_metrics">Retrieve Metrics</string>
+    <string name="select_flight_date">Select Flight Date</string>
+    <string name="text_metric_flight_date">Flight Date (Should not be future date)</string>
+    <string name="yyyy_mm_dd">YYYY-MM-DD</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

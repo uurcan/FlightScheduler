@@ -1,6 +1,7 @@
 package com.java.flightscheduler.ui.itinerarymetrics.metricsresult
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.model.metrics.ItineraryPriceMetrics
 import com.java.flightscheduler.data.model.metrics.MetricSearch
@@ -15,25 +16,32 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ItineraryMetricsViewModel @Inject constructor(private val metricsRepository: MetricsRepository) : BaseViewModel() {
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.Main + job)
-
-    var loadingLiveData: MutableLiveData<Boolean> = MutableLiveData()
     var metricsLiveData: MutableLiveData<List<ItineraryPriceMetrics>?>? = MutableLiveData()
 
-    fun getMetricsData(metricSearch : MetricSearch): MutableLiveData<List<ItineraryPriceMetrics>?>? {
-        scope.launch {
+    init {
+        showLoading()
+    }
 
+    fun getMetricsData(metricSearch : MetricSearch): MutableLiveData<List<ItineraryPriceMetrics>?>? {
+        viewModelScope.launch {
             val itineraryMetricsResults = metricsRepository.get(
                 originIataCode = metricSearch.origin?.IATA,
                 destinationIataCode = metricSearch.destination?.IATA,
                 departureDate = metricSearch.departureDate,
                 currencyCode = metricSearch.currency?.currencyCode,
-                oneWay = metricSearch.returnDate != null
+                oneWay = true
             )
-            if (itineraryMetricsResults is BaseApiResult.Success) {
-                metricsLiveData.apply {
-                    metricsLiveData?.postValue(itineraryMetricsResults.data)
+
+            when (itineraryMetricsResults) {
+                is BaseApiResult.Success -> {
+                    metricsLiveData.apply {
+                        metricsLiveData?.postValue(itineraryMetricsResults.data)
+                        hideLoading()
+                    }
+                }
+                is BaseApiResult.Error -> {
+                    errorMessage.value = metricsRepository.getQueryErrors(itineraryMetricsResults.errors)
+                    hideLoading()
                 }
             }
         }

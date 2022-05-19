@@ -13,13 +13,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HotelResultsViewModel @Inject constructor(private val hotelRepository: HotelRepository?) : BaseViewModel() {
-    private var hotelLiveData: MutableLiveData<List<HotelOffer>>? = MutableLiveData()
+    private var hotelLiveData: MutableLiveData<List<HotelOffer>?>? = MutableLiveData()
 
     init {
         showLoading()
     }
 
-    fun getHotelData(hotelSearch: HotelSearch): MutableLiveData<List<HotelOffer>>? {
+    fun getHotelData(hotelSearch: HotelSearch): MutableLiveData<List<HotelOffer>?>? {
         viewModelScope.launch {
             val hotelOfferSearches = hotelRepository?.get(
                 cityCode = hotelSearch.city?.code,

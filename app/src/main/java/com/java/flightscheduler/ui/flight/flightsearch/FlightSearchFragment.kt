@@ -32,7 +32,7 @@ class FlightSearchFragment : BaseFragment<FlightSearchViewModel, FragmentFlightS
         binding?.layoutFlightSearchRouteSwap?.setOnClickListener {
             swapRoutes(binding?.edtFlightSearchOrigin, binding?.edtFlightSearchDestination)
         }
-        binding?.layoutFlightDeparturePicker?.setOnClickListener {
+        binding?.layoutFlightDatePicker?.setOnClickListener {
             displayTimePicker(context, startForResult, viewModel.isOneWay.value ?: false)
         }
         binding?.flightSearchViewModel = viewModel
