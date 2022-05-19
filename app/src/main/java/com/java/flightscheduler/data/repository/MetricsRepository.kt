@@ -1,5 +1,6 @@
 package com.java.flightscheduler.data.repository
 
+import com.java.flightscheduler.data.model.base.BaseApiResult
 import com.java.flightscheduler.data.remote.services.MetricsService
 import com.java.flightscheduler.data.remote.request.base.BaseApiCall
 import com.java.flightscheduler.di.dispatcher.IoDispatcher
@@ -27,5 +28,15 @@ class MetricsRepository @Inject constructor(
             currencyCode = currencyCode,
             oneWay = oneWay
         )
+    }
+
+    fun getQueryErrors(errorResults: List<BaseApiResult.Error.Issue>): String {
+        var errorMessages = ""
+        errorResults.forEach {
+                error ->
+            errorMessages += "${error.code} - ${error.detail} \n"
+        }
+        return if (errorResults.isEmpty()) "Please check your internet connection."
+        else errorMessages
     }
 }

@@ -30,7 +30,7 @@ class HotelSearchFragment : BaseFragment<HotelSearchViewModel, FragmentHotelSear
     }
 
     private fun initializeViews() {
-        binding?.layoutHotelCheckInPicker?.setOnClickListener {
+        binding?.layoutHotelDatePicker?.setOnClickListener {
             displayTimePicker(context, startForResult, false)
         }
         binding?.btnFlightSearchHotels?.setOnClickListener {

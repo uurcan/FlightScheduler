@@ -16,8 +16,8 @@ class DelayPredictionFragment : BaseFragment<DelayPredictionViewModel, FragmentD
 
     override fun onBind() {
         viewModel.setPredictionSearch(args.predictionSearch)
-        viewModel.getPredictionData(args.predictionSearch)?.observe(viewLifecycleOwner,{
+        viewModel.getPredictionData(args.predictionSearch)?.observe(viewLifecycleOwner) {
             binding?.predictionViewModel = viewModel
-        })
+        }
     }
 }

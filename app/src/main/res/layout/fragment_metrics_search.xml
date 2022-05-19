@@ -81,8 +81,10 @@
         </RadioGroup>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginBottom="@dimen/margin_small"
             android:id="@+id/layout_metrics_search_route_main"
             android:layout_marginTop="@dimen/margin_medium"
+            app:layout_constraintBottom_toTopOf="@+id/txt_picker_placeholder"
             app:layout_constraintTop_toBottomOf="@+id/rg_metrics_options"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -234,144 +236,68 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_picker_placeholder"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@+id/layout_metrics_search_route_main"
+            app:layout_constraintBottom_toTopOf="@id/layout_metrics_date_picker"
+            android:text="@string/text_metric_flight_date"
+            android:textColor="@color/grey_black_1000"
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:animateLayoutChanges="true"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_weight="1"
             android:id="@+id/layout_metrics_date_picker"
-            android:weightSum="2"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="@dimen/flight_Search_edit_text_dimen"
-            app:layout_constraintTop_toBottomOf="@+id/layout_metrics_search_route_main"
-            android:baselineAligned="false">
+            app:layout_constraintTop_toBottomOf="@+id/txt_picker_placeholder"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:animateLayoutChanges="true"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:layout_weight="1"
-                android:id="@+id/layout_flight_departure_picker"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/flight_search_selector_dimen"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_unselected_state_holder"
                 app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintLeft_toLeftOf="parent">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_unselected_state_holder"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    android:id="@+id/txt_flight_search_departure_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:gravity="center"
-                    android:textAlignment="center"
-                    android:textColor="@color/grey_black_1000"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
-                    app:layout_constraintRight_toLeftOf="@+id/img_flight_search_arrival_more"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:setDateParserText="@{ParsingUtils.getCurrentDate(metricsSearchViewModel.flightDate).toString()}"
-                    tools:text="28 May 2021" />
-
-                <ImageView
-                    android:contentDescription="@null"
-                    android:src="@drawable/icon_flight_calendar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:padding="@dimen/margin_small"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
-                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"
-                    android:id="@+id/img_flight_search_arrival_date"
-                    android:layout_marginStart="@dimen/margin_small"/>
-
-                <ImageView
-                    android:contentDescription="@null"
-                    android:layout_marginEnd="@dimen/margin_small"
-                    android:id="@+id/img_flight_search_arrival_more"
-                    android:src="@drawable/icon_flight_arrow"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:padding="@dimen/margin_small"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
-                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:visibility="@{metricsSearchViewModel.isOneWay ? View.GONE : View.VISIBLE}"
-                android:animateLayoutChanges="true"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:id="@+id/layout_flight_arrival_picker"
+            <EditText
+                android:inputType="number"
+                android:layout_marginStart="@dimen/flight_search_small_icon_dimen"
+                android:hint="@string/yyyy_mm_dd"
+                android:id="@+id/txt_flight_search_departure_number"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/flight_search_selector_dimen"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/margin_medium"
+                android:textColor="@color/grey_black_1000"
+                android:textSize="16sp"
+                android:textColorHint="@color/grey_700"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintRight_toRightOf="parent">
+                app:layout_constraintLeft_toRightOf="@+id/img_flight_search_arrival_date"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="YYYY-MM-DD" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_unselected_state_holder"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    tools:text="29 May 2021"
-                    app:layout_constraintRight_toLeftOf="@+id/img_flight_search_departure_more"
-                    android:id="@+id/txt_flight_search_arrival_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin_small"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:background="@android:color/transparent"
-                    android:textAlignment="center"
-                    android:gravity="center"
-                    app:setDateParserText="@{ParsingUtils.getNextDate(metricsSearchViewModel.returnDate).toString()}"
-                    android:textColor="@color/grey_black_1000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toRightOf="@+id/img_flight_search_departure_date"
-                    tools:layout_editor_absoluteY="34dp" />
-
-                <ImageView
-                    android:contentDescription="@null"
-                    android:src="@drawable/icon_flight_calendar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:padding="@dimen/margin_small"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
-                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"
-                    android:id="@+id/img_flight_search_departure_date"
-                    android:layout_marginStart="@dimen/margin_small"/>
-
-                <ImageView
-                    android:contentDescription="@null"
-                    android:layout_marginEnd="@dimen/margin_small"
-                    android:id="@+id/img_flight_search_departure_more"
-                    android:src="@drawable/icon_flight_arrow"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:padding="@dimen/margin_small"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="@dimen/flight_search_smaller_icon_dimen"
-                    android:layout_height="@dimen/flight_search_smaller_icon_dimen"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
+            <ImageView
+                android:contentDescription="@null"
+                android:src="@drawable/icon_flight_calendar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:padding="@dimen/margin_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="@dimen/flight_search_smaller_icon_dimen"
+                android:layout_height="@dimen/flight_search_smaller_icon_dimen"
+                android:id="@+id/img_flight_search_arrival_date"
+                android:layout_marginStart="@dimen/margin_small"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toBottomOf="@+id/layout_metrics_date_picker"

@@ -43,7 +43,7 @@
     <string name="text_zero">0</string>
     <string name="text_date_parser_format">yyyy-MM-dd</string>
     <string name="text_date_formatter">dd MMM yyyy</string>
-    <string name="text_disclaimer">Disclaimer : This application only provides search results regarding Amadeus Self Service API. No online transaction is allowed for the application. For more info, please contact info@amadeus.com</string>
+    <string name="text_disclaimer">Warning : This application only provides search results regarding Amadeus Self Service API. No online transaction is allowed for the application. For more info, please contact Amadeus</string>
     <string name="text_flight_date">Flight Date</string>
     <string name="text_return_date">Return Date</string>
     <string name="text_missing_date">Please select the return date.</string>
@@ -116,6 +116,9 @@
     <string name="text_prediction_search">Delay Prediction</string>
     <string name="text_prediction_info">Prediction Info</string>
     <string name="text_search_metrics">Retrieve Metrics</string>
+    <string name="select_flight_date">Select Flight Date</string>
+    <string name="text_metric_flight_date">Flight Date (Should not be future date)</string>
+    <string name="yyyy_mm_dd">YYYY-MM-DD</string>
     <string-array name="label_calendar_en">
         <item name="1">Mon</item>
         <item name="2">Tue</item>

@@ -44,7 +44,7 @@ class FlightSearchAdapter(private val ctx: Context, private val iataCodes: Array
                     iataCodes.filter {
                         it.CITY.toString().lowercase(Locale.ENGLISH).contains(queryString) ||
                                 it.NAME.toString().lowercase(Locale.ENGLISH).contains(queryString) ||
-                                it.IATA.toString().lowercase(Locale.ENGLISH).contains(queryString)
+                                it.IATA.lowercase(Locale.ENGLISH).contains(queryString)
                     }
                 return filterResults
             }
